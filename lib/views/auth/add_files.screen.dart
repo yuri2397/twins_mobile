@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:twins/controllers/register.controller.dart';
 import 'package:twins/shared/utils/colors.dart';
 
 class AddFielsScreen extends GetView<RegisterController> {
   const AddFielsScreen({super.key});
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -21,25 +21,27 @@ class AddFielsScreen extends GetView<RegisterController> {
           height: Get.height,
           width: Get.width,
           padding: const EdgeInsets.all(20.0),
-          child: Stack(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextFormField(
-                controller: controller.nameCtrl,
-                cursorColor: DARK_COLOR,
-                style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(fontSize: 20),
-                    color: DARK_COLOR),
-                decoration: const InputDecoration(
-                  hintText: "Ajouter votre nom complet ?",
-                  hintStyle: TextStyle(color: DARK_COLOR),
-                  border: UnderlineInputBorder(
-                      borderSide: BorderSide(color: DARK_COLOR)),
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                left: 10,
-                right: 10,
+              Expanded(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Ajouter des photos",
+                    style: TextStyle(
+                        color: DARK_COLOR,
+                        fontSize: 30,
+                        fontFamily: "Poppins",
+                        fontWeight: FontWeight.w700),
+                  ),
+                ],
+              )),
+              SizedBox(
+                width: Get.width,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       elevation: 0,
@@ -54,5 +56,14 @@ class AddFielsScreen extends GetView<RegisterController> {
             ],
           ),
         ));
+  }
+
+  Widget _buildItem(XFile file) {
+    return Container(
+      width: 80,
+      height: 100,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8), color: Colors.red),
+    );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:twins/controllers/register.controller.dart';
+import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/colors.dart';
 
 class AddSigneScreen extends GetView<RegisterController> {
@@ -63,7 +64,7 @@ class AddSigneScreen extends GetView<RegisterController> {
                           borderRadius: BorderRadius.circular(20)),
                       backgroundColor: MAIN_COLOR,
                       foregroundColor: Colors.white),
-                  onPressed: () {},
+                  onPressed: () => Get.toNamed(Goo.addFilesScreen),
                   child: const Text("Suivant"),
                 ),
               )
