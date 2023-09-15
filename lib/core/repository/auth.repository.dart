@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:twins/core/http/http_client.dart';
 import 'package:twins/core/model/token.dart';
 import 'package:twins/core/model/user.dart';
+import 'package:twins/core/utils/utils.dart';
 
 class AuthRepository {
   final _client = Get.find<HttpClient>();
@@ -12,7 +13,7 @@ class AuthRepository {
       var response = await _client.post("/login", data: {
         "email": username,
         "password": password,
-        "device_name": "Nokia"
+        "device_name": await deviceName
       });
       if (response.statusCode! <= 200 && response.statusCode! < 300) {
         return Token.fromJson(response.data);

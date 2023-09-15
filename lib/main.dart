@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:twins/core/config/env.dart';
 import 'package:twins/core/http/http_client.dart';
-import 'package:twins/core/services/local_storage.service.dart';
 import 'package:twins/routes/route.dart';
 import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/app_hehavior.dart';
@@ -34,10 +33,8 @@ void main() async {
   });
 }
 
-_initServices() {
+_initServices() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // LOCAL STORATE
-  Get.lazyPut(() => LocalStorageService());
   Get.lazyPut(() => HttpClient());
 }

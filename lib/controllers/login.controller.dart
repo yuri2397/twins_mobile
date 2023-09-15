@@ -19,10 +19,9 @@ class LoginController extends GetxController {
           .login(username: username.value.trim(), password: password.value)
           .then((value) {
         loadingRequest.value = false;
-        Get.offAndToNamed(Goo.homeScreen);
+        Get.offAllNamed(Goo.homeScreen);
       }).catchError((e) {
         loadingRequest.value = false;
-        print(e);
       });
     }
   }

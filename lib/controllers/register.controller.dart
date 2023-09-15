@@ -12,14 +12,14 @@ class RegisterController extends GetxController {
   final bd2Ctrl = TextEditingController();
   final bd3Ctrl = TextEditingController();
   final birthdayCtrl = TextEditingController();
-  final files = <XFile>[
-    XFile(""),
-    XFile(""),
-    XFile(""),
-    XFile(""),
-    XFile(""),
-    XFile(""),
-  ].obs;
+  final files = <Rx<XFile>>[
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+  ];
   final signe = SigneZodiaque("", "", "").obs;
 
   final obscureText = true.obs;

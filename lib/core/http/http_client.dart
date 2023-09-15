@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 
 import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart' as foundation;
 import 'package:get_storage/get_storage.dart';
 import 'package:twins/components/ui.dart';
 import 'package:twins/core/services/login.service.dart';
+import 'package:twins/core/utils/utils.dart';
 import 'package:twins/routes/router.dart';
 
 import 'base_http.dart';
@@ -86,9 +86,10 @@ class AppInterceptors extends Interceptor {
   @override
   void onRequest(
       dio.RequestOptions options, dio.RequestInterceptorHandler handler) async {
-    var token = GetStorage().read('token');
+    var token = localStorage.getToken();
+
     if (token != null) {
-      options.headers['Authorization'] = 'Bearer $token';
+      options.headers['Authorization'] = 'Bearer ${token.accessToken}';
     }
     Get.log(
         "REQUEST[${options.method}] => PATH: ${options.path}, DATA: ${options.data}");

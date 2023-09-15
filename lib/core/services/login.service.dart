@@ -11,6 +11,7 @@ class LoginService extends GetxService {
       var response = await repo.login(username: username, password: password);
       localStorage.token = response;
       localStorage.user = response.user;
+      localStorage.isAuth = true;
     } catch (e) {
       rethrow;
     }
