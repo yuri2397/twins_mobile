@@ -33,7 +33,7 @@ class LocalStorageService extends GetxService {
 
   set user(User? user) => _box.write(_userKey, user?.toJson());
 
-  getUser() {
+  User? getUser() {
     var data = _box.read(_userKey);
     if (data != null) {
       return User.fromJson(data);

@@ -46,6 +46,9 @@ dependencies:
   crypto: ^3.0.3
   image_picker: ^1.0.4
   device_info_plus: ^9.0.3
+  persistent_bottom_nav_bar: ^5.0.2
+  intl: ^0.17.0
+  appinio_swiper: ^2.0.3
 
 dev_dependencies:
   flutter_test:

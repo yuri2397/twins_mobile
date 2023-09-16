@@ -20,10 +20,11 @@ final defaultTheme = ThemeData(
     ),
     appBarTheme: const AppBarTheme(
         color: Colors.white,
-        elevation: 0,
+        elevation: 6,
+        centerTitle: true,
         titleTextStyle: TextStyle(
-            color: DARK_COLOR,
+            color: MAIN_COLOR,
             fontFamily: "Poppins",
-            fontSize: 16,
+            fontSize: 20,
             fontWeight: FontWeight.bold),
-        iconTheme: IconThemeData(color: DARK_COLOR)));
+        iconTheme: IconThemeData(color: MAIN_COLOR)));

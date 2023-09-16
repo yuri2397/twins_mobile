@@ -1,3 +1,11 @@
+import 'dart:convert';
+
+import 'package:twins/core/model/setting.dart';
+
+User userFromJson(String str) => User.fromJson(json.decode(str));
+
+String userToJson(User data) => json.encode(data.toJson());
+
 class User {
   String? fullName;
   String? email;
@@ -8,7 +16,8 @@ class User {
   String? phoneNumber;
   DateTime? birthDate;
   int? age;
-  dynamic bio;
+  String? bio;
+  Setting? settings;
 
   User({
     this.fullName,
@@ -21,6 +30,7 @@ class User {
     this.birthDate,
     this.age,
     this.bio,
+    this.settings,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -36,6 +46,9 @@ class User {
             : DateTime.parse(json["birth_date"]),
         age: json["age"],
         bio: json["bio"],
+        settings: json["settings"] == null
+            ? null
+            : Setting.fromJson(json["settings"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -49,5 +62,6 @@ class User {
         "birth_date": birthDate?.toIso8601String(),
         "age": age,
         "bio": bio,
+        "settings": settings?.toJson(),
       };
 }
