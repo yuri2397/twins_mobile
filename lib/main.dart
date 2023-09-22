@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:twins/core/config/env.dart';
 import 'package:twins/core/http/http_client.dart';
+import 'package:twins/core/services/matching.service.dart';
 import 'package:twins/routes/route.dart';
 import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/app_hehavior.dart';
@@ -38,4 +38,5 @@ _initServices() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   Get.lazyPut(() => HttpClient());
+  Get.lazyPut(() => MatchingService());
 }

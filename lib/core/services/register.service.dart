@@ -1,23 +1,20 @@
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:twins/core/repository/auth.repository.dart';
 import 'package:twins/core/utils/utils.dart';
 
-class LoginService extends GetxService {
+class RegisterService extends GetxService {
   final repo = AuthRepository();
 
-  Future<void> login(
-      {required String username, required String password}) async {
+  Future<void> register(
+      {required Map<String, dynamic> data, XFile? avatar}) async {
     try {
-      var response = await repo.login(username: username, password: password);
+      var response = await repo.register(data: data, avatar: avatar);
       localStorage.token = response;
       localStorage.user = response.user;
       localStorage.isAuth = true;
     } catch (e) {
       rethrow;
     }
-  }
-
-  logout() async{
-    await repo.logout();
   }
 }

@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
         const Duration(
           seconds: 3,
         ), () {
-      if (isAuth) {
+      if (isAuth || localStorage.getToken() != null) {
         Get.offAllNamed(Goo.homeScreen);
       } else {
         Get.offAllNamed(Goo.onboardingScreen);

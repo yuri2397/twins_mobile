@@ -21,7 +21,7 @@ successMessage(
     {required String title, required String content, SnackPosition? position}) {
   Get.snackbar(title, content,
       colorText: Colors.white,
-      backgroundColor: Colors.greenAccent,
+      backgroundColor: Colors.green,
       snackPosition: position ?? SnackPosition.TOP,
       borderRadius: 20,
       icon: const Icon(

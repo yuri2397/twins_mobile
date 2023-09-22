@@ -16,7 +16,7 @@ class _GenderWidgetState extends State<GenderWidget> {
   Widget build(BuildContext context) {
     return Obx(
       () => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
             onTap: () {
@@ -24,7 +24,7 @@ class _GenderWidgetState extends State<GenderWidget> {
               widget.onChange("male");
             },
             child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: widget.gender.value == "male"
@@ -44,11 +44,11 @@ class _GenderWidgetState extends State<GenderWidget> {
           ),
           GestureDetector(
             onTap: () {
-              widget.gender.value = "femal";
-              widget.onChange("femal");
+              widget.gender.value = "female";
+              widget.onChange("female");
             },
             child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: widget.gender.value != "male"

@@ -165,7 +165,7 @@ class DetailProfileScreen extends GetView<ProfileController> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(50),
                   child: Image.network(
-                    "https://img.freepik.com/free-photo/portrait-young-businesswoman-holding-eyeglasses-hand-against-gray-backdrop_23-2148029483.jpg?w=740&t=st=1694816532~exp=1694817132~hmac=09953c455aef36f7436fcf1aafa10fe5b3d4d69cd0f8ec2b82963603a6f5dddd",
+                    controller.user?.profilePhoto ?? "https://images.placeholders.dev/?width=800&height=800&text=Twins&bgColor=%23f7f6f6&textColor=%236d6e71",
                     height: 100,
                   ),
                 ),

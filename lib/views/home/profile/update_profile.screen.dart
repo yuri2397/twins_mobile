@@ -10,7 +10,9 @@ class UpdateProfileScreen extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: NEUTRAL_COLOR,
         appBar: AppBar(
+          backgroundColor: NEUTRAL_COLOR,
           elevation: 0,
           actions: [
             GestureDetector(
@@ -75,7 +77,7 @@ class UpdateProfileScreen extends GetView<ProfileController> {
                       color: MAIN_COLOR,
                     )).marginOnly(bottom: 8),
                 TextFormField(
-                    controller: controller.nameCrtl,
+                    controller: controller.addressCrtl,
                     cursorColor: DARK_COLOR,
                     validator: (value) {
                       if (value == null) {
@@ -100,7 +102,7 @@ class UpdateProfileScreen extends GetView<ProfileController> {
                       color: MAIN_COLOR,
                     )).marginOnly(bottom: 8),
                 TextFormField(
-                    controller: controller.nameCrtl,
+                    controller: controller.phoneCrtl,
                     cursorColor: DARK_COLOR,
                     validator: (value) {
                       if (value == null) {
@@ -124,29 +126,19 @@ class UpdateProfileScreen extends GetView<ProfileController> {
                       color: MAIN_COLOR,
                     )).marginOnly(bottom: 8),
                 TextFormField(
-                    controller: controller.nameCrtl,
+                    controller: controller.bioCrtl,
                     cursorColor: DARK_COLOR,
                     minLines: 3,
                     maxLines: 3,
-                    validator: (value) {
-                      if (value == null) {
-                        return "Votre nom est obligatoire.";
-                      }
-
-                      if (value.length < 2) {
-                        return "Tapez votre nom complet.";
-                      }
-                      return null;
-                    },
                     style: GoogleFonts.poppins(
                         textStyle: const TextStyle(fontSize: 16),
                         color: DARK_COLOR),
                     decoration: _decoration(
-                        "${controller.user?.bio ?? "Ajouter votre bio..."}")),
+                        controller.user?.bio ?? "Ajouter votre bio...")),
                 const SizedBox(
                   height: 20,
                 ),
-                const Text("Je suis",
+                const Text("Sexe",
                     style: TextStyle(
                       color: MAIN_COLOR,
                     )).marginOnly(bottom: 8),
@@ -165,7 +157,7 @@ class UpdateProfileScreen extends GetView<ProfileController> {
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       hintText: s,
       hintStyle: const TextStyle(color: DARK_COLOR, fontFamily: "Poppins"),
-      fillColor: NEUTRAL_COLOR,
+      fillColor: Colors.white,
       filled: true,
       errorStyle: const TextStyle(color: Colors.redAccent),
       errorBorder: const OutlineInputBorder(

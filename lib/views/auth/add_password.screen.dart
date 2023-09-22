@@ -12,7 +12,9 @@ class AddPasswordScreen extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: NEUTRAL_COLOR,
         appBar: AppBar(
+          backgroundColor: NEUTRAL_COLOR,
           elevation: 0,
           leading: GestureDetector(
             onTap: () => Get.back(),
@@ -31,19 +33,31 @@ class AddPasswordScreen extends GetView<RegisterController> {
                 Expanded(
                     child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
-                      "Choisissez un mot passe sécurisé.",
+                      "Sécurisez votre compte",
                       style: TextStyle(
-                          color: DARK_COLOR,
+                          color: MAIN_COLOR,
                           fontSize: 30,
                           fontFamily: "Poppins",
                           fontWeight: FontWeight.w700),
-                      textAlign: TextAlign.start,
+                      textAlign: TextAlign.center,
                     ),
                     const SizedBox(
                       height: 20,
+                    ),
+                    const Text(
+                      "Utilisez un mot de passe pour garantir la sécurité de votre compte.",
+                      style: TextStyle(
+                          color: DARK_COLOR,
+                          fontSize: 16,
+                          fontFamily: "Poppins",
+                          fontWeight: FontWeight.w400),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(
+                      height: 30,
                     ),
                     Form(
                       key: _form,
@@ -71,7 +85,7 @@ class AddPasswordScreen extends GetView<RegisterController> {
                           hintText: "Mot de passe",
                           hintStyle: const TextStyle(
                               color: DARK_COLOR, fontFamily: "Poppins"),
-                          fillColor: NEUTRAL_COLOR,
+                          fillColor: Colors.white,
                           filled: true,
                           suffix: GestureDetector(
                               onTap: () => controller.obscureText.value =
@@ -108,14 +122,14 @@ class AddPasswordScreen extends GetView<RegisterController> {
                         foregroundColor: Colors.white),
                     onPressed: () {
                       if (_form.currentState!.validate()) {
-                        Get.toNamed(Goo.addBirthDayScreen);
+                        Get.toNamed(Goo.addBioScreen);
                       }
                     },
                     child: const Text("Suivant"),
                   ),
                 )
               ],
-            ),
+            ).marginAll(20),
           ),
         ));
   }

@@ -6,8 +6,9 @@ import 'package:twins/components/splash_screen.screen.dart';
 import 'package:twins/resolvers/home.binding.dart';
 import 'package:twins/resolvers/login.binding.dart';
 import 'package:twins/resolvers/onboarding.binding.dart';
-import 'package:twins/resolvers/otp.binding.dart';
+import 'package:twins/resolvers/register.binding.dart';
 import 'package:twins/routes/router.dart';
+import 'package:twins/views/auth/add_avatar.screen.dart';
 import 'package:twins/views/auth/add_bio.screen.dart';
 import 'package:twins/views/auth/add_birthday.screen.dart';
 import 'package:twins/views/auth/add_email.screen.dart';
@@ -16,11 +17,13 @@ import 'package:twins/views/auth/add_password.screen.dart';
 import 'package:twins/views/auth/add_signe.screen.dart';
 import 'package:twins/views/auth/login.screen.dart';
 import 'package:twins/views/auth/register.screen.dart';
+import 'package:twins/views/home/chats/chat.screen.dart';
 import 'package:twins/views/home/home.screen.dart';
 import 'package:twins/views/home/profile/details.screen.dart';
+import 'package:twins/views/home/profile/setting.screen.dart';
 import 'package:twins/views/home/profile/update_password.screen.dart';
 import 'package:twins/views/home/profile/update_profile.screen.dart';
-import 'package:twins/views/home/search.screen.dart';
+import 'package:twins/views/home/search/search.screen.dart';
 
 dynamic ROUTER_OUTLET = [
   /// SHARED ROUTES
@@ -47,6 +50,7 @@ dynamic ROUTER_OUTLET = [
   GetPage(name: Goo.addFilesScreen, page: () => AddFielsScreen()),
   GetPage(name: Goo.addSigneScreen, page: () => AddSigneScreen()),
   GetPage(name: Goo.addBioScreen, page: () => AddBioScreen()),
+  GetPage(name: Goo.addAvatarScreen, page: () => AddAvatarScreen()),
 
   /// HOME MODULES
   GetPage(
@@ -56,4 +60,8 @@ dynamic ROUTER_OUTLET = [
   GetPage(name: Goo.detailsProfileScreen, page: () => DetailProfileScreen()),
   GetPage(name: Goo.updateProfileScreen, page: () => UpdateProfileScreen()),
   GetPage(name: Goo.updatePasswordScreen, page: () => PasswordProfileScreen()),
+  GetPage(name: Goo.settingScreen, page: () => SettingScreen()),
+
+  // CHAT PAGES
+  GetPage(name: Goo.chatScreen, page: () => ChatScreen()),
 ];

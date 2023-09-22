@@ -1,12 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:twins/core/model/user.dart';
 import 'package:twins/shared/utils/colors.dart';
 
 // ignore: must_be_immutable
 class SearchItemWidget extends StatefulWidget {
-  String title;
-  SearchItemWidget({super.key, required this.title});
+  User user;
+  Function cancel;
+  Function like;
+  Function swipBack;
+  SearchItemWidget(
+      {super.key,
+      required this.user,
+      required this.cancel,
+      required this.like,
+      required this.swipBack});
 
   @override
   State<SearchItemWidget> createState() => _SearchItemWidgetState();
@@ -32,7 +41,7 @@ class _SearchItemWidgetState extends State<SearchItemWidget> {
       child: Column(
         children: [
           SizedBox(
-            height: Get.height * .5,
+            height: Get.height * .45,
             width: Get.width,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
@@ -43,63 +52,104 @@ class _SearchItemWidgetState extends State<SearchItemWidget> {
             ),
           ),
           const SizedBox(
-            height: 8,
+            height: 16,
           ),
           Text(
-            "Mor Diaw",
+            "${widget.user.fullName}",
             overflow: TextOverflow.fade,
-            style: TextStyle(
+            style: const TextStyle(
               color: DARK_COLOR,
               fontWeight: FontWeight.w700,
               fontSize: 20,
             ),
           ),
+          SizedBox(
+            width: Get.width,
+            height: 60,
+            child: Text(widget.user.bio ?? 'Bio',
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.fade,
+                maxLines: 2,
+                style: TextStyle(color: Colors.black.withOpacity(0.4))),
+          ),
           const SizedBox(
-            height: 8,
+            height: 4,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 1,
-                      blurRadius: 20,
-                      offset: const Offset(2, 3), // changes position of shadow
-                    ),
-                  ],
-                  borderRadius: const BorderRadius.all(Radius.circular(50)),
-                ),
-                child: const Icon(
-                  Icons.close,
-                  color: DARK_COLOR,
-                  size: 40,
+              GestureDetector(
+                onTap: () => widget.cancel(),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        spreadRadius: 1,
+                        blurRadius: 20,
+                        offset:
+                            const Offset(2, 3), // changes position of shadow
+                      ),
+                    ],
+                    borderRadius: const BorderRadius.all(Radius.circular(50)),
+                  ),
+                  child: const Icon(
+                    Icons.close,
+                    color: DARK_COLOR,
+                    size: 40,
+                  ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: MAIN_COLOR,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 1,
-                      blurRadius: 20,
-                      offset: const Offset(2, 3), // changes position of shadow
-                    ),
-                  ],
-                  borderRadius: const BorderRadius.all(Radius.circular(50)),
+              GestureDetector(
+                onTap: () => widget.like(),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: MAIN_COLOR,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        spreadRadius: 1,
+                        blurRadius: 20,
+                        offset:
+                            const Offset(2, 3), // changes position of shadow
+                      ),
+                    ],
+                    borderRadius: const BorderRadius.all(Radius.circular(50)),
+                  ),
+                  child: const Icon(
+                    CupertinoIcons.heart_fill,
+                    color: Colors.white,
+                    size: 40,
+                  ),
                 ),
-                child: const Icon(
-                  CupertinoIcons.heart_fill,
-                  color: Colors.white,
-                  size: 40,
+              ),
+              GestureDetector(
+                onTap: () => widget.swipBack(),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        spreadRadius: 1,
+                        blurRadius: 20,
+                        offset:
+                            const Offset(2, 3), // changes position of shadow
+                      ),
+                    ],
+                    borderRadius: const BorderRadius.all(Radius.circular(50)),
+                  ),
+                  child: const Icon(
+                    Icons.redo,
+                    color: Colors.pink,
+                    size: 20,
+                  ),
                 ),
-              )
+              ),
             ],
           )
         ],

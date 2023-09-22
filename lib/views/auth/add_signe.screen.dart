@@ -35,24 +35,29 @@ class AddSigneScreen extends GetView<RegisterController> {
                   Text(
                     controller.signe.value.nom,
                     style: const TextStyle(
-                        color: DARK_COLOR,
-                        fontSize: 25,
+                        color: MAIN_COLOR,
+                        fontSize: 30,
                         fontFamily: "Poppins",
                         fontWeight: FontWeight.w700),
-                    textAlign: TextAlign.start,
-                  ).marginOnly(bottom: 20),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
                   SvgPicture.asset(controller.signe.value.cheminImage,
                       width: 100),
                   const SizedBox(
-                    height: 50,
+                    height: 30,
                   ),
-                  Text(controller.signe.value.description,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                          fontFamily: "Poppins",
-                          fontSize: 18,
-                          color: DARK_COLOR,
-                          fontWeight: FontWeight.w400))
+                  Text(
+                    controller.signe.value.description,
+                    style: const TextStyle(
+                        color: DARK_COLOR,
+                        fontSize: 16,
+                        fontFamily: "Poppins",
+                        fontWeight: FontWeight.w400),
+                    textAlign: TextAlign.center,
+                  ),
                 ],
               )),
               SizedBox(
@@ -64,7 +69,7 @@ class AddSigneScreen extends GetView<RegisterController> {
                           borderRadius: BorderRadius.circular(20)),
                       backgroundColor: MAIN_COLOR,
                       foregroundColor: Colors.white),
-                  onPressed: () => Get.toNamed(Goo.addFilesScreen),
+                  onPressed: () => Get.toNamed(Goo.addAvatarScreen),
                   child: const Text("Suivant"),
                 ),
               )

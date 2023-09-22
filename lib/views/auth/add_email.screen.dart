@@ -12,7 +12,9 @@ class AddEmailScreen extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: NEUTRAL_COLOR,
         appBar: AppBar(
+          backgroundColor: NEUTRAL_COLOR,
           elevation: 0,
           leading: GestureDetector(
             onTap: () => Get.back(),
@@ -25,24 +27,36 @@ class AddEmailScreen extends GetView<RegisterController> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
-                    "Saisissez votre adresse email.",
+                    "Ajouter une adresse e-mail",
                     style: TextStyle(
-                        color: DARK_COLOR,
+                        color: MAIN_COLOR,
                         fontSize: 30,
                         fontFamily: "Poppins",
                         fontWeight: FontWeight.w700),
-                    textAlign: TextAlign.start,
+                    textAlign: TextAlign.center,
                   ),
                   const SizedBox(
                     height: 20,
+                  ),
+                  const Text(
+                    "Votre adresse e-mail sera utilisée à des fins de sécurité, comme vous aider à récupérer l'accès à votre compte si vous oubliez un jour votre mot de passe.",
+                    style: TextStyle(
+                        color: DARK_COLOR,
+                        fontSize: 16,
+                        fontFamily: "Poppins",
+                        fontWeight: FontWeight.w400),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 30,
                   ),
                   Form(
                     key: _form,
@@ -69,7 +83,7 @@ class AddEmailScreen extends GetView<RegisterController> {
                         hintText: "Adresse email",
                         hintStyle:
                             TextStyle(color: DARK_COLOR, fontFamily: "Poppins"),
-                        fillColor: NEUTRAL_COLOR,
+                        fillColor: Colors.white,
                         filled: true,
                         errorStyle: TextStyle(color: Colors.redAccent),
                         errorBorder: OutlineInputBorder(
@@ -104,7 +118,7 @@ class AddEmailScreen extends GetView<RegisterController> {
                 ),
               )
             ],
-          ),
+          ).paddingAll(20),
         ));
   }
 }

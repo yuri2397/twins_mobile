@@ -1,22 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:twins/controllers/home.controller.dart';
 import 'package:twins/shared/utils/colors.dart';
-import 'package:twins/views/home/chat.screen.dart';
+import 'package:twins/views/home/chats/chat_list.screen.dart';
 import 'package:twins/views/home/profile/profile.screen.dart';
+import 'package:twins/views/home/search/search.screen.dart';
 import 'package:twins/views/home/un.screen.dart';
-import 'package:twins/views/home/search.screen.dart';
 
 class HomeScreen extends GetView<HomeController> {
   final _screens = <Widget>[
-    SearchScreen(),
+    const SearchScreen(),
     UnScreen(),
-    ChatScreen(),
-    ProfileScreen()
+    ChatListScreen(),
+    const ProfileScreen()
   ];
 
   final _items = <PersistentBottomNavBarItem>[

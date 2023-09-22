@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:twins/components/ui.dart';
 import 'package:twins/core/services/login.service.dart';
 import 'package:twins/core/utils/utils.dart';
@@ -44,13 +43,13 @@ class HttpClient extends GetxService with BaseApiClient {
   }
 
   Future<dio.Response> post(String url,
-      {data, Map<String, dynamic>? params}) async {
+      {data, Map<String, dynamic>? params, dio.Options? options}) async {
     Uri uri = getApiBaseUri(url);
     if (params != null) {
       uri = uri.replace(queryParameters: params);
     }
     Get.log(uri.toString());
-    return await httpClient.postUri(uri, data: data);
+    return await httpClient.postUri(uri, data: data, options: options);
   }
 
   Future<dio.Response> put(String url,

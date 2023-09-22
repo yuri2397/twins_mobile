@@ -11,10 +11,15 @@ class Goo {
   static const String addPasswordScreen = "/register-screen/add-password";
   static const String addFilesScreen = "/register-screen/add-files";
   static const String addBioScreen = "/register-screen/add-bio";
+  static const String addAvatarScreen = "/register-screen/add-avatar";
   static const String otpScreen = "/otp-screen";
 
   static const String homeScreen = "/home-screen";
   static const String detailsProfileScreen = "/detail-profile-screen";
   static const String updateProfileScreen = "/update-profile-screen";
   static const String updatePasswordScreen = "/update-password-screen";
+  static const String settingScreen = "/setting-screen";
+
+  // CHAT PAGES
+  static const String chatScreen = "/chat-screen";
 }

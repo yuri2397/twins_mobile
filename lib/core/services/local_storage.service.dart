@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:twins/core/model/setting.dart';
 import 'package:twins/core/model/token.dart';
 
 import '../model/user.dart';
@@ -9,6 +10,7 @@ class LocalStorageService extends GetxService {
   final _tokenKey = "_token";
   final _userKey = "_user";
   final _isAuthKey = "_isAuth";
+  final _settings = '_settings';
 
   Future<LocalStorageService> init() async {
     return this;
@@ -17,6 +19,8 @@ class LocalStorageService extends GetxService {
   set token(Token token) {
     _box.write(_tokenKey, token.toJson());
   }
+
+  set settings(Setting? settings) => _box.write(_settings, settings?.toJson());
 
   set isAuth(bool value) => _box.write(_isAuthKey, value);
 
@@ -28,6 +32,15 @@ class LocalStorageService extends GetxService {
     if (data != null) {
       return Token.fromJson(data);
     }
+    return null;
+  }
+
+  Setting? getSettings(){
+    var data = _box.read(_settings);
+    if(data != null){
+      return Setting.fromJson(data);
+    }
+
     return null;
   }
 

@@ -49,6 +49,9 @@ dependencies:
   persistent_bottom_nav_bar: ^5.0.2
   intl: ^0.17.0
   appinio_swiper: ^2.0.3
+  flutter_chat_ui: ^1.6.6
+  geolocator: ^10.1.0
+  syncfusion_flutter_sliders: ^21.2.4
 
 dev_dependencies:
   flutter_test:
