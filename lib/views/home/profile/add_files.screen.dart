@@ -5,11 +5,12 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:twins/components/choose_files.widget.dart';
+import 'package:twins/controllers/profile.controller.dart';
 import 'package:twins/controllers/register.controller.dart';
 import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/colors.dart';
 
-class AddFielsScreen extends GetView<RegisterController> {
+class AddFielsScreen extends GetView<ProfileController> {
   const AddFielsScreen({super.key});
 
   Widget build(BuildContext context) {
@@ -67,7 +68,7 @@ class AddFielsScreen extends GetView<RegisterController> {
                         backgroundColor: MAIN_COLOR,
                         foregroundColor: Colors.white),
                     onPressed: () => Get.toNamed(Goo.addBioScreen),
-                    child: const Text("Suivant"),
+                    child: const Text("Enrégistrer"),
                   ),
                 )
               ],
