@@ -148,27 +148,49 @@ class DetailProfileScreen extends GetView<ProfileController> {
             Positioned(
               top: Get.height * .05,
               left: Get.width * .5 - 50,
-              child: Container(
-                padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  color: NEUTRAL_COLOR,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 1,
-                      blurRadius: 20,
-                      offset: const Offset(2, 3), // changes position of shadow
+              child: Stack(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: NEUTRAL_COLOR,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 1,
+                          blurRadius: 20,
+                          offset:
+                              const Offset(2, 3), // changes position of shadow
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(100),
                     ),
-                  ],
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: Image.network(
-                    controller.user?.profilePhoto ?? "https://images.placeholders.dev/?width=800&height=800&text=Twins&bgColor=%23f7f6f6&textColor=%236d6e71",
-                    height: 100,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.network(
+                        controller.user?.profilePhoto ??
+                            "https://images.placeholders.dev/?width=800&height=800&text=Twins&bgColor=%23f7f6f6&textColor=%236d6e71",
+                        height: 100,
+                      ),
+                    ),
                   ),
-                ),
+                  Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Goo.addFilesScreen);
+                        },
+                        child: const CircleAvatar(
+                          radius: 20,
+                          backgroundColor: Colors.white,
+                          child: Icon(
+                            Icons.add_rounded,
+                            color: MAIN_COLOR,
+                          ),
+                        ),
+                      ))
+                ],
               ),
             ),
           ],

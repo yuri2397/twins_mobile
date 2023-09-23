@@ -16,16 +16,14 @@ class HttpClient extends GetxService with BaseApiClient {
 
   HttpClient() {
     httpClient = createDio();
-    Get.log('Twins Http Client created');
-    Get.log('baseUrl: $baseUrl');
   }
 
   Dio createDio() {
     var dio = Dio(BaseOptions(
       baseUrl: baseUrl,
-      receiveTimeout: const Duration(seconds: 10),
-      connectTimeout: const Duration(seconds: 20),
-      sendTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(minutes: 1),
+      connectTimeout: const Duration(minutes: 1),
+      sendTimeout: const Duration(minutes: 1),
     ));
 
     dio.interceptors.addAll({
@@ -48,8 +46,7 @@ class HttpClient extends GetxService with BaseApiClient {
     if (params != null) {
       uri = uri.replace(queryParameters: params);
     }
-    Get.log(uri.toString());
-    return await httpClient.postUri(uri, data: data, options: options);
+    return await httpClient.postUri(uri, data: data, options: options, );
   }
 
   Future<dio.Response> put(String url,
@@ -89,15 +86,15 @@ class AppInterceptors extends Interceptor {
 
     if (token != null) {
       options.headers['Authorization'] = 'Bearer ${token.accessToken}';
+      Get.log(options.headers.toString());
     }
     Get.log(
-        "REQUEST[${options.method}] => PATH: ${options.path}, DATA: ${options.data}");
+        "REQUEST[${options.method}] => PATH: ${options.path}, DATA: ${options.data.toString()}");
     return handler.next(options);
   }
 
   @override
   Future<void> onError(err, dio.ErrorInterceptorHandler handler) async {
-    Get.log("DATA ERR: ${err.response?.data}");
     if (err.response?.statusCode == 401 &&
         Get.currentRoute != Goo.loginScreen) {
       await Get.find<LoginService>().logout();

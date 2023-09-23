@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:twins/core/model/zodiaque.dart';
 import 'package:twins/core/services/local_storage.service.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
 
@@ -15,6 +17,12 @@ bool get isAuth => localStorage.isAuth;
 
 void logout() {
   localStorage.clear();
+}
+
+Future<XFile> getImageXFileByUrl(String url) async {
+  var file = await DefaultCacheManager().getSingleFile(url);
+  XFile result =  XFile(file.path);
+  return result;
 }
 
 SigneZodiaque determinerSigne(DateTime dateNaissance) {

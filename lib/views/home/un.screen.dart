@@ -10,7 +10,7 @@ class UnScreen extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("UN PAGE"),
+        child: Text("PAGE NOTIFICATION"),
       ),
     );
   }

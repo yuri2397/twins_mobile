@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:twins/core/model/setting.dart';
 import 'package:twins/core/model/token.dart';
+import 'package:twins/core/model/upload-file.dart';
 
 import '../model/user.dart';
 
@@ -11,6 +12,7 @@ class LocalStorageService extends GetxService {
   final _userKey = "_user";
   final _isAuthKey = "_isAuth";
   final _settings = '_settings';
+  final _photos = '_photos';
 
   Future<LocalStorageService> init() async {
     return this;
@@ -19,6 +21,10 @@ class LocalStorageService extends GetxService {
   set token(Token token) {
     _box.write(_tokenKey, token.toJson());
   }
+
+  set photos(List<UploadFile> photos) => _box.write(_photos, photos);
+
+  List<UploadFile> getPhotos() => _box.read(_photos);
 
   set settings(Setting? settings) => _box.write(_settings, settings?.toJson());
 

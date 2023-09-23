@@ -8,7 +8,6 @@ import 'package:twins/core/services/profile.service.dart';
 class HomeBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => ProfileService(), fenix: true);
 
     Get.lazyPut(() => SearchController(), fenix: true);
     Get.lazyPut(() => ChatController(), fenix: true);

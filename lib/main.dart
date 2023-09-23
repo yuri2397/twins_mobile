@@ -10,6 +10,9 @@ import 'package:twins/shared/utils/app_hehavior.dart';
 import 'package:twins/shared/utils/themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'core/services/local_storage.service.dart';
+import 'core/services/profile.service.dart';
+
 void main() async {
   await _initServices();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
@@ -37,6 +40,8 @@ void main() async {
 _initServices() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await Get.putAsync(() => LocalStorageService().init());
   Get.lazyPut(() => HttpClient());
   Get.lazyPut(() => MatchingService());
+  Get.lazyPut(() => ProfileService(), fenix: true);
 }

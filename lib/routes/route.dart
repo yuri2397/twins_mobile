@@ -3,16 +3,18 @@
 import 'package:get/get.dart';
 import 'package:twins/components/onboarding.screen.dart';
 import 'package:twins/components/splash_screen.screen.dart';
+import 'package:twins/resolvers/active_account.binding.dart';
 import 'package:twins/resolvers/home.binding.dart';
 import 'package:twins/resolvers/login.binding.dart';
 import 'package:twins/resolvers/onboarding.binding.dart';
 import 'package:twins/resolvers/register.binding.dart';
 import 'package:twins/routes/router.dart';
+import 'package:twins/views/auth/active_account.screen.dart';
 import 'package:twins/views/auth/add_avatar.screen.dart';
 import 'package:twins/views/auth/add_bio.screen.dart';
 import 'package:twins/views/auth/add_birthday.screen.dart';
 import 'package:twins/views/auth/add_email.screen.dart';
-import 'package:twins/views/auth/add_files.screen.dart';
+import 'package:twins/views/home/profile/add_files.screen.dart';
 import 'package:twins/views/auth/add_password.screen.dart';
 import 'package:twins/views/auth/add_signe.screen.dart';
 import 'package:twins/views/auth/login.screen.dart';
@@ -47,10 +49,14 @@ dynamic ROUTER_OUTLET = [
   GetPage(name: Goo.addEmailScreen, page: () => AddEmailScreen()),
   GetPage(name: Goo.addPasswordScreen, page: () => AddPasswordScreen()),
   GetPage(name: Goo.addBirthDayScreen, page: () => AddBirthDayScreen()),
-  GetPage(name: Goo.addFilesScreen, page: () => AddFielsScreen()),
+  GetPage(name: Goo.addFilesScreen, page: () => const AddFielsScreen()),
   GetPage(name: Goo.addSigneScreen, page: () => AddSigneScreen()),
   GetPage(name: Goo.addBioScreen, page: () => AddBioScreen()),
   GetPage(name: Goo.addAvatarScreen, page: () => AddAvatarScreen()),
+  GetPage(
+      name: Goo.activeAccountScreen,
+      binding: ActiveAccountBinding(),
+      page: () => ActiveAccountScreen()),
 
   /// HOME MODULES
   GetPage(

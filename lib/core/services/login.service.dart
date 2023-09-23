@@ -17,7 +17,15 @@ class LoginService extends GetxService {
     }
   }
 
-  logout() async{
+  Future<void> resendLink() async {
+    try {
+      return await repo.resendLink();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  logout() async {
     await repo.logout();
   }
 }

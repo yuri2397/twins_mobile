@@ -17,12 +17,15 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Get.put(LocalStorageService(), permanent: true);
     Future.delayed(
         const Duration(
           seconds: 3,
         ), () {
-      if (isAuth || localStorage.getToken() != null) {
+      if (isAuth &&
+          localStorage.getUser()?.emailVerified != null &&
+          localStorage.getUser()?.emailVerified == false) {
+        Get.offAllNamed(Goo.activeAccountScreen);
+      } else if (localStorage.getToken() != null) {
         Get.offAllNamed(Goo.homeScreen);
       } else {
         Get.offAllNamed(Goo.onboardingScreen);

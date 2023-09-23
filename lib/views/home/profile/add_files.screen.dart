@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -34,18 +35,31 @@ class AddFielsScreen extends GetView<ProfileController> {
                 Expanded(
                     child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
-                      "Ajouter des photos",
+                      "Ajouter vos photos",
                       style: TextStyle(
-                          color: DARK_COLOR,
+                          color: MAIN_COLOR,
                           fontSize: 30,
                           fontFamily: "Poppins",
                           fontWeight: FontWeight.w700),
+                      textAlign: TextAlign.center,
                     ),
                     const SizedBox(
-                      height: 40,
+                      height: 20,
+                    ),
+                    const Text(
+                      "Votre adresse e-mail sera utilisée à des fins de sécurité, comme vous aider à récupérer l'accès à votre compte si vous oubliez un jour votre mot de passe.",
+                      style: TextStyle(
+                          color: DARK_COLOR,
+                          fontSize: 16,
+                          fontFamily: "Poppins",
+                          fontWeight: FontWeight.w400),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(
+                      height: 30,
                     ),
                     GridView.count(
                       shrinkWrap: true,
@@ -67,12 +81,12 @@ class AddFielsScreen extends GetView<ProfileController> {
                             borderRadius: BorderRadius.circular(20)),
                         backgroundColor: MAIN_COLOR,
                         foregroundColor: Colors.white),
-                    onPressed: () => Get.toNamed(Goo.addBioScreen),
-                    child: const Text("Enrégistrer"),
+                    onPressed: () => controller.addPhotos(),
+                    child: controller.addPhotoLoad.value ? const SizedBox( width: 20, height: 20, child: CircularProgressIndicator(color:Colors.white)) : const Text("Enrégistrer"),
                   ),
                 )
               ],
-            ),
+            ).paddingAll(20),
           ),
         ));
   }
@@ -85,16 +99,17 @@ class AddFielsScreen extends GetView<ProfileController> {
             color: Colors.white),
         child: Stack(
           children: [
-            if (file.value.path.isNotEmpty)
-              Positioned.fill(
-                child: Image.file(
-                  File(file.value.path),
-                  fit: BoxFit.cover,
-                ),
-              ),
+            file.value.path.isNotEmpty ?
+               Positioned.fill(
+                  child: Image.file(
+                    File(file.value.path),
+                    fit: BoxFit.cover,
+                  ),
+
+              ) : Container( color: NEUTRAL_COLOR, child: Center(child: SvgPicture.asset("assets/images/preview.svg", width: 50, ))),
             Positioned(
-              bottom: 6,
-              right: 6,
+              bottom: 5,
+              right: 5,
               child: file.value.path.isEmpty
                   ? GestureDetector(
                       onTap: () async {

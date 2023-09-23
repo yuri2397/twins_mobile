@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:twins/components/ui.dart';
 import 'package:twins/core/model/setting.dart';
 import 'package:twins/core/services/profile.service.dart';
@@ -12,6 +13,7 @@ class ProfileController extends GetxController {
   final user = localStorage.getUser();
   final settingStatus = false.obs;
   final logoutLoad = false.obs;
+  final addPhotoLoad = false.obs;
 
   final settings = localStorage.getSettings().obs;
   final updateSettingsLoad = false.obs;
@@ -23,6 +25,20 @@ class ProfileController extends GetxController {
   final birthdayCrtl = TextEditingController();
   final sexCrtl = TextEditingController();
   final passwordCrtl = TextEditingController();
+
+  /// FILES
+
+  final files = <Rx<XFile>>[
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+  ];
 
   final _profileService = Get.find<ProfileService>();
 
@@ -38,6 +54,7 @@ class ProfileController extends GetxController {
     });
 
     profile();
+    photos();
   }
 
   Future<void> profile() async {
@@ -60,10 +77,33 @@ class ProfileController extends GetxController {
     updateSettingsLoad.value = false;
   }
 
+  addPhotos() {
+    addPhotoLoad.value = true;
+
+    _profileService
+        .addPhotos(
+            files.map((e) => e.value).where((e) => e.path.isNotEmpty).toList())
+        .then((value) {
+      addPhotoLoad.value = false;
+    }).catchError((e) {
+      addPhotoLoad.value = false;
+    });
+  }
+
+  photos() {
+    _profileService.getPhotos().then((value) async {
+      int i = 0;
+      for (var e in value) {
+        files[i] = (await getImageXFileByUrl(e.url!)).obs;
+        i++;
+      }
+    });
+  }
+
   logout() async {
     Get.bottomSheet(Container(
       padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       child: Column(
@@ -115,7 +155,7 @@ class ProfileController extends GetxController {
               ),
               ElevatedButton(
                   style: TextButton.styleFrom(
-                    foregroundColor: DARK_COLOR,
+                      foregroundColor: DARK_COLOR,
                       backgroundColor: Colors.transparent,
                       elevation: 0,
                       shape: RoundedRectangleBorder(

@@ -19,7 +19,7 @@ class HomeScreen extends GetView<HomeController> {
 
   final _items = <PersistentBottomNavBarItem>[
     PersistentBottomNavBarItem(
-      icon: const Icon(CupertinoIcons.rocket_fill),
+      icon: const Icon(CupertinoIcons.search_circle),
       activeColorPrimary: MAIN_COLOR,
       inactiveColorPrimary: NEUTRAL_COLOR,
     ),
@@ -29,7 +29,7 @@ class HomeScreen extends GetView<HomeController> {
       inactiveColorPrimary: NEUTRAL_COLOR,
     ),
     PersistentBottomNavBarItem(
-      icon: const Icon(CupertinoIcons.chat_bubble_2),
+      icon: const Icon(CupertinoIcons.chat_bubble_2_fill),
       activeColorPrimary: MAIN_COLOR,
       inactiveColorPrimary: NEUTRAL_COLOR,
     ),
