@@ -101,14 +101,17 @@ class RegisterScreen extends GetView<RegisterController> {
                                       ],
                                       validator: (value) {
                                         if (value == null) {
-                                          return "Jours";
+                                          return "JJ";
                                         }
                                         if (int.tryParse(value) == null) {
-                                          return "Jours";
+                                          return "JJ";
                                         }
                                         if (int.tryParse(value)! < 1 ||
                                             int.tryParse(value)! > 31) {
-                                          return "Jours";
+                                          return "JJ";
+                                        }
+                                        if(value.length != 2){
+                                          return "JJ";
                                         }
                                         return null;
                                       },
@@ -118,7 +121,7 @@ class RegisterScreen extends GetView<RegisterController> {
                                           textStyle:
                                               const TextStyle(fontSize: 16),
                                           color: DARK_COLOR),
-                                      decoration: _decoration("Jours")),
+                                      decoration: _decoration("JJ")),
                                 ),
                                 const SizedBox(
                                   width: 20,
@@ -134,14 +137,17 @@ class RegisterScreen extends GetView<RegisterController> {
                                       ],
                                       validator: (value) {
                                         if (value == null) {
-                                          return "Mois";
+                                          return "MM";
                                         }
                                         if (int.tryParse(value) == null) {
-                                          return "Mois";
+                                          return "MM";
                                         }
                                         if (int.tryParse(value)! < 1 ||
                                             int.tryParse(value)! > 12) {
-                                          return "Mois";
+                                          return "MM";
+                                        }
+                                        if(value.length != 2){
+                                          return "MM";
                                         }
                                         return null;
                                       },
@@ -149,7 +155,7 @@ class RegisterScreen extends GetView<RegisterController> {
                                           textStyle:
                                               const TextStyle(fontSize: 16),
                                           color: DARK_COLOR),
-                                      decoration: _decoration("Mois")),
+                                      decoration: _decoration("MM")),
                                 ),
                                 const SizedBox(
                                   width: 20,
@@ -165,15 +171,18 @@ class RegisterScreen extends GetView<RegisterController> {
                                       ],
                                       validator: (value) {
                                         if (value == null) {
-                                          return "Années";
+                                          return "AAAA";
                                         }
                                         if (int.tryParse(value) == null) {
-                                          return "Années";
+                                          return "AAAA";
                                         }
                                         if (int.tryParse(value)! < 1980 ||
                                             int.tryParse(value)! >
                                                 (DateTime.now().year - 10)) {
-                                          return "Années";
+                                          return "AAAA";
+                                        }
+                                        if(value.length != 4){
+                                          return "AAAA";
                                         }
                                         return null;
                                       },
@@ -182,7 +191,7 @@ class RegisterScreen extends GetView<RegisterController> {
                                           textStyle:
                                               const TextStyle(fontSize: 16),
                                           color: DARK_COLOR),
-                                      decoration: _decoration("Année")),
+                                      decoration: _decoration("AAAA")),
                                 ),
                               ],
                             ),
