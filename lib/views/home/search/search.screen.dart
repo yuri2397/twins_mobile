@@ -102,8 +102,9 @@ class SearchScreen extends GetView<sc.SearchController> {
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400, color: Colors.grey),
             )
           ],
-        ).marginOnly(bottom: 20, left: 20),
-          const Divider( color: Colors.green, height: 2,),
+        ).marginOnly(bottom: 10, left: 20),
+          const Divider( color: NEUTRAL_COLOR, height: 2,).marginAll(20),
+
           SizedBox(
             height: 130,
             width: Get.width,
