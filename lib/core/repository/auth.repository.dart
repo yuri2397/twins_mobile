@@ -78,22 +78,22 @@ class AuthRepository {
   Future<Token> register(
       {required Map<String, dynamic> data, XFile? file}) async {
     try {
-      // dio.FormData formData = dio.FormData.fromMap({
-      //   ...data,
-      //   'profile_photo':
-      //       await dio.MultipartFile.fromFile(file!.path, filename: file.name)
-      // });
+      dio.FormData formData = dio.FormData.fromMap({
+        ...data,
+        'profile_photo':
+            await dio.MultipartFile.fromFile(file!.path, filename: file.name)
+      });
 
-      // var response = await _client.post('/register',
-      //     data: formData,
-      //     options: dio.Options(contentType: 'multipart/form-data', headers: {
-      //       'Authorization': 'Bearer ${localStorage.getToken()?.accessToken}'
-      //     }));
+      var response = await _client.post('/register',
+          data: formData,
+          options: dio.Options(contentType: 'multipart/form-data', headers: {
+            'Authorization': 'Bearer ${localStorage.getToken()?.accessToken}'
+          }));
 
-      var response = await _client.post(
+      /*var response = await _client.post(
         '/register',
         data: data,
-      );
+      );*/
 
       if (response.statusCode! >= 200 && response.statusCode! <= 300) {
         return Token.fromJson(response.data);
@@ -102,8 +102,6 @@ class AuthRepository {
       }
     } catch (e, s) {
       Get.log("$e");
-      s.printInfo();
-      e.printError();
       rethrow;
     }
   }

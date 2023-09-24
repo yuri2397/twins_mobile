@@ -69,6 +69,9 @@ class AddBirthDayScreen extends GetView<RegisterController> {
                                       int.tryParse(value)! > 31) {
                                     return "Jours";
                                   }
+                                  if(value.length != 2){
+                                    return "Jours";
+                                  }
                                   return null;
                                 },
                                 keyboardType: TextInputType.number,
@@ -76,7 +79,7 @@ class AddBirthDayScreen extends GetView<RegisterController> {
                                 style: GoogleFonts.poppins(
                                     textStyle: const TextStyle(fontSize: 16),
                                     color: DARK_COLOR),
-                                decoration: _decoration("Jours")),
+                                decoration: _decoration("JJ")),
                           ),
                           const SizedBox(
                             width: 20,
@@ -101,12 +104,15 @@ class AddBirthDayScreen extends GetView<RegisterController> {
                                       int.tryParse(value)! > 12) {
                                     return "Mois";
                                   }
+                                  if(value.length != 2){
+                                    return "Mois";
+                                  }
                                   return null;
                                 },
                                 style: GoogleFonts.poppins(
                                     textStyle: const TextStyle(fontSize: 16),
                                     color: DARK_COLOR),
-                                decoration: _decoration("Mois")),
+                                decoration: _decoration("MM")),
                           ),
                           const SizedBox(
                             width: 20,
@@ -132,13 +138,16 @@ class AddBirthDayScreen extends GetView<RegisterController> {
                                           (DateTime.now().year - 10)) {
                                     return "Années";
                                   }
+                                  if(value.length != 4){
+                                    return "Années";
+                                  }
                                   return null;
                                 },
                                 cursorColor: DARK_COLOR,
                                 style: GoogleFonts.poppins(
                                     textStyle: const TextStyle(fontSize: 16),
                                     color: DARK_COLOR),
-                                decoration: _decoration("Année")),
+                                decoration: _decoration("AAAA")),
                           ),
                         ],
                       ),
