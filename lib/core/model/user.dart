@@ -7,6 +7,7 @@ User userFromJson(String str) => User.fromJson(json.decode(str));
 String userToJson(User data) => json.encode(data.toJson());
 
 class User {
+  int? id;
   String? fullName;
   String? email;
   bool? emailVerified;
@@ -21,7 +22,8 @@ class User {
   String? profilePhoto;
 
   User(
-      {this.fullName,
+      {this.id,
+        this.fullName,
       this.email,
       this.emailVerified,
       this.gender,
@@ -35,6 +37,7 @@ class User {
       this.profilePhoto});
 
   factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json['id'],
         fullName: json["full_name"],
         email: json["email"],
         emailVerified: json["email_verified"],
@@ -54,6 +57,7 @@ class User {
       );
 
   Map<String, dynamic> toJson() => {
+    "id": id,
         "full_name": fullName,
         "email": email,
         "email_verified": emailVerified,

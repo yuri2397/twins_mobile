@@ -7,12 +7,12 @@ import 'package:twins/shared/utils/colors.dart';
 import 'package:twins/views/home/chats/chat_list.screen.dart';
 import 'package:twins/views/home/profile/profile.screen.dart';
 import 'package:twins/views/home/search/search.screen.dart';
-import 'package:twins/views/home/un.screen.dart';
+import 'package:twins/views/home/chat_request/chat_request.screen.dart';
 
 class HomeScreen extends GetView<HomeController> {
   final _screens = <Widget>[
     const SearchScreen(),
-    UnScreen(),
+    ChatRequestScreen(),
     ChatListScreen(),
     const ProfileScreen()
   ];
@@ -42,6 +42,8 @@ class HomeScreen extends GetView<HomeController> {
 
   final PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
+
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

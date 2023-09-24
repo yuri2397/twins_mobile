@@ -8,7 +8,7 @@ class SearchController extends GetxController {
   final _matchingService = Get.find<MatchingService>();
   final AppinioSwiperController swiperController = AppinioSwiperController();
   final currentMatch = <User>[].obs;
-
+  final visibleUser = User().obs;
   @override
   void onInit() {
     getMatchings();
@@ -18,6 +18,8 @@ class SearchController extends GetxController {
   void getMatchings() {
     _matchingService.matchings().then((value) {
       currentMatch.value = value;
+      visibleUser.value = value.first;
+      visibleUser.refresh();
       currentMatch.refresh();
     }).catchError((e) {
       print(e);
@@ -25,6 +27,8 @@ class SearchController extends GetxController {
   }
 
   void swipe(int index, AppinioSwiperDirection direction) {
+    visibleUser.value = currentMatch[index];
+    visibleUser.refresh();
     if (currentMatch.length - 3 == index) {
       _matchingService.matchings().then((value) {
         currentMatch.addAll(value);
@@ -35,13 +39,18 @@ class SearchController extends GetxController {
     }
   }
 
-  onLike(User currentMatch) {}
+  onLike(User currentMatch) {
+
+  }
 
   onSwipBack(User currentMatch) {
+    visibleUser.value = currentMatch;
     swiperController.unswipe();
   }
 
   onCancel(User currentMatch) {
+    visibleUser.value = currentMatch;
+
     swiperController.swipeLeft();
   }
 }

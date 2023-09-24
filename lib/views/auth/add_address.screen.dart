@@ -5,8 +5,8 @@ import 'package:twins/controllers/register.controller.dart';
 import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/colors.dart';
 
-class AddEmailScreen extends GetView<RegisterController> {
-  AddEmailScreen({super.key});
+class AddAddressScreen extends GetView<RegisterController> {
+  AddAddressScreen({super.key});
 
   final _form = GlobalKey<FormState>();
   @override
@@ -35,7 +35,7 @@ class AddEmailScreen extends GetView<RegisterController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
-                    "Ajouter une adresse e-mail",
+                    "Ajouter votre adresse",
                     style: TextStyle(
                         color: MAIN_COLOR,
                         fontSize: 30,
@@ -47,7 +47,7 @@ class AddEmailScreen extends GetView<RegisterController> {
                     height: 20,
                   ),
                   const Text(
-                    "Votre adresse e-mail sera utilisée à des fins de sécurité, comme vous aider à récupérer l'accès à votre compte si vous oubliez un jour votre mot de passe.",
+                    "Pour truover des personnes dans votre localité, veuillez ajouter votre adresse.",
                     style: TextStyle(
                         color: DARK_COLOR,
                         fontSize: 16,
@@ -61,26 +61,16 @@ class AddEmailScreen extends GetView<RegisterController> {
                   Form(
                     key: _form,
                     child: TextFormField(
-                      controller: controller.emailCtrl,
-                      keyboardType: TextInputType.emailAddress,
+                      controller: controller.addressCtrl,
+                      keyboardType: TextInputType.text,
                       cursorColor: DARK_COLOR,
-                      validator: (value) {
-                        if (value == null) {
-                          return "Votre email est obligatoire.";
-                        }
-
-                        if (!value.isEmail) {
-                          return "Adresse email invalide.";
-                        }
-                        return null;
-                      },
                       style: GoogleFonts.poppins(
                           textStyle: const TextStyle(fontSize: 16),
                           color: DARK_COLOR),
                       decoration: const InputDecoration(
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-                        hintText: "Adresse email",
+                        hintText: "Adresse",
                         hintStyle:
                             TextStyle(color: DARK_COLOR, fontFamily: "Poppins"),
                         fillColor: Colors.white,
@@ -110,9 +100,7 @@ class AddEmailScreen extends GetView<RegisterController> {
                       backgroundColor: MAIN_COLOR,
                       foregroundColor: Colors.white),
                   onPressed: () {
-                    if (_form.currentState!.validate()) {
-                      Get.toNamed(Goo.addAddressScreen);
-                    }
+                      Get.toNamed(Goo.addPasswordScreen);
                   },
                   child: const Text("Suivant"),
                 ),

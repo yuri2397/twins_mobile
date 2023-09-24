@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:twins/core/config/env.dart';
 import 'package:twins/core/http/http_client.dart';
+import 'package:twins/core/services/chat.service.dart';
+import 'package:twins/core/services/chat_request.service.dart';
 import 'package:twins/core/services/matching.service.dart';
 import 'package:twins/routes/route.dart';
 import 'package:twins/routes/router.dart';
@@ -43,5 +45,7 @@ _initServices() async {
   await Get.putAsync(() => LocalStorageService().init());
   Get.lazyPut(() => HttpClient());
   Get.lazyPut(() => MatchingService());
+  Get.lazyPut(() => ChatService());
+  Get.lazyPut(() => ChatRequestService());
   Get.lazyPut(() => ProfileService(), fenix: true);
 }

@@ -10,6 +10,7 @@ import 'package:twins/resolvers/onboarding.binding.dart';
 import 'package:twins/resolvers/register.binding.dart';
 import 'package:twins/routes/router.dart';
 import 'package:twins/views/auth/active_account.screen.dart';
+import 'package:twins/views/auth/add_address.screen.dart';
 import 'package:twins/views/auth/add_avatar.screen.dart';
 import 'package:twins/views/auth/add_bio.screen.dart';
 import 'package:twins/views/auth/add_birthday.screen.dart';
@@ -53,10 +54,11 @@ dynamic ROUTER_OUTLET = [
   GetPage(name: Goo.addSigneScreen, page: () => AddSigneScreen()),
   GetPage(name: Goo.addBioScreen, page: () => AddBioScreen()),
   GetPage(name: Goo.addAvatarScreen, page: () => AddAvatarScreen()),
+  GetPage(name: Goo.addAddressScreen, page: () => AddAddressScreen()),
   GetPage(
       name: Goo.activeAccountScreen,
       binding: ActiveAccountBinding(),
-      page: () => ActiveAccountScreen()),
+      page: () => const ActiveAccountScreen()),
 
   /// HOME MODULES
   GetPage(

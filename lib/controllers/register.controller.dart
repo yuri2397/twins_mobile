@@ -10,6 +10,7 @@ import 'package:twins/routes/router.dart';
 class RegisterController extends GetxController {
   final nameCtrl = TextEditingController();
   final emailCtrl = TextEditingController();
+  final addressCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
   final bioCtrl = TextEditingController();
   final bd1Ctrl = TextEditingController();
@@ -45,7 +46,8 @@ class RegisterController extends GetxController {
       "password": passwordCtrl.text,
       "password_confirmation": passwordCtrl.text,
       "phone_number": "778123456",
-      "device_name": await deviceName
+      "address": addressCtrl.text,
+      "device_name": await deviceName,
     };
     _registerService
         .register(data: data, avatar: avatarFile.value)

@@ -57,3 +57,13 @@ itemIcon(IconData icon) {
     ),
   );
 }
+
+
+Widget hr(){
+  return Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.all(20),
+    height: 8,
+    width: Get.width * .2,
+    decoration:  BoxDecoration ( color: NEUTRAL_COLOR, borderRadius: BorderRadius.circular(20)),);
+}
