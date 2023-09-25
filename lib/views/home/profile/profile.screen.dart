@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:twins/components/choose_files.widget.dart';
 import 'package:twins/components/ui.dart';
 import 'package:twins/controllers/home.controller.dart';
 import 'package:twins/controllers/profile.controller.dart';
@@ -17,19 +21,50 @@ class ProfileScreen extends GetView<ProfileController> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          child: Obx(() => Column(
+          child: Obx(
+            () => Column(
               children: [
                 SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: Row(
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: Image.network(
-                            (controller.user.value?.profilePhoto != null && controller.user.value?.profilePhoto != "") ? controller.user.value!.profilePhoto! : "https://img.freepik.com/photos-gratuite/jeune-femme-chien-sans-abri-au-parc-photo-haute-qualite_144627-75703.jpg?w=740&t=st=1694874615~exp=1694875215~hmac=eb6804b67c1fc7b677babff8be1caaee8f4b47db541f6cfeb548f472371d555d",
-                            height: 90,
-                          ),
+                        Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Image.network(
+                                (controller.user.value?.profilePhoto != null &&
+                                        controller.user.value?.profilePhoto !=
+                                            "")
+                                    ? controller.user.value!.profilePhoto!
+                                    : "https://img.freepik.com/photos-gratuite/jeune-femme-chien-sans-abri-au-parc-photo-haute-qualite_144627-75703.jpg?w=740&t=st=1694874615~exp=1694875215~hmac=eb6804b67c1fc7b677babff8be1caaee8f4b47db541f6cfeb548f472371d555d",
+                                fit: BoxFit.cover,
+                                height: 100,
+                                width: 100,
+                              ),
+                            ),
+                            Positioned(
+                                bottom: -3,
+                                right: -3,
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    XFile? file = await takeImage();
+                                    if (file != null && file.path.isNotEmpty) {
+                                      _previewChoosedImage(file);
+                                    }
+                                  },
+                                  child: const CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      child: Icon(
+                                        Icons.add_a_photo,
+                                        color: MAIN_COLOR,
+                                      )),
+                                ))
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 16,
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -41,7 +76,8 @@ class ProfileScreen extends GetView<ProfileController> {
                                 Text(
                                   "${controller.user.value?.fullName}",
                                   style: GoogleFonts.poppins(
-                                      fontSize: 20, fontWeight: FontWeight.bold),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(
                                   width: 40,
@@ -59,7 +95,8 @@ class ProfileScreen extends GetView<ProfileController> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 10, vertical: 2),
                                     shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(30))),
+                                        borderRadius:
+                                            BorderRadius.circular(30))),
                                 onPressed: () =>
                                     Get.toNamed(Goo.detailsProfileScreen),
                                 icon: const Icon(
@@ -84,7 +121,8 @@ class ProfileScreen extends GetView<ProfileController> {
                         color: Colors.black.withOpacity(0.2),
                         spreadRadius: 1,
                         blurRadius: 20,
-                        offset: const Offset(2, 3), // changes position of shadow
+                        offset:
+                            const Offset(2, 3), // changes position of shadow
                       ),
                     ],
                     borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -117,7 +155,8 @@ class ProfileScreen extends GetView<ProfileController> {
                         ),
                         leading: itemIcon(CupertinoIcons.location_fill),
                         trailing: Switch(
-                          onChanged: (value) => controller.settingStatus.value = value,
+                          onChanged: (value) =>
+                              controller.settingStatus.value = value,
                           value: controller.settingStatus.value,
                           activeColor: MAIN_COLOR,
                         ),
@@ -194,5 +233,85 @@ class ProfileScreen extends GetView<ProfileController> {
             ),
           ),
         ));
+  }
+
+  _previewChoosedImage(XFile file) {
+    var loader = false.obs;
+    Get.bottomSheet(
+        Obx(
+          () => Container(
+            padding: const EdgeInsets.all(20),
+            margin: const EdgeInsets.all(20),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: SizedBox(
+                    width: Get.height * .5,
+                    child: Image.file(
+                      File(file.path),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton.icon(
+                      icon: const Icon(Icons.check_circle),
+                      onPressed: () async {
+                        loader.value = true;
+                        loader.refresh();
+                        await controller.updateProfilePhoto(file);
+                        loader.value = false;
+                        loader.refresh();
+                        Get.back();
+                      },
+                      style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor: MAIN_COLOR,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)))),
+                      label: loader.value
+                          ? const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 3,
+                              ),
+                            )
+                          : const Text("Valider"),
+                    ).marginOnly(right: 10),
+                    ElevatedButton.icon(
+                      icon: const Icon(Icons.delete_outline),
+                      onPressed: () {
+                        Get.back();
+                      },
+                      style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor: Colors.pink,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)))),
+                      label: const Text("Annuler"),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+        isScrollControlled: true,
+        isDismissible: false);
   }
 }

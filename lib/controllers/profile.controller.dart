@@ -14,6 +14,7 @@ class ProfileController extends GetxController {
   final settingStatus = false.obs;
   final logoutLoad = false.obs;
   final addPhotoLoad = false.obs;
+  final updateLoad = false.obs;
 
   final settings = localStorage.getSettings().obs;
   final updateSettingsLoad = false.obs;
@@ -56,6 +57,18 @@ class ProfileController extends GetxController {
     profile();
     photos();
   }
+  
+  Future<void> updateProfilePhoto(XFile file) async{
+    await _profileService.updateProfilePhoto(file).then((value){
+      user.value = value;
+      user.refresh();
+      localStorage.user = value;
+      settingStatus.value = true;
+    }).catchError((e){
+      print("$e");
+      errorMessage(title: "DEBUG", content: "$e");
+    });
+  }
 
   Future<void> profile() async {
     _profileService.profile().then((value) {
@@ -66,7 +79,18 @@ class ProfileController extends GetxController {
     });
   }
 
-  void save() {}
+  void save() {
+    updateLoad.value = true;
+
+    _profileService.profileUpdate(data: user.toJson()).then((value){
+      user.value = value;
+      user.refresh();
+      updateLoad.value = false;
+    }).catchError((e){
+      updateLoad.value = false;
+      errorMessage(title: "Oups !", content: "$e");
+    });
+  }
 
   updateSettings() async {
     updateSettingsLoad.value = true;

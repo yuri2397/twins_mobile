@@ -20,6 +20,17 @@ class ProfileService extends GetxService {
     }
   }
 
+  Future<User> profileUpdate({required Map<String, dynamic> data }) async {
+    try {
+      var response = await repo.profileUpdate(data);
+      localStorage.user = response;
+      localStorage.settings = response.settings;
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<User> updateSettings(Setting settings) async {
     try {
       var response = await repo.updateSettings(settings);
@@ -41,6 +52,14 @@ class ProfileService extends GetxService {
   Future<void> resendLink() async {
     try {
       return await repo.resendLink();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<User> updateProfilePhoto(XFile file) async {
+    try {
+      return await repo.updatePhotoProfile(file);
     } catch (e) {
       rethrow;
     }

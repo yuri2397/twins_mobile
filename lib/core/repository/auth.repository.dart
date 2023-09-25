@@ -50,7 +50,21 @@ class AuthRepository {
         return User.fromJson(response.data);
       } else {
         Get.log(response.data);
-        throw "Impossible récuperer le profile.";
+        throw "Impossible récuperer votre profil.";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<User> profileUpdate(Map<String, dynamic> data) async {
+    try {
+      var response = await _client.post("/profile", data: data);
+      if (response.statusCode! <= 200 && response.statusCode! < 300) {
+        return User.fromJson(response.data);
+      } else {
+        Get.log(response.data);
+        throw "Impossible de modifier vos informations.";
       }
     } catch (e) {
       rethrow;
@@ -108,7 +122,15 @@ class AuthRepository {
 
   Future<User> updatePhotoProfile(XFile file) async {
     try {
-      var response = await _client.post("/profile-photo", data: {});
+      var response = await _client.post("/profile-photo",
+          data: dio.FormData.fromMap({
+            'profile_photo':
+                await dio.MultipartFile.fromFile(file.path, filename: file.name)
+          }),
+          options: dio.Options(contentType: 'multipart/form-data', headers: {
+            'Authorization': 'Bearer ${localStorage.getToken()?.accessToken}'
+          }));
+
       if (response.statusCode! >= 200 && response.statusCode! <= 300) {
         return User.fromJson(response.data);
       } else {

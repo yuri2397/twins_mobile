@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:twins/controllers/profile.controller.dart';
@@ -7,6 +6,8 @@ import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/colors.dart';
 
 class DetailProfileScreen extends GetView<ProfileController> {
+  const DetailProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,7 +148,7 @@ class DetailProfileScreen extends GetView<ProfileController> {
             ),
             Positioned(
               top: Get.height * .05,
-              left: Get.width * .5 - 50,
+              left: Get.width * .5 - 55,
               child: Stack(
                 children: [
                   Container(
@@ -168,9 +169,10 @@ class DetailProfileScreen extends GetView<ProfileController> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: Image.network(
-                        controller.user.value?.profilePhoto ??
-                            "https://images.placeholders.dev/?width=800&height=800&text=Twins&bgColor=%23f7f6f6&textColor=%236d6e71",
+                        (controller.user.value?.profilePhoto != null && controller.user.value?.profilePhoto != "") ? controller.user.value!.profilePhoto! : "https://img.freepik.com/photos-gratuite/jeune-femme-chien-sans-abri-au-parc-photo-haute-qualite_144627-75703.jpg?w=740&t=st=1694874615~exp=1694875215~hmac=eb6804b67c1fc7b677babff8be1caaee8f4b47db541f6cfeb548f472371d555d",
+                        fit: BoxFit.cover,
                         height: 100,
+                        width: 100,
                       ),
                     ),
                   ),

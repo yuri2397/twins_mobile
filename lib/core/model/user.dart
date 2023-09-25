@@ -20,6 +20,7 @@ class User {
   String? bio;
   Setting? settings;
   String? profilePhoto;
+  String? address;
 
   User(
       {this.id,
@@ -31,6 +32,7 @@ class User {
       this.lng,
       this.phoneNumber,
       this.birthDate,
+        this.address,
       this.age,
       this.bio,
       this.settings,
@@ -41,7 +43,8 @@ class User {
         fullName: json["full_name"],
         email: json["email"],
         emailVerified: json["email_verified"],
-        gender: json["gender"],
+    gender: json["gender"],
+    address: json["address"],
         profilePhoto: json["profile_photo"],
         lat: double.tryParse(json["lat"] ?? '0xFF'),
         lng: double.tryParse(json["lng"] ?? '0xFF'),
