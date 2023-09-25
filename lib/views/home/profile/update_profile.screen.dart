@@ -68,7 +68,7 @@ class UpdateProfileScreen extends GetView<ProfileController> {
                     style: GoogleFonts.poppins(
                         textStyle: const TextStyle(fontSize: 16),
                         color: DARK_COLOR),
-                    decoration: _decoration("${controller.user?.fullName}")),
+                    decoration: _decoration("${controller.user.value?.fullName}")),
                 const SizedBox(
                   height: 20,
                 ),
@@ -93,7 +93,7 @@ class UpdateProfileScreen extends GetView<ProfileController> {
                         textStyle: const TextStyle(fontSize: 16),
                         color: DARK_COLOR),
                     decoration:
-                        _decoration(controller.user?.email ?? "Adresse mail")),
+                        _decoration(controller.user.value?.email ?? "Adresse mail")),
                 const SizedBox(
                   height: 20,
                 ),
@@ -117,7 +117,7 @@ class UpdateProfileScreen extends GetView<ProfileController> {
                     style: GoogleFonts.poppins(
                         textStyle: const TextStyle(fontSize: 16),
                         color: DARK_COLOR),
-                    decoration: _decoration("${controller.user?.phoneNumber}")),
+                    decoration: _decoration("${controller.user.value?.phoneNumber}")),
                 const SizedBox(
                   height: 20,
                 ),
@@ -134,7 +134,7 @@ class UpdateProfileScreen extends GetView<ProfileController> {
                         textStyle: const TextStyle(fontSize: 16),
                         color: DARK_COLOR),
                     decoration: _decoration(
-                        controller.user?.bio ?? "Ajouter votre bio...")),
+                        controller.user.value?.bio ?? "Ajouter votre bio...")),
                 const SizedBox(
                   height: 20,
                 ),
@@ -143,8 +143,8 @@ class UpdateProfileScreen extends GetView<ProfileController> {
                       color: MAIN_COLOR,
                     )).marginOnly(bottom: 8),
                 GenderWidget(
-                  gender: (controller.user?.gender ?? "male").obs,
-                  onChange: (value) => controller.user?.gender = value,
+                  gender: (controller.user.value?.gender ?? "male").obs,
+                  onChange: (value) => controller.user.value?.gender = value,
                 )
               ],
             ),

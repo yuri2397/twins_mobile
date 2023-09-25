@@ -27,7 +27,7 @@ class ProfileScreen extends GetView<ProfileController> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child: Image.network(
-                            controller.user?.profilePhoto ?? "https://img.freepik.com/free-photo/portrait-young-businesswoman-holding-eyeglasses-hand-against-gray-backdrop_23-2148029483.jpg?w=740&t=st=1694816532~exp=1694817132~hmac=09953c455aef36f7436fcf1aafa10fe5b3d4d69cd0f8ec2b82963603a6f5dddd",
+                            (controller.user.value?.profilePhoto != null && controller.user.value?.profilePhoto != "") ? controller.user.value!.profilePhoto! : "https://img.freepik.com/photos-gratuite/jeune-femme-chien-sans-abri-au-parc-photo-haute-qualite_144627-75703.jpg?w=740&t=st=1694874615~exp=1694875215~hmac=eb6804b67c1fc7b677babff8be1caaee8f4b47db541f6cfeb548f472371d555d",
                             height: 90,
                           ),
                         ),
@@ -39,7 +39,7 @@ class ProfileScreen extends GetView<ProfileController> {
                             Row(
                               children: [
                                 Text(
-                                  "${controller.user?.fullName}",
+                                  "${controller.user.value?.fullName}",
                                   style: GoogleFonts.poppins(
                                       fontSize: 20, fontWeight: FontWeight.bold),
                                 ),

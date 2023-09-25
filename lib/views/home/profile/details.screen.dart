@@ -47,7 +47,7 @@ class DetailProfileScreen extends GetView<ProfileController> {
                           fontSize: 18,
                         )),
                     trailing: Text(
-                      "${controller.user?.fullName}",
+                      "${controller.user.value?.fullName}",
                       style: const TextStyle(
                           color: DARK_COLOR,
                           fontFamily: "Poppins",
@@ -65,7 +65,7 @@ class DetailProfileScreen extends GetView<ProfileController> {
                           fontSize: 18,
                         )),
                     trailing: Text(
-                      "${controller.user?.email}",
+                      "${controller.user.value?.email}",
                       style: const TextStyle(
                           color: DARK_COLOR,
                           fontFamily: "Poppins",
@@ -83,7 +83,7 @@ class DetailProfileScreen extends GetView<ProfileController> {
                           fontSize: 18,
                         )),
                     trailing: Text(
-                      "${controller.user?.phoneNumber}",
+                      "${controller.user.value?.phoneNumber}",
                       style: const TextStyle(
                           color: DARK_COLOR,
                           fontFamily: "Poppins",
@@ -101,7 +101,7 @@ class DetailProfileScreen extends GetView<ProfileController> {
                           fontSize: 18,
                         )),
                     trailing: Text(
-                      controller.user?.gender == 'male'
+                      controller.user.value?.gender == 'male'
                           ? 'Masculin'
                           : 'Fénimin',
                       style: const TextStyle(
@@ -122,7 +122,7 @@ class DetailProfileScreen extends GetView<ProfileController> {
                         )),
                     trailing: Text(
                       DateFormat.yMMMd('fr')
-                          .format(controller.user?.birthDate ?? DateTime.now()),
+                          .format(controller.user.value?.birthDate ?? DateTime.now()),
                       style: const TextStyle(
                           color: DARK_COLOR,
                           fontFamily: "Poppins",
@@ -168,7 +168,7 @@ class DetailProfileScreen extends GetView<ProfileController> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: Image.network(
-                        controller.user?.profilePhoto ??
+                        controller.user.value?.profilePhoto ??
                             "https://images.placeholders.dev/?width=800&height=800&text=Twins&bgColor=%23f7f6f6&textColor=%236d6e71",
                         height: 100,
                       ),

@@ -10,7 +10,7 @@ import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/colors.dart';
 
 class ProfileController extends GetxController {
-  final user = localStorage.getUser();
+  final user = localStorage.getUser().obs;
   final settingStatus = false.obs;
   final logoutLoad = false.obs;
   final addPhotoLoad = false.obs;
