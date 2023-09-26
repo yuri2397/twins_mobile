@@ -7,7 +7,7 @@ User userFromJson(String str) => User.fromJson(json.decode(str));
 String userToJson(User data) => json.encode(data.toJson());
 
 class User {
-  int? id;
+  int id;
   String? fullName;
   String? email;
   bool? emailVerified;
@@ -23,8 +23,8 @@ class User {
   String? address;
 
   User(
-      {this.id,
-        this.fullName,
+      {required this.id,
+      this.fullName,
       this.email,
       this.emailVerified,
       this.gender,
@@ -32,7 +32,7 @@ class User {
       this.lng,
       this.phoneNumber,
       this.birthDate,
-        this.address,
+      this.address,
       this.age,
       this.bio,
       this.settings,
@@ -43,8 +43,8 @@ class User {
         fullName: json["full_name"],
         email: json["email"],
         emailVerified: json["email_verified"],
-    gender: json["gender"],
-    address: json["address"],
+        gender: json["gender"],
+        address: json["address"],
         profilePhoto: json["profile_photo"],
         lat: double.tryParse(json["lat"] ?? '0xFF'),
         lng: double.tryParse(json["lng"] ?? '0xFF'),
@@ -60,7 +60,7 @@ class User {
       );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
+        "id": id,
         "full_name": fullName,
         "email": email,
         "email_verified": emailVerified,
@@ -74,4 +74,9 @@ class User {
         "bio": bio,
         "settings": settings?.toJson(),
       };
+
+  Map<String, dynamic> toJsonForMessage() => {
+    "id": id.toString(),
+    "imageUrl": profilePhoto
+  };
 }

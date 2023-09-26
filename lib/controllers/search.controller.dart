@@ -2,13 +2,16 @@ import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:appinio_swiper/controllers.dart';
 import 'package:get/get.dart';
 import 'package:twins/core/model/user.dart';
+import 'package:twins/core/services/chat_request.service.dart';
 import 'package:twins/core/services/matching.service.dart';
 
 class SearchController extends GetxController {
   final _matchingService = Get.find<MatchingService>();
   final AppinioSwiperController swiperController = AppinioSwiperController();
   final currentMatch = <User>[].obs;
-  final visibleUser = User().obs;
+  final visibleUser = User(id:0).obs;
+  final _chatRequestService = Get.find<ChatRequestService>();
+
   @override
   void onInit() {
     getMatchings();
@@ -40,7 +43,11 @@ class SearchController extends GetxController {
   }
 
   onLike(User currentMatch) {
-
+    _chatRequestService.sendRequestChat(toUser: currentMatch).then((value)  {
+      print("LIKE SUCCESS");
+    }).catchError((e){
+      print("$e");
+    });
   }
 
   onSwipBack(User currentMatch) {

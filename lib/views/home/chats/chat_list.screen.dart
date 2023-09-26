@@ -1,28 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:twins/controllers/chat.controller.dart';
+import 'package:twins/core/model/chat.dart';
+import 'package:twins/core/utils/utils.dart';
 import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/colors.dart';
 
 class ChatListScreen extends GetView<ChatController> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          title: Text("Chats"),
-          actions: [
-            GestureDetector(
-              child: Icon(Icons.search),
-            ).marginOnly(right: 10)
-          ],
-        ),
-        body: ListView.builder(
-            itemBuilder: (_, index) => _buildChatItem(index), itemCount: 10));
+    return Obx(()=> Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            title: const Text("Chats"),
+            actions: [
+              GestureDetector(
+                child: const Icon(Icons.search),
+              ).marginOnly(right: 10)
+            ],
+          ),
+          body:controller.chatsLoad.value ? const Center( child: CircularProgressIndicator(color: MAIN_COLOR),) :
+          controller.chats.isEmpty ?
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                SvgPicture.asset(
+                  "assets/images/notifications.svg",
+                  width: 300,
+                ),
+                const Text(
+                  "Aucune notification",
+                  style: TextStyle(
+                      color: DARK_COLOR,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.center,
+                ).marginSymmetric(horizontal: 20)
+              ],
+            ),
+          )
+              :
+          ListView.builder(
+              itemBuilder: (_, index) => _buildChatItem(controller.chats[index]), itemCount: controller.chats.length)),
+    );
   }
 
-  _buildChatItem(int index) {
+  _buildChatItem(Chat chat) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
@@ -37,7 +66,7 @@ class ChatListScreen extends GetView<ChatController> {
         borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       child: ListTile(
-        onTap: () => Get.toNamed(Goo.chatScreen),
+        onTap: () => controller.detailsChat(chat),
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(100),
           child: Image.network(
@@ -45,9 +74,9 @@ class ChatListScreen extends GetView<ChatController> {
             height: 90,
           ),
         ),
-        title: Text("Mor Diaw"),
-        subtitle: Text("Bonjour, comment tu ..."),
-        trailing: Text("10:09"),
+        title: Text(chat.participants!.firstWhere((e) => e.id.toString() != currentUserId).fullName!),
+        subtitle: Text(chat.messages!.isEmpty ? "Envoyer le premier message..." : "${chat.messages!.last.message}"),
+        trailing: Text(DateFormat.Hm().format(chat.createdAt!)),
       ),
     ).marginSymmetric(horizontal: 10, vertical: 5);
   }

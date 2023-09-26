@@ -22,36 +22,50 @@ class ChatRequestScreen extends GetView<ChatRequestController> {
                 child: CircularProgressIndicator(color: MAIN_COLOR),
               )
             : RefreshIndicator(
-          onRefresh: () => Future.sync(() async => controller.sentChatRequest()),
-              color: MAIN_COLOR,
-              child:
-              controller.items.isEmpty ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    SvgPicture.asset("assets/images/notifications.svg", width: 300,),
-                    const Text("Aucune notification", style: TextStyle(color: DARK_COLOR, fontSize: 18, fontWeight: FontWeight.w500) , textAlign: TextAlign.center,).marginSymmetric(horizontal: 20)
-                  ],
-                ),
-              ) :
-              GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisExtent: 290,
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 10,
-                  ),
-                  itemCount: controller.items.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      _buildItem(controller.items[index])).marginAll(20),
-            )));
+                onRefresh: () =>
+                    Future.sync(() async => controller.receivedRequestChats()),
+                color: MAIN_COLOR,
+                child: controller.items.isEmpty
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            SvgPicture.asset(
+                              "assets/images/notifications.svg",
+                              width: 300,
+                            ),
+                            const Text(
+                              "Aucune notification",
+                              style: TextStyle(
+                                  color: DARK_COLOR,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500),
+                              textAlign: TextAlign.center,
+                            ).marginSymmetric(horizontal: 20)
+                          ],
+                        ),
+                      )
+                    : GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisExtent: 290,
+                          mainAxisSpacing: 8,
+                          crossAxisSpacing: 10,
+                        ),
+                        itemCount: controller.items.length,
+                        itemBuilder: (BuildContext context, int index) =>
+                            _buildItem(controller.items[index])).marginAll(20),
+              )));
   }
 
   Widget _buildItem(ChatRequest request) {
-    return Container(
-      height: 300,
+    var acceptLoading = false.obs;
+    var rejectLoading = false.obs;
+    return Obx(()=> Container(
+        height: 300,
         width: Get.width,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -65,40 +79,83 @@ class ChatRequestScreen extends GetView<ChatRequestController> {
           ],
           borderRadius: BorderRadius.circular(20),
         ),
-        child: Stack(
-          fit: StackFit.expand,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ClipRRect(
-                    borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(20)),
-                    child: SizedBox(
-                      height: 190,
-                      width: Get.width,
-                      child: Image.network(
-                          "https://img.freepik.com/free-photo/portrait-young-businesswoman-holding-eyeglasses-hand-against-gray-backdrop_23-2148029483.jpg?w=740&t=st=1695565814~exp=1695566414~hmac=586f96c0ddffa502148f29cc2c29f896fbdea68863e1b18ff06b44a2f8923713",
-                          fit: BoxFit.cover),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text("${request.userInvited?.fullName} ", textAlign: TextAlign.center, maxLines: 2,).marginAll(5),
-                  Text("Âge ${request.userInvited?.age} ans", style: TextStyle(color: Colors.black.withOpacity(0.5)))
-                ],
-            ),
-            Positioned(
-              bottom: 90,
-              right: 10,
-              child: GestureDetector(
-                onTap: (){},
-                child:
-                itemIcon(CupertinoIcons.heart_circle_fill)
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+              child: SizedBox(
+                height: 140,
+                width: Get.width,
+                child: Image.network(
+                    (request.userFrom?.profilePhoto != null &&
+                        request.userFrom?.profilePhoto !=
+                            "")
+                        ? request.userFrom!.profilePhoto!
+                        : "https://img.freepik.com/photos-gratuite/jeune-femme-chien-sans-abri-au-parc-photo-haute-qualite_144627-75703.jpg?w=740&t=st=1694874615~exp=1694875215~hmac=eb6804b67c1fc7b677babff8be1caaee8f4b47db541f6cfeb548f472371d555d",
+                    fit: BoxFit.fitWidth),
               ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              "${request.userFrom?.fullName} ",
+              textAlign: TextAlign.center,
+              maxLines: 2,
+            ).marginAll(5),
+            Text("Âge ${request.userFrom?.age} ans",
+                style: TextStyle(color: Colors.black.withOpacity(0.5))),
+            const Divider(
+              height: 2,
+              color: NEUTRAL_COLOR,
+            ).marginSymmetric(vertical: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                    onTap: () async {
+                      rejectLoading.value = true;
+                      rejectLoading.refresh();
+                      await controller.cancelChatRequest(request);
+                      rejectLoading.value = false;
+                      rejectLoading.refresh();
+
+                    },
+                    child: rejectLoading.value
+                        ? const SizedBox(
+                            width: 18,
+                            height: 18,
+                            child: CircularProgressIndicator(
+                              color: Colors.redAccent,
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : itemIcon(CupertinoIcons.clear_thick_circled,
+                            color: Colors.redAccent)),
+                GestureDetector(
+                    onTap: () async {
+                      acceptLoading.value = true;
+                      acceptLoading.refresh();
+                      await controller.acceptChatRequest(request);
+                      acceptLoading.value = false;
+                      acceptLoading.refresh();
+                    },
+                    child: acceptLoading.value
+                        ? const SizedBox(
+                            width: 18,
+                            height: 18,
+                            child: CircularProgressIndicator(
+                              color: MAIN_COLOR,
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : itemIcon(CupertinoIcons.checkmark_circle_fill)),
+              ],
             )
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

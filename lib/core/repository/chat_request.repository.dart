@@ -8,7 +8,7 @@ class ChatRequestRepository {
 
   Future<String> sendRequestChat({required User toUser}) async {
     try {
-      var response = await _client.post("/discussion-requests/sent/${toUser.id}", data: {});
+      var response = await _client.post("/discussion-requests/send/${toUser.id}", data: {});
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return response.data['success'];
       } else {
@@ -78,6 +78,9 @@ class ChatRequestRepository {
     try {
       var response = await _client.get("/discussion-requests/received");
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        if( response.data is Map ) {
+          return [];
+        }
         return  List<ChatRequest>.from(response.data.map((e) => ChatRequest.fromJson(e))).toList();
       } else {
         throw response.statusMessage ?? "Oups, une erreur s'est produite." ;

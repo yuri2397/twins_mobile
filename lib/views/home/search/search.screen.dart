@@ -99,7 +99,7 @@ class SearchScreen extends GetView<sc.SearchController> {
             const SizedBox( width: 10,),
             const Text(
               "Dakar • 24km",
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400, color: Colors.grey),
+              style:  TextStyle(fontSize: 20, fontWeight: FontWeight.w400, color: Colors.grey),
             )
           ],
         ).marginOnly(bottom: 10, left: 20),
@@ -116,19 +116,19 @@ class SearchScreen extends GetView<sc.SearchController> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 scrollDirection: Axis.horizontal,
                 children: [
-                  _detailUserPhotoItem(
+                  detailUserPhotoItem(
                     "https://img.freepik.com/free-photo/portrait-young-businesswoman-holding-eyeglasses-hand-against-gray-backdrop_23-2148029483.jpg?w=740&t=st=1695565814~exp=1695566414~hmac=586f96c0ddffa502148f29cc2c29f896fbdea68863e1b18ff06b44a2f8923713",
                   ),
-                  _detailUserPhotoItem(
+                  detailUserPhotoItem(
                     "https://img.freepik.com/free-photo/portrait-young-businesswoman-holding-eyeglasses-hand-against-gray-backdrop_23-2148029483.jpg?w=740&t=st=1695565814~exp=1695566414~hmac=586f96c0ddffa502148f29cc2c29f896fbdea68863e1b18ff06b44a2f8923713",
                   ),
-                  _detailUserPhotoItem(
+                  detailUserPhotoItem(
                     "https://img.freepik.com/free-photo/portrait-young-businesswoman-holding-eyeglasses-hand-against-gray-backdrop_23-2148029483.jpg?w=740&t=st=1695565814~exp=1695566414~hmac=586f96c0ddffa502148f29cc2c29f896fbdea68863e1b18ff06b44a2f8923713",
                   ),
-                  _detailUserPhotoItem(
+                  detailUserPhotoItem(
                     "https://img.freepik.com/free-photo/portrait-young-businesswoman-holding-eyeglasses-hand-against-gray-backdrop_23-2148029483.jpg?w=740&t=st=1695565814~exp=1695566414~hmac=586f96c0ddffa502148f29cc2c29f896fbdea68863e1b18ff06b44a2f8923713",
                   ),
-                  _detailUserPhotoItem(
+                  detailUserPhotoItem(
                     "https://img.freepik.com/free-photo/portrait-young-businesswoman-holding-eyeglasses-hand-against-gray-backdrop_23-2148029483.jpg?w=740&t=st=1695565814~exp=1695566414~hmac=586f96c0ddffa502148f29cc2c29f896fbdea68863e1b18ff06b44a2f8923713",
                   )
                 ],
@@ -195,29 +195,4 @@ class SearchScreen extends GetView<sc.SearchController> {
     ));
   }
 
-  Widget _detailUserPhotoItem(String url) {
-    return Container(
-      height: 100,
-      width: 120,
-      margin: const EdgeInsets.all(6),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: const [
-          BoxShadow(
-            color: NEUTRAL_COLOR,
-            spreadRadius: .1,
-            blurRadius: 1,
-            offset: Offset(2, 2), // changes position of shadow
-          ),
-        ],
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Image.network(
-            url,
-            fit: BoxFit.cover,
-          )),
-    );
-  }
 }

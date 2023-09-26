@@ -19,6 +19,11 @@ void logout() {
   localStorage.clear();
 }
 
+String get currentUserId {
+  Get.log("${localStorage.getUser()?.id}");
+  return "${localStorage.getUser()?.id}";
+}
+
 Future<XFile> getImageXFileByUrl(String url) async {
   var file = await DefaultCacheManager().getSingleFile(url);
   XFile result =  XFile(file.path);
