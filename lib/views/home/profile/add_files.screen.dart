@@ -38,6 +38,7 @@ class AddFilesScreen extends GetView<ProfileController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
+                    flex: 2,
                       child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,23 +78,26 @@ class AddFilesScreen extends GetView<ProfileController> {
                       )
                     ],
                   )),
-                  SizedBox(
-                    width: Get.width,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          backgroundColor: MAIN_COLOR,
-                          foregroundColor: Colors.white),
-                      onPressed: () => controller.addPhotos(),
-                      child: controller.addPhotoLoad.value
-                          ? const SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: CircularProgressIndicator(
-                                  color: Colors.white))
-                          : const Text("Enrégistrer"),
+                  Flexible(
+                    flex: 1,
+                    child: SizedBox(
+                      width: Get.width,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            backgroundColor: MAIN_COLOR,
+                            foregroundColor: Colors.white),
+                        onPressed: () => controller.addPhotos(),
+                        child: controller.addPhotoLoad.value
+                            ? const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                    color: Colors.white))
+                            : const Text("Enrégistrer"),
+                      ),
                     ),
                   )
                 ],

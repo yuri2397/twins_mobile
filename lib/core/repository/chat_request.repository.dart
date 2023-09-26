@@ -62,7 +62,7 @@ class ChatRequestRepository {
     try {
       var response = await _client.get("/discussion-requests/sent");
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        if( response.data['success']){
+        if( response.data is Map ) {
           return [];
         }
         return  List<ChatRequest>.from(response.data.map((e) => ChatRequest.fromJson(e))).toList();
