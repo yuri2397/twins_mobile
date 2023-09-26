@@ -171,6 +171,9 @@ class AuthRepository {
     try {
       var response = await _client.get("/photos");
       if (response.statusCode! <= 200 && response.statusCode! < 300) {
+       if( response.data['success']){
+         return [];
+       }
         return List<UploadFile>.from(
             response.data.map((x) => UploadFile.fromJson(x)));
       } else {

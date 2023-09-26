@@ -11,84 +11,98 @@ import 'package:twins/controllers/register.controller.dart';
 import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/colors.dart';
 
-class AddFielsScreen extends GetView<ProfileController> {
-  const AddFielsScreen({super.key});
+class AddFilesScreen extends GetView<ProfileController> {
+  const AddFilesScreen({super.key});
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          leading: GestureDetector(
-            onTap: () => Get.back(),
-            child: const Icon(Icons.arrow_back_ios, color: DARK_COLOR),
+      appBar: AppBar(
+        elevation: 0,
+        leading: GestureDetector(
+          onTap: () => Get.back(),
+          child: const Icon(Icons.arrow_back_ios, color: DARK_COLOR),
+        ),
+      ),
+      body: Obx(
+        () => RefreshIndicator(
+          color: MAIN_COLOR,
+          onRefresh: () => Future.sync(() async => controller.photos()),
+          child: SingleChildScrollView(
+            child: Container(
+              height: Get.height,
+              width: Get.width,
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Ajouter vos photos",
+                        style: TextStyle(
+                            color: MAIN_COLOR,
+                            fontSize: 30,
+                            fontFamily: "Poppins",
+                            fontWeight: FontWeight.w700),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        "Votre adresse e-mail sera utilisée à des fins de sécurité, comme vous aider à récupérer l'accès à votre compte si vous oubliez un jour votre mot de passe.",
+                        style: TextStyle(
+                            color: DARK_COLOR,
+                            fontSize: 16,
+                            fontFamily: "Poppins",
+                            fontWeight: FontWeight.w400),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      GridView.count(
+                        shrinkWrap: true,
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 8,
+                        children: controller.files
+                            .map((element) => _buildItem(element))
+                            .toList(),
+                      )
+                    ],
+                  )),
+                  SizedBox(
+                    width: Get.width,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          backgroundColor: MAIN_COLOR,
+                          foregroundColor: Colors.white),
+                      onPressed: () => controller.addPhotos(),
+                      child: controller.addPhotoLoad.value
+                          ? const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                  color: Colors.white))
+                          : const Text("Enrégistrer"),
+                    ),
+                  )
+                ],
+              ).paddingAll(20),
+            ),
           ),
         ),
-        body: Obx(
-          () => Container(
-            height: Get.height,
-            width: Get.width,
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "Ajouter vos photos",
-                      style: TextStyle(
-                          color: MAIN_COLOR,
-                          fontSize: 30,
-                          fontFamily: "Poppins",
-                          fontWeight: FontWeight.w700),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      "Votre adresse e-mail sera utilisée à des fins de sécurité, comme vous aider à récupérer l'accès à votre compte si vous oubliez un jour votre mot de passe.",
-                      style: TextStyle(
-                          color: DARK_COLOR,
-                          fontSize: 16,
-                          fontFamily: "Poppins",
-                          fontWeight: FontWeight.w400),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    GridView.count(
-                      shrinkWrap: true,
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 16,
-                      crossAxisSpacing: 8,
-                      children: controller.files
-                          .map((element) => _buildItem(element))
-                          .toList(),
-                    )
-                  ],
-                )),
-                SizedBox(
-                  width: Get.width,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        backgroundColor: MAIN_COLOR,
-                        foregroundColor: Colors.white),
-                    onPressed: () => controller.addPhotos(),
-                    child: controller.addPhotoLoad.value ? const SizedBox( width: 20, height: 20, child: CircularProgressIndicator(color:Colors.white)) : const Text("Enrégistrer"),
-                  ),
-                )
-              ],
-            ).paddingAll(20),
-          ),
-        ));
+      ),
+    );
   }
 
   Widget _buildItem(Rx<XFile> file) {
@@ -99,14 +113,20 @@ class AddFielsScreen extends GetView<ProfileController> {
             color: Colors.white),
         child: Stack(
           children: [
-            file.value.path.isNotEmpty ?
-               Positioned.fill(
-                  child: Image.file(
-                    File(file.value.path),
-                    fit: BoxFit.cover,
-                  ),
-
-              ) : Container( color: NEUTRAL_COLOR, child: Center(child: SvgPicture.asset("assets/images/preview.svg", width: 50, ))),
+            file.value.path.isNotEmpty
+                ? Positioned.fill(
+                    child: Image.file(
+                      File(file.value.path),
+                      fit: BoxFit.cover,
+                    ),
+                  )
+                : Container(
+                    color: NEUTRAL_COLOR,
+                    child: Center(
+                        child: SvgPicture.asset(
+                      "assets/images/preview.svg",
+                      width: 50,
+                    ))),
             Positioned(
               bottom: 5,
               right: 5,

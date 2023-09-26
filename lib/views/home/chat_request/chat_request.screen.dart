@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:twins/components/ui.dart';
 import 'package:twins/controllers/chat_request.controller.dart';
@@ -8,6 +8,8 @@ import 'package:twins/core/model/chat_request.dart';
 import 'package:twins/shared/utils/colors.dart';
 
 class ChatRequestScreen extends GetView<ChatRequestController> {
+  const ChatRequestScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
@@ -22,7 +24,19 @@ class ChatRequestScreen extends GetView<ChatRequestController> {
             : RefreshIndicator(
           onRefresh: () => Future.sync(() async => controller.sentChatRequest()),
               color: MAIN_COLOR,
-              child: GridView.builder(
+              child:
+              controller.items.isEmpty ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    SvgPicture.asset("assets/images/notifications.svg", width: 300,),
+                    const Text("Aucune notification", style: TextStyle(color: DARK_COLOR, fontSize: 18, fontWeight: FontWeight.w500) , textAlign: TextAlign.center,).marginSymmetric(horizontal: 20)
+                  ],
+                ),
+              ) :
+              GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisExtent: 290,

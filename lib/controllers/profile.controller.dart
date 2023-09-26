@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:twins/components/ui.dart';
-import 'package:twins/core/model/setting.dart';
 import 'package:twins/core/services/profile.service.dart';
 import 'package:twins/core/utils/utils.dart';
 import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/colors.dart';
 
 class ProfileController extends GetxController {
-  final user = localStorage.getUser().obs;
+  final user = localStorage
+      .getUser()
+      .obs;
   final settingStatus = false.obs;
   final logoutLoad = false.obs;
   final addPhotoLoad = false.obs;
   final updateLoad = false.obs;
-
-  final settings = localStorage.getSettings().obs;
+  final existingFiles = <XFile>[].obs;
+  final settings = localStorage
+      .getSettings()
+      .obs;
   final updateSettingsLoad = false.obs;
   final nameCrtl = TextEditingController();
   final emailCrtl = TextEditingController();
@@ -57,14 +59,14 @@ class ProfileController extends GetxController {
     profile();
     photos();
   }
-  
-  Future<void> updateProfilePhoto(XFile file) async{
-    await _profileService.updateProfilePhoto(file).then((value){
+
+  Future<void> updateProfilePhoto(XFile file) async {
+    await _profileService.updateProfilePhoto(file).then((value) {
       user.value = value;
       user.refresh();
       localStorage.user = value;
       settingStatus.value = true;
-    }).catchError((e){
+    }).catchError((e) {
       print("$e");
       errorMessage(title: "DEBUG", content: "$e");
     });
@@ -82,11 +84,11 @@ class ProfileController extends GetxController {
   void save() {
     updateLoad.value = true;
 
-    _profileService.profileUpdate(data: user.toJson()).then((value){
+    _profileService.profileUpdate(data: user.toJson()).then((value) {
       user.value = value;
       user.refresh();
       updateLoad.value = false;
-    }).catchError((e){
+    }).catchError((e) {
       updateLoad.value = false;
       errorMessage(title: "Oups !", content: "$e");
     });
@@ -103,25 +105,37 @@ class ProfileController extends GetxController {
 
   addPhotos() {
     addPhotoLoad.value = true;
+    var finalFiles =  files.map((e) => e.value).where((e) =>
+    (existingFiles
+        .firstWhere((p0) => p0.path == e.path, orElse: () => XFile("path"))
+        .path == "path")).where((e) => e.path.isNotEmpty).toList();
 
     _profileService
-        .addPhotos(
-            files.map((e) => e.value).where((e) => e.path.isNotEmpty).toList())
+        .addPhotos(finalFiles)
         .then((value) {
-      addPhotoLoad.value = false;
+    addPhotoLoad.value = false;
+    successMessage(title: "Félicitations", content: "Votre album photo est mise à jour.");
+    photos();
     }).catchError((e) {
-      addPhotoLoad.value = false;
+    addPhotoLoad.value = false;
     });
   }
 
-  photos() {
-    _profileService.getPhotos().then((value) async {
+  Future<void> photos() async{
+    await _profileService.getPhotos().then((value) async {
       int i = 0;
+      existingFiles.value = [];
       for (var e in value) {
-        files[i] = (await getImageXFileByUrl(e.url!)).obs;
+        var p = await getImageXFileByUrl(e.url!);
+        existingFiles.add(p);
+        files[i] = (p).obs;
         i++;
       }
     });
+  }
+
+  deletePhotos(XFile file) async{
+
   }
 
   logout() async {
