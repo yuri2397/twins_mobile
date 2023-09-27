@@ -47,7 +47,7 @@ class AddAddressScreen extends GetView<RegisterController> {
                     height: 20,
                   ),
                   const Text(
-                    "Pour truover des personnes dans votre localité, veuillez ajouter votre adresse.",
+                    "Pour trouver des personnes dans votre localité, veuillez ajouter votre adresse.",
                     style: TextStyle(
                         color: DARK_COLOR,
                         fontSize: 16,
@@ -100,7 +100,7 @@ class AddAddressScreen extends GetView<RegisterController> {
                       backgroundColor: MAIN_COLOR,
                       foregroundColor: Colors.white),
                   onPressed: () {
-                      Get.toNamed(Goo.addPasswordScreen);
+                    Get.toNamed(Goo.addPasswordScreen);
                   },
                   child: const Text("Suivant"),
                 ),

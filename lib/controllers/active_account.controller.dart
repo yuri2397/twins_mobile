@@ -19,7 +19,13 @@ class ActiveAccountController extends GetxController {
                   content:
                       "Un email vous a été envoyé avec le lien de validation.")
             })
-        .catchError((e) => resendLoad.value = false);
+        .catchError((e) {
+      resendLoad.value = false;
+
+      successMessage(
+          title: "Oups !",
+          content: "Une erreur s'est produite lors de l'envoie.");
+    });
   }
 
   refreshStatus() async {
@@ -37,6 +43,8 @@ class ActiveAccountController extends GetxController {
       activeAccountLoad.value = false;
     }).catchError((e) {
       activeAccountLoad.value = false;
+      errorMessage(
+          title: "Oups !!!", content: "Votre compte n'est toujours pas actif.");
     });
   }
 }

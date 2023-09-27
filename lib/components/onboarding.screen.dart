@@ -30,9 +30,9 @@ class OnboardingScreen extends GetView<OnboardingController> {
                                 fontSize: 28,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w800))),
-                    SvgPicture.asset(
-                      Env.appIcon,
-                      width: 80,
+                    Image.asset(
+                      Env.whiteLogo,
+                      width: 120,
                     )
                   ],
                 )),
@@ -43,13 +43,29 @@ class OnboardingScreen extends GetView<OnboardingController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text(
-                      "En appuyant sur “se connecter” ou “créer un compte”, vous acceptez nos conditions d'utilisation. Consultez notre politique de confidentialité et celle relative aux cookies pour en savoir plus sur le traitement de vos données.",
-                      style: TextStyle(
-                        color: Colors.white,
+                    RichText(
+                        text:
+                            const TextSpan(text: "En appuyant sur ", children: [
+                      TextSpan(
+                          text: "se connecter",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                          )),
+                      TextSpan(
+                        text: " ou ",
                       ),
-                      textAlign: TextAlign.center,
-                    ).marginOnly(bottom: 20),
+                      TextSpan(
+                          text: "créer un compter",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                          )),
+                      TextSpan(
+                        text:
+                            " , vous acceptez nos conditions d'utilisation. Consultez notre politique de confidentialité et celle relative aux cookies pour en savoir plus sur le traitement de vos données.",
+                      ),
+                    ])).marginOnly(bottom: 20),
                     SizedBox(
                       width: Get.width,
                       child: ElevatedButton(
