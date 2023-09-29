@@ -17,6 +17,7 @@ class RegisterController extends GetxController {
   final bd2Ctrl = TextEditingController();
   final bd3Ctrl = TextEditingController();
   final birthdayCtrl = TextEditingController();
+  final showFilesMessage = true.obs;
   final gender = 'male'.obs;
 
   final avatarFile = XFile("").obs;
@@ -27,6 +28,17 @@ class RegisterController extends GetxController {
 
   final _registerService = Get.find<RegisterService>();
 
+  final files = <Rx<XFile>>[
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+    XFile("").obs,
+  ];
   parseDate() {
     birthdayCtrl.text =
         "${bd3Ctrl.text.trim()}/${bd2Ctrl.text.trim()}/${bd1Ctrl.text.trim()}";
@@ -36,8 +48,14 @@ class RegisterController extends GetxController {
     Get.log(signe.value.description.toString());
   }
 
+
+
   save() async {
     loading.value = true;
+
+
+    var finalFiles =  files.map((e) => e.value).where((e) => e.path.isNotEmpty).toList();
+
     Map<String, String> data = {
       "full_name": nameCtrl.text.trim(),
       "gender": gender.value,
@@ -50,7 +68,7 @@ class RegisterController extends GetxController {
       "device_name": await deviceName,
     };
     _registerService
-        .register(data: data, avatar: avatarFile.value)
+        .register(data: data, avatar: avatarFile.value, files: finalFiles)
         .then((value) {
       loading.value = false;
       successMessage(

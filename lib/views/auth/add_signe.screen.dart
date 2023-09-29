@@ -69,7 +69,7 @@ class AddSigneScreen extends GetView<RegisterController> {
                           borderRadius: BorderRadius.circular(20)),
                       backgroundColor: MAIN_COLOR,
                       foregroundColor: Colors.white),
-                  onPressed: () => Get.toNamed(Goo.addBioScreen),
+                  onPressed: () => Get.toNamed(Goo.addFilesRegisterScreen),
                   child: const Text("Suivant"),
                 ),
               )

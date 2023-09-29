@@ -90,12 +90,12 @@ class AuthRepository {
   }
 
   Future<Token> register(
-      {required Map<String, dynamic> data, XFile? file}) async {
+      {required Map<String, dynamic> data, XFile? file, required List<XFile> files}) async {
     try {
       dio.FormData formData = dio.FormData.fromMap({
         ...data,
         'profile_photo':
-            await dio.MultipartFile.fromFile(file!.path, filename: file.name)
+            await dio.MultipartFile.fromFile(file!.path, filename: file.name),
       });
 
       var response = await _client.post('/register',

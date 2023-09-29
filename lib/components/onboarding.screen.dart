@@ -77,9 +77,10 @@ class OnboardingScreen extends GetView<OnboardingController> {
                           onPressed: () => Get.toNamed(Goo.loginScreen),
                           style: ElevatedButton.styleFrom(
                               elevation: 0,
-                              backgroundColor: DARK_COLOR,
+                              backgroundColor: MAIN_COLOR,
                               foregroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
+                                side: BorderSide(color: Colors.white, width: 1.5),
                                   borderRadius: BorderRadius.circular(20))),
                           child: const Text("Se connecter")),
                     ),
