@@ -12,7 +12,10 @@ class AddBirthDayScreen extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: NEUTRAL_COLOR,
         appBar: AppBar(
+          backgroundColor: NEUTRAL_COLOR,
+
           elevation: 0,
           leading: GestureDetector(
             onTap: () => Get.back(),
@@ -33,13 +36,16 @@ class AddBirthDayScreen extends GetView<RegisterController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Ajouter votre date de naissance.",
+                    "Ajouter votre date de naissance",
                     style: TextStyle(
-                        color: DARK_COLOR,
+                        color: MAIN_COLOR,
                         fontSize: 30,
                         fontFamily: "Poppins",
                         fontWeight: FontWeight.w700),
                     textAlign: TextAlign.start,
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   const SizedBox(
                     height: 20,
@@ -49,110 +55,113 @@ class AddBirthDayScreen extends GetView<RegisterController> {
                     child: SizedBox(
                       width: Get.width,
                       child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Flexible(
-                            child: TextFormField(
-                                controller: controller.bd1Ctrl,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp('[0-9.,]+'))
-                                ],
-                                validator: (value) {
-                                  if (value == null) {
-                                    return "Jours";
-                                  }
-                                  if (int.tryParse(value) == null) {
-                                    return "Jours";
-                                  }
-                                  if (int.tryParse(value)! < 1 ||
-                                      int.tryParse(value)! > 31) {
-                                    return "Jours";
-                                  }
-                                  if(value.length != 2){
-                                    return "Jours";
-                                  }
-                                  return null;
-                                },
-                                keyboardType: TextInputType.number,
-                                cursorColor: DARK_COLOR,
-                                style: GoogleFonts.poppins(
-                                    textStyle: const TextStyle(fontSize: 16),
-                                    color: DARK_COLOR),
-                                decoration: _decoration("JJ")),
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Flexible(
+                                child: TextFormField(
+                                    controller: controller.bd1Ctrl,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp('[0-9.,]+'))
+                                    ],
+                                    validator: (value) {
+                                      if (value == null) {
+                                        return "JJ";
+                                      }
+                                      if (int.tryParse(value) == null) {
+                                        return "JJ";
+                                      }
+                                      if (int.tryParse(value)! < 1 ||
+                                          int.tryParse(value)! > 31) {
+                                        return "JJ";
+                                      }
+                                      if (value.length != 2) {
+                                        return "JJ";
+                                      }
+                                      return null;
+                                    },
+                                    keyboardType: TextInputType.number,
+                                    cursorColor: DARK_COLOR,
+                                    style: GoogleFonts.poppins(
+                                        textStyle:
+                                            const TextStyle(fontSize: 16),
+                                        color: DARK_COLOR),
+                                    decoration: _decoration("JJ")),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              Flexible(
+                                child: TextFormField(
+                                    controller: controller.bd2Ctrl,
+                                    keyboardType: TextInputType.number,
+                                    cursorColor: DARK_COLOR,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp('[0-9.,]+'))
+                                    ],
+                                    validator: (value) {
+                                      if (value == null) {
+                                        return "MM";
+                                      }
+                                      if (int.tryParse(value) == null) {
+                                        return "MM";
+                                      }
+                                      if (int.tryParse(value)! < 1 ||
+                                          int.tryParse(value)! > 12) {
+                                        return "MM";
+                                      }
+                                      if (value.length != 2) {
+                                        return "MM";
+                                      }
+                                      return null;
+                                    },
+                                    style: GoogleFonts.poppins(
+                                        textStyle:
+                                            const TextStyle(fontSize: 16),
+                                        color: DARK_COLOR),
+                                    decoration: _decoration("MM")),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              Flexible(
+                                flex: 2,
+                                child: TextFormField(
+                                    controller: controller.bd3Ctrl,
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp('[0-9.,]+'))
+                                    ],
+                                    validator: (value) {
+                                      if (value == null) {
+                                        return "AAAA";
+                                      }
+                                      if (int.tryParse(value) == null) {
+                                        return "AAAA";
+                                      }
+                                      if (int.tryParse(value)! < 1980 ||
+                                          int.tryParse(value)! >
+                                              (DateTime.now().year - 10)) {
+                                        return "AAAA";
+                                      }
+                                      if (value.length != 4) {
+                                        return "AAAA";
+                                      }
+                                      return null;
+                                    },
+                                    cursorColor: DARK_COLOR,
+                                    style: GoogleFonts.poppins(
+                                        textStyle:
+                                            const TextStyle(fontSize: 16),
+                                        color: DARK_COLOR),
+                                    decoration: _decoration("AAAA")),
+                              ),
+                            ],
                           ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Flexible(
-                            child: TextFormField(
-                                controller: controller.bd2Ctrl,
-                                keyboardType: TextInputType.number,
-                                cursorColor: DARK_COLOR,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp('[0-9.,]+'))
-                                ],
-                                validator: (value) {
-                                  if (value == null) {
-                                    return "Mois";
-                                  }
-                                  if (int.tryParse(value) == null) {
-                                    return "Mois";
-                                  }
-                                  if (int.tryParse(value)! < 1 ||
-                                      int.tryParse(value)! > 12) {
-                                    return "Mois";
-                                  }
-                                  if(value.length != 2){
-                                    return "Mois";
-                                  }
-                                  return null;
-                                },
-                                style: GoogleFonts.poppins(
-                                    textStyle: const TextStyle(fontSize: 16),
-                                    color: DARK_COLOR),
-                                decoration: _decoration("MM")),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Flexible(
-                            flex: 2,
-                            child: TextFormField(
-                                controller: controller.bd3Ctrl,
-                                keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp('[0-9.,]+'))
-                                ],
-                                validator: (value) {
-                                  if (value == null) {
-                                    return "Années";
-                                  }
-                                  if (int.tryParse(value) == null) {
-                                    return "Années";
-                                  }
-                                  if (int.tryParse(value)! < 1980 ||
-                                      int.tryParse(value)! >
-                                          (DateTime.now().year - 10)) {
-                                    return "Années";
-                                  }
-                                  if(value.length != 4){
-                                    return "Années";
-                                  }
-                                  return null;
-                                },
-                                cursorColor: DARK_COLOR,
-                                style: GoogleFonts.poppins(
-                                    textStyle: const TextStyle(fontSize: 16),
-                                    color: DARK_COLOR),
-                                decoration: _decoration("AAAA")),
-                          ),
-                        ],
-                      ),
+                        ),
                     ),
-                  ),
                 ],
               )),
               SizedBox(
@@ -183,7 +192,7 @@ class AddBirthDayScreen extends GetView<RegisterController> {
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       hintText: text,
       hintStyle: const TextStyle(color: DARK_COLOR, fontFamily: "Poppins"),
-      fillColor: NEUTRAL_COLOR,
+      fillColor: Colors.white,
       filled: true,
       errorStyle: const TextStyle(color: Colors.redAccent),
       errorBorder: const OutlineInputBorder(

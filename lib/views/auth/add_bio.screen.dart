@@ -33,29 +33,29 @@ class AddBioScreen extends GetView<RegisterController> {
               Expanded(
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Enrichissez votre profil avec une bio",
+                    "Ajoutez une bio",
                     style: TextStyle(
                         color: MAIN_COLOR,
                         fontSize: 30,
                         fontFamily: "Poppins",
                         fontWeight: FontWeight.w700),
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.start,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
-                    "Partagez quelques mots sur vous-même pour que les autres utilisateurs puissent mieux vous connaître.",
-                    style: TextStyle(
-                        color: DARK_COLOR,
-                        fontSize: 16,
-                        fontFamily: "Poppins",
-                        fontWeight: FontWeight.w400),
-                    textAlign: TextAlign.center,
-                  ),
+                  // const Text(
+                  //   "Partagez quelques mots sur vous-même pour que les autres utilisateurs puissent mieux vous connaître.",
+                  //   style: TextStyle(
+                  //       color: DARK_COLOR,
+                  //       fontSize: 16,
+                  //       fontFamily: "Poppins",
+                  //       fontWeight: FontWeight.w400),
+                  //   textAlign: TextAlign.center,
+                  // ),
                   const SizedBox(
                     height: 30,
                   ),
@@ -115,8 +115,8 @@ class AddBioScreen extends GetView<RegisterController> {
                       foregroundColor: Colors.white),
                   onPressed: () {
                     if (_form.currentState!.validate()) {
-                      controller.parseDate();
-                      Get.toNamed(Goo.addSigneScreen);
+                      //controller.parseDate();
+                      Get.toNamed(Goo.addAvatarScreen);
                     }
                   },
                   child: const Text("Suivant"),

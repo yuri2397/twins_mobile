@@ -36,26 +36,26 @@ class AddPasswordScreen extends GetView<RegisterController> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
-                      "Sécurisez votre compte",
+                      "Choisissze un mot de passe",
                       style: TextStyle(
                           color: MAIN_COLOR,
                           fontSize: 30,
                           fontFamily: "Poppins",
                           fontWeight: FontWeight.w700),
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.start,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    const Text(
-                      "Utilisez un mot de passe pour garantir la sécurité de votre compte.",
-                      style: TextStyle(
-                          color: DARK_COLOR,
-                          fontSize: 16,
-                          fontFamily: "Poppins",
-                          fontWeight: FontWeight.w400),
-                      textAlign: TextAlign.center,
-                    ),
+                    // const Text(
+                    //   "Utilisez un mot de passe pour garantir la sécurité de votre compte.",
+                    //   style: TextStyle(
+                    //       color: DARK_COLOR,
+                    //       fontSize: 16,
+                    //       fontFamily: "Poppins",
+                    //       fontWeight: FontWeight.w400),
+                    //   textAlign: TextAlign.center,
+                    // ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -122,7 +122,7 @@ class AddPasswordScreen extends GetView<RegisterController> {
                         foregroundColor: Colors.white),
                     onPressed: () {
                       if (_form.currentState!.validate()) {
-                        Get.toNamed(Goo.addBioScreen);
+                        Get.toNamed(Goo.addBirthDayScreen);
                       }
                     },
                     child: const Text("Suivant"),

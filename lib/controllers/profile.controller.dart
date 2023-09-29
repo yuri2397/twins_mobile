@@ -208,4 +208,196 @@ class ProfileController extends GetxController {
       ),
     ));
   }
+
+  disabledAccount() async {
+    Get.bottomSheet(Container(
+      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+
+          const SizedBox(
+            height: 10,
+          ),
+          const Text("La désactivation de votre compte est temporaire, votre profil sera masqué jusqu’à ce que vous le réactiviez en vous connectant à nouveau sur Twinz.",
+              style: TextStyle(
+                  color: DARK_COLOR,
+                  fontFamily: "Poppins",
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400)),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  style: TextButton.styleFrom(
+                      backgroundColor: MAIN_COLOR,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6))),
+                  onPressed: () {
+                    Get.back();
+                   _confirmDisableAccount();
+                  },
+                  child: const Text("Je confirme")),
+              const SizedBox(
+                width: 100,
+              ),
+              ElevatedButton(
+                  style: TextButton.styleFrom(
+                      foregroundColor: DARK_COLOR,
+                      backgroundColor: Colors.transparent,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6))),
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: const Text("Annuler")),
+            ],
+          )
+        ],
+      ),
+    ));
+  }
+
+  removeAccount() async {
+    Get.bottomSheet(Container(
+      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text("Déconnexion",
+              style: TextStyle(
+                  color: DARK_COLOR,
+                  fontFamily: "Poppins",
+                  fontSize: 23,
+                  fontWeight: FontWeight.w700)),
+          const SizedBox(
+            height: 10,
+          ),
+          const Text("Continuer la déconnexion? ",
+              style: TextStyle(
+                  color: DARK_COLOR,
+                  fontFamily: "Poppins",
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400)),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  style: TextButton.styleFrom(
+                      backgroundColor: MAIN_COLOR,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6))),
+                  onPressed: () {
+                    logoutLoad.value = false;
+                    _profileService.logout().then((value) {
+                      logoutLoad.value = false;
+                      localStorage.clear();
+                      Get.offAllNamed(Goo.onboardingScreen);
+                    }).catchError((e) {
+                      logoutLoad.value = false;
+                    });
+                  },
+                  child: const Text("Oui")),
+              const SizedBox(
+                width: 100,
+              ),
+              ElevatedButton(
+                  style: TextButton.styleFrom(
+                      foregroundColor: DARK_COLOR,
+                      backgroundColor: Colors.transparent,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6))),
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: const Text("Annuler")),
+            ],
+          )
+        ],
+      ),
+    ));
+  }
+
+  void _confirmDisableAccount() {
+    Get.bottomSheet(Container(
+      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text("Confirmez la désactivation temporaire du compte.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: DARK_COLOR,
+                  fontFamily: "Poppins",
+                  fontSize: 23,
+
+                  fontWeight: FontWeight.w700)),
+          const SizedBox(
+            height: 20,
+          ),
+          const Text("Vous êtes sur le point de désactiver temporairement votre compte. Vous pouvez le réactiver à tout moment en vous connectant à votre compte Twinz.",
+
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: DARK_COLOR,
+                  fontFamily: "Poppins",
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400)),
+
+          const SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+              style: TextButton.styleFrom(
+                  backgroundColor: MAIN_COLOR,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6))),
+              onPressed: () {
+
+              },
+              child: const Text("Désactiver le compte")),
+
+          ElevatedButton(
+              style: TextButton.styleFrom(
+                  foregroundColor: DARK_COLOR,
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6))),
+              onPressed: () {
+                Get.back();
+              },
+              child: const Text("Annuler")),
+        ],
+      ),
+    ));
+  }
 }

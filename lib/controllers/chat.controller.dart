@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:get/get.dart';
 import 'package:twins/core/model/chat.dart' as lc;
@@ -18,6 +19,8 @@ class ChatController extends GetxController {
 
   final currentChat = lc.Chat().obs;
 
+  final textFielController = TextEditingController();
+
   @override
   void onInit() {
     super.onInit();
@@ -36,12 +39,27 @@ class ChatController extends GetxController {
   }
 
   detailsChat(lc.Chat chat) {
+    chat.messages!.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
     currentChat.value = chat;
-    messages.value = chat.messages!.map((e) =>  types.Message.fromJson(e.toJsonForMessage())).toList();
+
+    messages.value = chat.messages!
+        .map((e) => types.Message.fromJson(e.toJsonForMessage()))
+        .toList();
     Get.toNamed(Goo.chatScreen);
   }
 
-  void addMessage(types.Message message) {}
+  void addMessage() {
+    var message = lc.Message(
+        chatId: "${currentChat.value.id}",
+        message: textFielController.text.trim(),
+        userId: currentUserId,
+        sender: localStorage.getUser(),
+        createdAt: DateTime.now(),
+        id: currentChat.value.messages!.last.id! + 1);
+
+    messages.insert(0, types.Message.fromJson(message.toJsonForMessage()));
+    messages.refresh();
+  }
 
   void handleSendPressed(types.PartialText message) {
     // final textMessage = types.TextMessage(
@@ -111,4 +129,6 @@ class ChatController extends GetxController {
 
     //   await OpenFilex.open(localPath);
   }
+
+  moreInfo(int index) {}
 }

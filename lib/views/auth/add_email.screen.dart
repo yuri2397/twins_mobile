@@ -35,26 +35,26 @@ class AddEmailScreen extends GetView<RegisterController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
-                    "Ajouter une adresse e-mail",
+                    "Saisissez votre adresse email",
                     style: TextStyle(
                         color: MAIN_COLOR,
                         fontSize: 30,
                         fontFamily: "Poppins",
                         fontWeight: FontWeight.w700),
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.start,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
-                    "Votre adresse e-mail sera utilisée à des fins de sécurité, comme vous aider à récupérer l'accès à votre compte si vous oubliez un jour votre mot de passe.",
-                    style: TextStyle(
-                        color: DARK_COLOR,
-                        fontSize: 16,
-                        fontFamily: "Poppins",
-                        fontWeight: FontWeight.w400),
-                    textAlign: TextAlign.center,
-                  ),
+                  // const Text(
+                  //   "Votre adresse e-mail sera utilisée à des fins de sécurité, comme vous aider à récupérer l'accès à votre compte si vous oubliez un jour votre mot de passe.",
+                  //   style: TextStyle(
+                  //       color: DARK_COLOR,
+                  //       fontSize: 16,
+                  //       fontFamily: "Poppins",
+                  //       fontWeight: FontWeight.w400),
+                  //   textAlign: TextAlign.center,
+                  // ),
                   const SizedBox(
                     height: 30,
                   ),
@@ -111,7 +111,7 @@ class AddEmailScreen extends GetView<RegisterController> {
                       foregroundColor: Colors.white),
                   onPressed: () {
                     if (_form.currentState!.validate()) {
-                      Get.toNamed(Goo.addAddressScreen);
+                      Get.toNamed(Goo.addPasswordScreen);
                     }
                   },
                   child: const Text("Suivant"),

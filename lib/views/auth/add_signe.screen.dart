@@ -56,7 +56,7 @@ class AddSigneScreen extends GetView<RegisterController> {
                         fontSize: 16,
                         fontFamily: "Poppins",
                         fontWeight: FontWeight.w400),
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.justify,
                   ),
                 ],
               )),
@@ -69,7 +69,7 @@ class AddSigneScreen extends GetView<RegisterController> {
                           borderRadius: BorderRadius.circular(20)),
                       backgroundColor: MAIN_COLOR,
                       foregroundColor: Colors.white),
-                  onPressed: () => Get.toNamed(Goo.addAvatarScreen),
+                  onPressed: () => Get.toNamed(Goo.addBioScreen),
                   child: const Text("Suivant"),
                 ),
               )

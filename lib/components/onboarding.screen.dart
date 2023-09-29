@@ -44,28 +44,33 @@ class OnboardingScreen extends GetView<OnboardingController> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     RichText(
-                        text:
-                            const TextSpan(text: "En appuyant sur ", children: [
-                      TextSpan(
-                          text: "se connecter",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline,
-                          )),
-                      TextSpan(
-                        text: " ou ",
-                      ),
-                      TextSpan(
-                          text: "créer un compter",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline,
-                          )),
-                      TextSpan(
-                        text:
-                            " , vous acceptez nos conditions d'utilisation. Consultez notre politique de confidentialité et celle relative aux cookies pour en savoir plus sur le traitement de vos données.",
-                      ),
-                    ])).marginOnly(bottom: 20),
+                        text: const TextSpan(
+                            text:
+                                "En appuyant sur se connecter ou créer un compter, vous acceptez nos conditions d'utilisation. Consultez notre ",
+                            children: [
+                          TextSpan(
+                            text: "politique de confidentialité",
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              fontWeight: FontWeight.bold
+                            ),
+                          ),
+                          TextSpan(
+                            text: " et celle ",
+                          ),
+                          TextSpan(
+                            text: "relative aux cookies",
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                                fontWeight: FontWeight.bold
+
+                            ),
+                          ),
+                          TextSpan(
+                            text:
+                                " pour en savoir plus sur le traitement de vos données.",
+                          ),
+                        ])).marginOnly(bottom: 20),
                     SizedBox(
                       width: Get.width,
                       child: ElevatedButton(

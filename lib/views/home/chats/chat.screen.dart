@@ -12,10 +12,29 @@ class ChatScreen extends GetView<ChatController> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      elevation: 0,
-      title: Text("${controller.currentChat.value.participants?.firstWhere((e) => e.id.toString() != currentUserId).fullName}"),
-    ),
+        appBar: AppBar(
+          backgroundColor: MAIN_COLOR,
+          elevation: 0,
+          leading: GestureDetector(
+            onTap: () => Get.back(),
+            child: const Icon(Icons.arrow_back_ios, color: Colors.white),
+          ),
+          actions: [
+            PopupMenuButton<int>(
+              color: Colors.white,
+              onSelected: (item) => controller.moreInfo(item),
+              itemBuilder: (context) => [
+                PopupMenuItem<int>(value: 0, child: Text('Voir le profil')),
+                PopupMenuItem<int>(value: 1, child: Text('Bloquer')),
+                PopupMenuItem<int>(value: 2, child: Text('Signaler')),
+              ],
+            )
+          ],
+          title: Text(
+            "${controller.currentChat.value.participants?.firstWhere((e) => e.id.toString() != currentUserId).fullName}",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
         body: Chat(
           messages: controller.messages,
           onMessageTap: (context, message) =>
@@ -43,26 +62,30 @@ class ChatScreen extends GetView<ChatController> {
               borderRadius: BorderRadius.circular(20),
             ),
             child: TextFormField(
+              controller: controller.textFielController,
               cursorColor: DARK_COLOR,
               style: GoogleFonts.poppins(
-                  textStyle: const TextStyle(fontSize: 16),
-                  color: DARK_COLOR),
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.symmetric(
-                    horizontal: 16, vertical: 20),
+                  textStyle: const TextStyle(fontSize: 16), color: DARK_COLOR),
+              decoration: InputDecoration(
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
                 hintText: "Message",
-                hintStyle: TextStyle(
-                    color: DARK_COLOR, fontFamily: "Poppins"),
+                hintStyle:
+                    const TextStyle(color: DARK_COLOR, fontFamily: "Poppins"),
                 fillColor: Colors.white,
                 filled: true,
-
-                focusedBorder: OutlineInputBorder(
-                    borderRadius:
-                    BorderRadius.all(Radius.circular(20)),
+                suffix: GestureDetector(
+                  onTap: () => controller.addMessage(),
+                  child: const CircleAvatar(
+                    backgroundColor: MAIN_COLOR,
+                    child: Icon(Icons.send, color: Colors.white),
+                  ),
+                ),
+                focusedBorder: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
                     borderSide: BorderSide(color: MAIN_COLOR)),
-                border: OutlineInputBorder(
-                    borderRadius:
-                    BorderRadius.all(Radius.circular(20)),
+                border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
                     borderSide: BorderSide(color: DARK_COLOR)),
               ),
             ),

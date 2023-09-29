@@ -15,12 +15,8 @@ class ChatListScreen extends GetView<ChatController> {
     return Obx(()=> Scaffold(
           appBar: AppBar(
             elevation: 0,
-            title: const Text("Chats"),
-            actions: [
-              GestureDetector(
-                child: const Icon(Icons.search),
-              ).marginOnly(right: 10)
-            ],
+            backgroundColor: MAIN_COLOR,
+            leading: Icon(Icons.menu, color: Colors.white),
           ),
           body:controller.chatsLoad.value ? const Center( child: CircularProgressIndicator(color: MAIN_COLOR),) :
           controller.chats.isEmpty ?
@@ -46,26 +42,22 @@ class ChatListScreen extends GetView<ChatController> {
             ),
           )
               :
-          ListView.builder(
-              itemBuilder: (_, index) => _buildChatItem(controller.chats[index]), itemCount: controller.chats.length)),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+             const Text("Messages", style: TextStyle(color: DARK_COLOR, fontSize: 20, fontWeight: FontWeight.bold), ).marginAll(10),
+              ListView.separated(
+                shrinkWrap: true,
+                  separatorBuilder: (_, index) => Divider(height: 2, color: NEUTRAL_COLOR,),
+                  itemBuilder: (_, index) => _buildChatItem(controller.chats[index]), itemCount: controller.chats.length),
+            ],
+          )),
     );
   }
 
   _buildChatItem(Chat chat) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            spreadRadius: .3,
-            blurRadius: 4,
-          ),
-        ],
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-      ),
-      child: ListTile(
+    return  ListTile(
         onTap: () => controller.detailsChat(chat),
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(100),
@@ -77,7 +69,6 @@ class ChatListScreen extends GetView<ChatController> {
         title: Text(chat.participants!.firstWhere((e) => e.id.toString() != currentUserId).fullName!),
         subtitle: Text(chat.messages!.isEmpty ? "Envoyer le premier message..." : "${chat.messages!.last.message}"),
         trailing: Text(DateFormat.Hm().format(chat.createdAt!)),
-      ),
-    ).marginSymmetric(horizontal: 10, vertical: 5);
+      ).marginSymmetric(horizontal: 10, vertical: 5);
   }
 }

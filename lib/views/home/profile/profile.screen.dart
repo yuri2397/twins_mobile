@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:twins/components/choose_files.widget.dart';
 import 'package:twins/components/ui.dart';
@@ -23,8 +24,252 @@ class ProfileScreen extends GetView<ProfileController> {
         body: SingleChildScrollView(
           child: Obx(
             () => Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                SafeArea(
+                SizedBox(
+                  height: 200,
+                  child: Stack(
+                    children: [
+                      Container(
+                        height: 150,
+                        width: Get.width,
+                        color: MAIN_COLOR,
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: NEUTRAL_COLOR),
+                              borderRadius: BorderRadius.circular(100)),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: Image.network(
+                              (controller.user.value?.profilePhoto != null &&
+                                      controller.user.value?.profilePhoto != "")
+                                  ? controller.user.value!.profilePhoto!
+                                  : "https://img.freepik.com/photos-gratuite/jeune-femme-chien-sans-abri-au-parc-photo-haute-qualite_144627-75703.jpg?w=740&t=st=1694874615~exp=1694875215~hmac=eb6804b67c1fc7b677babff8be1caaee8f4b47db541f6cfeb548f472371d555d",
+                              fit: BoxFit.cover,
+                              height: 100,
+                              width: 100,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Text(
+                  "${controller.user.value?.fullName}, ${controller.user.value?.age}",
+                  style: GoogleFonts.poppins(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(Icons.circle, color: MAIN_COLOR, size: 20),
+                        Text("A propos de vous",
+                            style: TextStyle(
+                              color: DARK_COLOR.withOpacity(0.6),
+                              fontSize: 18,
+                            )).marginOnly(left: 10),
+                      ],
+                    ).marginOnly(bottom: 20),
+                    Container(
+                        width: Get.width,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 20),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                              offset: const Offset(
+                                  1, 1), // changes position of shadow
+                            ),
+                          ],
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20)),
+                        ),
+                        child: Text(
+                          controller.user.value?.bio ?? 'bio',
+                          style: const TextStyle(color: DARK_COLOR),
+                        )),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+
+                      children: [
+                        const Icon(Icons.circle, color: MAIN_COLOR, size: 20),
+                        Text("Mes infos perso",
+                            style: TextStyle(
+                              color: DARK_COLOR.withOpacity(0.6),
+                              fontSize: 18,
+                            )).marginOnly(left: 10),
+                      ],
+                    ).marginOnly(bottom: 20),
+                    Container(
+                        width: Get.width,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 20),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                              offset: const Offset(
+                                  1, 1), // changes position of shadow
+                            ),
+                          ],
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20)),
+                        ),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              title: const Text("Email",
+                                  style: TextStyle(
+                                    color: Colors.black38,
+                                    fontSize: 18,
+                                  )),
+                              trailing: Text(
+                                "${controller.user.value?.email}",
+                                style: const TextStyle(
+                                    color: DARK_COLOR,
+                                    fontFamily: "Poppins",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+
+
+                            ListTile(
+                              title: const Text("Sexe",
+                                  style: TextStyle(
+                                    color: Colors.black38,
+                                    fontSize: 16,
+                                  )),
+                              trailing: Text(
+                                controller.user.value?.gender == 'male'
+                                    ? 'Masculin'
+                                    : 'Fénimin',
+                                style: const TextStyle(
+                                    color: DARK_COLOR,
+                                    fontFamily: "Poppins",
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+
+                            ListTile(
+                              title: const Text("Date de naiss.",
+                                  style: TextStyle(
+                                    color: Colors.black38,
+                                    fontSize: 16,
+                                  )),
+                              trailing: Text(
+                                DateFormat.yMMMd('fr')
+                                    .format(controller.user.value?.birthDate ?? DateTime.now()),
+                                style: const TextStyle(
+                                    color: DARK_COLOR,
+                                    fontFamily: "Poppins",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        )),
+                    const SizedBox(
+                      height: 30,
+                    ), Row(
+                      mainAxisSize: MainAxisSize.min,
+
+                      children: [
+                        const Icon(Icons.circle, color: MAIN_COLOR, size: 20),
+                        Text("Mon compte",
+                            style: TextStyle(
+                              color: DARK_COLOR.withOpacity(0.6),
+                              fontSize: 18,
+                            )).marginOnly(left: 10),
+                      ],
+                    ).marginOnly(bottom: 20),
+
+                    Container(
+                        width: Get.width,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 20),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                              offset: const Offset(
+                                  1, 1), // changes position of shadow
+                            ),
+                          ],
+                          borderRadius:
+                          const BorderRadius.all(Radius.circular(20)),
+                        ),
+                        child: Column(
+                          children: [
+                            ListTile(
+                                onTap: () => controller.logout(),
+
+                                title: const Text("Déconnexion",
+                                    style: TextStyle(
+                                      color: Colors.black38,
+                                      fontSize: 18,
+                                    )),
+                                trailing:const Icon(Icons.arrow_forward_ios_sharp),
+                            ),
+                            ListTile(
+                              onTap: () => controller.disabledAccount(),
+                              title: const Text("Désactiver",
+                                  style: TextStyle(
+                                    color: Colors.pink,
+                                    fontSize: 18,
+                                  )),
+                              trailing: const Icon(Icons.arrow_forward_ios_sharp)
+                            ),
+                            ListTile(
+                                title: const Text("Supprimer",
+                                    style: TextStyle(
+                                      color: Colors.pink,
+                                      fontSize: 18,
+                                    )),
+                                trailing:GestureDetector( child: const Icon(Icons.arrow_forward_ios_sharp),)
+                            ),
+
+                          ],
+                        )),
+                  ],
+                ).paddingSymmetric(horizontal: 20)
+              ],
+            ),
+          ),
+        ));
+  }
+
+  /*
+
+   SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: Row(
@@ -229,11 +474,7 @@ class ProfileScreen extends GetView<ProfileController> {
                     ],
                   ),
                 )
-              ],
-            ),
-          ),
-        ));
-  }
+   */
 
   _previewChoosedImage(XFile file) {
     var loader = false.obs;

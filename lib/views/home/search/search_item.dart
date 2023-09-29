@@ -97,31 +97,7 @@ class _SearchItemWidgetState extends State<SearchItemWidget> {
                   ),
                   child: const Icon(
                     Icons.close,
-                    color: DARK_COLOR,
-                    size: 40,
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () => widget.like(),
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: MAIN_COLOR,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 1,
-                        blurRadius: 20,
-                        offset:
-                            const Offset(2, 3), // changes position of shadow
-                      ),
-                    ],
-                    borderRadius: const BorderRadius.all(Radius.circular(50)),
-                  ),
-                  child: const Icon(
-                    CupertinoIcons.heart_fill,
-                    color: Colors.white,
+                    color: Colors.pink,
                     size: 40,
                   ),
                 ),
@@ -144,12 +120,37 @@ class _SearchItemWidgetState extends State<SearchItemWidget> {
                     borderRadius: const BorderRadius.all(Radius.circular(50)),
                   ),
                   child: const Icon(
-                    Icons.redo,
-                    color: Colors.pink,
+                    Icons.undo,
+                    color: Colors.yellowAccent,
                     size: 20,
                   ),
                 ),
               ),
+              GestureDetector(
+                onTap: () => widget.like(),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: MAIN_COLOR,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        spreadRadius: 1,
+                        blurRadius: 20,
+                        offset:
+                        const Offset(2, 3), // changes position of shadow
+                      ),
+                    ],
+                    borderRadius: const BorderRadius.all(Radius.circular(50)),
+                  ),
+                  child: const Icon(
+                    CupertinoIcons.heart_fill,
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                ),
+              ),
+
             ],
           )
         ],
