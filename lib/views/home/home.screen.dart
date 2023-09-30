@@ -12,14 +12,14 @@ import 'package:twins/views/home/chat_request/chat_request.screen.dart';
 class HomeScreen extends GetView<HomeController> {
   final _screens = <Widget>[
     const SearchScreen(),
-    ChatRequestScreen(),
+    const ChatRequestScreen(),
     ChatListScreen(),
     const ProfileScreen()
   ];
 
   final _items = <PersistentBottomNavBarItem>[
     PersistentBottomNavBarItem(
-      icon: const Icon(CupertinoIcons.search_circle),
+      icon: const Icon(Icons.pages),
       activeColorPrimary: MAIN_COLOR,
       inactiveColorPrimary: NEUTRAL_COLOR,
     ),

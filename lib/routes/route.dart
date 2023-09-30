@@ -28,6 +28,7 @@ import 'package:twins/views/home/profile/setting.screen.dart';
 import 'package:twins/views/home/profile/update_password.screen.dart';
 import 'package:twins/views/home/profile/update_profile.screen.dart';
 import 'package:twins/views/home/search/search.screen.dart';
+import 'package:twins/views/home/search/search_detail.dart';
 
 dynamic ROUTER_OUTLET = [
   /// SHARED ROUTES
@@ -56,7 +57,9 @@ dynamic ROUTER_OUTLET = [
   GetPage(name: Goo.addBioScreen, page: () => AddBioScreen()),
   GetPage(name: Goo.addAvatarScreen, page: () => AddAvatarScreen()),
   GetPage(name: Goo.addAddressScreen, page: () => AddAddressScreen()),
-  GetPage(name: Goo.addFilesRegisterScreen, page: () => const AddFilesRegisterScreen()),
+  GetPage(
+      name: Goo.addFilesRegisterScreen,
+      page: () => const AddFilesRegisterScreen()),
   GetPage(
       name: Goo.activeAccountScreen,
       binding: ActiveAccountBinding(),
@@ -65,6 +68,7 @@ dynamic ROUTER_OUTLET = [
   /// HOME MODULES
   GetPage(
       name: Goo.homeScreen, page: () => HomeScreen(), binding: HomeBinding()),
+  GetPage(name: Goo.searchDetailsScreen, page: () => const SearchDetails()),
 
   // PROFILE PAGES
   GetPage(name: Goo.detailsProfileScreen, page: () => DetailProfileScreen()),

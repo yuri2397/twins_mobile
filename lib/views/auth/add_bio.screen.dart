@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:twins/controllers/register.controller.dart';
+import 'package:twins/core/utils/utils.dart';
 import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/colors.dart';
 
@@ -13,9 +14,7 @@ class AddBioScreen extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: NEUTRAL_COLOR,
         appBar: AppBar(
-          backgroundColor: NEUTRAL_COLOR,
           elevation: 0,
           leading: GestureDetector(
             onTap: () => Get.back(),
@@ -28,7 +27,7 @@ class AddBioScreen extends GetView<RegisterController> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                   child: Column(
@@ -38,26 +37,14 @@ class AddBioScreen extends GetView<RegisterController> {
                   const Text(
                     "Ajoutez une bio",
                     style: TextStyle(
-                        color: MAIN_COLOR,
+                        color: DARK_COLOR,
                         fontSize: 30,
                         fontFamily: "Poppins",
                         fontWeight: FontWeight.w700),
                     textAlign: TextAlign.start,
                   ),
                   const SizedBox(
-                    height: 20,
-                  ),
-                  // const Text(
-                  //   "Partagez quelques mots sur vous-même pour que les autres utilisateurs puissent mieux vous connaître.",
-                  //   style: TextStyle(
-                  //       color: DARK_COLOR,
-                  //       fontSize: 16,
-                  //       fontFamily: "Poppins",
-                  //       fontWeight: FontWeight.w400),
-                  //   textAlign: TextAlign.center,
-                  // ),
-                  const SizedBox(
-                    height: 30,
+                    height: 40,
                   ),
                   Form(
                     key: _form,
@@ -68,7 +55,7 @@ class AddBioScreen extends GetView<RegisterController> {
                         keyboardType: TextInputType.text,
                         cursorColor: DARK_COLOR,
                         obscureText: false,
-                        maxLines: 4,
+                        maxLines: 5,
                         validator: (value) {
                           if (value == null) {
                             return "Veuillez saissir votre bio.";
@@ -78,34 +65,14 @@ class AddBioScreen extends GetView<RegisterController> {
                         style: GoogleFonts.poppins(
                             textStyle: const TextStyle(fontSize: 16),
                             color: DARK_COLOR),
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 20),
-                          hintText: "Ajouter votre bio...",
-                          hintStyle: TextStyle(
-                              color: DARK_COLOR, fontFamily: "Poppins"),
-                          fillColor: Colors.white,
-                          errorStyle: TextStyle(color: Colors.redAccent),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              borderSide: BorderSide(color: Colors.redAccent)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              borderSide: BorderSide(color: MAIN_COLOR)),
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              borderSide: BorderSide(color: DARK_COLOR)),
-                        ),
+                        decoration: decoration("Ecrire"),
                       ),
                     ),
                   ),
                 ],
               )),
               SizedBox(
-                width: Get.width,
+                width: Get.width * .4,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       elevation: 0,
@@ -119,7 +86,7 @@ class AddBioScreen extends GetView<RegisterController> {
                       Get.toNamed(Goo.addAvatarScreen);
                     }
                   },
-                  child: const Text("Suivant"),
+                  child: const Text("C'est parti"),
                 ),
               )
             ],

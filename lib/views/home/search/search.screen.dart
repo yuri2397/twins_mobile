@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:twins/components/ui.dart';
 import 'package:twins/controllers/search.controller.dart' as sc;
+import 'package:twins/core/config/env.dart';
+import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/colors.dart';
 import 'package:twins/views/home/search/search_item.dart';
 
@@ -14,18 +16,65 @@ class SearchScreen extends GetView<sc.SearchController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: MAIN_COLOR,
+        elevation: 0,
+        leading: GestureDetector(
+          child: const Icon(Icons.menu, color: Colors.white),
+        ),
+        title: Image.asset(
+          Env.whiteLogo,
+          width: 60,
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  itemIcon(CupertinoIcons.hand_thumbsup_fill),
+                  Flexible(
+                    flex: 2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.circle,
+                          size: 10,
+                          color: MAIN_COLOR,
+                        ),
+                        const SizedBox(
+                          width: 6,
+                        ),
+                        Icon(
+                          Icons.circle,
+                          size: 10,
+                          color: MAIN_COLOR.withOpacity(0.8),
+                        ),
+                        const SizedBox(
+                          width: 6,
+                        ),
+                        Icon(
+                          Icons.circle,
+                          size: 10,
+                          color: MAIN_COLOR.withOpacity(0.6),
+                        ),
+                        const SizedBox(
+                          width: 6,
+                        ),
+                        Icon(
+                          Icons.circle,
+                          size: 10,
+                          color: MAIN_COLOR.withOpacity(.5),
+                        ),
+                      ],
+                    ).marginOnly(left: 50),
+                  ),
                   GestureDetector(
-                    onTap: () => _showMore(),
+                    onTap: () => Get.toNamed(Goo.searchDetailsScreen),
                     child: itemIcon(CupertinoIcons.info_circle_fill),
                   ),
                 ],
@@ -33,12 +82,13 @@ class SearchScreen extends GetView<sc.SearchController> {
             ),
             Obx(
               () => SizedBox(
-                height: Get.height * .8,
+                height: Get.height * .75,
                 width: Get.width,
                 child: AppinioSwiper(
                   swipeOptions: const AppinioSwipeOptions.only(left: true),
                   unlimitedUnswipe: true,
                   controller: controller.swiperController,
+                  backgroundCardsCount: 0,
                   onSwiping: (AppinioSwiperDirection direction) {},
                   onSwipe: controller.swipe,
                   padding: const EdgeInsets.only(
@@ -81,7 +131,8 @@ class SearchScreen extends GetView<sc.SearchController> {
             children: [
               Text(
                 "${controller.visibleUser.value.fullName}, ${controller.visibleUser.value.age} ans",
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
               const SizedBox(
                 width: 30,
@@ -90,25 +141,31 @@ class SearchScreen extends GetView<sc.SearchController> {
                 CupertinoIcons.check_mark_circled,
                 color: MAIN_COLOR,
               ),
-
             ],
           ).marginOnly(bottom: 10, left: 20, top: 8),
-        Row(
-          children: [
-            itemIcon(Icons.map_rounded),
-            const SizedBox( width: 10,),
-            const Text(
-              "Dakar • 24km",
-              style:  TextStyle(fontSize: 20, fontWeight: FontWeight.w400, color: Colors.grey),
-            )
-          ],
-        ).marginOnly(bottom: 10, left: 20),
-          const Divider( color: NEUTRAL_COLOR, height: 2,).marginAll(20),
-
+          Row(
+            children: [
+              itemIcon(Icons.map_rounded),
+              const SizedBox(
+                width: 10,
+              ),
+              const Text(
+                "Dakar • 24km",
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.grey),
+              )
+            ],
+          ).marginOnly(bottom: 10, left: 20),
+          const Divider(
+            color: NEUTRAL_COLOR,
+            height: 2,
+          ).marginAll(20),
           SizedBox(
             height: 130,
             width: Get.width,
-            child:Skeletonizer(
+            child: Skeletonizer(
               enabled: true,
               ignoreContainers: true,
               child: ListView(
@@ -135,7 +192,9 @@ class SearchScreen extends GetView<sc.SearchController> {
               ),
             ),
           ),
-          const SizedBox(height: 40,),
+          const SizedBox(
+            height: 40,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -152,7 +211,7 @@ class SearchScreen extends GetView<sc.SearchController> {
                         spreadRadius: 1,
                         blurRadius: 20,
                         offset:
-                        const Offset(2, 3), // changes position of shadow
+                            const Offset(2, 3), // changes position of shadow
                       ),
                     ],
                     borderRadius: const BorderRadius.all(Radius.circular(50)),
@@ -176,7 +235,7 @@ class SearchScreen extends GetView<sc.SearchController> {
                         spreadRadius: 1,
                         blurRadius: 20,
                         offset:
-                        const Offset(2, 3), // changes position of shadow
+                            const Offset(2, 3), // changes position of shadow
                       ),
                     ],
                     borderRadius: const BorderRadius.all(Radius.circular(50)),
@@ -194,5 +253,4 @@ class SearchScreen extends GetView<sc.SearchController> {
       ),
     ));
   }
-
 }

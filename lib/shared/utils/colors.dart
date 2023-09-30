@@ -7,3 +7,4 @@ const Color PRIMARY_COLOR = Color(0XFF2a00ff);
 const Color DARK_COLOR = Color(0XFF14213d);
 const Color NEUTRAL_COLOR = Color(0XFFEDEDED);
 const Color INPUT_COLOR = Color(0XFFE6F1FD);
+const Color GRAY_COLOR = Color(0XFFb7b7b7);
