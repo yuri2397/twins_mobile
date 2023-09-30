@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:twins/controllers/onboarding.controller.dart';
@@ -37,40 +36,56 @@ class OnboardingScreen extends GetView<OnboardingController> {
                   ],
                 )),
             Positioned(
+              top: Get.height * .4,
+              width: Get.width - 60,
+              child: RichText(
+                  textAlign: TextAlign.justify,
+                  text: const TextSpan(
+                      text: "En utilisant nos services, vous acceptez nos ",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: "conditions d’utilisation",
+                          style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text: ". Consultez notre ",
+                          style: TextStyle(),
+                        ),
+                        TextSpan(
+                          text: "politique de confidentialité",
+                          style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text: " et celle ",
+                          style: TextStyle(),
+                        ),
+                        TextSpan(
+                          text: "relative aux cookies",
+                          style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text:
+                              " pour en savoir plus sur le traitement de vos données.",
+                          style: TextStyle(),
+                        ),
+                      ])).marginOnly(bottom: 20),
+            ),
+            Positioned(
                 bottom: 0,
                 left: 10,
                 right: 10,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    RichText(
-                        text: const TextSpan(
-                            text:
-                                "En appuyant sur se connecter ou créer un compter, vous acceptez nos conditions d'utilisation. Consultez notre ",
-                            children: [
-                          TextSpan(
-                            text: "politique de confidentialité",
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              fontWeight: FontWeight.bold
-                            ),
-                          ),
-                          TextSpan(
-                            text: " et celle ",
-                          ),
-                          TextSpan(
-                            text: "relative aux cookies",
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                                fontWeight: FontWeight.bold
-
-                            ),
-                          ),
-                          TextSpan(
-                            text:
-                                " pour en savoir plus sur le traitement de vos données.",
-                          ),
-                        ])).marginOnly(bottom: 20),
                     SizedBox(
                       width: Get.width,
                       child: ElevatedButton(
@@ -80,10 +95,11 @@ class OnboardingScreen extends GetView<OnboardingController> {
                               backgroundColor: MAIN_COLOR,
                               foregroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
-                                side: BorderSide(color: Colors.white, width: 1.5),
+                                  side: const BorderSide(
+                                      color: Colors.white, width: 1.5),
                                   borderRadius: BorderRadius.circular(20))),
                           child: const Text("Se connecter")),
-                    ),
+                    ).marginOnly(bottom: 10),
                     SizedBox(
                       width: Get.width,
                       child: ElevatedButton(

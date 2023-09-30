@@ -35,9 +35,6 @@ class RegisterController extends GetxController {
     XFile("").obs,
     XFile("").obs,
     XFile("").obs,
-    XFile("").obs,
-    XFile("").obs,
-    XFile("").obs,
   ];
   parseDate() {
     birthdayCtrl.text =
@@ -48,13 +45,11 @@ class RegisterController extends GetxController {
     Get.log(signe.value.description.toString());
   }
 
-
-
   save() async {
     loading.value = true;
 
-
-    var finalFiles =  files.map((e) => e.value).where((e) => e.path.isNotEmpty).toList();
+    var finalFiles =
+        files.map((e) => e.value).where((e) => e.path.isNotEmpty).toList();
 
     Map<String, String> data = {
       "full_name": nameCtrl.text.trim(),

@@ -18,70 +18,66 @@ class AddFilesRegisterScreen extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: GestureDetector(
-          onTap: () => Get.back(),
-          child: const Icon(Icons.arrow_back_ios, color: DARK_COLOR),
-        ),
-      ),
       body: Obx(
         () => SingleChildScrollView(
-          child: Container(
-            height: Get.height,
-            width: Get.width,
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                    flex: 2,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "Ajouter vos photos",
-                          style: TextStyle(
-                              color: MAIN_COLOR,
-                              fontSize: 30,
-                              fontFamily: "Poppins",
-                              fontWeight: FontWeight.w700),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        GridView.count(
-                          shrinkWrap: true,
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 16,
-                          crossAxisSpacing: 8,
-                          children: controller.files
-                              .map((element) => _buildItem(element))
-                              .toList(),
-                        )
-                      ],
-                    )),
-                Flexible(
-                  flex: 1,
-                  child: SizedBox(
-                    width: Get.width,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          backgroundColor: MAIN_COLOR,
-                          foregroundColor: Colors.white),
-                      onPressed: () => Get.toNamed(Goo.addBioScreen),
-                      child: const Text("Suivant"),
+          child: SafeArea(
+            child: Container(
+              height: Get.height,
+              width: Get.width,
+              margin: const EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                      flex: 2,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Ajoutez des photos",
+                            style: TextStyle(
+                                color: DARK_COLOR,
+                                fontSize: 30,
+                                fontFamily: "Poppins",
+                                fontWeight: FontWeight.w700),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          GridView.count(
+                            shrinkWrap: true,
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 16,
+                            crossAxisSpacing: 8,
+                            children: controller.files
+                                .map((element) => _buildItem(element))
+                                .toList(),
+                          )
+                        ],
+                      )),
+                  Flexible(
+                    flex: 1,
+                    child: SizedBox(
+                      width: Get.width,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            backgroundColor: MAIN_COLOR,
+                            foregroundColor: Colors.white),
+                        onPressed: () => Get.toNamed(Goo.addBioScreen),
+                        child: const Text("Suivant"),
+                      ),
                     ),
-                  ),
-                )
-              ],
-            ).paddingAll(20),
+                  )
+                ],
+              ).paddingAll(20),
+            ),
           ),
         ),
       ),
@@ -127,7 +123,8 @@ class AddFilesRegisterScreen extends GetView<RegisterController> {
                               return Center(
                                 child: Container(
                                   height: 240,
-                                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 20),
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(20)),
@@ -142,10 +139,18 @@ class AddFilesRegisterScreen extends GetView<RegisterController> {
                                         child: itemIcon(Icons.close,
                                             color: Colors.pink),
                                       ),
-                                      const SizedBox( height: 30,),
-                                     const Text("N'hésitez pas à ajouter tes photos d'anniversaires si tu as en :)",
-                                         textAlign: TextAlign.center,
-                                         style: TextStyle( color: DARK_COLOR, fontSize: 22, fontFamily: "Poppins", decoration: TextDecoration.none, fontWeight: FontWeight.w400))
+                                      const SizedBox(
+                                        height: 30,
+                                      ),
+                                      const Text(
+                                          "N'hésitez pas à ajouter tes photos d'anniversaires si tu as en :)",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: DARK_COLOR,
+                                              fontSize: 22,
+                                              fontFamily: "Poppins",
+                                              decoration: TextDecoration.none,
+                                              fontWeight: FontWeight.w400))
                                     ],
                                   ).paddingAll(10)),
                                 ),

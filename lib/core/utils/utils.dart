@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:twins/core/model/zodiaque.dart';
@@ -8,6 +9,7 @@ import 'package:twins/core/services/local_storage.service.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:twins/shared/utils/colors.dart';
 
 final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
 
@@ -148,4 +150,18 @@ Future<Position> determinePosition() async {
         'Location permissions are permanently denied, we cannot request permissions.');
   }
   return await Geolocator.getCurrentPosition();
+}
+
+decoration(String text) {
+  return InputDecoration(
+    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+    hintText: text,
+    hintStyle: const TextStyle(color: DARK_COLOR, fontFamily: "Poppins"),
+    errorStyle: const TextStyle(color: Colors.redAccent),
+    errorBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.redAccent)),
+    focusedBorder:
+        const OutlineInputBorder(borderSide: BorderSide(color: MAIN_COLOR)),
+    border: const OutlineInputBorder(borderSide: BorderSide(color: DARK_COLOR)),
+  );
 }
