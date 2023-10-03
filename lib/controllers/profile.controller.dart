@@ -8,17 +8,13 @@ import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/colors.dart';
 
 class ProfileController extends GetxController {
-  final user = localStorage
-      .getUser()
-      .obs;
+  final user = localStorage.getUser().obs;
   final settingStatus = false.obs;
   final logoutLoad = false.obs;
   final addPhotoLoad = false.obs;
   final updateLoad = false.obs;
   final existingFiles = <XFile>[].obs;
-  final settings = localStorage
-      .getSettings()
-      .obs;
+  final settings = localStorage.getSettings().obs;
   final updateSettingsLoad = false.obs;
   final nameCrtl = TextEditingController();
   final emailCrtl = TextEditingController();
@@ -50,8 +46,8 @@ class ProfileController extends GetxController {
     super.onInit();
     determinePosition().then((value) {
       var user = localStorage.getUser();
-      user?.lat = value.latitude;
-      user?.lng = value.longitude;
+      user?.lat = "${value.latitude}";
+      user?.lng = "${value.longitude}";
       localStorage.user = user;
       settingStatus.value = true;
     });
@@ -105,23 +101,28 @@ class ProfileController extends GetxController {
 
   addPhotos() {
     addPhotoLoad.value = true;
-    var finalFiles =  files.map((e) => e.value).where((e) =>
-    (existingFiles
-        .firstWhere((p0) => p0.path == e.path, orElse: () => XFile("path"))
-        .path == "path")).where((e) => e.path.isNotEmpty).toList();
+    var finalFiles = files
+        .map((e) => e.value)
+        .where((e) => (existingFiles
+                .firstWhere((p0) => p0.path == e.path,
+                    orElse: () => XFile("path"))
+                .path ==
+            "path"))
+        .where((e) => e.path.isNotEmpty)
+        .toList();
 
-    _profileService
-        .addPhotos(finalFiles)
-        .then((value) {
-    addPhotoLoad.value = false;
-    successMessage(title: "Félicitations", content: "Votre album photo est mise à jour.");
-    photos();
+    _profileService.addPhotos(finalFiles).then((value) {
+      addPhotoLoad.value = false;
+      successMessage(
+          title: "Félicitations",
+          content: "Votre album photo est mise à jour.");
+      photos();
     }).catchError((e) {
-    addPhotoLoad.value = false;
+      addPhotoLoad.value = false;
     });
   }
 
-  Future<void> photos() async{
+  Future<void> photos() async {
     await _profileService.getPhotos().then((value) async {
       int i = 0;
       existingFiles.value = [];
@@ -134,9 +135,7 @@ class ProfileController extends GetxController {
     });
   }
 
-  deletePhotos(XFile file) async{
-
-  }
+  deletePhotos(XFile file) async {}
 
   logout() async {
     Get.bottomSheet(Container(
@@ -220,11 +219,11 @@ class ProfileController extends GetxController {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-
           const SizedBox(
             height: 10,
           ),
-          const Text("La désactivation de votre compte est temporaire, votre profil sera masqué jusqu’à ce que vous le réactiviez en vous connectant à nouveau sur Twinz.",
+          const Text(
+              "La désactivation de votre compte est temporaire, votre profil sera masqué jusqu’à ce que vous le réactiviez en vous connectant à nouveau sur Twinz.",
               style: TextStyle(
                   color: DARK_COLOR,
                   fontFamily: "Poppins",
@@ -245,7 +244,7 @@ class ProfileController extends GetxController {
                           borderRadius: BorderRadius.circular(6))),
                   onPressed: () {
                     Get.back();
-                   _confirmDisableAccount();
+                    _confirmDisableAccount();
                   },
                   child: const Text("Je confirme")),
               const SizedBox(
@@ -357,20 +356,18 @@ class ProfileController extends GetxController {
                   color: DARK_COLOR,
                   fontFamily: "Poppins",
                   fontSize: 23,
-
                   fontWeight: FontWeight.w700)),
           const SizedBox(
             height: 20,
           ),
-          const Text("Vous êtes sur le point de désactiver temporairement votre compte. Vous pouvez le réactiver à tout moment en vous connectant à votre compte Twinz.",
-
+          const Text(
+              "Vous êtes sur le point de désactiver temporairement votre compte. Vous pouvez le réactiver à tout moment en vous connectant à votre compte Twinz.",
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: DARK_COLOR,
                   fontFamily: "Poppins",
                   fontSize: 16,
                   fontWeight: FontWeight.w400)),
-
           const SizedBox(
             height: 20,
           ),
@@ -380,11 +377,8 @@ class ProfileController extends GetxController {
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6))),
-              onPressed: () {
-
-              },
+              onPressed: () {},
               child: const Text("Désactiver le compte")),
-
           ElevatedButton(
               style: TextButton.styleFrom(
                   foregroundColor: DARK_COLOR,

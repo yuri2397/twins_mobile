@@ -6,11 +6,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:twins/components/choose_files.widget.dart';
-import 'package:twins/components/ui.dart';
-import 'package:twins/controllers/home.controller.dart';
 import 'package:twins/controllers/profile.controller.dart';
+import 'package:twins/core/utils/utils.dart';
 import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/colors.dart';
 
@@ -63,6 +60,14 @@ class ProfileScreen extends GetView<ProfileController> {
                   style: GoogleFonts.poppins(
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
+                Text(
+                  determinerSigne(
+                          controller.user.value?.birthDate ?? DateTime.now())
+                      .nom,
+                  style: GoogleFonts.poppins(
+                    fontSize: 17,
+                  ),
+                ),
                 const SizedBox(
                   height: 30,
                 ),
@@ -73,32 +78,18 @@ class ProfileScreen extends GetView<ProfileController> {
                   children: [
                     Row(
                       children: [
-                        const Icon(Icons.circle, color: MAIN_COLOR, size: 20),
-                        Text("A propos de vous",
+                        const Icon(Icons.circle, color: MAIN_COLOR, size: 15),
+                        const Text("A propos de vous",
                             style: TextStyle(
-                              color: DARK_COLOR.withOpacity(0.6),
+                              color: MAIN_COLOR,
                               fontSize: 18,
                             )).marginOnly(left: 10),
                       ],
-                    ).marginOnly(bottom: 20),
+                    ),
                     Container(
                         width: Get.width,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 20),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: const Offset(
-                                  1, 1), // changes position of shadow
-                            ),
-                          ],
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20)),
-                        ),
                         child: Text(
                           controller.user.value?.bio ?? 'bio',
                           style: const TextStyle(color: DARK_COLOR),
@@ -108,34 +99,19 @@ class ProfileScreen extends GetView<ProfileController> {
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
-
                       children: [
-                        const Icon(Icons.circle, color: MAIN_COLOR, size: 20),
-                        Text("Mes infos perso",
+                        const Icon(Icons.circle, color: MAIN_COLOR, size: 15),
+                        const Text("Mes infos perso",
                             style: TextStyle(
-                              color: DARK_COLOR.withOpacity(0.6),
+                              color: MAIN_COLOR,
                               fontSize: 18,
                             )).marginOnly(left: 10),
                       ],
-                    ).marginOnly(bottom: 20),
+                    ),
                     Container(
                         width: Get.width,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 20),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: const Offset(
-                                  1, 1), // changes position of shadow
-                            ),
-                          ],
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20)),
-                        ),
                         child: Column(
                           children: [
                             ListTile(
@@ -153,10 +129,8 @@ class ProfileScreen extends GetView<ProfileController> {
                                     fontWeight: FontWeight.w500),
                               ),
                             ),
-
-
                             ListTile(
-                              title: const Text("Sexe",
+                              title: const Text("Sexe :",
                                   style: TextStyle(
                                     color: Colors.black38,
                                     fontSize: 16,
@@ -172,16 +146,16 @@ class ProfileScreen extends GetView<ProfileController> {
                                     fontWeight: FontWeight.w500),
                               ),
                             ),
-
                             ListTile(
-                              title: const Text("Date de naiss.",
+                              title: const Text("Date de naiss : ",
                                   style: TextStyle(
                                     color: Colors.black38,
                                     fontSize: 16,
                                   )),
                               trailing: Text(
-                                DateFormat.yMMMd('fr')
-                                    .format(controller.user.value?.birthDate ?? DateTime.now()),
+                                DateFormat.yMMMd('fr').format(
+                                    controller.user.value?.birthDate ??
+                                        DateTime.now()),
                                 style: const TextStyle(
                                     color: DARK_COLOR,
                                     fontFamily: "Poppins",
@@ -194,69 +168,62 @@ class ProfileScreen extends GetView<ProfileController> {
                             ),
                           ],
                         )),
-                    const SizedBox(
-                      height: 30,
-                    ), Row(
+                    Row(
                       mainAxisSize: MainAxisSize.min,
-
                       children: [
-                        const Icon(Icons.circle, color: MAIN_COLOR, size: 20),
-                        Text("Mon compte",
+                        const Icon(Icons.circle, color: MAIN_COLOR, size: 15),
+                        const Text("Mon compte",
                             style: TextStyle(
-                              color: DARK_COLOR.withOpacity(0.6),
+                              color: MAIN_COLOR,
                               fontSize: 18,
                             )).marginOnly(left: 10),
                       ],
-                    ).marginOnly(bottom: 20),
-
+                    ),
                     Container(
                         width: Get.width,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 20),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: const Offset(
-                                  1, 1), // changes position of shadow
-                            ),
-                          ],
-                          borderRadius:
-                          const BorderRadius.all(Radius.circular(20)),
-                        ),
                         child: Column(
                           children: [
                             ListTile(
-                                onTap: () => controller.logout(),
-
-                                title: const Text("Déconnexion",
-                                    style: TextStyle(
-                                      color: Colors.black38,
-                                      fontSize: 18,
-                                    )),
-                                trailing:const Icon(Icons.arrow_forward_ios_sharp),
-                            ),
-                            ListTile(
-                              onTap: () => controller.disabledAccount(),
-                              title: const Text("Désactiver",
+                              onTap: () => Get.toNamed(Goo.settingScreen),
+                              title: const Text("Paramétres",
                                   style: TextStyle(
-                                    color: Colors.pink,
+                                    color: Colors.black38,
                                     fontSize: 18,
                                   )),
-                              trailing: const Icon(Icons.arrow_forward_ios_sharp)
+                              trailing:
+                                  const Icon(Icons.arrow_forward_ios_sharp),
                             ),
+                            ListTile(
+                              onTap: () => controller.logout(),
+                              title: const Text("Déconnexion",
+                                  style: TextStyle(
+                                    color: Colors.black38,
+                                    fontSize: 18,
+                                  )),
+                              trailing:
+                                  const Icon(Icons.arrow_forward_ios_sharp),
+                            ),
+                            ListTile(
+                                onTap: () => controller.disabledAccount(),
+                                title: const Text("Désactiver",
+                                    style: TextStyle(
+                                      color: Colors.pink,
+                                      fontSize: 18,
+                                    )),
+                                trailing:
+                                    const Icon(Icons.arrow_forward_ios_sharp)),
                             ListTile(
                                 title: const Text("Supprimer",
                                     style: TextStyle(
                                       color: Colors.pink,
                                       fontSize: 18,
                                     )),
-                                trailing:GestureDetector( child: const Icon(Icons.arrow_forward_ios_sharp),)
-                            ),
-
+                                trailing: GestureDetector(
+                                  child:
+                                      const Icon(Icons.arrow_forward_ios_sharp),
+                                )),
                           ],
                         )),
                   ],

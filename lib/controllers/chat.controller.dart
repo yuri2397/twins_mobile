@@ -6,12 +6,44 @@ import 'package:twins/core/services/chat.service.dart';
 import 'package:twins/core/utils/utils.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:twins/routes/router.dart';
+import 'package:chatview/chatview.dart' as hc;
 
 class ChatController extends GetxController {
-  final messages = <types.Message>[].obs;
+  final messages = <hc.Message>[
+    hc.Message(
+      id: '1',
+      message: "Hi!",
+      createdAt: DateTime.now(),
+      sendBy: '1', // userId of who sends the message
+      status: hc.MessageStatus.read,
+    ),
+    hc.Message(
+      id: '2',
+      message: "Hi!",
+      createdAt: DateTime.now(),
+      sendBy: '2',
+      status: hc.MessageStatus.read,
+    ),
+    hc.Message(
+      id: '3',
+      message: "We can meet?I am free",
+      createdAt: DateTime.now(),
+      sendBy: '1',
+      status: hc.MessageStatus.read,
+    ),
+    hc.Message(
+      id: '4',
+      message: "Can you write the time and place of the meeting?",
+      createdAt: DateTime.now(),
+      sendBy: '1',
+      status: hc.MessageStatus.read,
+    ),
+  ].obs;
   final types.User user = types.User(
     id: currentUserId,
   );
+  final _localUser = localStorage.getUser();
+  get localUser => _localUser;
   final chats = <lc.Chat>[].obs;
   final chatsLoad = false.obs;
 
@@ -20,6 +52,50 @@ class ChatController extends GetxController {
   final currentChat = lc.Chat().obs;
 
   final textFielController = TextEditingController();
+  final hc.ChatController chatController = hc.ChatController(
+    initialMessageList: [
+      hc.Message(
+        id: '1',
+        message: "Hi!",
+        createdAt: DateTime.now(),
+        sendBy: '1', // userId of who sends the message
+        status: hc.MessageStatus.read,
+      ),
+      hc.Message(
+        id: '2',
+        message: "Hi, how are.",
+        createdAt: DateTime.now(),
+        sendBy: '2',
+        status: hc.MessageStatus.read,
+      ),
+      hc.Message(
+        id: '3',
+        message: "We can meet?I am free",
+        createdAt: DateTime.now(),
+        sendBy: '1',
+        status: hc.MessageStatus.read,
+      ),
+      hc.Message(
+        id: '4',
+        message: "Can you write the time and place of the meeting?",
+        createdAt: DateTime.now(),
+        sendBy: '1',
+        status: hc.MessageStatus.read,
+      ),
+    ],
+    scrollController: ScrollController(),
+    chatUsers: [
+      hc.ChatUser(
+          id: '2',
+          name: 'Simform',
+          profilePhoto:
+              "http://twinz.cila3254.odns.fr/storage/39/09272023151414651446c66c5c1"),
+      hc.ChatUser(
+        id: '1',
+        name: 'Jhon',
+      ),
+    ],
+  );
 
   @override
   void onInit() {
@@ -41,24 +117,70 @@ class ChatController extends GetxController {
   detailsChat(lc.Chat chat) {
     chat.messages!.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
     currentChat.value = chat;
-
+    print(currentChat.value.toJson().toString());
     messages.value = chat.messages!
-        .map((e) => types.Message.fromJson(e.toJsonForMessage()))
+        .map((e) => hc.Message(
+            id: "e",
+            message: "",
+            createdAt: chat.createdAt!,
+            sendBy:
+                "${chat.participants!.firstWhere((element) => element.id != int.tryParse(currentUserId)).id}"))
         .toList();
     Get.toNamed(Goo.chatScreen);
   }
 
   void addMessage() {
-    var message = lc.Message(
-        chatId: "${currentChat.value.id}",
-        message: textFielController.text.trim(),
-        userId: currentUserId,
-        sender: localStorage.getUser(),
-        createdAt: DateTime.now(),
-        id: currentChat.value.messages!.last.id! + 1);
-
-    messages.insert(0, types.Message.fromJson(message.toJsonForMessage()));
+    messages.insert(
+        0,
+        hc.Message(
+            id: "eaa",
+            message: textFielController.text.trim(),
+            createdAt: DateTime.now(),
+            sendBy: currentUserId));
     messages.refresh();
+    textFielController.text = "";
+    chatController.addMessage(hc.Message(
+        id: "eaa",
+        message: textFielController.text.trim(),
+        createdAt: DateTime.now(),
+        sendBy: currentUserId));
+  }
+
+  void onSendTap(
+    String message,
+    hc.ReplyMessage replyMessage,
+    hc.MessageType messageType,
+  ) {
+    final id = int.parse(messages.last.id) + 1;
+    chatController.addMessage(
+      hc.Message(
+        id: id.toString(),
+        createdAt: DateTime.now(),
+        message: message,
+        sendBy: currentUserId,
+        replyMessage: replyMessage,
+        messageType: messageType,
+      ),
+    );
+    Future.delayed(const Duration(milliseconds: 300), () {
+      chatController.initialMessageList.last.setStatus =
+          hc.MessageStatus.undelivered;
+    });
+    Future.delayed(const Duration(seconds: 1), () {
+      chatController.initialMessageList.last.setStatus = hc.MessageStatus.read;
+    });
+  }
+
+  void onThemeIconTap() {
+    // setState(() {
+    //   if (isDarkTheme) {
+    //     theme = LightTheme();
+    //     isDarkTheme = false;
+    //   } else {
+    //     theme = DarkTheme();
+    //     isDarkTheme = true;
+    //   }
+    // });
   }
 
   void handleSendPressed(types.PartialText message) {

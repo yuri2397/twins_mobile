@@ -19,24 +19,26 @@ class HomeScreen extends GetView<HomeController> {
 
   final _items = <PersistentBottomNavBarItem>[
     PersistentBottomNavBarItem(
-      icon: const Icon(Icons.pages),
+      icon: const ImageIcon(
+        AssetImage('assets/images/home.png'),
+      ),
       activeColorPrimary: MAIN_COLOR,
-      inactiveColorPrimary: NEUTRAL_COLOR,
+      inactiveColorPrimary: MAIN_COLOR,
     ),
     PersistentBottomNavBarItem(
       icon: const Icon(Icons.notifications),
       activeColorPrimary: MAIN_COLOR,
-      inactiveColorPrimary: NEUTRAL_COLOR,
+      inactiveColorPrimary: MAIN_COLOR,
     ),
     PersistentBottomNavBarItem(
       icon: const Icon(CupertinoIcons.chat_bubble_2_fill),
       activeColorPrimary: MAIN_COLOR,
-      inactiveColorPrimary: NEUTRAL_COLOR,
+      inactiveColorPrimary: MAIN_COLOR,
     ),
     PersistentBottomNavBarItem(
       icon: const Icon(CupertinoIcons.person_fill),
       activeColorPrimary: MAIN_COLOR,
-      inactiveColorPrimary: NEUTRAL_COLOR,
+      inactiveColorPrimary: MAIN_COLOR,
     ),
   ];
 
@@ -47,7 +49,61 @@ class HomeScreen extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return PersistentTabView(
+    return Obx(
+      () => Scaffold(
+        body: _screens[controller.currentIndex.value],
+        bottomNavigationBar: Container(
+          color: MAIN_COLOR,
+          height: 60,
+          padding: const EdgeInsets.symmetric(vertical: 2),
+          child: NavigationBar(
+            onDestinationSelected: (int index) {},
+            indicatorColor: Colors.white,
+            selectedIndex: controller.currentIndex.value,
+            backgroundColor: Colors.white,
+            destinations: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  controller.currentIndex.value = 0;
+                  controller.currentIndex.refresh();
+                },
+                child: const ImageIcon(
+                  AssetImage('assets/images/home.png'),
+                  color: MAIN_COLOR,
+                ),
+              ),
+              GestureDetector(
+                  onTap: () {
+                    controller.currentIndex.value = 1;
+                    controller.currentIndex.refresh();
+                  },
+                  child: const Icon(Icons.notifications, color: MAIN_COLOR)),
+              GestureDetector(
+                  onTap: () {
+                    controller.currentIndex.value = 2;
+                    controller.currentIndex.refresh();
+                  },
+                  child: const Icon(CupertinoIcons.chat_bubble_2_fill,
+                      color: MAIN_COLOR)),
+              GestureDetector(
+                  onTap: () {
+                    controller.currentIndex.value = 3;
+                    controller.currentIndex.refresh();
+                  },
+                  child: const Icon(CupertinoIcons.person_fill,
+                      color: MAIN_COLOR)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+/*
+PersistentTabView(
       context,
       controller: _controller,
       screens: _screens,
@@ -82,6 +138,6 @@ class HomeScreen extends GetView<HomeController> {
       ),
       navBarStyle:
           NavBarStyle.style3, // Choose the nav bar style with this property.
-    );
-  }
-}
+    )
+
+*/

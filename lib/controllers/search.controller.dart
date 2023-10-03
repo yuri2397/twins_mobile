@@ -21,8 +21,8 @@ class SearchController extends GetxController {
     getMatchings();
     determinePosition().then((value) {
       var user = localStorage.getUser();
-      user?.lat = value.latitude;
-      user?.lng = value.longitude;
+      user?.lat = "${value.latitude}";
+      user?.lng = "${value.longitude}";
       localStorage.user = user;
     });
     super.onInit();

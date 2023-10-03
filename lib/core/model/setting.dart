@@ -1,12 +1,8 @@
 import 'dart:convert';
 
-Setting settingFromJson(String str) => Setting.fromJson(json.decode(str));
-
-String settingToJson(Setting data) => json.encode(data.toJson());
-
 class Setting {
   int? distanceInKilometers;
-  int? differenceInDays;
+  dynamic differenceInDays;
   int? ageMin;
   int? ageMax;
   String? gender;

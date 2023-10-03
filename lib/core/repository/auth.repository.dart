@@ -23,6 +23,7 @@ class AuthRepository {
         "password": password,
         "device_name": await deviceName
       });
+      print("${response.data}");
       if (response.statusCode! <= 200 && response.statusCode! < 300) {
         return Token.fromJson(response.data);
       } else {
@@ -90,7 +91,9 @@ class AuthRepository {
   }
 
   Future<Token> register(
-      {required Map<String, dynamic> data, XFile? file, required List<XFile> files}) async {
+      {required Map<String, dynamic> data,
+      XFile? file,
+      required List<XFile> files}) async {
     try {
       dio.FormData formData = dio.FormData.fromMap({
         ...data,
@@ -171,9 +174,9 @@ class AuthRepository {
     try {
       var response = await _client.get("/photos");
       if (response.statusCode! <= 200 && response.statusCode! < 300) {
-       if( response.data is Map ) {
-         return [];
-       }
+        if (response.data is Map) {
+          return [];
+        }
         return List<UploadFile>.from(
             response.data.map((x) => UploadFile.fromJson(x)));
       } else {
