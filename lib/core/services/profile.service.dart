@@ -20,9 +20,9 @@ class ProfileService extends GetxService {
     }
   }
 
-  Future<User> profileUpdate({required Map<String, dynamic> data }) async {
+  Future<User> profileUpdate({required User data }) async {
     try {
-      var response = await repo.profileUpdate(data);
+      var response = await repo.profileUpdate(data.toJson());
       localStorage.user = response;
       localStorage.settings = response.settings;
       return response;

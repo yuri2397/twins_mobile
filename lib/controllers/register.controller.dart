@@ -56,10 +56,9 @@ class RegisterController extends GetxController {
       "gender": gender.value,
       "birth_date": birthdayCtrl.text,
       "email": emailCtrl.text.trim(),
+      "bio": bioCtrl.text.trim(),
       "password": passwordCtrl.text,
       "password_confirmation": passwordCtrl.text,
-      "phone_number": "778123456",
-      "address": addressCtrl.text,
       "device_name": await deviceName,
     };
     _registerService

@@ -67,9 +67,9 @@ class HomeScreen extends GetView<HomeController> {
                   controller.currentIndex.value = 0;
                   controller.currentIndex.refresh();
                 },
-                child: const ImageIcon(
+                child:  ImageIcon(
                   AssetImage('assets/images/home.png'),
-                  color: MAIN_COLOR,
+                  color: controller.currentIndex.value == 0 ? MAIN_COLOR : NEUTRAL_COLOR,
                 ),
               ),
               GestureDetector(
@@ -77,21 +77,21 @@ class HomeScreen extends GetView<HomeController> {
                     controller.currentIndex.value = 1;
                     controller.currentIndex.refresh();
                   },
-                  child: const Icon(Icons.notifications, color: MAIN_COLOR)),
+                  child:  Icon(Icons.notifications, color: controller.currentIndex.value == 1 ? MAIN_COLOR : NEUTRAL_COLOR)),
               GestureDetector(
                   onTap: () {
                     controller.currentIndex.value = 2;
                     controller.currentIndex.refresh();
                   },
-                  child: const Icon(CupertinoIcons.chat_bubble_2_fill,
-                      color: MAIN_COLOR)),
+                  child:  Icon(CupertinoIcons.chat_bubble_2_fill,
+                      color: controller.currentIndex.value == 2 ? MAIN_COLOR : NEUTRAL_COLOR)),
               GestureDetector(
                   onTap: () {
                     controller.currentIndex.value = 3;
                     controller.currentIndex.refresh();
                   },
-                  child: const Icon(CupertinoIcons.person_fill,
-                      color: MAIN_COLOR)),
+                  child:  Icon(CupertinoIcons.person_fill,
+                      color: controller.currentIndex.value == 3 ? MAIN_COLOR : NEUTRAL_COLOR)),
             ],
           ),
         ),

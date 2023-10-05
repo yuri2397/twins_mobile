@@ -15,7 +15,7 @@ class SearchController extends GetxController {
   final _chatRequestService = Get.find<ChatRequestService>();
   final canUnswip = false.obs;
   final detailUserPhotosController = PageController();
-
+  final matchLoad = true.obs;
   @override
   void onInit() {
     getMatchings();
@@ -29,8 +29,10 @@ class SearchController extends GetxController {
   }
 
   void getMatchings() {
+    matchLoad.value = true;
     _matchingService.matchings().then((value) {
       currentMatch.value = value;
+      print(value.toString());
       visibleUser.value = value.first;
       visibleUser.refresh();
       currentMatch.refresh();
@@ -64,6 +66,8 @@ class SearchController extends GetxController {
 
   onSwipBack(User currentMatch) {
     visibleUser.value = currentMatch;
+    visibleUser.refresh();
+
     if (canUnswip.value) {
       swiperController.unswipe();
       canUnswip.value = false;
@@ -73,6 +77,7 @@ class SearchController extends GetxController {
 
   onCancel(User currentMatch) {
     visibleUser.value = currentMatch;
+    visibleUser.refresh();
     swiperController.swipeLeft();
   }
 }

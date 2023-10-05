@@ -16,104 +16,58 @@ class SearchScreen extends GetView<sc.SearchController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: MAIN_COLOR,
-        elevation: 0,
-        leading: GestureDetector(
-          child: const Icon(Icons.menu, color: Colors.white),
+        appBar: AppBar(
+          backgroundColor: MAIN_COLOR,
+          elevation: 0,
+          leading: GestureDetector(
+            child: const Icon(Icons.menu, color: Colors.white),
+          ),
+          title: Image.asset(
+            Env.whiteLogo,
+            width: 50,
+          ),
         ),
-        title: Image.asset(
-          Env.whiteLogo,
-          width: 60,
-        ),
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Flexible(
-                    flex: 2,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.circle,
-                          size: 10,
-                          color: MAIN_COLOR,
-                        ),
-                        const SizedBox(
-                          width: 6,
-                        ),
-                        Icon(
-                          Icons.circle,
-                          size: 10,
-                          color: MAIN_COLOR.withOpacity(0.8),
-                        ),
-                        const SizedBox(
-                          width: 6,
-                        ),
-                        Icon(
-                          Icons.circle,
-                          size: 10,
-                          color: MAIN_COLOR.withOpacity(0.6),
-                        ),
-                        const SizedBox(
-                          width: 6,
-                        ),
-                        Icon(
-                          Icons.circle,
-                          size: 10,
-                          color: MAIN_COLOR.withOpacity(.5),
-                        ),
-                      ],
-                    ).marginOnly(left: 50),
+        drawer: _drawer(),
+        body: SafeArea(
+          child: Obx(() => Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(controller.visibleUser.value.photosCount ?? 0, (index) =>const  Icon(Icons.circle,color: MAIN_COLOR, size: 13).marginSymmetric(horizontal: 3)),
+                ).marginAll(8),
+                SizedBox(
+                    height: Get.height - 180,
+                    width: Get.width,
+                    child: AppinioSwiper(
+                      swipeOptions: const AppinioSwipeOptions.only(left: true),
+                      unlimitedUnswipe: true,
+                      controller: controller.swiperController,
+                      backgroundCardsCount: 0,
+                      onSwiping: (AppinioSwiperDirection direction) {},
+                      onSwipe: controller.swipe,
+                      padding: const EdgeInsets.only(
+                        left: 25,
+                        right: 25,
+                        top: 10,
+                        bottom: 40,
+                      ),
+                      cardsCount: controller.currentMatch.length,
+                      cardsBuilder: (BuildContext context, int index) {
+                        return SearchItemWidget(
+                            like: () =>
+                                controller.onLike(controller.currentMatch[index]),
+                            swipBack: () => controller
+                                .onSwipBack(controller.currentMatch[index]),
+                            cancel: () =>
+                                controller.onCancel(controller.currentMatch[index]),
+                            user: controller.currentMatch[index]);
+                      },
+                    ),
                   ),
-                  GestureDetector(
-                    onTap: () => Get.toNamed(Goo.searchDetailsScreen),
-                    child: itemIcon(CupertinoIcons.info_circle_fill),
-                  ),
-                ],
-              ),
+              ],
             ),
-            Obx(
-              () => SizedBox(
-                height: Get.height * .75,
-                width: Get.width,
-                child: AppinioSwiper(
-                  swipeOptions: const AppinioSwipeOptions.only(left: true),
-                  unlimitedUnswipe: true,
-                  controller: controller.swiperController,
-                  backgroundCardsCount: 0,
-                  onSwiping: (AppinioSwiperDirection direction) {},
-                  onSwipe: controller.swipe,
-                  padding: const EdgeInsets.only(
-                    left: 25,
-                    right: 25,
-                    top: 10,
-                    bottom: 40,
-                  ),
-                  cardsCount: controller.currentMatch.length,
-                  cardsBuilder: (BuildContext context, int index) {
-                    return SearchItemWidget(
-                        like: () =>
-                            controller.onLike(controller.currentMatch[index]),
-                        swipBack: () => controller
-                            .onSwipBack(controller.currentMatch[index]),
-                        cancel: () =>
-                            controller.onCancel(controller.currentMatch[index]),
-                        user: controller.currentMatch[index]);
-                  },
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
     );
   }
 
@@ -252,5 +206,11 @@ class SearchScreen extends GetView<sc.SearchController> {
         ],
       ),
     ));
+  }
+
+  _drawer() {
+    return Column(
+      children: [],
+    );
   }
 }

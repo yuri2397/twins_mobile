@@ -60,7 +60,7 @@ class AuthRepository {
 
   Future<User> profileUpdate(Map<String, dynamic> data) async {
     try {
-      var response = await _client.post("/profile", data: data);
+      var response = await _client.put("/profile", data: data);
       if (response.statusCode! <= 200 && response.statusCode! < 300) {
         return User.fromJson(response.data);
       } else {

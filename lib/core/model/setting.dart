@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class Setting {
   int? distanceInKilometers;
-  dynamic differenceInDays;
+  String? differenceInDays;
   int? ageMin;
   int? ageMax;
   String? gender;

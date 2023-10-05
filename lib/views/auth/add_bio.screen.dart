@@ -82,11 +82,18 @@ class AddBioScreen extends GetView<RegisterController> {
                       foregroundColor: Colors.white),
                   onPressed: () {
                     if (_form.currentState!.validate()) {
-                      //controller.parseDate();
-                      Get.toNamed(Goo.addAvatarScreen);
+                      controller.parseDate();
+                      controller.save();
                     }
                   },
-                  child: const Text("C'est parti"),
+                  child: controller.loading.value
+                      ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ))
+                      : const Text("C'est parti"),
                 ),
               )
             ],

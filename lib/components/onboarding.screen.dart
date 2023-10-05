@@ -44,38 +44,50 @@ class OnboardingScreen extends GetView<OnboardingController> {
                       text: "En utilisant nos services, vous acceptez nos ",
                       style: TextStyle(
                         fontSize: 16,
+                        color: Colors.white
                       ),
                       children: [
                         TextSpan(
                           text: "conditions d’utilisation",
                           style: TextStyle(
                               decoration: TextDecoration.underline,
+                              color: Colors.white,
                               fontWeight: FontWeight.bold),
                         ),
                         TextSpan(
                           text: ". Consultez notre ",
-                          style: TextStyle(),
+                          style: TextStyle(
+                            color: Colors.white,
+
+                          ),
                         ),
                         TextSpan(
                           text: "politique de confidentialité",
                           style: TextStyle(
                               decoration: TextDecoration.underline,
+                              color: Colors.white,
+
                               fontWeight: FontWeight.bold),
                         ),
                         TextSpan(
-                          text: " et celle ",
+                          text: " et ",
                           style: TextStyle(),
                         ),
                         TextSpan(
-                          text: "relative aux cookies",
+                          text: "celle relative aux cookies",
                           style: TextStyle(
                               decoration: TextDecoration.underline,
+                              color: Colors.white,
+
                               fontWeight: FontWeight.bold),
                         ),
                         TextSpan(
                           text:
                               " pour en savoir plus sur le traitement de vos données.",
-                          style: TextStyle(),
+                          style: TextStyle(
+                            color: Colors.white,
+
+                          ),
                         ),
                       ])).marginOnly(bottom: 20),
             ),

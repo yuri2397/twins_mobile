@@ -34,22 +34,40 @@ class ProfileScreen extends GetView<ProfileController> {
                       ),
                       Align(
                         alignment: Alignment.bottomCenter,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: NEUTRAL_COLOR),
-                              borderRadius: BorderRadius.circular(100)),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: Image.network(
-                              (controller.user.value?.profilePhoto != null &&
-                                      controller.user.value?.profilePhoto != "")
-                                  ? controller.user.value!.profilePhoto!
-                                  : "https://img.freepik.com/photos-gratuite/jeune-femme-chien-sans-abri-au-parc-photo-haute-qualite_144627-75703.jpg?w=740&t=st=1694874615~exp=1694875215~hmac=eb6804b67c1fc7b677babff8be1caaee8f4b47db541f6cfeb548f472371d555d",
-                              fit: BoxFit.cover,
-                              height: 100,
-                              width: 100,
+                        child: Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: NEUTRAL_COLOR),
+                                  borderRadius: BorderRadius.circular(100)),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.network(
+                                  (controller.user.value?.profilePhoto !=
+                                              null &&
+                                          controller.user.value?.profilePhoto !=
+                                              "")
+                                      ? controller.user.value!.profilePhoto!
+                                      : "https://img.freepik.com/photos-gratuite/jeune-femme-chien-sans-abri-au-parc-photo-haute-qualite_144627-75703.jpg?w=740&t=st=1694874615~exp=1694875215~hmac=eb6804b67c1fc7b677babff8be1caaee8f4b47db541f6cfeb548f472371d555d",
+                                  fit: BoxFit.cover,
+                                  height: 100,
+                                  width: 100,
+                                ),
+                              ),
                             ),
-                          ),
+                            Positioned(
+                              bottom: 0,
+                                right: 0,
+                                child: GestureDetector(
+                              onTap: () {},
+                              child: const CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius:16,
+                                child:
+                                    Icon(Icons.add_a_photo, color: MAIN_COLOR, size: 18),
+                              ),
+                            ))
+                          ],
                         ),
                       ),
                     ],
@@ -137,8 +155,8 @@ class ProfileScreen extends GetView<ProfileController> {
                                   )),
                               trailing: Text(
                                 controller.user.value?.gender == 'male'
-                                    ? 'Masculin'
-                                    : 'Fénimin',
+                                    ? 'Homme'
+                                    : 'Femme',
                                 style: const TextStyle(
                                     color: DARK_COLOR,
                                     fontFamily: "Poppins",

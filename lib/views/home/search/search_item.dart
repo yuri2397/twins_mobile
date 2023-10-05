@@ -5,10 +5,11 @@ import 'package:intl/intl.dart';
 import 'package:twins/components/ui.dart';
 import 'package:twins/core/config/env.dart';
 import 'package:twins/core/model/user.dart';
+import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/colors.dart';
 
 // ignore: must_be_immutable
-class SearchItemWidget extends StatefulWidget {
+class SearchItemWidget extends StatelessWidget {
   User user;
   Function cancel;
   Function like;
@@ -20,11 +21,6 @@ class SearchItemWidget extends StatefulWidget {
       required this.like,
       required this.swipBack});
 
-  @override
-  State<SearchItemWidget> createState() => _SearchItemWidgetState();
-}
-
-class _SearchItemWidgetState extends State<SearchItemWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,22 +40,37 @@ class _SearchItemWidgetState extends State<SearchItemWidget> {
           SizedBox(
             height: Get.height * .45,
             width: Get.width,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                (widget.user.profilePhoto != null &&
-                        widget.user.profilePhoto != "")
-                    ? widget.user.profilePhoto!
-                    : "https://img.freepik.com/photos-gratuite/jeune-femme-chien-sans-abri-au-parc-photo-haute-qualite_144627-75703.jpg?w=740&t=st=1694874615~exp=1694875215~hmac=eb6804b67c1fc7b677babff8be1caaee8f4b47db541f6cfeb548f472371d555d",
-                fit: BoxFit.cover,
-              ),
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      (user.profilePhoto != null &&
+                              user.profilePhoto != "")
+                          ? user.profilePhoto!
+                          : "https://img.freepik.com/photos-gratuite/jeune-femme-chien-sans-abri-au-parc-photo-haute-qualite_144627-75703.jpg?w=740&t=st=1694874615~exp=1694875215~hmac=eb6804b67c1fc7b677babff8be1caaee8f4b47db541f6cfeb548f472371d555d",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: GestureDetector(
+                    onTap: () => Get.toNamed(Goo.searchDetailsScreen),
+                    child: itemIcon(CupertinoIcons.info_circle_fill),
+                  ),
+                ),
+
+              ],
             ),
           ),
           const SizedBox(
             height: 10,
           ),
           Text(
-            "${widget.user.fullName}, ${widget.user.age}".capitalizeFirst ?? "",
+            "${user.fullName}, ${user.age}".capitalizeFirst ?? "",
             overflow: TextOverflow.fade,
             style: const TextStyle(
               color: DARK_COLOR,
@@ -71,7 +82,7 @@ class _SearchItemWidgetState extends State<SearchItemWidget> {
             width: Get.width,
             child: Text(
                 DateFormat.MMMMd('fr')
-                    .format(widget.user.birthDate ?? DateTime.now()),
+                    .format(user.birthDate ?? DateTime.now()),
                 textAlign: TextAlign.start,
                 overflow: TextOverflow.fade,
                 maxLines: 2,
@@ -85,7 +96,7 @@ class _SearchItemWidgetState extends State<SearchItemWidget> {
             width: Get.width,
             height: 60,
             child: Text(
-                widget.user.bio ??
+                user.bio ??
                     'Bio ===================================================================================================',
                 textAlign: TextAlign.start,
                 overflow: TextOverflow.ellipsis,
@@ -99,7 +110,7 @@ class _SearchItemWidgetState extends State<SearchItemWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               GestureDetector(
-                onTap: () => widget.cancel(),
+                onTap: () => cancel(),
                 child: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
@@ -123,7 +134,7 @@ class _SearchItemWidgetState extends State<SearchItemWidget> {
                 ),
               ),
               GestureDetector(
-                onTap: () => widget.swipBack(),
+                onTap: () => swipBack(),
                 child: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
@@ -147,7 +158,7 @@ class _SearchItemWidgetState extends State<SearchItemWidget> {
                 ),
               ).marginOnly(top: 10),
               GestureDetector(
-                onTap: () => widget.like(),
+                onTap: () => like(),
                 child: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(

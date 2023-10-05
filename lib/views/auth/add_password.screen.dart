@@ -35,7 +35,7 @@ class AddPasswordScreen extends GetView<RegisterController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Choisissze un mot de passe",
+                      "Choisissez un mot de passe",
                       style: TextStyle(
                           color: DARK_COLOR,
                           fontSize: 30,

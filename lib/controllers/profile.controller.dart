@@ -50,8 +50,10 @@ class ProfileController extends GetxController {
       user?.lng = "${value.longitude}";
       localStorage.user = user;
       settingStatus.value = true;
-    });
+      _profileService.profileUpdate(data: user!).then((value) => {
 
+      });
+    });
     profile();
     photos();
   }
@@ -393,5 +395,10 @@ class ProfileController extends GetxController {
         ],
       ),
     ));
+  }
+
+  changeGender(String s) {
+    settings.value?.gender = s;
+    settings.refresh();
   }
 }

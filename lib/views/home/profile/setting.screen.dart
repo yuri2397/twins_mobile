@@ -41,10 +41,10 @@ class SettingScreen extends GetView<ProfileController> {
                 const Text(
                   "Distance",
                   style: TextStyle(
-                      color: MAIN_COLOR,
+                      color: DARK_COLOR,
                       fontSize: 20,
                       fontFamily: "Poppins",
-                      fontWeight: FontWeight.w400),
+                      fontWeight: FontWeight.bold),
                 ).marginOnly(left: 10),
               ],
             ),
@@ -56,9 +56,9 @@ class SettingScreen extends GetView<ProfileController> {
               max: 50,
               value: double.tryParse(
                       "${controller.settings.value?.distanceInKilometers}") ??
-                  20,
+                  0,
               interval: 20,
-              showTicks: true,
+              showTicks: false,
               activeColor: MAIN_COLOR,
               showLabels: false,
               enableTooltip: true,
@@ -82,10 +82,10 @@ class SettingScreen extends GetView<ProfileController> {
                 const Text(
                   "Ecart",
                   style: TextStyle(
-                      color: MAIN_COLOR,
+                      color: DARK_COLOR,
                       fontSize: 20,
                       fontFamily: "Poppins",
-                      fontWeight: FontWeight.w400),
+                      fontWeight: FontWeight.bold),
                 ).marginOnly(left: 10),
               ],
             ),
@@ -93,19 +93,19 @@ class SettingScreen extends GetView<ProfileController> {
               height: 10,
             ),
             SfSlider(
-              min: 1,
-              max: 50,
+              min: 0,
+              max: 15,
               value: double.tryParse(
-                      "${controller.settings.value?.distanceInKilometers}") ??
-                  35,
+                      "${controller.settings.value?.differenceInDays}") ??
+                  1,
               interval: 20,
-              showTicks: true,
+              showTicks: false,
               activeColor: MAIN_COLOR,
               showLabels: false,
               enableTooltip: true,
               minorTicksPerInterval: 1,
               onChanged: (dynamic value) {
-                controller.settings.value?.distanceInKilometers = value.toInt();
+                controller.settings.value?.differenceInDays = value.toInt().toString();
                 controller.settings.refresh();
                 localStorage.settings = controller.settings.value;
               },
@@ -123,10 +123,10 @@ class SettingScreen extends GetView<ProfileController> {
                 const Text(
                   "Tranche d'âge",
                   style: TextStyle(
-                      color: MAIN_COLOR,
+                      color: DARK_COLOR,
                       fontSize: 20,
                       fontFamily: "Poppins",
-                      fontWeight: FontWeight.w400),
+                      fontWeight: FontWeight.bold),
                 ).marginOnly(left: 10),
               ],
             ),
@@ -135,32 +135,33 @@ class SettingScreen extends GetView<ProfileController> {
             ),
             Row(
               children: [
-                Expanded(
-                  child: SfRangeSlider(
-                    min: 0,
-                    max: 80,
-                    interval: 10,
-                    showTicks: false,
-                    activeColor: MAIN_COLOR,
-                    showLabels: false,
-                    enableTooltip: true,
-                    minorTicksPerInterval: 1,
-                    onChanged: (SfRangeValues values) {
-                      controller.settings.value?.ageMin = values.start?.toInt();
-                      controller.settings.value?.ageMax = values.end?.toInt();
-                      controller.settings.refresh();
-                      Get.log(
-                          "${controller.settings.value?.toJson().toString()}");
-                      localStorage.settings = controller.settings.value;
-                    },
-                    values: SfRangeValues(
-                        controller.settings.value?.ageMin ?? 21,
-                        controller.settings.value?.ageMax ?? 45),
-                  ),
-                ),
-                Text("21 - 35")
+                 SizedBox(
+                   width: Get.width - 100,
+                   child: SfRangeSlider(
+                      min: 18,
+                      max: 65,
+                      interval: 10,
+                      showTicks: false,
+                      activeColor: MAIN_COLOR,
+                      showLabels: false,
+                      enableTooltip: true,
+                      minorTicksPerInterval: 1,
+                      onChanged: (SfRangeValues values) {
+                        controller.settings.value?.ageMin = values.start?.toInt();
+                        controller.settings.value?.ageMax = values.end?.toInt();
+                        controller.settings.refresh();
+                        Get.log(
+                            "${controller.settings.value?.toJson().toString()}");
+                        localStorage.settings = controller.settings.value;
+                      },
+                      values: SfRangeValues(
+                          controller.settings.value?.ageMin ?? 18,
+                          controller.settings.value?.ageMax ?? 65),
+                    ),
+                 ),
+                Text("${controller.settings.value?.ageMin} - ${controller.settings.value?.ageMax}")
               ],
-            ).marginSymmetric(horizontal: 20),
+            ).marginSymmetric(),
             const SizedBox(
               height: 30,
             ),
@@ -174,10 +175,10 @@ class SettingScreen extends GetView<ProfileController> {
                 const Text(
                   "Sexe",
                   style: TextStyle(
-                      color: MAIN_COLOR,
+                      color: DARK_COLOR,
                       fontSize: 20,
                       fontFamily: "Poppins",
-                      fontWeight: FontWeight.w400),
+                      fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ).marginOnly(left: 10),
               ],
@@ -186,20 +187,27 @@ class SettingScreen extends GetView<ProfileController> {
               height: 30,
             ),
             CheckboxListTile(
-              value: false,
-              onChanged: (bool? value) {},
-              title: const Text('Homme'),
-            ),
-            CheckboxListTile(
-              value: true,
+              value: controller.settings.value?.gender == "male",
+              onChanged: (bool? value) => controller.changeGender("male"),
+              title: const Text('Hommes'),
               activeColor: MAIN_COLOR,
-              onChanged: (bool? value) {},
-              title: const Text('Femme'),
+
             ),
             CheckboxListTile(
-              value: false,
-              onChanged: (bool? value) {},
-              title: const Text('Homme et Femme'),
+              value: controller.settings.value?.gender == "female",
+              activeColor: MAIN_COLOR,
+              onChanged: (bool? value) => controller.changeGender("female"),
+              title: const Text('Femmes'),
+            ),
+            CheckboxListTile(
+              value: controller.settings.value?.gender == "both",
+              onChanged: (bool? value) => controller.changeGender("both"),
+              activeColor: MAIN_COLOR,
+
+              title: const Text('Hommes et Femmes'),
+            ),
+            const SizedBox(
+              height: 30,
             ),
             SizedBox(
               width: Get.width,

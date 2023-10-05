@@ -17,7 +17,7 @@ class ChatListScreen extends GetView<ChatController> {
           appBar: AppBar(
             elevation: 0,
             backgroundColor: MAIN_COLOR,
-            leading: Icon(Icons.menu, color: Colors.white),
+            leading: const Icon(Icons.menu, color: Colors.white),
           ),
           body: controller.chatsLoad.value
               ? const Center(
@@ -31,11 +31,11 @@ class ChatListScreen extends GetView<ChatController> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           SvgPicture.asset(
-                            "assets/images/notifications.svg",
+                            "assets/images/message.svg",
                             width: 300,
                           ),
                           const Text(
-                            "Aucune notification",
+                            "Aucune données",
                             style: TextStyle(
                                 color: DARK_COLOR,
                                 fontSize: 18,

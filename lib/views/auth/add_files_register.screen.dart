@@ -104,7 +104,9 @@ class AddFilesRegisterScreen extends GetView<RegisterController> {
                       ),
                     ),
                   )
-                : Container(),
+                : Container(
+              color: GRAY_COLOR,
+            ),
             Positioned(
               bottom: 5,
               right: 5,
