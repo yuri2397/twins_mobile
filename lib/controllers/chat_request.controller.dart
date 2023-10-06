@@ -21,8 +21,6 @@ class ChatRequestController extends GetxController {
       items.refresh();
       loading.value = false;
     }).catchError((e, s) {
-      e.printError();
-      s.printError();
       loading.value = false;
     });
   }

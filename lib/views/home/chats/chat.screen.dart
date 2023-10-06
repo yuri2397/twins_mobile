@@ -48,16 +48,16 @@ class ChatScreen extends GetView<lc.ChatController> {
             )),
         body: ChatView(
           currentUser:
-              hc.ChatUser(id: "1", name: controller.localUser.fullName),
+              hc.ChatUser(id: currentUserId, name: controller.localUser.fullName),
           chatController: controller.chatController,
           onSendTap: controller.onSendTap,
           featureActiveConfig: const FeatureActiveConfig(
-            lastSeenAgoBuilderVisibility: false,
-            receiptsBuilderVisibility: false,
+            lastSeenAgoBuilderVisibility: true,
+            receiptsBuilderVisibility: true,
             enableCurrentUserProfileAvatar: false,
             enableOtherUserProfileAvatar: true,
           ),
-          chatViewState: ChatViewState.hasMessages,
+          chatViewState:controller.currentChat.value.messages!.isNotEmpty ? ChatViewState.hasMessages : ChatViewState.noData,
           chatViewStateConfig: ChatViewStateConfiguration(
             loadingWidgetConfig: const ChatViewStateWidgetConfiguration(
               loadingIndicatorColor: MAIN_COLOR,
@@ -65,43 +65,9 @@ class ChatScreen extends GetView<lc.ChatController> {
             onReloadButtonTap: () {},
           ),
           typeIndicatorConfig: const TypeIndicatorConfiguration(
-            flashingCircleBrightColor: Colors.red,
+            flashingCircleBrightColor: MAIN_COLOR,
             flashingCircleDarkColor: Colors.white,
           ),
-          // appBar: ChatViewAppBar(
-          //   elevation: 3,
-          //   backGroundColor: MAIN_COLOR,
-          //   profilePicture: controller.localUser.profilePhoto,
-          //   backArrowColor: Colors.white,
-          //   chatTitle: "Chat view",
-          //   chatTitleTextStyle: const TextStyle(
-          //     color: Colors.white,
-          //     fontWeight: FontWeight.bold,
-          //     fontSize: 18,
-          //     letterSpacing: 0.25,
-          //   ),
-          //   userStatus: "online",
-          //   userStatusTextStyle: const TextStyle(color: Colors.grey),
-          //   actions: [
-          //     // IconButton(
-          //     //   onPressed: _onThemeIconTap,
-          //     //   icon: Icon(
-          //     //     isDarkTheme
-          //     //         ? Icons.brightness_4_outlined
-          //     //         : Icons.dark_mode_outlined,
-          //     //     color: theme.themeIconColor,
-          //     //   ),
-          //     // ),
-          //     // IconButton(
-          //     //   tooltip: 'Toggle TypingIndicator',
-          //     //   onPressed: _showHideTypingIndicator,
-          //     //   icon: Icon(
-          //     //     Icons.keyboard,
-          //     //     color: theme.themeIconColor,
-          //     //   ),
-          //     // ),
-          //   ],
-          // ),
           chatBackgroundConfig: const ChatBackgroundConfiguration(
             messageTimeIconColor: MAIN_COLOR,
             messageTimeTextStyle: TextStyle(color: DARK_COLOR),
@@ -130,12 +96,14 @@ class ChatScreen extends GetView<lc.ChatController> {
             textFieldConfig: TextFieldConfiguration(
               borderRadius: BorderRadius.circular(20),
               margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(6),
               onMessageTyping: (status) {
                 /// Do with status
                 debugPrint(status.toString());
               },
               compositionThresholdTime: const Duration(seconds: 1),
-              textStyle: const TextStyle(color: MAIN_COLOR),
+              hintText: "Rédigez votre message",
+              textStyle: const TextStyle(color: Colors.black, fontSize: 16),
             ),
             micIconColor: MAIN_COLOR,
             // voiceRecordingConfiguration: VoiceRecordingConfiguration(
@@ -149,27 +117,27 @@ class ChatScreen extends GetView<lc.ChatController> {
             // ),
           ),
           chatBubbleConfig: ChatBubbleConfiguration(
-            receiptsWidgetConfig: ReceiptsWidgetConfig(
-                showReceiptsIn: ShowReceiptsIn.lastMessage),
-            outgoingChatBubbleConfig: ChatBubble(
+            receiptsWidgetConfig: const ReceiptsWidgetConfig(
+                showReceiptsIn: ShowReceiptsIn.all),
+            outgoingChatBubbleConfig:const ChatBubble(
               linkPreviewConfig: LinkPreviewConfiguration(
                 backgroundColor: NEUTRAL_COLOR,
               ),
-              receiptsWidgetConfig: const ReceiptsWidgetConfig(
+              receiptsWidgetConfig:  ReceiptsWidgetConfig(
                   showReceiptsIn: ShowReceiptsIn.all),
               color: MAIN_COLOR,
             ),
             inComingChatBubbleConfig: ChatBubble(
-              textStyle: const TextStyle(color: MAIN_COLOR),
+              textStyle: const TextStyle(color: Colors.black),
               onMessageRead: (message) {
                 /// send your message reciepts to the other client
                 debugPrint('Message Read');
               },
-              senderNameTextStyle: TextStyle(color: Colors.white),
+              senderNameTextStyle: const TextStyle(color: Colors.white),
               color: NEUTRAL_COLOR,
             ),
           ),
-          replyPopupConfig: ReplyPopupConfiguration(
+          replyPopupConfig:const ReplyPopupConfiguration(
             backgroundColor: MAIN_COLOR,
             buttonTextStyle: TextStyle(color: MAIN_COLOR),
             topBorderColor: MAIN_COLOR,
@@ -186,11 +154,11 @@ class ChatScreen extends GetView<lc.ChatController> {
               backgroundColor: Colors.orange,
               borderColor: Colors.red,
               borderWidth: 4,
-              reactedUserCountTextStyle: TextStyle(color: MAIN_COLOR),
-              reactionCountTextStyle: TextStyle(color: MAIN_COLOR),
+              reactedUserCountTextStyle:const TextStyle(color: MAIN_COLOR),
+              reactionCountTextStyle:const TextStyle(color: MAIN_COLOR),
               reactionsBottomSheetConfig: ReactionsBottomSheetConfiguration(
                 backgroundColor: MAIN_COLOR,
-                reactedUserTextStyle: TextStyle(
+                reactedUserTextStyle:const TextStyle(
                   color: MAIN_COLOR,
                 ),
                 reactionWidgetDecoration: BoxDecoration(
@@ -214,7 +182,7 @@ class ChatScreen extends GetView<lc.ChatController> {
               ),
             ),
           ),
-          swipeToReplyConfig: SwipeToReplyConfiguration(
+          swipeToReplyConfig:const SwipeToReplyConfiguration(
             replyIconColor: Colors.amberAccent,
           ),
         ),

@@ -82,7 +82,7 @@ class AddEmailScreen extends GetView<RegisterController> {
                       Get.toNamed(Goo.addPasswordScreen);
                     }
                   },
-                  child: const Text("Suivant"),
+                  child: const Text("Suivant",style:TextStyle(fontSize: 18)),
                 ),
               )
             ],

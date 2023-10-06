@@ -1,14 +1,10 @@
-// To parse this JSON data, do
-//
-//     final chat = chatFromJson(jsonString);
-
 import 'dart:convert';
 
 import 'package:twins/core/model/user.dart';
 
-Chat chatFromJson(String str) => Chat.fromJson(json.decode(str));
+List<Chat> chatFromJson(String str) => List<Chat>.from(json.decode(str).map((x) => Chat.fromJson(x)));
 
-String chatToJson(Chat data) => json.encode(data.toJson());
+String chatToJson(List<Chat> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Chat {
   int? id;
@@ -75,20 +71,6 @@ class Message {
     "data": data?.toJson(),
     "created_at": createdAt?.toIso8601String(),
     "sender": sender?.toJson(),
-  };
-
-  Map<String, dynamic> toJsonForMessage() => {
-    "id": id.toString(),
-    "text": message,
-    "chat_id": chatId,
-    "user_id": userId,
-    "type": "text",
-    "data": data?.toJson(),
-    "status": "sending",
-    "showStatus": true,
-    "updateAt": DateTime.timestamp(),
-    "created_at": createdAt?.toIso8601String(),
-    "author": sender?.toJsonForMessage(),
   };
 }
 

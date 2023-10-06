@@ -65,11 +65,11 @@ class AddSigneScreen extends GetView<RegisterController> {
                     backgroundColor: MAIN_COLOR,
                     foregroundColor: Colors.white),
                 onPressed: () => Get.toNamed(Goo.addFilesRegisterScreen),
-                child: const Text("Suivant"),
+                child: const Text("Suivant",style: TextStyle(fontSize: 18)),
               ),
             )
           ],
-        ),
+        ).marginAll(20),
       ),
     ));
   }

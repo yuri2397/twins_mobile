@@ -13,7 +13,9 @@ class SettingScreen extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: MAIN_COLOR,
         elevation: 0,
+        leading: GestureDetector(onTap: () => Get.back(),child: const Icon(Icons.arrow_back_ios, color: Colors.white)),
       ),
       body: Obx(
         () => Column(
@@ -55,7 +57,7 @@ class SettingScreen extends GetView<ProfileController> {
               min: 1,
               max: 50,
               value: double.tryParse(
-                      "${controller.settings.value?.distanceInKilometers}") ??
+                      "${controller.settings.value?.distanceInKilometers ?? 0}") ??
                   0,
               interval: 20,
               showTicks: false,
@@ -96,7 +98,7 @@ class SettingScreen extends GetView<ProfileController> {
               min: 0,
               max: 15,
               value: double.tryParse(
-                      "${controller.settings.value?.differenceInDays}") ??
+                      "${controller.settings.value?.differenceInDays ?? 0}") ??
                   1,
               interval: 20,
               showTicks: false,
@@ -105,7 +107,7 @@ class SettingScreen extends GetView<ProfileController> {
               enableTooltip: true,
               minorTicksPerInterval: 1,
               onChanged: (dynamic value) {
-                controller.settings.value?.differenceInDays = value.toInt().toString();
+                controller.settings.value?.differenceInDays = value.toInt();
                 controller.settings.refresh();
                 localStorage.settings = controller.settings.value;
               },
@@ -159,7 +161,7 @@ class SettingScreen extends GetView<ProfileController> {
                           controller.settings.value?.ageMax ?? 65),
                     ),
                  ),
-                Text("${controller.settings.value?.ageMin} - ${controller.settings.value?.ageMax}")
+                const Text("18 - 65")
               ],
             ).marginSymmetric(),
             const SizedBox(
@@ -224,7 +226,7 @@ class SettingScreen extends GetView<ProfileController> {
                         width: 20,
                         height: 20,
                         child: CircularProgressIndicator(color: Colors.white))
-                    : const Text("Enrégistrer"),
+                    : const Text("Enregistrer"),
               ),
             )
           ],

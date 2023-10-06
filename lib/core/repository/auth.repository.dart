@@ -95,22 +95,17 @@ class AuthRepository {
       XFile? file,
       required List<XFile> files}) async {
     try {
-      dio.FormData formData = dio.FormData.fromMap({
-        ...data,
-        'profile_photo':
-            await dio.MultipartFile.fromFile(file!.path, filename: file.name),
-      });
+      dio.FormData formData = dio.FormData.fromMap(data);
+
+      for (var file in files) {
+        formData.files.add(
+            MapEntry('photos[]', await dio.MultipartFile.fromFile(file.path)));
+      }
 
       var response = await _client.post('/register',
           data: formData,
-          options: dio.Options(contentType: 'multipart/form-data', headers: {
-            'Authorization': 'Bearer ${localStorage.getToken()?.accessToken}'
-          }));
+          options: dio.Options(contentType: 'multipart/form-data'));
 
-      /*var response = await _client.post(
-        '/register',
-        data: data,
-      );*/
 
       if (response.statusCode! >= 200 && response.statusCode! <= 300) {
         return Token.fromJson(response.data);

@@ -70,6 +70,7 @@ class RegisterController extends GetxController {
       Get.offAllNamed(Goo.activeAccountScreen);
     }).catchError((e) {
       loading.value = false;
+      print("$e");
       errorMessage(
           title: "Oups !!!",
           content: "Une erreur s'est produite lors de l'inscription.");

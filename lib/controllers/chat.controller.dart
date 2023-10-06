@@ -8,40 +8,11 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:twins/routes/router.dart';
 import 'package:chatview/chatview.dart' as hc;
 
+import '../core/model/user.dart';
+
 class ChatController extends GetxController {
-  final messages = <hc.Message>[
-    hc.Message(
-      id: '1',
-      message: "Hi!",
-      createdAt: DateTime.now(),
-      sendBy: '1', // userId of who sends the message
-      status: hc.MessageStatus.read,
-    ),
-    hc.Message(
-      id: '2',
-      message: "Hi!",
-      createdAt: DateTime.now(),
-      sendBy: '2',
-      status: hc.MessageStatus.read,
-    ),
-    hc.Message(
-      id: '3',
-      message: "We can meet?I am free",
-      createdAt: DateTime.now(),
-      sendBy: '1',
-      status: hc.MessageStatus.read,
-    ),
-    hc.Message(
-      id: '4',
-      message: "Can you write the time and place of the meeting?",
-      createdAt: DateTime.now(),
-      sendBy: '1',
-      status: hc.MessageStatus.read,
-    ),
-  ].obs;
-  final types.User user = types.User(
-    id: currentUserId,
-  );
+  final messages = <hc.Message>[].obs;
+
   final _localUser = localStorage.getUser();
   get localUser => _localUser;
   final chats = <lc.Chat>[].obs;
@@ -51,50 +22,11 @@ class ChatController extends GetxController {
 
   final currentChat = lc.Chat().obs;
 
-  final textFielController = TextEditingController();
-  final hc.ChatController chatController = hc.ChatController(
-    initialMessageList: [
-      hc.Message(
-        id: '1',
-        message: "Hi!",
-        createdAt: DateTime.now(),
-        sendBy: '1', // userId of who sends the message
-        status: hc.MessageStatus.read,
-      ),
-      hc.Message(
-        id: '2',
-        message: "Hi, how are.",
-        createdAt: DateTime.now(),
-        sendBy: '2',
-        status: hc.MessageStatus.read,
-      ),
-      hc.Message(
-        id: '3',
-        message: "We can meet?I am free",
-        createdAt: DateTime.now(),
-        sendBy: '1',
-        status: hc.MessageStatus.read,
-      ),
-      hc.Message(
-        id: '4',
-        message: "Can you write the time and place of the meeting?",
-        createdAt: DateTime.now(),
-        sendBy: '1',
-        status: hc.MessageStatus.read,
-      ),
-    ],
+  final textFieldController = TextEditingController();
+   hc.ChatController chatController = hc.ChatController(
+    initialMessageList: [],
     scrollController: ScrollController(),
-    chatUsers: [
-      hc.ChatUser(
-          id: '2',
-          name: 'Simform',
-          profilePhoto:
-              "http://twinz.cila3254.odns.fr/storage/39/09272023151414651446c66c5c1"),
-      hc.ChatUser(
-        id: '1',
-        name: 'Jhon',
-      ),
-    ],
+    chatUsers:[],
   );
 
   @override
@@ -117,40 +49,35 @@ class ChatController extends GetxController {
   detailsChat(lc.Chat chat) {
     chat.messages!.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
     currentChat.value = chat;
-    print(currentChat.value.toJson().toString());
+
     messages.value = chat.messages!
         .map((e) => hc.Message(
-            id: "e",
-            message: "",
+            id: "${e.id}",
+            message: "${e.message}",
             createdAt: chat.createdAt!,
             sendBy:
                 "${chat.participants!.firstWhere((element) => element.id != int.tryParse(currentUserId)).id}"))
         .toList();
+    User sender = chat.participants!.firstWhere((element) => element.id != int.tryParse(currentUserId));
+    chatController =  hc.ChatController(
+      initialMessageList: messages,
+      scrollController: ScrollController(),
+      chatUsers: [
+        hc.ChatUser(
+            id: "${sender.id}",
+            name: "${sender.fullName}",
+            profilePhoto: "${sender.profilePhoto}"),
+
+      ],
+    );
     Get.toNamed(Goo.chatScreen);
   }
 
-  void addMessage() {
-    messages.insert(
-        0,
-        hc.Message(
-            id: "eaa",
-            message: textFielController.text.trim(),
-            createdAt: DateTime.now(),
-            sendBy: currentUserId));
-    messages.refresh();
-    textFielController.text = "";
-    chatController.addMessage(hc.Message(
-        id: "eaa",
-        message: textFielController.text.trim(),
-        createdAt: DateTime.now(),
-        sendBy: currentUserId));
-  }
-
-  void onSendTap(
+  Future<void> onSendTap (
     String message,
     hc.ReplyMessage replyMessage,
     hc.MessageType messageType,
-  ) {
+  ) async{
     final id = int.parse(messages.last.id) + 1;
     chatController.addMessage(
       hc.Message(
@@ -162,11 +89,11 @@ class ChatController extends GetxController {
         messageType: messageType,
       ),
     );
-    Future.delayed(const Duration(milliseconds: 300), () {
+    Future.delayed(const Duration(seconds: 5), () {
       chatController.initialMessageList.last.setStatus =
           hc.MessageStatus.undelivered;
     });
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 3), () {
       chatController.initialMessageList.last.setStatus = hc.MessageStatus.read;
     });
   }

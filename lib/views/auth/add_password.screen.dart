@@ -44,7 +44,7 @@ class AddPasswordScreen extends GetView<RegisterController> {
                       textAlign: TextAlign.start,
                     ),
                     const SizedBox(
-                      height: 40,
+                      height: 20,
                     ),
                     Form(
                       key: _form,
@@ -84,7 +84,7 @@ class AddPasswordScreen extends GetView<RegisterController> {
                         Get.toNamed(Goo.addBirthDayScreen);
                       }
                     },
-                    child: const Text("Suivant"),
+                    child: const Text("Suivant", style: TextStyle(fontSize: 18)),
                   ),
                 )
               ],

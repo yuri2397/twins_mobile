@@ -160,7 +160,6 @@ class SearchItemWidget extends StatelessWidget {
               GestureDetector(
                 onTap: () => like(),
                 child: Container(
-                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: MAIN_COLOR,
                     boxShadow: [
@@ -176,7 +175,7 @@ class SearchItemWidget extends StatelessWidget {
                   ),
                   child: Image.asset(
                     Env.whiteLogo,
-                    width: 35,
+                    width: 50,
                   ),
                 ),
               ),

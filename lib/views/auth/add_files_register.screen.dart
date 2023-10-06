@@ -23,11 +23,11 @@ class AddFilesRegisterScreen extends GetView<RegisterController> {
           child: Container(
             height: Get.height,
             width: Get.width,
-            margin: const EdgeInsets.only(top: 40),
-            padding: const EdgeInsets.all(1.0),
+            padding: const EdgeInsets.all(20.0),
+            margin: const EdgeInsets.only(top: 30),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                     flex: 5,
@@ -60,10 +60,7 @@ class AddFilesRegisterScreen extends GetView<RegisterController> {
                         )
                       ],
                     )),
-                Flexible(
-                  flex: 1,
-                  child: Center(
-                    child: SizedBox(
+               SizedBox(
                       width: Get.width * 0.4,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -73,11 +70,11 @@ class AddFilesRegisterScreen extends GetView<RegisterController> {
                             backgroundColor: MAIN_COLOR,
                             foregroundColor: Colors.white),
                         onPressed: () => Get.toNamed(Goo.addBioScreen),
-                        child: const Text("Suivant"),
+                        child: const Text("Suivant", style: TextStyle(fontSize: 18)),
                       ),
                     ),
-                  ),
-                )
+
+
               ],
             ).paddingAll(20),
           ),

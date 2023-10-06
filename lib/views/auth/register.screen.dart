@@ -25,7 +25,7 @@ class RegisterScreen extends GetView<RegisterController> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                   child: SingleChildScrollView(
@@ -75,8 +75,7 @@ class RegisterScreen extends GetView<RegisterController> {
                   ],
                 ),
               )),
-              Center(
-                child: SizedBox(
+               SizedBox(
                   width: Get.width * .4,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -94,7 +93,6 @@ class RegisterScreen extends GetView<RegisterController> {
                         const Text("Suivant", style: TextStyle(fontSize: 18)),
                   ),
                 ),
-              )
             ],
           ).paddingAll(20),
         ));

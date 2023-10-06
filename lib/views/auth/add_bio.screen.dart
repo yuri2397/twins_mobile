@@ -82,7 +82,6 @@ class AddBioScreen extends GetView<RegisterController> {
                       foregroundColor: Colors.white),
                   onPressed: () {
                     if (_form.currentState!.validate()) {
-                      controller.parseDate();
                       controller.save();
                     }
                   },
@@ -93,7 +92,7 @@ class AddBioScreen extends GetView<RegisterController> {
                       child: CircularProgressIndicator(
                         color: Colors.white,
                       ))
-                      : const Text("C'est parti"),
+                      : const Text("C'est parti", style: TextStyle(fontSize: 18)),
                 ),
               )
             ],

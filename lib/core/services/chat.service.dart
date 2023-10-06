@@ -12,4 +12,12 @@ class ChatService extends GetxService {
       rethrow;
     }
   }
+
+  Future<void> sendMessage({ required Chat chat, required String message}) async{
+    try{
+
+    }catch(e){
+      rethrow;
+    }
+  }
 }

@@ -9,7 +9,7 @@ class ChatRepository {
   Future<List<Chat>> chats() async {
     try {
       var response = await _client.get("/chat");
-      print(response.data.toString());
+
       if (response.statusCode! <= 200 && response.statusCode! < 300) {
         if(response.data is Map){
           return  [];
@@ -21,6 +21,15 @@ class ChatRepository {
     } catch (e) {
 
       rethrow;
+    }
+  }
+
+  Future<void> sendMessage({ required Chat chat, required String message}) async{
+    try{
+      var response = await _client.post("/chat/send-msg", data: { "chat_id": chat.id, "message": message });
+
+    }catch(e){
+
     }
   }
 }

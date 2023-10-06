@@ -30,7 +30,7 @@ class AddBirthDayScreen extends GetView<RegisterController> {
               Expanded(
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
                     "Ajoutez votre date de naissance",
@@ -173,11 +173,11 @@ class AddBirthDayScreen extends GetView<RegisterController> {
                       Get.toNamed(Goo.addSigneScreen);
                     }
                   },
-                  child: const Text("Suivant"),
+                  child: const Text("Suivant",style: TextStyle(fontSize: 18)),
                 ),
               )
             ],
-          ),
+          ).marginAll(20),
         ));
   }
 

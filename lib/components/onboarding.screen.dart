@@ -43,7 +43,7 @@ class OnboardingScreen extends GetView<OnboardingController> {
                   text: const TextSpan(
                       text: "En utilisant nos services, vous acceptez nos ",
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 18,
                         color: Colors.white
                       ),
                       children: [
@@ -52,13 +52,15 @@ class OnboardingScreen extends GetView<OnboardingController> {
                           style: TextStyle(
                               decoration: TextDecoration.underline,
                               color: Colors.white,
+                              fontSize: 18,
+
                               fontWeight: FontWeight.bold),
                         ),
                         TextSpan(
                           text: ". Consultez notre ",
                           style: TextStyle(
                             color: Colors.white,
-
+                            fontSize: 18,
                           ),
                         ),
                         TextSpan(
@@ -66,19 +68,23 @@ class OnboardingScreen extends GetView<OnboardingController> {
                           style: TextStyle(
                               decoration: TextDecoration.underline,
                               color: Colors.white,
+                              fontSize: 18,
 
                               fontWeight: FontWeight.bold),
                         ),
                         TextSpan(
                           text: " et ",
-                          style: TextStyle(),
+                          style: TextStyle(
+                            fontSize: 18,
+
+                          ),
                         ),
                         TextSpan(
                           text: "celle relative aux cookies",
                           style: TextStyle(
                               decoration: TextDecoration.underline,
                               color: Colors.white,
-
+                              fontSize: 18,
                               fontWeight: FontWeight.bold),
                         ),
                         TextSpan(
@@ -86,6 +92,7 @@ class OnboardingScreen extends GetView<OnboardingController> {
                               " pour en savoir plus sur le traitement de vos données.",
                           style: TextStyle(
                             color: Colors.white,
+                            fontSize: 18,
 
                           ),
                         ),

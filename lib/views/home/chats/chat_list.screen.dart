@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
@@ -72,15 +74,19 @@ class ChatListScreen extends GetView<ChatController> {
   }
 
   _buildChatItem(Chat chat) {
+    var sender = chat.participants
+        ?.firstWhere((element) => element.id.toString() != currentUserId);
     return ListTile(
       contentPadding: const EdgeInsets.all(0),
       onTap: () => controller.detailsChat(chat),
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(100),
-        child: Image.network(
-          "https://img.freepik.com/free-photo/portrait-young-businesswoman-holding-eyeglasses-hand-against-gray-backdrop_23-2148029483.jpg?w=740&t=st=1694816532~exp=1694817132~hmac=09953c455aef36f7436fcf1aafa10fe5b3d4d69cd0f8ec2b82963603a6f5dddd",
-          height: 90,
-        ),
+        child: sender!.profilePhoto != null && sender.profilePhoto!.isNotEmpty
+            ? Image.network(
+                sender.profilePhoto!,
+                height: 90,
+              )
+            : Image.asset("assets/images/img.png")
       ),
       title: Text(chat.participants!
           .firstWhere((e) => e.id.toString() != currentUserId)
