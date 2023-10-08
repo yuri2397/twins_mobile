@@ -14,7 +14,7 @@ class ChatRequestScreen extends GetView<ChatRequestController> {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
         appBar: AppBar(
-          title: const Text("Demandes de discussions"),
+          title: const Text("Notifications"),
           elevation: 0,
         ),
         body: controller.loading.value && controller.items.isEmpty
@@ -64,7 +64,8 @@ class ChatRequestScreen extends GetView<ChatRequestController> {
   Widget _buildItem(ChatRequest request) {
     var acceptLoading = false.obs;
     var rejectLoading = false.obs;
-    return Obx(()=> Container(
+    return Obx(
+      () => Container(
         height: 300,
         width: Get.width,
         decoration: BoxDecoration(
@@ -83,14 +84,14 @@ class ChatRequestScreen extends GetView<ChatRequestController> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(20)),
               child: SizedBox(
                 height: 140,
                 width: Get.width,
                 child: Image.network(
                     (request.userFrom?.profilePhoto != null &&
-                        request.userFrom?.profilePhoto !=
-                            "")
+                            request.userFrom?.profilePhoto != "")
                         ? request.userFrom!.profilePhoto!
                         : "https://img.freepik.com/photos-gratuite/jeune-femme-chien-sans-abri-au-parc-photo-haute-qualite_144627-75703.jpg?w=740&t=st=1694874615~exp=1694875215~hmac=eb6804b67c1fc7b677babff8be1caaee8f4b47db541f6cfeb548f472371d555d",
                     fit: BoxFit.fitWidth),
@@ -120,7 +121,6 @@ class ChatRequestScreen extends GetView<ChatRequestController> {
                       await controller.cancelChatRequest(request);
                       rejectLoading.value = false;
                       rejectLoading.refresh();
-
                     },
                     child: rejectLoading.value
                         ? const SizedBox(

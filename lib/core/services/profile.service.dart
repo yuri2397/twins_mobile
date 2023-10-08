@@ -20,7 +20,7 @@ class ProfileService extends GetxService {
     }
   }
 
-  Future<User> profileUpdate({required User data }) async {
+  Future<User> profileUpdate({required User data}) async {
     try {
       var response = await repo.profileUpdate(data.toJson());
       localStorage.user = response;
@@ -66,6 +66,9 @@ class ProfileService extends GetxService {
   }
 
   Future<List<UploadFile>> addPhotos(List<XFile> files) async {
+    files.forEach((element) {
+      print("$element");
+    });
     try {
       return await repo.addPhoto(files);
     } catch (e) {

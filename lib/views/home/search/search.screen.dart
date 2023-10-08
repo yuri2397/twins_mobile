@@ -11,63 +11,76 @@ import 'package:twins/shared/utils/colors.dart';
 import 'package:twins/views/home/search/search_item.dart';
 
 class SearchScreen extends GetView<sc.SearchController> {
-  const SearchScreen({super.key});
-
+  SearchScreen({super.key});
+  final drawerKey = GlobalKey<DrawerControllerState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: MAIN_COLOR,
-          elevation: 0,
-          leading: GestureDetector(
-            child: const Icon(Icons.menu, color: Colors.white),
-          ),
-          title: Image.asset(
-            Env.whiteLogo,
-            width: 50,
-          ),
+      key: scaffoldKey,
+      appBar: AppBar(
+        backgroundColor: MAIN_COLOR,
+        elevation: 0,
+        leading: GestureDetector(
+          onTap: () => scaffoldKey.currentState?.openDrawer(),
+          child: const Icon(Icons.menu, color: Colors.white),
         ),
-        drawer: _drawer(),
-        body: SafeArea(
-          child: Obx(() => Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(controller.visibleUser.value.photosCount ?? 0, (index) =>const  Icon(Icons.circle,color: MAIN_COLOR, size: 13).marginSymmetric(horizontal: 3)),
-                ).marginAll(8),
-                SizedBox(
-                    height: Get.height - 180,
-                    width: Get.width,
-                    child: AppinioSwiper(
-                      swipeOptions: const AppinioSwipeOptions.only(left: true),
-                      unlimitedUnswipe: true,
-                      controller: controller.swiperController,
-                      backgroundCardsCount: 0,
-                      onSwiping: (AppinioSwiperDirection direction) {},
-                      onSwipe: controller.swipe,
-                      padding: const EdgeInsets.only(
-                        left: 25,
-                        right: 25,
-                        top: 10,
-                        bottom: 40,
+        title: Image.asset(
+          Env.whiteLogo,
+          width: 50,
+        ),
+      ),
+      drawer: _drawer(),
+      body: SafeArea(
+        child: Obx(
+          () => controller.matchLoad.value
+              ? const Center(
+                  child: CircularProgressIndicator(color: MAIN_COLOR),
+                )
+              : Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                          controller.visibleUser.value.photosCount ?? 0,
+                          (index) => const Icon(Icons.circle,
+                                  color: MAIN_COLOR, size: 6)
+                              .marginSymmetric(horizontal: 6)),
+                    ).marginSymmetric(vertical: 10),
+                    SizedBox(
+                      height: Get.height - 180,
+                      width: Get.width,
+                      child: AppinioSwiper(
+                        swipeOptions:
+                            const AppinioSwipeOptions.only(left: true),
+                        unlimitedUnswipe: true,
+                        controller: controller.swiperController,
+                        backgroundCardsCount: 0,
+                        onSwiping: (AppinioSwiperDirection direction) {},
+                        onSwipe: controller.swipe,
+                        padding: const EdgeInsets.only(
+                          left: 25,
+                          right: 25,
+                          top: 10,
+                          bottom: 40,
+                        ),
+                        cardsCount: controller.currentMatch.length,
+                        cardsBuilder: (BuildContext context, int index) {
+                          return SearchItemWidget(
+                              like: () => controller
+                                  .onLike(controller.currentMatch[index]),
+                              swipBack: () => controller
+                                  .onSwipBack(controller.currentMatch[index]),
+                              cancel: () => controller
+                                  .onCancel(controller.currentMatch[index]),
+                              user: controller.currentMatch[index]);
+                        },
                       ),
-                      cardsCount: controller.currentMatch.length,
-                      cardsBuilder: (BuildContext context, int index) {
-                        return SearchItemWidget(
-                            like: () =>
-                                controller.onLike(controller.currentMatch[index]),
-                            swipBack: () => controller
-                                .onSwipBack(controller.currentMatch[index]),
-                            cancel: () =>
-                                controller.onCancel(controller.currentMatch[index]),
-                            user: controller.currentMatch[index]);
-                      },
                     ),
-                  ),
-              ],
-            ),
-          ),
+                  ],
+                ),
         ),
+      ),
     );
   }
 
@@ -209,8 +222,64 @@ class SearchScreen extends GetView<sc.SearchController> {
   }
 
   _drawer() {
-    return Column(
-      children: [],
+    return Drawer(
+      key: drawerKey,
+      child: ListView(
+        children: [
+          ListTile(
+            leading: itemIcon(Icons.close, color: Colors.black),
+            title: const Text("Menu",
+                style: TextStyle(
+                    fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
+            onTap: () => scaffoldKey.currentState?.closeDrawer(),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          const Divider(
+            color: NEUTRAL_COLOR,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          ListTile(
+            leading:
+                itemIcon(Icons.person_outline_rounded, color: Colors.black),
+            title: const Text("Profil",
+                style: TextStyle(
+                    fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          ListTile(
+            onTap: () => Get.toNamed(Goo.offerScreen),
+            leading: itemIcon(Icons.payment_outlined, color: Colors.black),
+            title: const Text("Twinz premium",
+                style: TextStyle(
+                    fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          ListTile(
+            onTap: () => Get.toNamed(Goo.settingScreen),
+            leading: itemIcon(Icons.settings_outlined, color: Colors.black),
+            title: const Text("Réglages",
+                style: TextStyle(
+                    fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          ListTile(
+            leading: itemIcon(Icons.security_outlined, color: Colors.black),
+            title: const Text("Confidentialité",
+                style: TextStyle(
+                    fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
+          )
+        ],
+      ).paddingSymmetric(vertical: 40, horizontal: 20),
     );
   }
 }

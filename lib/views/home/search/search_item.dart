@@ -7,6 +7,7 @@ import 'package:twins/core/config/env.dart';
 import 'package:twins/core/model/user.dart';
 import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/colors.dart';
+import 'package:twins/controllers/search.controller.dart' as sc;
 
 // ignore: must_be_immutable
 class SearchItemWidget extends StatelessWidget {
@@ -43,14 +44,17 @@ class SearchItemWidget extends StatelessWidget {
             child: Stack(
               children: [
                 Positioned.fill(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      (user.profilePhoto != null &&
-                              user.profilePhoto != "")
-                          ? user.profilePhoto!
-                          : "https://img.freepik.com/photos-gratuite/jeune-femme-chien-sans-abri-au-parc-photo-haute-qualite_144627-75703.jpg?w=740&t=st=1694874615~exp=1694875215~hmac=eb6804b67c1fc7b677babff8be1caaee8f4b47db541f6cfeb548f472371d555d",
-                      fit: BoxFit.cover,
+                  child: GestureDetector(
+                    onTap: () =>
+                        Get.find<sc.SearchController>().searchDetails(user),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        (user.profilePhoto != null && user.profilePhoto != "")
+                            ? user.profilePhoto!
+                            : "https://img.freepik.com/photos-gratuite/jeune-femme-chien-sans-abri-au-parc-photo-haute-qualite_144627-75703.jpg?w=740&t=st=1694874615~exp=1694875215~hmac=eb6804b67c1fc7b677babff8be1caaee8f4b47db541f6cfeb548f472371d555d",
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
@@ -58,11 +62,11 @@ class SearchItemWidget extends StatelessWidget {
                   top: 8,
                   right: 8,
                   child: GestureDetector(
-                    onTap: () => Get.toNamed(Goo.searchDetailsScreen),
+                    onTap: () =>
+                        Get.find<sc.SearchController>().searchDetails(user),
                     child: itemIcon(CupertinoIcons.info_circle_fill),
                   ),
                 ),
-
               ],
             ),
           ),
@@ -81,8 +85,7 @@ class SearchItemWidget extends StatelessWidget {
           SizedBox(
             width: Get.width,
             child: Text(
-                DateFormat.MMMMd('fr')
-                    .format(user.birthDate ?? DateTime.now()),
+                DateFormat.MMMMd('fr').format(user.birthDate ?? DateTime.now()),
                 textAlign: TextAlign.start,
                 overflow: TextOverflow.fade,
                 maxLines: 2,

@@ -34,9 +34,6 @@ class ProfileController extends GetxController {
     XFile("").obs,
     XFile("").obs,
     XFile("").obs,
-    XFile("").obs,
-    XFile("").obs,
-    XFile("").obs,
   ];
 
   final _profileService = Get.find<ProfileService>();
@@ -50,9 +47,7 @@ class ProfileController extends GetxController {
       user?.lng = "${value.longitude}";
       localStorage.user = user;
       settingStatus.value = true;
-      _profileService.profileUpdate(data: user!).then((value) => {
-
-      });
+      _profileService.profileUpdate(data: user!).then((value) => {});
     });
     profile();
     photos();
@@ -71,7 +66,10 @@ class ProfileController extends GetxController {
   }
 
   Future<void> profile() async {
-    _profileService.profile().then((value) {
+    await _profileService.profile().then((value) {
+      user.value = value;
+      user.refresh();
+      localStorage.user = value;
       settings.value = value.settings;
       settings.refresh();
     }).catchError((e) {
@@ -118,7 +116,6 @@ class ProfileController extends GetxController {
       successMessage(
           title: "Félicitations",
           content: "Votre album photo est mise à jour.");
-      photos();
     }).catchError((e) {
       addPhotoLoad.value = false;
     });

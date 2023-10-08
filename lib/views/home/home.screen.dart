@@ -11,7 +11,7 @@ import 'package:twins/views/home/chat_request/chat_request.screen.dart';
 
 class HomeScreen extends GetView<HomeController> {
   final _screens = <Widget>[
-    const SearchScreen(),
+     SearchScreen(),
     const ChatRequestScreen(),
     ChatListScreen(),
     const ProfileScreen()

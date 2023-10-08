@@ -13,4 +13,13 @@ class MatchingService extends GetxService {
       rethrow;
     }
   }
+
+  Future<User> matchingDetails({required User user}) async {
+    try {
+      return await _provider.matchingDetails(user);
+    } catch (e) {
+      e.printError();
+      rethrow;
+    }
+  }
 }

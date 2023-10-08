@@ -1,11 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:get/get.dart';
+import 'package:twins/components/offer.screen.dart';
 import 'package:twins/components/onboarding.screen.dart';
 import 'package:twins/components/splash_screen.screen.dart';
 import 'package:twins/resolvers/active_account.binding.dart';
 import 'package:twins/resolvers/home.binding.dart';
 import 'package:twins/resolvers/login.binding.dart';
+import 'package:twins/resolvers/offer.binding.dart';
 import 'package:twins/resolvers/onboarding.binding.dart';
 import 'package:twins/resolvers/register.binding.dart';
 import 'package:twins/routes/router.dart';
@@ -75,6 +77,7 @@ dynamic ROUTER_OUTLET = [
   GetPage(name: Goo.updateProfileScreen, page: () => UpdateProfileScreen()),
   GetPage(name: Goo.updatePasswordScreen, page: () => PasswordProfileScreen()),
   GetPage(name: Goo.settingScreen, page: () => SettingScreen()),
+  GetPage(name: Goo.offerScreen, page: () => OfferScreen(), binding: OfferBindinge()),
 
   // CHAT PAGES
   GetPage(name: Goo.chatScreen, page: () => ChatScreen()),

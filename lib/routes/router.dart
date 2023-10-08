@@ -24,6 +24,7 @@ class Goo {
   static const String updateProfileScreen = "/update-profile-screen";
   static const String updatePasswordScreen = "/update-password-screen";
   static const String settingScreen = "/setting-screen";
+  static const String offerScreen = "/offer-screen";
 
   // CHAT PAGES
   static const String chatScreen = "/chat-screen";

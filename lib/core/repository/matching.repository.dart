@@ -13,4 +13,13 @@ class MatchingRepository {
 
     throw response.data;
   }
+
+  matchingDetails(User user) async {
+    var response = await _client.get("/matchings/${user.id}");
+    if (response.statusCode! >= 200 && response.statusCode! < 400) {
+      return User.fromJson(response.data);
+    }
+
+    throw response.data;
+  }
 }

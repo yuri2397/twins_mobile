@@ -39,9 +39,9 @@ infoMessage({required String title, required String content}) {}
 
 warningMessage({required String title, required String content}) {}
 
-itemIcon(IconData icon, {Color? backgroundColor, Color? color}) {
+itemIcon(IconData icon, {Color? backgroundColor, Color? color, double? size}) {
   return Container(
-    padding: const EdgeInsets.all(8),
+    padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
       color:backgroundColor?? Colors.white,
       boxShadow: [
@@ -57,6 +57,7 @@ itemIcon(IconData icon, {Color? backgroundColor, Color? color}) {
     child: Icon(
       icon,
       color:color?? MAIN_COLOR,
+      size: size ?? 25,
     ),
   );
 }

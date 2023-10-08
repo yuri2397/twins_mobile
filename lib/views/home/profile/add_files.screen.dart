@@ -19,9 +19,10 @@ class AddFilesScreen extends GetView<ProfileController> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        backgroundColor: MAIN_COLOR,
         leading: GestureDetector(
           onTap: () => Get.back(),
-          child: const Icon(Icons.arrow_back_ios, color: DARK_COLOR),
+          child: const Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
       ),
       body: Obx(
@@ -32,52 +33,41 @@ class AddFilesScreen extends GetView<ProfileController> {
             child: Container(
               height: Get.height,
               width: Get.width,
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(10.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    flex: 2,
+                      flex: 2,
                       child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Ajouter vos photos",
-                        style: TextStyle(
-                            color: MAIN_COLOR,
-                            fontSize: 30,
-                            fontFamily: "Poppins",
-                            fontWeight: FontWeight.w700),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Text(
-                        "Votre adresse e-mail sera utilisée à des fins de sécurité, comme vous aider à récupérer l'accès à votre compte si vous oubliez un jour votre mot de passe.",
-                        style: TextStyle(
-                            color: DARK_COLOR,
-                            fontSize: 16,
-                            fontFamily: "Poppins",
-                            fontWeight: FontWeight.w400),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      GridView.count(
-                        shrinkWrap: true,
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 8,
-                        children: controller.files
-                            .map((element) => _buildItem(element))
-                            .toList(),
-                      )
-                    ],
-                  )),
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Ajouter vos photos",
+                            style: TextStyle(
+                                color: MAIN_COLOR,
+                                fontSize: 30,
+                                fontFamily: "Poppins",
+                                fontWeight: FontWeight.w700),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          GridView.count(
+                            shrinkWrap: true,
+                            childAspectRatio: 14 / 20,
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 16,
+                            crossAxisSpacing: 8,
+                            children: controller.files
+                                .map((element) => _buildItem(element))
+                                .toList(),
+                          )
+                        ],
+                      )),
                   Flexible(
                     flex: 1,
                     child: SizedBox(
@@ -112,25 +102,24 @@ class AddFilesScreen extends GetView<ProfileController> {
   Widget _buildItem(Rx<XFile> file) {
     return Container(
         decoration: BoxDecoration(
-            border: Border.all(color: NEUTRAL_COLOR, width: 2),
+            border: Border.all(color: GRAY_COLOR, width: 2),
             borderRadius: BorderRadius.circular(8),
             color: Colors.white),
         child: Stack(
           children: [
             file.value.path.isNotEmpty
                 ? Positioned.fill(
-                    child: Image.file(
-                      File(file.value.path),
-                      fit: BoxFit.cover,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: Image.file(
+                        File(file.value.path),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   )
                 : Container(
-                    color: NEUTRAL_COLOR,
-                    child: Center(
-                        child: SvgPicture.asset(
-                      "assets/images/preview.svg",
-                      width: 50,
-                    ))),
+                    color: GRAY_COLOR,
+                  ),
             Positioned(
               bottom: 5,
               right: 5,
