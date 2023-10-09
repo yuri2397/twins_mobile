@@ -17,6 +17,7 @@ class User {
   String? phoneNumber;
   DateTime? birthDate;
   int? age;
+  bool? isPremium;
   String? bio;
   String? lat;
   String? lng;
@@ -32,6 +33,7 @@ class User {
       this.emailVerified,
       this.gender,
       this.address,
+      this.isPremium,
       this.distance,
       this.lat,
       this.lng,
@@ -53,6 +55,7 @@ class User {
         emailVerified: json["email_verified"],
         gender: json["gender"],
         address: json["address"],
+        isPremium: json['is_premium'],
         distance: json["distance"],
         phoneNumber: json["phone_number"],
         birthDate: json["birth_date"] == null
@@ -78,6 +81,7 @@ class User {
         "gender": gender,
         'lng': lng,
         'lat': lat,
+        'is_premium': isPremium,
         "address": address,
         "distance": distance,
         "phone_number": phoneNumber,

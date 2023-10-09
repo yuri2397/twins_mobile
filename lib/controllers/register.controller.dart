@@ -36,6 +36,18 @@ class RegisterController extends GetxController {
     XFile("").obs,
     XFile("").obs,
   ];
+  final lat = "".obs;
+  final lng = "".obs;
+
+  void onInit() async {
+    super.onInit();
+
+    determinePosition().then((value) {
+      lat.value = "${value.latitude}";
+      lng.value = "${value.longitude}";
+    });
+  }
+
   parseDate() {
     birthdayCtrl.text =
         "${bd3Ctrl.text.trim()}/${bd2Ctrl.text.trim()}/${bd1Ctrl.text.trim()}";
@@ -58,17 +70,18 @@ class RegisterController extends GetxController {
       "email": emailCtrl.text.trim(),
       "bio": bioCtrl.text.trim(),
       "password": passwordCtrl.text,
+      "lat": lat.value,
+      "lng": lng.value,
       "password_confirmation": passwordCtrl.text,
       "device_name": await deviceName,
+      "device_id": "ey....."
     };
-    _registerService
-        .register(data: data, avatar: avatarFile.value, files: finalFiles)
-        .then((value) {
+    _registerService.register(data: data, files: finalFiles).then((value) {
       loading.value = false;
       successMessage(
           title: "Félicitations", content: "Votre compte est bien créer.");
       Get.offAllNamed(Goo.activeAccountScreen);
-    }).catchError((e) {
+    }).catchError((e, s) {
       loading.value = false;
       print("$e");
       errorMessage(

@@ -17,71 +17,60 @@ class SearchScreen extends GetView<sc.SearchController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: MAIN_COLOR,
-        elevation: 0,
-        leading: GestureDetector(
-          onTap: () => scaffoldKey.currentState?.openDrawer(),
-          child: const Icon(Icons.menu, color: Colors.white),
+        key: scaffoldKey,
+        appBar: AppBar(
+          backgroundColor: MAIN_COLOR,
+          elevation: 0,
+          leading: GestureDetector(
+            onTap: () => scaffoldKey.currentState?.openDrawer(),
+            child: const Icon(Icons.menu, color: Colors.white),
+          ),
+          title: Image.asset(
+            Env.whiteLogo,
+            width: 50,
+          ),
         ),
-        title: Image.asset(
-          Env.whiteLogo,
-          width: 50,
-        ),
-      ),
-      drawer: _drawer(),
-      body: SafeArea(
-        child: Obx(
-          () => controller.matchLoad.value
+        drawer: _drawer(),
+        body: SafeArea(
+          child: Obx(() => controller.matchLoad.value
               ? const Center(
                   child: CircularProgressIndicator(color: MAIN_COLOR),
                 )
-              : Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(
-                          controller.visibleUser.value.photosCount ?? 0,
-                          (index) => const Icon(Icons.circle,
-                                  color: MAIN_COLOR, size: 6)
-                              .marginSymmetric(horizontal: 6)),
-                    ).marginSymmetric(vertical: 10),
-                    SizedBox(
-                      height: Get.height - 180,
-                      width: Get.width,
-                      child: AppinioSwiper(
-                        swipeOptions:
-                            const AppinioSwipeOptions.only(left: true),
-                        unlimitedUnswipe: true,
-                        controller: controller.swiperController,
-                        backgroundCardsCount: 0,
-                        onSwiping: (AppinioSwiperDirection direction) {},
-                        onSwipe: controller.swipe,
-                        padding: const EdgeInsets.only(
-                          left: 25,
-                          right: 25,
-                          top: 10,
-                          bottom: 40,
-                        ),
-                        cardsCount: controller.currentMatch.length,
-                        cardsBuilder: (BuildContext context, int index) {
-                          return SearchItemWidget(
-                              like: () => controller
-                                  .onLike(controller.currentMatch[index]),
-                              swipBack: () => controller
-                                  .onSwipBack(controller.currentMatch[index]),
-                              cancel: () => controller
-                                  .onCancel(controller.currentMatch[index]),
-                              user: controller.currentMatch[index]);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-        ),
-      ),
-    );
+              : controller.matchSuccess.value
+                  ? Matcher(controller: controller)
+                  : Center(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text("Oups !!",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: "Poppins",
+                                        fontWeight: FontWeight.w700))
+                                .marginOnly(bottom: 10),
+                            const Text(
+                              "Aucun match trouvé. Merci de\nrevoir vos paramètres.",
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(
+                              width: Get.width * .5,
+                              child: ElevatedButton(
+                                  onPressed: () => controller.getMatchings(),
+                                  style: ElevatedButton.styleFrom(
+                                      elevation: 0,
+                                      backgroundColor: MAIN_COLOR,
+                                      foregroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                          side: const BorderSide(
+                                              color: Colors.white, width: 1.5),
+                                          borderRadius:
+                                              BorderRadius.circular(20))),
+                                  child: const Text("Relancer")),
+                            ).marginOnly(top: 20),
+                          ]),
+                    )),
+        ));
   }
 
   _showMore() {
@@ -280,6 +269,58 @@ class SearchScreen extends GetView<sc.SearchController> {
           )
         ],
       ).paddingSymmetric(vertical: 40, horizontal: 20),
+    );
+  }
+}
+
+class Matcher extends StatelessWidget {
+  const Matcher({
+    super.key,
+    required this.controller,
+  });
+
+  final sc.SearchController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+              controller.visibleUser.value.photosCount ?? 0,
+              (index) => const Icon(Icons.circle, color: MAIN_COLOR, size: 6)
+                  .marginSymmetric(horizontal: 6)),
+        ).marginSymmetric(vertical: 10),
+        SizedBox(
+          height: Get.height - 180,
+          width: Get.width,
+          child: AppinioSwiper(
+            swipeOptions: const AppinioSwipeOptions.only(left: true),
+            unlimitedUnswipe: true,
+            controller: controller.swiperController,
+            backgroundCardsCount: 0,
+            onSwiping: (AppinioSwiperDirection direction) {},
+            onSwipe: controller.swipe,
+            padding: const EdgeInsets.only(
+              left: 25,
+              right: 25,
+              top: 10,
+              bottom: 40,
+            ),
+            cardsCount: controller.currentMatch.length,
+            cardsBuilder: (BuildContext context, int index) {
+              return SearchItemWidget(
+                  like: () => controller.onLike(controller.currentMatch[index]),
+                  swipBack: () =>
+                      controller.onSwipBack(controller.currentMatch[index]),
+                  cancel: () =>
+                      controller.onCancel(controller.currentMatch[index]),
+                  user: controller.currentMatch[index]);
+            },
+          ),
+        ),
+      ],
     );
   }
 }

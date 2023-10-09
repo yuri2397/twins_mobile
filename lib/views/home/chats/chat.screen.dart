@@ -28,8 +28,22 @@ class ChatScreen extends GetView<lc.ChatController> {
                 itemBuilder: (context) => [
                   const PopupMenuItem<int>(
                       value: 0, child: Text('Voir le profil')),
-                  const PopupMenuItem<int>(value: 1, child: Text('Bloquer')),
-                  const PopupMenuItem<int>(value: 2, child: Text('Signaler')),
+                  PopupMenuItem<int>(
+                      value: 1,
+                      child: const Text('Bloquer'),
+                      onTap: () => controller.blockUser(
+                            controller.currentChat.value.participants!
+                                .firstWhere(
+                                    (e) => e.id.toString() != currentUserId),
+                          )),
+                  PopupMenuItem<int>(
+                      value: 2,
+                      child: const Text('Signaler'),
+                      onTap: () => controller.reportUser(
+                            controller.currentChat.value.participants!
+                                .firstWhere(
+                                    (e) => e.id.toString() != currentUserId),
+                          )),
                 ],
               )
             ],
@@ -47,8 +61,8 @@ class ChatScreen extends GetView<lc.ChatController> {
                   fit: BoxFit.fill),
             )),
         body: ChatView(
-          currentUser:
-              hc.ChatUser(id: currentUserId, name: controller.localUser.fullName),
+          currentUser: hc.ChatUser(
+              id: currentUserId, name: controller.localUser.fullName),
           chatController: controller.chatController,
           onSendTap: controller.onSendTap,
           featureActiveConfig: const FeatureActiveConfig(
@@ -57,7 +71,9 @@ class ChatScreen extends GetView<lc.ChatController> {
             enableCurrentUserProfileAvatar: false,
             enableOtherUserProfileAvatar: true,
           ),
-          chatViewState:controller.currentChat.value.messages!.isNotEmpty ? ChatViewState.hasMessages : ChatViewState.noData,
+          chatViewState: controller.currentChat.value.messages!.isNotEmpty
+              ? ChatViewState.hasMessages
+              : ChatViewState.noData,
           chatViewStateConfig: ChatViewStateConfiguration(
             loadingWidgetConfig: const ChatViewStateWidgetConfiguration(
               loadingIndicatorColor: MAIN_COLOR,
@@ -117,14 +133,14 @@ class ChatScreen extends GetView<lc.ChatController> {
             // ),
           ),
           chatBubbleConfig: ChatBubbleConfiguration(
-            receiptsWidgetConfig: const ReceiptsWidgetConfig(
-                showReceiptsIn: ShowReceiptsIn.all),
-            outgoingChatBubbleConfig:const ChatBubble(
+            receiptsWidgetConfig:
+                const ReceiptsWidgetConfig(showReceiptsIn: ShowReceiptsIn.all),
+            outgoingChatBubbleConfig: const ChatBubble(
               linkPreviewConfig: LinkPreviewConfiguration(
                 backgroundColor: NEUTRAL_COLOR,
               ),
-              receiptsWidgetConfig:  ReceiptsWidgetConfig(
-                  showReceiptsIn: ShowReceiptsIn.all),
+              receiptsWidgetConfig:
+                  ReceiptsWidgetConfig(showReceiptsIn: ShowReceiptsIn.all),
               color: MAIN_COLOR,
             ),
             inComingChatBubbleConfig: ChatBubble(
@@ -137,7 +153,7 @@ class ChatScreen extends GetView<lc.ChatController> {
               color: NEUTRAL_COLOR,
             ),
           ),
-          replyPopupConfig:const ReplyPopupConfiguration(
+          replyPopupConfig: const ReplyPopupConfiguration(
             backgroundColor: MAIN_COLOR,
             buttonTextStyle: TextStyle(color: MAIN_COLOR),
             topBorderColor: MAIN_COLOR,
@@ -151,14 +167,14 @@ class ChatScreen extends GetView<lc.ChatController> {
           ),
           messageConfig: MessageConfiguration(
             messageReactionConfig: MessageReactionConfiguration(
-              backgroundColor: Colors.orange,
+              backgroundColor: MAIN_COLOR,
               borderColor: Colors.red,
               borderWidth: 4,
-              reactedUserCountTextStyle:const TextStyle(color: MAIN_COLOR),
-              reactionCountTextStyle:const TextStyle(color: MAIN_COLOR),
+              reactedUserCountTextStyle: const TextStyle(color: MAIN_COLOR),
+              reactionCountTextStyle: const TextStyle(color: MAIN_COLOR),
               reactionsBottomSheetConfig: ReactionsBottomSheetConfiguration(
                 backgroundColor: MAIN_COLOR,
-                reactedUserTextStyle:const TextStyle(
+                reactedUserTextStyle: const TextStyle(
                   color: MAIN_COLOR,
                 ),
                 reactionWidgetDecoration: BoxDecoration(
@@ -182,7 +198,7 @@ class ChatScreen extends GetView<lc.ChatController> {
               ),
             ),
           ),
-          swipeToReplyConfig:const SwipeToReplyConfiguration(
+          swipeToReplyConfig: const SwipeToReplyConfiguration(
             replyIconColor: Colors.amberAccent,
           ),
         ),

@@ -91,9 +91,7 @@ class AuthRepository {
   }
 
   Future<Token> register(
-      {required Map<String, dynamic> data,
-      XFile? file,
-      required List<XFile> files}) async {
+      {required Map<String, dynamic> data, required List<XFile> files}) async {
     try {
       dio.FormData formData = dio.FormData.fromMap(data);
 
@@ -103,9 +101,7 @@ class AuthRepository {
       }
 
       var response = await _client.post('/register',
-          data: formData,
-          options: dio.Options(contentType: 'multipart/form-data'));
-
+          data: formData, options: Options(followRedirects: false));
 
       if (response.statusCode! >= 200 && response.statusCode! <= 300) {
         return Token.fromJson(response.data);

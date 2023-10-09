@@ -8,6 +8,9 @@ class MatchingRepository {
   Future<List<User>> matchings() async {
     var response = await _client.get("/matchings");
     if (response.statusCode! >= 200 && response.statusCode! < 400) {
+      if (response.data is Map) {
+        return [];
+      }
       return List.from(response.data).map((e) => User.fromJson(e)).toList();
     }
 

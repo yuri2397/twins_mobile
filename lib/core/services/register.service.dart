@@ -7,9 +7,9 @@ class RegisterService extends GetxService {
   final repo = AuthRepository();
 
   Future<void> register(
-      {required Map<String, dynamic> data, XFile? avatar, required List<XFile> files}) async {
+      {required Map<String, dynamic> data, required List<XFile> files}) async {
     try {
-      var response = await repo.register(data: data, file: avatar, files: files);
+      var response = await repo.register(data: data, files: files);
       localStorage.token = response;
       localStorage.user = response.user;
       localStorage.isAuth = true;

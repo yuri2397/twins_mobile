@@ -60,21 +60,28 @@ class AddFilesRegisterScreen extends GetView<RegisterController> {
                         )
                       ],
                     )),
-               SizedBox(
-                      width: Get.width * 0.4,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            backgroundColor: MAIN_COLOR,
-                            foregroundColor: Colors.white),
-                        onPressed: () => Get.toNamed(Goo.addBioScreen),
-                        child: const Text("Suivant", style: TextStyle(fontSize: 18)),
-                      ),
-                    ),
-
-
+                SizedBox(
+                  width: Get.width * 0.4,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        backgroundColor: MAIN_COLOR,
+                        foregroundColor: Colors.white),
+                    onPressed: controller.files
+                                .firstWhere((e) => e.value.path.isNotEmpty,
+                                    orElse: () => XFile("").obs)
+                                .value
+                                .path
+                                .isEmpty ==
+                            true
+                        ? null
+                        : () => Get.toNamed(Goo.addBioScreen),
+                    child:
+                        const Text("Suivant", style: TextStyle(fontSize: 18)),
+                  ),
+                ),
               ],
             ).paddingAll(20),
           ),
@@ -102,8 +109,8 @@ class AddFilesRegisterScreen extends GetView<RegisterController> {
                     ),
                   )
                 : Container(
-              color: GRAY_COLOR,
-            ),
+                    color: GRAY_COLOR,
+                  ),
             Positioned(
               bottom: 5,
               right: 5,

@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:twins/components/ui.dart';
 import 'package:twins/core/config/env.dart';
 import 'package:twins/core/model/user.dart';
-import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/colors.dart';
 import 'package:twins/controllers/search.controller.dart' as sc;
 
@@ -100,7 +99,7 @@ class SearchItemWidget extends StatelessWidget {
             height: 60,
             child: Text(
                 user.bio ??
-                    'Bio ===================================================================================================',
+                    'Bio',
                 textAlign: TextAlign.start,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,

@@ -6,6 +6,8 @@ import 'package:twins/core/http/http_client.dart';
 import 'package:twins/core/services/chat.service.dart';
 import 'package:twins/core/services/chat_request.service.dart';
 import 'package:twins/core/services/matching.service.dart';
+import 'package:twins/core/services/notification.service.dart';
+import 'package:twins/core/services/user.service.dart';
 import 'package:twins/routes/route.dart';
 import 'package:twins/routes/router.dart';
 import 'package:twins/shared/utils/app_hehavior.dart';
@@ -47,5 +49,7 @@ _initServices() async {
   Get.lazyPut(() => MatchingService());
   Get.lazyPut(() => ChatService());
   Get.lazyPut(() => ChatRequestService());
+  Get.lazyPut(() => UserService());
+  Get.lazyPut(() => NotificationService());
   Get.lazyPut(() => ProfileService(), fenix: true);
 }

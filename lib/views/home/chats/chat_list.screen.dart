@@ -47,28 +47,36 @@ class ChatListScreen extends GetView<ChatController> {
                         ],
                       ),
                     )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Messages",
-                          style: TextStyle(
-                              color: MAIN_COLOR,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ).marginAll(20),
-                        ListView.separated(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            shrinkWrap: true,
-                            separatorBuilder: (_, index) => const Divider(
-                                  height: 10,
-                                  color: MAIN_COLOR,
-                                ),
-                            itemBuilder: (_, index) =>
-                                _buildChatItem(controller.chats[index]),
-                            itemCount: controller.chats.length),
-                      ],
+                  : RefreshIndicator(
+                      color: MAIN_COLOR,
+                      onRefresh: () =>
+                          Future.sync(() async => await controller.getChats()),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Messages",
+                            style: TextStyle(
+                                color: MAIN_COLOR,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ).marginAll(20),
+                          Expanded(
+                            child: ListView.separated(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 30),
+                                shrinkWrap: true,
+                                separatorBuilder: (_, index) => const Divider(
+                                      height: 10,
+                                      color: MAIN_COLOR,
+                                    ),
+                                itemBuilder: (_, index) =>
+                                    _buildChatItem(controller.chats[index]),
+                                itemCount: controller.chats.length),
+                          ),
+                        ],
+                      ),
                     )),
     );
   }
@@ -80,14 +88,13 @@ class ChatListScreen extends GetView<ChatController> {
       contentPadding: const EdgeInsets.all(0),
       onTap: () => controller.detailsChat(chat),
       leading: ClipRRect(
-        borderRadius: BorderRadius.circular(100),
-        child: sender!.profilePhoto != null && sender.profilePhoto!.isNotEmpty
-            ? Image.network(
-                sender.profilePhoto!,
-                height: 90,
-              )
-            : Image.asset("assets/images/img.png")
-      ),
+          borderRadius: BorderRadius.circular(100),
+          child: sender!.profilePhoto != null && sender.profilePhoto!.isNotEmpty
+              ? Image.network(
+                  sender.profilePhoto!,
+                  height: 90,
+                )
+              : Image.asset("assets/images/img.png")),
       title: Text(chat.participants!
           .firstWhere((e) => e.id.toString() != currentUserId)
           .fullName!),

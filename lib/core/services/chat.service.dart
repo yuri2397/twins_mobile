@@ -5,18 +5,27 @@ import 'package:twins/core/repository/chat.repository.dart';
 class ChatService extends GetxService {
   final _repo = ChatRepository();
 
-  Future<List<Chat>> chats() async{
-    try{
+  Future<List<Chat>> chats() async {
+    try {
       return await _repo.chats();
-    }catch(e){
+    } catch (e) {
       rethrow;
     }
   }
 
-  Future<void> sendMessage({ required Chat chat, required String message}) async{
-    try{
+  Future<Chat> chatDetails({required Chat chat}) async {
+    try {
+      return await _repo.chatDetails(chat: chat);
+    } catch (e) {
+      rethrow;
+    }
+  }
 
-    }catch(e){
+  Future<Chat> sendMessage(
+      {required Chat chat, required String message}) async {
+    try {
+      return await _repo.sendMessage(chat: chat, message: message);
+    } catch (e) {
       rethrow;
     }
   }

@@ -2,11 +2,13 @@ import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:appinio_swiper/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:twins/components/ui.dart';
 import 'package:twins/core/model/user.dart';
 import 'package:twins/core/services/chat_request.service.dart';
 import 'package:twins/core/services/matching.service.dart';
 import 'package:twins/core/utils/utils.dart';
 import 'package:twins/routes/router.dart';
+import 'package:twins/shared/utils/colors.dart';
 
 class SearchController extends GetxController {
   final _matchingService = Get.find<MatchingService>();
@@ -18,6 +20,9 @@ class SearchController extends GetxController {
   final detailUserPhotosController = PageController();
   final matchLoad = false.obs;
   final detailsLoad = false.obs;
+  final subscribeForPremium = false.obs;
+  final matchSuccess = true.obs;
+  final likeLoad = false.obs;
   @override
   void onInit() {
     determinePosition().then((value) {
@@ -33,14 +38,17 @@ class SearchController extends GetxController {
   void getMatchings() {
     matchLoad.value = true;
     _matchingService.matchings().then((value) {
-      print(value.toList().toString());
       currentMatch.value = value;
-      visibleUser.value = value.first;
-      visibleUser.refresh();
-      currentMatch.refresh();
+      if (value.isEmpty) {
+        matchSuccess.value = false;
+      } else {
+        visibleUser.value = value.first;
+        visibleUser.refresh();
+        currentMatch.refresh();
+      }
+
       matchLoad.value = false;
-    }).catchError((e) {
-      print(e);
+    }).catchError((e, s) {
       matchLoad.value = false;
     });
   }
@@ -48,21 +56,32 @@ class SearchController extends GetxController {
   void swipe(int index, AppinioSwiperDirection direction) {
     visibleUser.value = currentMatch[index];
     canUnswip.value = true;
-    Get.log("$index, ${visibleUser.value}");
-    if (currentMatch.length >= 10 && (currentMatch.length / 2 < index)) {
-      _matchingService.matchings().then((value) {
-        currentMatch.addAll(value);
-      }).catchError((e) {
-        Get.log("EEEEEEEEEEEEEER : $e");
-      });
-    }
+    // Get.log("$index, ${visibleUser.value}");
+    // if (currentMatch.length >= 10 && (currentMatch.length / 2 < index)) {
+    //   _matchingService.matchings().then((value) {
+    //     currentMatch.addAll(value);
+    //   }).catchError((e) {
+    //     Get.log("EEEEEEEEEEEEEER : $e");
+    //   });
+    // }
+
+    subscribeForPremium.value = currentMatch.length == index + 1 &&
+        (localStorage.getUser()!.isPremium == false);
+
+    if ((currentMatch.length == index + 1) &&
+        (localStorage.getUser()!.isPremium == true)) {}
   }
 
   onLike(User currentMatch) {
+    likeLoad.value = true;
     _chatRequestService.sendRequestChat(toUser: currentMatch).then((value) {
-      print("LIKE SUCCESS");
+      likeLoad.value = false;
+      ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
+        content: Text("Twinz avec ${currentMatch.fullName} succès."),
+        backgroundColor: MAIN_COLOR,
+      ));
     }).catchError((e) {
-      print("$e");
+      likeLoad.value = false;
     });
   }
 
@@ -71,9 +90,11 @@ class SearchController extends GetxController {
     visibleUser.refresh();
 
     if (canUnswip.value) {
-      swiperController.unswipe();
-      canUnswip.value = false;
+      if (localStorage.getUser()!.isPremium == false) {
+        canUnswip.value = false;
+      }
       canUnswip.refresh();
+      swiperController.unswipe();
     }
   }
 
@@ -88,7 +109,6 @@ class SearchController extends GetxController {
     _matchingService.matchingDetails(user: user).then((value) {
       visibleUser.value = value;
       visibleUser.refresh();
-      print(visibleUser.value.toJson().toString());
       detailsLoad.value = false;
     }).catchError((e) {
       detailsLoad.value = false;
