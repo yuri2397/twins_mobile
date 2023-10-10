@@ -1,7 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:twins/core/repository/auth.repository.dart';
-import 'package:twins/core/utils/utils.dart';
+import 'package:twinz/core/repository/auth.repository.dart';
+import 'package:twinz/core/utils/utils.dart';
 
 class RegisterService extends GetxService {
   final repo = AuthRepository();
@@ -13,7 +14,9 @@ class RegisterService extends GetxService {
       localStorage.token = response;
       localStorage.user = response.user;
       localStorage.isAuth = true;
-    } catch (e) {
+      //await repo.addPhoto(files);
+    } on DioException catch (e) {
+      print("eeeeeeeeeeeeeeeeeeeeeeee $e");
       rethrow;
     }
   }

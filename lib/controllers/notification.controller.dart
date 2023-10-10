@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:twins/core/services/notification.service.dart';
-import 'package:twins/core/model/notification.dart' as nt;
+import 'package:twinz/core/services/notification.service.dart';
+import 'package:twinz/core/model/notification.dart' as nt;
 
 class NotificationController extends GetxController {
   final items = <nt.Notification>[].obs;

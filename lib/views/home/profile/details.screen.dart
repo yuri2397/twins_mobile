@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:twins/controllers/profile.controller.dart';
-import 'package:twins/routes/router.dart';
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/controllers/profile.controller.dart';
+import 'package:twinz/routes/router.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 class DetailProfileScreen extends GetView<ProfileController> {
   const DetailProfileScreen({super.key});
@@ -122,8 +122,8 @@ class DetailProfileScreen extends GetView<ProfileController> {
                           fontSize: 18,
                         )),
                     trailing: Text(
-                      DateFormat.yMMMd('fr')
-                          .format(controller.user.value?.birthDate ?? DateTime.now()),
+                      DateFormat.yMMMd('fr').format(
+                          controller.user.value?.birthDate ?? DateTime.now()),
                       style: const TextStyle(
                           color: DARK_COLOR,
                           fontFamily: "Poppins",
@@ -169,7 +169,10 @@ class DetailProfileScreen extends GetView<ProfileController> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: Image.network(
-                        (controller.user.value?.profilePhoto != null && controller.user.value?.profilePhoto != "") ? controller.user.value!.profilePhoto! : "https://img.freepik.com/photos-gratuite/jeune-femme-chien-sans-abri-au-parc-photo-haute-qualite_144627-75703.jpg?w=740&t=st=1694874615~exp=1694875215~hmac=eb6804b67c1fc7b677babff8be1caaee8f4b47db541f6cfeb548f472371d555d",
+                        (controller.user.value?.profilePhoto != null &&
+                                controller.user.value?.profilePhoto != "")
+                            ? controller.user.value!.profilePhoto!
+                            : "https://img.freepik.com/photos-gratuite/jeune-femme-chien-sans-abri-au-parc-photo-haute-qualite_144627-75703.jpg?w=740&t=st=1694874615~exp=1694875215~hmac=eb6804b67c1fc7b677babff8be1caaee8f4b47db541f6cfeb548f472371d555d",
                         fit: BoxFit.cover,
                         height: 100,
                         width: 100,

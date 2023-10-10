@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 class GenderWidget extends StatefulWidget {
   Rx<String> gender = "male".obs;

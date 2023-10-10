@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:twins/core/model/user.dart';
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/core/model/user.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 errorMessage(
     {required String title, required String content, SnackPosition? position}) {
@@ -43,7 +43,7 @@ itemIcon(IconData icon, {Color? backgroundColor, Color? color, double? size}) {
   return Container(
     padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
-      color:backgroundColor?? Colors.white,
+      color: backgroundColor ?? Colors.white,
       boxShadow: [
         BoxShadow(
           color: Colors.black.withOpacity(0.2),
@@ -56,20 +56,21 @@ itemIcon(IconData icon, {Color? backgroundColor, Color? color, double? size}) {
     ),
     child: Icon(
       icon,
-      color:color?? MAIN_COLOR,
+      color: color ?? MAIN_COLOR,
       size: size ?? 25,
     ),
   );
 }
 
-
-Widget hr(){
+Widget hr() {
   return Container(
     alignment: Alignment.center,
     margin: const EdgeInsets.all(20),
     height: 8,
     width: Get.width * .2,
-    decoration:  BoxDecoration ( color: NEUTRAL_COLOR, borderRadius: BorderRadius.circular(20)),);
+    decoration: BoxDecoration(
+        color: NEUTRAL_COLOR, borderRadius: BorderRadius.circular(20)),
+  );
 }
 
 showUserDetails(User user) {
@@ -95,25 +96,31 @@ showUserDetails(User user) {
               CupertinoIcons.check_mark_circled,
               color: MAIN_COLOR,
             ),
-
           ],
         ).marginOnly(bottom: 10, left: 20, top: 8),
         Row(
           children: [
             itemIcon(Icons.map_rounded),
-            const SizedBox( width: 10,),
+            const SizedBox(
+              width: 10,
+            ),
             const Text(
               "Dakar • 24km",
-              style:  TextStyle(fontSize: 20, fontWeight: FontWeight.w400, color: Colors.grey),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.grey),
             )
           ],
         ).marginOnly(bottom: 10, left: 20),
-        const Divider( color: NEUTRAL_COLOR, height: 2,).marginAll(20),
-
+        const Divider(
+          color: NEUTRAL_COLOR,
+          height: 2,
+        ).marginAll(20),
         SizedBox(
           height: 130,
           width: Get.width,
-          child:Skeletonizer(
+          child: Skeletonizer(
             enabled: true,
             ignoreContainers: true,
             child: ListView(
@@ -140,7 +147,9 @@ showUserDetails(User user) {
             ),
           ),
         ),
-        const SizedBox(height: 40,),
+        const SizedBox(
+          height: 40,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -156,8 +165,7 @@ showUserDetails(User user) {
                       color: Colors.black.withOpacity(0.2),
                       spreadRadius: 1,
                       blurRadius: 20,
-                      offset:
-                      const Offset(2, 3), // changes position of shadow
+                      offset: const Offset(2, 3), // changes position of shadow
                     ),
                   ],
                   borderRadius: const BorderRadius.all(Radius.circular(50)),
@@ -180,8 +188,7 @@ showUserDetails(User user) {
                       color: Colors.black.withOpacity(0.2),
                       spreadRadius: 1,
                       blurRadius: 20,
-                      offset:
-                      const Offset(2, 3), // changes position of shadow
+                      offset: const Offset(2, 3), // changes position of shadow
                     ),
                   ],
                   borderRadius: const BorderRadius.all(Radius.circular(50)),

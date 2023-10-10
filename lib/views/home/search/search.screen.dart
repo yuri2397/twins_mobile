@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:twins/components/ui.dart';
-import 'package:twins/controllers/search.controller.dart' as sc;
-import 'package:twins/core/config/env.dart';
-import 'package:twins/routes/router.dart';
-import 'package:twins/shared/utils/colors.dart';
-import 'package:twins/views/home/search/search_item.dart';
+import 'package:twinz/components/ui.dart';
+import 'package:twinz/controllers/search.controller.dart' as sc;
+import 'package:twinz/core/config/env.dart';
+import 'package:twinz/routes/router.dart';
+import 'package:twinz/shared/utils/colors.dart';
+import 'package:twinz/views/home/search/search_item.dart';
 
 class SearchScreen extends GetView<sc.SearchController> {
   SearchScreen({super.key});
@@ -37,7 +37,42 @@ class SearchScreen extends GetView<sc.SearchController> {
                   child: CircularProgressIndicator(color: MAIN_COLOR),
                 )
               : controller.matchSuccess.value
-                  ? Matcher(controller: controller)
+                  ? controller.subscribeForPremium.value
+                      ? Matcher(controller: controller)
+                      : Center(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const Text("Oups !!",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontFamily: "Poppins",
+                                            fontWeight: FontWeight.w700))
+                                    .marginOnly(bottom: 10),
+                                const Text(
+                                  "Vous avez atteint le nombre limit de match par jour.\n Veuillez changer votre offre à Premium.",
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(
+                                  width: Get.width * .5,
+                                  child: ElevatedButton(
+                                      onPressed: () =>
+                                          controller.getMatchings(),
+                                      style: ElevatedButton.styleFrom(
+                                          elevation: 0,
+                                          backgroundColor: MAIN_COLOR,
+                                          foregroundColor: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                              side: const BorderSide(
+                                                  color: Colors.white,
+                                                  width: 1.5),
+                                              borderRadius:
+                                                  BorderRadius.circular(20))),
+                                      child: const Text("Relancer")),
+                                ).marginOnly(top: 20),
+                              ]),
+                        )
                   : Center(
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

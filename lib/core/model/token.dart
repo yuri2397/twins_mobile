@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:twins/core/model/user.dart';
+import 'package:twinz/core/model/user.dart';
 
 Token tokenFromJson(String str) => Token.fromJson(json.decode(str));
 

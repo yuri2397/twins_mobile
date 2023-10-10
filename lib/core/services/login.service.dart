@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:twins/core/repository/auth.repository.dart';
-import 'package:twins/core/utils/utils.dart';
+import 'package:twinz/core/repository/auth.repository.dart';
+import 'package:twinz/core/utils/utils.dart';
 
 class LoginService extends GetxService {
   final repo = AuthRepository();

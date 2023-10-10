@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:twins/core/model/chat.dart';
-import 'package:twins/core/repository/chat.repository.dart';
+import 'package:twinz/core/model/chat.dart';
+import 'package:twinz/core/repository/chat.repository.dart';
 
 class ChatService extends GetxService {
   final _repo = ChatRepository();
@@ -25,6 +25,14 @@ class ChatService extends GetxService {
       {required Chat chat, required String message}) async {
     try {
       return await _repo.sendMessage(chat: chat, message: message);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> markAsRead(String id) async {
+    try {
+      await _repo.markAsRead(id);
     } catch (e) {
       rethrow;
     }

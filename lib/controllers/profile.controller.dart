@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:twins/components/ui.dart';
-import 'package:twins/core/services/profile.service.dart';
-import 'package:twins/core/utils/utils.dart';
-import 'package:twins/routes/router.dart';
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/components/ui.dart';
+import 'package:twinz/core/services/profile.service.dart';
+import 'package:twinz/core/services/user.service.dart';
+import 'package:twinz/core/utils/utils.dart';
+import 'package:twinz/routes/router.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 class ProfileController extends GetxController {
   final user = localStorage.getUser().obs;
@@ -134,7 +135,9 @@ class ProfileController extends GetxController {
     });
   }
 
-  deletePhotos(XFile file) async {}
+  deletePhotos(XFile file) async {
+    await _profileService.removePhoto(file).then((value) {}).catchError((e) {});
+  }
 
   logout() async {
     Get.bottomSheet(Container(
@@ -376,7 +379,15 @@ class ProfileController extends GetxController {
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6))),
-              onPressed: () {},
+              onPressed: () async {
+                await Get.find<UserService>().disableAccount().then((value) {
+                  successMessage(
+                      title: "Félicitaions",
+                      content: "Votre compte est désactivé avec success.");
+                  localStorage.clear();
+                  Get.offAndToNamed(Goo.onboardingScreen);
+                });
+              },
               child: const Text("Désactiver le compte")),
           ElevatedButton(
               style: TextButton.styleFrom(

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:twins/core/config/env.dart';
+import 'package:twinz/core/config/env.dart';
 
 mixin BaseApiClient {
   final String baseUrl = Env.apiUrl;

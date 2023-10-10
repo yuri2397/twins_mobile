@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:twins/components/ui.dart';
-import 'package:twins/core/config/env.dart';
-import 'package:twins/core/model/user.dart';
-import 'package:twins/shared/utils/colors.dart';
-import 'package:twins/controllers/search.controller.dart' as sc;
+import 'package:twinz/components/ui.dart';
+import 'package:twinz/core/config/env.dart';
+import 'package:twinz/core/model/user.dart';
+import 'package:twinz/shared/utils/colors.dart';
+import 'package:twinz/controllers/search.controller.dart' as sc;
 
 // ignore: must_be_immutable
 class SearchItemWidget extends StatelessWidget {
@@ -97,9 +97,7 @@ class SearchItemWidget extends StatelessWidget {
           SizedBox(
             width: Get.width,
             height: 60,
-            child: Text(
-                user.bio ??
-                    'Bio',
+            child: Text(user.bio ?? 'Bio',
                 textAlign: TextAlign.start,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,

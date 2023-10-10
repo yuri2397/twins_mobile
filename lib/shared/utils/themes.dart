@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 final defaultTheme = ThemeData(
     textTheme: GoogleFonts.poppinsTextTheme(),

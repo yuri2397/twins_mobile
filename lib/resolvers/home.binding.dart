@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
-import 'package:twins/controllers/chat.controller.dart';
-import 'package:twins/controllers/chat_request.controller.dart';
-import 'package:twins/controllers/home.controller.dart';
-import 'package:twins/controllers/notification.controller.dart';
-import 'package:twins/controllers/profile.controller.dart';
-import 'package:twins/controllers/search.controller.dart';
+import 'package:twinz/controllers/chat.controller.dart';
+import 'package:twinz/controllers/chat_request.controller.dart';
+import 'package:twinz/controllers/home.controller.dart';
+import 'package:twinz/controllers/notification.controller.dart';
+import 'package:twinz/controllers/profile.controller.dart';
+import 'package:twinz/controllers/search.controller.dart';
 
 class HomeBinding extends Bindings {
   @override

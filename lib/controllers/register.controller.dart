@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:twins/components/ui.dart';
-import 'package:twins/core/model/zodiaque.dart';
-import 'package:twins/core/services/register.service.dart';
-import 'package:twins/core/utils/utils.dart';
-import 'package:twins/routes/router.dart';
+import 'package:twinz/components/ui.dart';
+import 'package:twinz/core/model/zodiaque.dart';
+import 'package:twinz/core/services/register.service.dart';
+import 'package:twinz/core/utils/utils.dart';
+import 'package:twinz/routes/router.dart';
+import 'package:dio/dio.dart' as dio;
 
 class RegisterController extends GetxController {
   final nameCtrl = TextEditingController();
@@ -39,9 +40,9 @@ class RegisterController extends GetxController {
   final lat = "".obs;
   final lng = "".obs;
 
+  @override
   void onInit() async {
     super.onInit();
-
     determinePosition().then((value) {
       lat.value = "${value.latitude}";
       lng.value = "${value.longitude}";
@@ -50,7 +51,7 @@ class RegisterController extends GetxController {
 
   parseDate() {
     birthdayCtrl.text =
-        "${bd3Ctrl.text.trim()}/${bd2Ctrl.text.trim()}/${bd1Ctrl.text.trim()}";
+        "${bd1Ctrl.text.trim()}/${bd2Ctrl.text.trim()}/${bd3Ctrl.text.trim()}";
     DateTime date = DateTime.parse(
         "${bd3Ctrl.text.trim()}-${bd2Ctrl.text.trim()}-${bd1Ctrl.text.trim()}");
     signe.value = determinerSigne(date);
@@ -63,7 +64,7 @@ class RegisterController extends GetxController {
     var finalFiles =
         files.map((e) => e.value).where((e) => e.path.isNotEmpty).toList();
 
-    Map<String, String> data = {
+    Map<String, dynamic> data = {
       "full_name": nameCtrl.text.trim(),
       "gender": gender.value,
       "birth_date": birthdayCtrl.text,
@@ -72,9 +73,10 @@ class RegisterController extends GetxController {
       "password": passwordCtrl.text,
       "lat": lat.value,
       "lng": lng.value,
+      "address": "Dakar",
       "password_confirmation": passwordCtrl.text,
       "device_name": await deviceName,
-      "device_id": "ey....."
+      "device_id": localStorage.getFcmToken(),
     };
     _registerService.register(data: data, files: finalFiles).then((value) {
       loading.value = false;
@@ -83,10 +85,7 @@ class RegisterController extends GetxController {
       Get.offAllNamed(Goo.activeAccountScreen);
     }).catchError((e, s) {
       loading.value = false;
-      print("$e");
-      errorMessage(
-          title: "Oups !!!",
-          content: "Une erreur s'est produite lors de l'inscription.");
+
     });
   }
 }

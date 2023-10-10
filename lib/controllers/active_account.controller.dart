@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:twins/components/ui.dart';
-import 'package:twins/core/services/profile.service.dart';
-import 'package:twins/routes/router.dart';
+import 'package:twinz/components/ui.dart';
+import 'package:twinz/core/services/profile.service.dart';
+import 'package:twinz/routes/router.dart';
 
 class ActiveAccountController extends GetxController {
   final resendLoad = false.obs;

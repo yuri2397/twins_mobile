@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:twins/controllers/home.controller.dart';
-import 'package:twins/shared/utils/colors.dart';
-import 'package:twins/views/home/chats/chat_list.screen.dart';
-import 'package:twins/views/home/notifications/notifications.screen.dart';
-import 'package:twins/views/home/profile/profile.screen.dart';
-import 'package:twins/views/home/search/search.screen.dart';
-import 'package:twins/views/home/chat_request/chat_request.screen.dart';
+import 'package:twinz/controllers/home.controller.dart';
+import 'package:twinz/shared/utils/colors.dart';
+import 'package:twinz/views/home/chats/chat_list.screen.dart';
+import 'package:twinz/views/home/notifications/notifications.screen.dart';
+import 'package:twinz/views/home/profile/profile.screen.dart';
+import 'package:twinz/views/home/search/search.screen.dart';
+import 'package:twinz/views/home/chat_request/chat_request.screen.dart';
 
 class HomeScreen extends GetView<HomeController> {
   final _screens = <Widget>[
@@ -59,7 +59,6 @@ class HomeScreen extends GetView<HomeController> {
           padding: const EdgeInsets.symmetric(vertical: 2),
           child: NavigationBar(
             onDestinationSelected: (int index) {},
-            indicatorColor: Colors.white,
             selectedIndex: controller.currentIndex.value,
             backgroundColor: Colors.white,
             destinations: <Widget>[
@@ -69,7 +68,7 @@ class HomeScreen extends GetView<HomeController> {
                   controller.currentIndex.refresh();
                 },
                 child: ImageIcon(
-                  AssetImage('assets/images/home.png'),
+                  const AssetImage('assets/images/home.png'),
                   color: controller.currentIndex.value == 0
                       ? MAIN_COLOR
                       : NEUTRAL_COLOR,

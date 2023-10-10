@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:twins/controllers/onboarding.controller.dart';
+import 'package:twinz/controllers/onboarding.controller.dart';
 
 class OnboardingBinding extends Bindings {
   @override

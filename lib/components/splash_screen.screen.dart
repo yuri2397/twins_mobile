@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:twins/core/config/env.dart';
-import 'package:twins/core/services/local_storage.service.dart';
-import 'package:twins/core/utils/utils.dart';
-import 'package:twins/routes/router.dart';
+import 'package:twinz/core/config/env.dart';
+import 'package:twinz/core/services/local_storage.service.dart';
+import 'package:twinz/core/utils/utils.dart';
+import 'package:twinz/routes/router.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

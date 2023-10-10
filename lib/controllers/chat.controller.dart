@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:twins/core/model/chat.dart' as lc;
-import 'package:twins/core/services/chat.service.dart';
-import 'package:twins/core/services/user.service.dart';
-import 'package:twins/core/utils/utils.dart';
+import 'package:twinz/core/model/chat.dart' as lc;
+import 'package:twinz/core/services/chat.service.dart';
+import 'package:twinz/core/services/user.service.dart';
+import 'package:twinz/core/utils/utils.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-import 'package:twins/routes/router.dart';
+import 'package:twinz/routes/router.dart';
 import 'package:chatview/chatview.dart' as hc;
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 import '../core/model/user.dart';
 
@@ -21,7 +21,7 @@ class ChatController extends GetxController {
   final _service = Get.find<ChatService>();
 
   final currentChat = lc.Chat().obs;
-
+  final showDetailsLoad = false.obs;
   final textFieldController = TextEditingController();
   hc.ChatController chatController = hc.ChatController(
     initialMessageList: [],
@@ -49,7 +49,7 @@ class ChatController extends GetxController {
   detailsChat(lc.Chat chat) {
     currentChat.value = chat;
     Get.toNamed(Goo.chatScreen);
-
+    showDetailsLoad.value = true;
     _service.chatDetails(chat: chat).then((value) {
       User sender = value.participants!
           .firstWhere((element) => element.id != int.tryParse(currentUserId));
@@ -74,7 +74,10 @@ class ChatController extends GetxController {
               profilePhoto: "${sender.profilePhoto}"),
         ],
       );
-    }).catchError((e) {});
+      showDetailsLoad.value = false;
+    }).catchError((e) {
+      showDetailsLoad.value = false;
+    });
   }
 
   Future<void> onSendTap(
@@ -120,6 +123,10 @@ class ChatController extends GetxController {
         backgroundColor: MAIN_COLOR,
       ));
     }).catchError((e) {});
+  }
+
+  markMessageIsRead(messageId) {
+    _service.markAsRead(messageId).then((value) {});
   }
 
   moreInfo(int index) {}

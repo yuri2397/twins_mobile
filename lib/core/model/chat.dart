@@ -1,10 +1,12 @@
 import 'dart:convert';
 
-import 'package:twins/core/model/user.dart';
+import 'package:twinz/core/model/user.dart';
 
-List<Chat> chatFromJson(String str) => List<Chat>.from(json.decode(str).map((x) => Chat.fromJson(x)));
+List<Chat> chatFromJson(String str) =>
+    List<Chat>.from(json.decode(str).map((x) => Chat.fromJson(x)));
 
-String chatToJson(List<Chat> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String chatToJson(List<Chat> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Chat {
   int? id;
@@ -20,18 +22,30 @@ class Chat {
   });
 
   factory Chat.fromJson(Map<String, dynamic> json) => Chat(
-    id: json["id"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    participants: json["participants"] == null ? [] : List<User>.from(json["participants"]!.map((x) => User.fromJson(x))),
-    messages: json["messages"] == null ? [] : List<Message>.from(json["messages"]!.map((x) => Message.fromJson(x))),
-  );
+        id: json["id"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        participants: json["participants"] == null
+            ? []
+            : List<User>.from(
+                json["participants"]!.map((x) => User.fromJson(x))),
+        messages: json["messages"] == null
+            ? []
+            : List<Message>.from(
+                json["messages"]!.map((x) => Message.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "created_at": createdAt?.toIso8601String(),
-    "participants": participants == null ? [] : List<dynamic>.from(participants!.map((x) => x.toJson())),
-    "messages": messages == null ? [] : List<dynamic>.from(messages!.map((x) => x.toJson())),
-  };
+        "id": id,
+        "created_at": createdAt?.toIso8601String(),
+        "participants": participants == null
+            ? []
+            : List<dynamic>.from(participants!.map((x) => x.toJson())),
+        "messages": messages == null
+            ? []
+            : List<dynamic>.from(messages!.map((x) => x.toJson())),
+      };
 }
 
 class Message {
@@ -54,24 +68,26 @@ class Message {
   });
 
   factory Message.fromJson(Map<String, dynamic> json) => Message(
-    id: json["id"],
-    message: json["message"],
-    chatId: json["chat_id"],
-    userId: json["user_id"],
-    data: json["data"] == null ? null : Data.fromJson(json["data"]),
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    sender: json["sender"] == null ? null : User.fromJson(json["sender"]),
-  );
+        id: json["id"],
+        message: json["message"],
+        chatId: json["chat_id"],
+        userId: json["user_id"],
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        sender: json["sender"] == null ? null : User.fromJson(json["sender"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "message": message,
-    "chat_id": chatId,
-    "user_id": userId,
-    "data": data?.toJson(),
-    "created_at": createdAt?.toIso8601String(),
-    "sender": sender?.toJson(),
-  };
+        "id": id,
+        "message": message,
+        "chat_id": chatId,
+        "user_id": userId,
+        "data": data?.toJson(),
+        "created_at": createdAt?.toIso8601String(),
+        "sender": sender?.toJson(),
+      };
 }
 
 class Data {
@@ -84,12 +100,15 @@ class Data {
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    seenBy: json["seenBy"] == null ? [] : List<dynamic>.from(json["seenBy"]!.map((x) => x)),
-    status: json["status"],
-  );
+        seenBy: json["seenBy"] == null
+            ? []
+            : List<dynamic>.from(json["seenBy"]!.map((x) => x)),
+        status: json["status"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "seenBy": seenBy == null ? [] : List<dynamic>.from(seenBy!.map((x) => x)),
-    "status": status,
-  };
+        "seenBy":
+            seenBy == null ? [] : List<dynamic>.from(seenBy!.map((x) => x)),
+        "status": status,
+      };
 }

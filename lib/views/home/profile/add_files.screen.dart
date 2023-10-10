@@ -5,11 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:twins/components/choose_files.widget.dart';
-import 'package:twins/controllers/profile.controller.dart';
-import 'package:twins/controllers/register.controller.dart';
-import 'package:twins/routes/router.dart';
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/components/choose_files.widget.dart';
+import 'package:twinz/controllers/profile.controller.dart';
+import 'package:twinz/controllers/register.controller.dart';
+import 'package:twinz/routes/router.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 class AddFilesScreen extends GetView<ProfileController> {
   const AddFilesScreen({super.key});
@@ -39,7 +39,7 @@ class AddFilesScreen extends GetView<ProfileController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                      flex: 2,
+                      flex: 5,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -195,6 +195,7 @@ class AddFilesScreen extends GetView<ProfileController> {
                     icon: const Icon(Icons.delete_outline),
                     onPressed: () {
                       file.value = XFile("");
+
                       Get.back();
                     },
                     style: ElevatedButton.styleFrom(

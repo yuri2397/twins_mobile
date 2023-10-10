@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:twins/controllers/register.controller.dart';
-import 'package:twins/core/services/register.service.dart';
+import 'package:twinz/controllers/register.controller.dart';
+import 'package:twinz/core/services/register.service.dart';
 
 class RegisterBinding extends Bindings {
   @override

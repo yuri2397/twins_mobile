@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
-import 'package:twins/components/gender.widget.dart';
-import 'package:twins/controllers/profile.controller.dart';
-import 'package:twins/core/utils/utils.dart';
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/components/gender.widget.dart';
+import 'package:twinz/controllers/profile.controller.dart';
+import 'package:twinz/core/utils/utils.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 class SettingScreen extends GetView<ProfileController> {
   const SettingScreen({super.key});
@@ -15,7 +15,9 @@ class SettingScreen extends GetView<ProfileController> {
       appBar: AppBar(
         backgroundColor: MAIN_COLOR,
         elevation: 0,
-        leading: GestureDetector(onTap: () => Get.back(),child: const Icon(Icons.arrow_back_ios, color: Colors.white)),
+        leading: GestureDetector(
+            onTap: () => Get.back(),
+            child: const Icon(Icons.arrow_back_ios, color: Colors.white)),
       ),
       body: Obx(
         () => Column(
@@ -137,30 +139,30 @@ class SettingScreen extends GetView<ProfileController> {
             ),
             Row(
               children: [
-                 SizedBox(
-                   width: Get.width - 100,
-                   child: SfRangeSlider(
-                      min: 18,
-                      max: 65,
-                      interval: 10,
-                      showTicks: false,
-                      activeColor: MAIN_COLOR,
-                      showLabels: false,
-                      enableTooltip: true,
-                      minorTicksPerInterval: 1,
-                      onChanged: (SfRangeValues values) {
-                        controller.settings.value?.ageMin = values.start?.toInt();
-                        controller.settings.value?.ageMax = values.end?.toInt();
-                        controller.settings.refresh();
-                        Get.log(
-                            "${controller.settings.value?.toJson().toString()}");
-                        localStorage.settings = controller.settings.value;
-                      },
-                      values: SfRangeValues(
-                          controller.settings.value?.ageMin ?? 18,
-                          controller.settings.value?.ageMax ?? 65),
-                    ),
-                 ),
+                SizedBox(
+                  width: Get.width - 100,
+                  child: SfRangeSlider(
+                    min: 18,
+                    max: 65,
+                    interval: 10,
+                    showTicks: false,
+                    activeColor: MAIN_COLOR,
+                    showLabels: false,
+                    enableTooltip: true,
+                    minorTicksPerInterval: 1,
+                    onChanged: (SfRangeValues values) {
+                      controller.settings.value?.ageMin = values.start?.toInt();
+                      controller.settings.value?.ageMax = values.end?.toInt();
+                      controller.settings.refresh();
+                      Get.log(
+                          "${controller.settings.value?.toJson().toString()}");
+                      localStorage.settings = controller.settings.value;
+                    },
+                    values: SfRangeValues(
+                        controller.settings.value?.ageMin ?? 18,
+                        controller.settings.value?.ageMax ?? 65),
+                  ),
+                ),
                 const Text("18 - 65")
               ],
             ).marginSymmetric(),
@@ -193,7 +195,6 @@ class SettingScreen extends GetView<ProfileController> {
               onChanged: (bool? value) => controller.changeGender("male"),
               title: const Text('Hommes'),
               activeColor: MAIN_COLOR,
-
             ),
             CheckboxListTile(
               value: controller.settings.value?.gender == "female",
@@ -205,7 +206,6 @@ class SettingScreen extends GetView<ProfileController> {
               value: controller.settings.value?.gender == "both",
               onChanged: (bool? value) => controller.changeGender("both"),
               activeColor: MAIN_COLOR,
-
               title: const Text('Hommes et Femmes'),
             ),
             const SizedBox(

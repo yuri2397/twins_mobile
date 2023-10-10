@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:twins/core/repository/notification.repository.dart';
-import 'package:twins/core/model/notification.dart' as nt;
+import 'package:twinz/core/repository/notification.repository.dart';
+import 'package:twinz/core/model/notification.dart' as nt;
 
 class NotificationService extends GetxService {
   final _repo = NotificationRepository();

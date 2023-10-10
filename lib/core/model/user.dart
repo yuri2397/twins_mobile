@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:twins/core/model/setting.dart';
+import 'package:twinz/core/model/setting.dart';
 
 User userFromJson(String str) => User.fromJson(json.decode(str));
 

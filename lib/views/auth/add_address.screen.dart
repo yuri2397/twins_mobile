@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:twins/controllers/register.controller.dart';
-import 'package:twins/routes/router.dart';
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/controllers/register.controller.dart';
+import 'package:twinz/routes/router.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 class AddAddressScreen extends GetView<RegisterController> {
   AddAddressScreen({super.key});

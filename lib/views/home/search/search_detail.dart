@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:twins/controllers/search.controller.dart' as lc;
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/controllers/search.controller.dart' as lc;
+import 'package:twinz/shared/utils/colors.dart';
 
 class SearchDetails extends GetView<lc.SearchController> {
   const SearchDetails({super.key});

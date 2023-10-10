@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:twins/components/ui.dart';
-import 'package:twins/core/services/login.service.dart';
-import 'package:twins/core/services/profile.service.dart';
-import 'package:twins/core/utils/utils.dart';
-import 'package:twins/routes/router.dart';
-import 'package:twins/views/home/home.screen.dart';
+import 'package:twinz/components/ui.dart';
+import 'package:twinz/core/services/login.service.dart';
+import 'package:twinz/core/services/profile.service.dart';
+import 'package:twinz/core/utils/utils.dart';
+import 'package:twinz/routes/router.dart';
+import 'package:twinz/views/home/home.screen.dart';
 
 class LoginController extends GetxController {
   final formKey = GlobalKey<FormState>();

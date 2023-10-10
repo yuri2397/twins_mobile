@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:twins/controllers/active_account.controller.dart';
-import 'package:twins/controllers/login.controller.dart';
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/controllers/active_account.controller.dart';
+import 'package:twinz/controllers/login.controller.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 class ActiveAccountScreen extends GetView<ActiveAccountController> {
   const ActiveAccountScreen({super.key});

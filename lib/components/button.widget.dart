@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 class TwinsButton extends ElevatedButton {
   TwinsButton({super.key, super.onPressed, super.child})

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:twins/core/model/user.dart';
-import 'package:twins/core/repository/user.repository.dart';
-import 'package:twins/core/utils/utils.dart';
+import 'package:twinz/core/model/user.dart';
+import 'package:twinz/core/repository/user.repository.dart';
+import 'package:twinz/core/utils/utils.dart';
 
 class UserService extends GetxService {
   final _repo = UserRepository();

@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 
 import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
-import 'package:twins/components/ui.dart';
-import 'package:twins/core/services/login.service.dart';
-import 'package:twins/core/utils/utils.dart';
-import 'package:twins/routes/router.dart';
+import 'package:twinz/components/ui.dart';
+import 'package:twinz/core/services/login.service.dart';
+import 'package:twinz/core/utils/utils.dart';
+import 'package:twinz/routes/router.dart';
 
 import 'base_http.dart';
 
@@ -46,7 +46,11 @@ class HttpClient extends GetxService with BaseApiClient {
     if (params != null) {
       uri = uri.replace(queryParameters: params);
     }
-    return await httpClient.postUri(uri, data: data, options: options, );
+    return await httpClient.postUri(
+      uri,
+      data: data,
+      options: options,
+    );
   }
 
   Future<dio.Response> put(String url,
@@ -100,6 +104,10 @@ class AppInterceptors extends Interceptor {
       await Get.find<LoginService>().logout();
       Get.offAndToNamed(Goo.loginScreen);
     } else if (err.response?.statusCode == 422) {
+      print("${err.response?.data}");
+      errorMessage(
+          title: "Oups, erreur !", content: err.response?.data['message']);
+    }else if (err.response?.statusCode == 302){
       errorMessage(
           title: "Oups, erreur !", content: err.response?.data['message']);
     }

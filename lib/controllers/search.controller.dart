@@ -2,13 +2,13 @@ import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:appinio_swiper/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:twins/components/ui.dart';
-import 'package:twins/core/model/user.dart';
-import 'package:twins/core/services/chat_request.service.dart';
-import 'package:twins/core/services/matching.service.dart';
-import 'package:twins/core/utils/utils.dart';
-import 'package:twins/routes/router.dart';
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/components/ui.dart';
+import 'package:twinz/core/model/user.dart';
+import 'package:twinz/core/services/chat_request.service.dart';
+import 'package:twinz/core/services/matching.service.dart';
+import 'package:twinz/core/utils/utils.dart';
+import 'package:twinz/routes/router.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 class SearchController extends GetxController {
   final _matchingService = Get.find<MatchingService>();

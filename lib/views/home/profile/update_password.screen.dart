@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:twins/controllers/profile.controller.dart';
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/controllers/profile.controller.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 class PasswordProfileScreen extends GetView<ProfileController> {
   @override

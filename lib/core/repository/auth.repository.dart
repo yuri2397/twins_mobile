@@ -3,13 +3,13 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:twins/components/ui.dart';
-import 'package:twins/core/http/http_client.dart';
-import 'package:twins/core/model/setting.dart';
-import 'package:twins/core/model/token.dart';
-import 'package:twins/core/model/upload-file.dart';
-import 'package:twins/core/model/user.dart';
-import 'package:twins/core/utils/utils.dart';
+import 'package:twinz/components/ui.dart';
+import 'package:twinz/core/http/http_client.dart';
+import 'package:twinz/core/model/setting.dart';
+import 'package:twinz/core/model/token.dart';
+import 'package:twinz/core/model/upload-file.dart';
+import 'package:twinz/core/model/user.dart';
+import 'package:twinz/core/utils/utils.dart';
 import 'package:dio/dio.dart' as dio;
 
 class AuthRepository {
@@ -92,24 +92,30 @@ class AuthRepository {
 
   Future<Token> register(
       {required Map<String, dynamic> data, required List<XFile> files}) async {
+
+    var formData = dio.FormData.fromMap({
+      ...data,
+      "photos[]": files
+          .map((e) async => await dio.MultipartFile.fromFile(e.path,))
+          .toList()
+    });
+
     try {
-      dio.FormData formData = dio.FormData.fromMap(data);
-
-      for (var file in files) {
-        formData.files.add(
-            MapEntry('photos[]', await dio.MultipartFile.fromFile(file.path)));
-      }
-
       var response = await _client.post('/register',
-          data: formData, options: Options(followRedirects: false));
+          data: formData,
+          options: dio.Options(
+            contentType: 'multipart/form-data',
+              headers: {
+                "Accept": "application/json"
+              }
+          ));
 
       if (response.statusCode! >= 200 && response.statusCode! <= 300) {
         return Token.fromJson(response.data);
       } else {
         throw "ERREUR CATCH";
       }
-    } catch (e, s) {
-      Get.log("$e");
+    } catch (e) {
       rethrow;
     }
   }
@@ -164,6 +170,24 @@ class AuthRepository {
   Future<List<UploadFile>> getPhotos() async {
     try {
       var response = await _client.get("/photos");
+      if (response.statusCode! <= 200 && response.statusCode! < 300) {
+        if (response.data is Map) {
+          return [];
+        }
+        return List<UploadFile>.from(
+            response.data.map((x) => UploadFile.fromJson(x)));
+      } else {
+        Get.log(response.data);
+        throw "Impossible de récuperer les images.";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<UploadFile>> removePhoto(id) async {
+    try {
+      var response = await _client.get("/photos/$id");
       if (response.statusCode! <= 200 && response.statusCode! < 300) {
         if (response.data is Map) {
           return [];

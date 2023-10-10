@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:twins/core/model/setting.dart';
-import 'package:twins/core/model/token.dart';
-import 'package:twins/core/model/upload-file.dart';
+import 'package:twinz/core/model/setting.dart';
+import 'package:twinz/core/model/token.dart';
+import 'package:twinz/core/model/upload-file.dart';
 
 import '../model/user.dart';
 
@@ -13,11 +13,20 @@ class LocalStorageService extends GetxService {
   final _isAuthKey = "_isAuth";
   final _settings = '_settings';
   final _photos = '_photos';
+  final _authNotifications = '_authNotifications';
+  final _fcmToken = '_fcmToken';
 
   Future<LocalStorageService> init() async {
     return this;
   }
 
+  set fcmToken (String value) => _box.write(_fcmToken, value);
+
+  getFcmToken () => _box.read(_fcmToken);
+
+  set authNotification(bool value) => _box.write(_authNotifications, value);
+
+  bool? getAuthNotification() => _box.read(_authNotifications);
   set token(Token token) {
     _box.write(_tokenKey, token.toJson());
   }
@@ -41,9 +50,9 @@ class LocalStorageService extends GetxService {
     return null;
   }
 
-  Setting? getSettings(){
+  Setting? getSettings() {
     var data = _box.read(_settings);
-    if(data != null){
+    if (data != null) {
       return Setting.fromJson(data);
     }
 

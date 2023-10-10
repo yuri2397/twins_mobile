@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:twins/components/gender.widget.dart';
-import 'package:twins/controllers/profile.controller.dart';
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/components/gender.widget.dart';
+import 'package:twinz/controllers/profile.controller.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 class UpdateProfileScreen extends GetView<ProfileController> {
   const UpdateProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
+    return Obx(
+      () => Scaffold(
           backgroundColor: NEUTRAL_COLOR,
           appBar: AppBar(
             backgroundColor: NEUTRAL_COLOR,
@@ -20,12 +21,19 @@ class UpdateProfileScreen extends GetView<ProfileController> {
               GestureDetector(
                 onTap: () => controller.save(),
                 child: Center(
-                    child: controller.updateLoad.value ? const SizedBox(width: 20,
-                      height: 20,
-                      child:  CircularProgressIndicator(
-                          color: MAIN_COLOR, strokeWidth: 3,),)  : const Text("Enrégistrer",
-                        style: TextStyle(color: MAIN_COLOR, fontSize: 16))
-                        ).marginOnly(right: 10),
+                        child: controller.updateLoad.value
+                            ? const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  color: MAIN_COLOR,
+                                  strokeWidth: 3,
+                                ),
+                              )
+                            : const Text("Enrégistrer",
+                                style:
+                                    TextStyle(color: MAIN_COLOR, fontSize: 16)))
+                    .marginOnly(right: 10),
               )
             ],
           ),
@@ -43,13 +51,13 @@ class UpdateProfileScreen extends GetView<ProfileController> {
                   ),
                   const Center(
                       child: Text(
-                        "Mettre à jour vos informations",
-                        style: TextStyle(
-                            color: MAIN_COLOR,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w800),
-                        textAlign: TextAlign.center,
-                      )),
+                    "Mettre à jour vos informations",
+                    style: TextStyle(
+                        color: MAIN_COLOR,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w800),
+                    textAlign: TextAlign.center,
+                  )),
                   const SizedBox(
                     height: 30,
                   ),
@@ -73,8 +81,8 @@ class UpdateProfileScreen extends GetView<ProfileController> {
                       style: GoogleFonts.poppins(
                           textStyle: const TextStyle(fontSize: 16),
                           color: DARK_COLOR),
-                      decoration: _decoration(
-                          "${controller.user.value?.fullName}")),
+                      decoration:
+                          _decoration("${controller.user.value?.fullName}")),
                   const SizedBox(
                     height: 20,
                   ),
@@ -98,8 +106,8 @@ class UpdateProfileScreen extends GetView<ProfileController> {
                       style: GoogleFonts.poppins(
                           textStyle: const TextStyle(fontSize: 16),
                           color: DARK_COLOR),
-                      decoration:
-                      _decoration(controller.user.value?.address ?? "Adresse")),
+                      decoration: _decoration(
+                          controller.user.value?.address ?? "Adresse")),
                   const SizedBox(
                     height: 20,
                   ),
@@ -123,8 +131,8 @@ class UpdateProfileScreen extends GetView<ProfileController> {
                       style: GoogleFonts.poppins(
                           textStyle: const TextStyle(fontSize: 16),
                           color: DARK_COLOR),
-                      decoration: _decoration(
-                          "${controller.user.value?.phoneNumber}")),
+                      decoration:
+                          _decoration("${controller.user.value?.phoneNumber}")),
                   const SizedBox(
                     height: 20,
                   ),
@@ -140,8 +148,8 @@ class UpdateProfileScreen extends GetView<ProfileController> {
                       style: GoogleFonts.poppins(
                           textStyle: const TextStyle(fontSize: 16),
                           color: DARK_COLOR),
-                      decoration: _decoration(
-                          controller.user.value?.bio ?? "Ajouter votre bio...")),
+                      decoration: _decoration(controller.user.value?.bio ??
+                          "Ajouter votre bio...")),
                   const SizedBox(
                     height: 20,
                   ),

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:twins/components/ui.dart';
-import 'package:twins/controllers/notification.controller.dart';
-import 'package:twins/shared/utils/colors.dart';
-import 'package:twins/core/model/notification.dart' as nt;
+import 'package:twinz/components/ui.dart';
+import 'package:twinz/controllers/notification.controller.dart';
+import 'package:twinz/shared/utils/colors.dart';
+import 'package:twinz/core/model/notification.dart' as nt;
 
 class NotificationsScreen extends GetView<NotificationController> {
   const NotificationsScreen({super.key});

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:twins/controllers/register.controller.dart';
-import 'package:twins/core/utils/utils.dart';
-import 'package:twins/routes/router.dart';
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/controllers/register.controller.dart';
+import 'package:twinz/core/utils/utils.dart';
+import 'package:twinz/routes/router.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 class AddEmailScreen extends GetView<RegisterController> {
   AddEmailScreen({super.key});
@@ -82,7 +82,7 @@ class AddEmailScreen extends GetView<RegisterController> {
                       Get.toNamed(Goo.addPasswordScreen);
                     }
                   },
-                  child: const Text("Suivant",style:TextStyle(fontSize: 18)),
+                  child: const Text("Suivant", style: TextStyle(fontSize: 18)),
                 ),
               )
             ],

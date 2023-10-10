@@ -1,15 +1,14 @@
 import 'package:get/get.dart';
-import 'package:twins/core/model/chat_request.dart';
-import 'package:twins/core/model/user.dart';
-import 'package:twins/core/repository/chat_request.repository.dart';
+import 'package:twinz/core/model/chat_request.dart';
+import 'package:twinz/core/model/user.dart';
+import 'package:twinz/core/repository/chat_request.repository.dart';
 
 class ChatRequestService extends GetxService {
   final _repo = ChatRequestRepository();
 
   Future<String> sendRequestChat({required User toUser}) async {
     try {
-      return  await _repo.sendRequestChat(toUser: toUser);
-
+      return await _repo.sendRequestChat(toUser: toUser);
     } catch (e) {
       rethrow;
     }
@@ -17,8 +16,7 @@ class ChatRequestService extends GetxService {
 
   Future<String> acceptRequestChat({required ChatRequest chatRequest}) async {
     try {
-      return  await _repo.acceptRequestChat(chatRequest: chatRequest);
-
+      return await _repo.acceptRequestChat(chatRequest: chatRequest);
     } catch (e) {
       rethrow;
     }
@@ -26,8 +24,7 @@ class ChatRequestService extends GetxService {
 
   Future<String> rejectRequestChat({required ChatRequest chatRequest}) async {
     try {
-      return  await _repo.rejectRequestChat(chatRequest: chatRequest);
-
+      return await _repo.rejectRequestChat(chatRequest: chatRequest);
     } catch (e) {
       rethrow;
     }
@@ -35,8 +32,7 @@ class ChatRequestService extends GetxService {
 
   Future<String> cancelRequestChat({required ChatRequest chatRequest}) async {
     try {
-      return  await _repo.cancelRequestChat(chatRequest: chatRequest);
-
+      return await _repo.cancelRequestChat(chatRequest: chatRequest);
     } catch (e) {
       rethrow;
     }
@@ -44,7 +40,7 @@ class ChatRequestService extends GetxService {
 
   Future<List<ChatRequest>> sentRequestChats() async {
     try {
-      return  await _repo.sentRequestChats();
+      return await _repo.sentRequestChats();
     } catch (e) {
       rethrow;
     }
@@ -52,7 +48,7 @@ class ChatRequestService extends GetxService {
 
   Future<List<ChatRequest>> receivedRequestChats() async {
     try {
-      return  await _repo.receivedRequestChats();
+      return await _repo.receivedRequestChats();
     } catch (e) {
       rethrow;
     }

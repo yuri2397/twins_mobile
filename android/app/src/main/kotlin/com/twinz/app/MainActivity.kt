@@ -1,4 +1,4 @@
-package com.example.twins
+package com.twinz.app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -5,12 +5,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:twins/components/choose_files.widget.dart';
-import 'package:twins/components/ui.dart';
-import 'package:twins/controllers/profile.controller.dart';
-import 'package:twins/controllers/register.controller.dart';
-import 'package:twins/routes/router.dart';
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/components/choose_files.widget.dart';
+import 'package:twinz/components/ui.dart';
+import 'package:twinz/controllers/profile.controller.dart';
+import 'package:twinz/controllers/register.controller.dart';
+import 'package:twinz/routes/router.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 class AddFilesRegisterScreen extends GetView<RegisterController> {
   const AddFilesRegisterScreen({super.key});

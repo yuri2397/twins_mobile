@@ -2,11 +2,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:twins/components/button.widget.dart';
-import 'package:twins/components/input.widget.dart';
-import 'package:twins/controllers/login.controller.dart';
-import 'package:twins/routes/router.dart';
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/components/button.widget.dart';
+import 'package:twinz/components/input.widget.dart';
+import 'package:twinz/controllers/login.controller.dart';
+import 'package:twinz/routes/router.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 class LoginScreen extends GetView<LoginController> {
   @override

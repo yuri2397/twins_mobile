@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:twins/controllers/login.controller.dart';
-import 'package:twins/core/services/login.service.dart';
+import 'package:twinz/controllers/login.controller.dart';
+import 'package:twinz/core/services/login.service.dart';
 
 class LoginBinding extends Bindings {
   @override

@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:twins/core/model/setting.dart';
-import 'package:twins/core/model/upload-file.dart';
-import 'package:twins/core/model/user.dart';
-import 'package:twins/core/repository/auth.repository.dart';
-import 'package:twins/core/utils/utils.dart';
+import 'package:twinz/core/model/setting.dart';
+import 'package:twinz/core/model/upload-file.dart';
+import 'package:twinz/core/model/user.dart';
+import 'package:twinz/core/repository/auth.repository.dart';
+import 'package:twinz/core/utils/utils.dart';
 
 class ProfileService extends GetxService {
   final repo = AuthRepository();
@@ -79,6 +79,17 @@ class ProfileService extends GetxService {
   Future<List<UploadFile>> getPhotos() async {
     try {
       var response = await repo.getPhotos();
+      localStorage.photos = response;
+      return response;
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<List<UploadFile>> removePhoto(id) async {
+    try {
+      var response = await repo.removePhoto(id);
       localStorage.photos = response;
       return response;
     } catch (e) {

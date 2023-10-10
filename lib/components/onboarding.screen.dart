@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:twins/controllers/onboarding.controller.dart';
-import 'package:twins/core/config/env.dart';
-import 'package:twins/routes/router.dart';
-import 'package:twins/shared/utils/colors.dart';
+import 'package:twinz/controllers/onboarding.controller.dart';
+import 'package:twinz/core/config/env.dart';
+import 'package:twinz/routes/router.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 class OnboardingScreen extends GetView<OnboardingController> {
   const OnboardingScreen({super.key});
@@ -42,10 +42,7 @@ class OnboardingScreen extends GetView<OnboardingController> {
                   textAlign: TextAlign.justify,
                   text: const TextSpan(
                       text: "En utilisant nos services, vous acceptez nos ",
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white
-                      ),
+                      style: TextStyle(fontSize: 18, color: Colors.white),
                       children: [
                         TextSpan(
                           text: "conditions d’utilisation",
@@ -53,7 +50,6 @@ class OnboardingScreen extends GetView<OnboardingController> {
                               decoration: TextDecoration.underline,
                               color: Colors.white,
                               fontSize: 18,
-
                               fontWeight: FontWeight.bold),
                         ),
                         TextSpan(
@@ -69,14 +65,12 @@ class OnboardingScreen extends GetView<OnboardingController> {
                               decoration: TextDecoration.underline,
                               color: Colors.white,
                               fontSize: 18,
-
                               fontWeight: FontWeight.bold),
                         ),
                         TextSpan(
                           text: " et ",
                           style: TextStyle(
                             fontSize: 18,
-
                           ),
                         ),
                         TextSpan(
@@ -93,7 +87,6 @@ class OnboardingScreen extends GetView<OnboardingController> {
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
-
                           ),
                         ),
                       ])).marginOnly(bottom: 20),

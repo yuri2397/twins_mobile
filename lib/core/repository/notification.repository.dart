@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:twins/core/http/http_client.dart';
-import 'package:twins/core/model/notification.dart' as nt;
+import 'package:twinz/core/http/http_client.dart';
+import 'package:twinz/core/model/notification.dart' as nt;
 
 class NotificationRepository {
   final _client = Get.find<HttpClient>();
