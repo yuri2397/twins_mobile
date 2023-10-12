@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:twinz/components/ui.dart';
 import 'package:twinz/core/model/init_payment.dart';
@@ -9,7 +8,7 @@ import 'package:twinz/core/services/payment.service.dart';
 import 'package:twinz/core/services/profile.service.dart';
 import 'package:twinz/routes/router.dart';
 import 'package:twinz/shared/utils/colors.dart';
-import 'package:twinz/views/home/profile/profile.screen.dart';
+import 'package:twinz/core/utils/utils.dart';
 
 class OfferController extends GetxController {
   final load = false.obs;
@@ -27,7 +26,6 @@ class OfferController extends GetxController {
   Future<void> getOffers() async {
     offerLoad.value = true;
     _service.index().then((value) {
-      print("${value[0].toJson().toString()}");
       offers.value = value;
       offers.refresh();
       offerLoad.value = false;
@@ -50,11 +48,9 @@ class OfferController extends GetxController {
                   merchantDisplayName: 'Twins'))
           .then((value) {});
       load.value = false;
-      print("${stripeval.toString()}");
       await _displayPaymentSheet();
       _checkPayment(value);
     }).catchError((e) {
-      print("${e.message}");
       load.value = false;
     });
   }
@@ -81,6 +77,9 @@ class OfferController extends GetxController {
         /***
          * REDICT USER AND UPDATE LOCAL DATA
          */
+        var user = localStorage.getUser();
+        user?.isPremium = true;
+        localStorage.user = user;
 
         await Get.bottomSheet(Container(
           decoration: const BoxDecoration(
