@@ -86,7 +86,7 @@ class AddFilesScreen extends GetView<ProfileController> {
                                 height: 20,
                                 child: CircularProgressIndicator(
                                     color: Colors.white))
-                            : const Text("Enrégistrer"),
+                            : const Text("Enregistrer"),
                       ),
                     ),
                   )
@@ -100,52 +100,55 @@ class AddFilesScreen extends GetView<ProfileController> {
   }
 
   Widget _buildItem(Rx<XFile> file) {
-    return Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: GRAY_COLOR, width: 2),
-            borderRadius: BorderRadius.circular(8),
-            color: Colors.white),
-        child: Stack(
-          children: [
-            file.value.path.isNotEmpty
-                ? Positioned.fill(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
-                      child: Image.file(
-                        File(file.value.path),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  )
-                : Container(
-                    color: GRAY_COLOR,
-                  ),
-            Positioned(
-              bottom: 5,
-              right: 5,
-              child: file.value.path.isEmpty
-                  ? GestureDetector(
-                      onTap: () async {
-                        file.value = await takeImage() ?? XFile("");
-                        file.refresh();
-                      },
-                      child: const CircleAvatar(
-                        backgroundColor: MAIN_COLOR,
-                        radius: 14,
-                        child: Icon(Icons.add, color: Colors.white, size: 15),
+    return Obx(
+      () => Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: GRAY_COLOR, width: 2),
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white),
+          child: Stack(
+            children: [
+              file.value.path.isNotEmpty
+                  ? Positioned.fill(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(6),
+                        child: Image.file(
+                          File(file.value.path),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     )
-                  : GestureDetector(
-                      onTap: () => _editFile(file),
-                      child: const CircleAvatar(
-                        backgroundColor: MAIN_COLOR,
-                        radius: 14,
-                        child: Icon(Icons.edit, color: Colors.white, size: 15),
-                      ),
+                  : Container(
+                      color: GRAY_COLOR,
                     ),
-            )
-          ],
-        ));
+              Positioned(
+                bottom: 5,
+                right: 5,
+                child: file.value.path.isEmpty
+                    ? GestureDetector(
+                        onTap: () async {
+                          file.value = await takeImage() ?? XFile("");
+                          file.refresh();
+                        },
+                        child: const CircleAvatar(
+                          backgroundColor: MAIN_COLOR,
+                          radius: 14,
+                          child: Icon(Icons.add, color: Colors.white, size: 15),
+                        ),
+                      )
+                    : GestureDetector(
+                        onTap: () => _editFile(file),
+                        child: const CircleAvatar(
+                          backgroundColor: MAIN_COLOR,
+                          radius: 14,
+                          child:
+                              Icon(Icons.edit, color: Colors.white, size: 15),
+                        ),
+                      ),
+              )
+            ],
+          )),
+    );
   }
 
   _editFile(Rx<XFile> file) {

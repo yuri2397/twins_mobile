@@ -21,9 +21,11 @@ class AuthRepository {
       var response = await _client.post("/login", data: {
         "email": username,
         "password": password,
-        "device_name": await deviceName
+        "device_name": await deviceName,
+        "device_id": await deviceId,
+        "device_token": localStorage.getFcmToken()
       });
-      print("${response.data}");
+
       if (response.statusCode! <= 200 && response.statusCode! < 300) {
         return Token.fromJson(response.data);
       } else {
@@ -47,6 +49,7 @@ class AuthRepository {
   Future<User> profile() async {
     try {
       var response = await _client.get("/profile");
+      print(response.data);
       if (response.statusCode! <= 200 && response.statusCode! < 300) {
         return User.fromJson(response.data);
       } else {
@@ -92,23 +95,19 @@ class AuthRepository {
 
   Future<Token> register(
       {required Map<String, dynamic> data, required List<XFile> files}) async {
+    var formData = dio.FormData.fromMap(data);
 
-    var formData = dio.FormData.fromMap({
-      ...data,
-      "photos[]": files
-          .map((e) async => await dio.MultipartFile.fromFile(e.path,))
-          .toList()
-    });
+    for (var file in files) {
+      formData.files.add(
+          MapEntry('photos[]', await dio.MultipartFile.fromFile(file.path)));
+    }
 
     try {
       var response = await _client.post('/register',
           data: formData,
           options: dio.Options(
-            contentType: 'multipart/form-data',
-              headers: {
-                "Accept": "application/json"
-              }
-          ));
+              contentType: 'multipart/form-data',
+              headers: {"Accept": "application/json"}));
 
       if (response.statusCode! >= 200 && response.statusCode! <= 300) {
         return Token.fromJson(response.data);
@@ -145,17 +144,20 @@ class AuthRepository {
     try {
       dio.FormData formData = dio.FormData.fromMap({});
 
-      for (var file in files) {
+      for (var f in files) {
+        print("${f.path}");
         formData.files.add(
-            MapEntry('photos[]', await dio.MultipartFile.fromFile(file.path)));
+            MapEntry('photos[]', await dio.MultipartFile.fromFile(f.path)));
       }
 
       var response = await _client.post("/photos",
           data: formData,
-          options: dio.Options(contentType: 'multipart/form-data'));
-      log(response.data.toString());
+          options: dio.Options(contentType: 'multipart/form-data', headers: {
+            "Accept": "application/json",
+            'Authorization': 'Bearer ${localStorage.getToken()?.accessToken}'
+          }));
 
-      if (response.statusCode! <= 200 && response.statusCode! < 300) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return List<UploadFile>.from(
             response.data.map((e) => UploadFile.fromJson(e)));
       } else {
@@ -163,6 +165,7 @@ class AuthRepository {
         throw "Impossible de modifier.";
       }
     } catch (e) {
+      print("$e");
       rethrow;
     }
   }

@@ -8,18 +8,24 @@ import 'package:twinz/shared/utils/colors.dart';
 import 'package:twinz/core/model/notification.dart' as nt;
 
 class NotificationsScreen extends GetView<NotificationController> {
-  const NotificationsScreen({super.key});
-
+  NotificationsScreen({super.key});
+  final drawerKey = GlobalKey<DrawerControllerState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
+          key: scaffoldKey,
           appBar: AppBar(
-            elevation: 0,
-            backgroundColor: MAIN_COLOR,
-            title: const Text("Notifications",
-                style: TextStyle(color: Colors.white)),
-          ),
+              backgroundColor: MAIN_COLOR,
+              elevation: 0,
+              leading: GestureDetector(
+                onTap: () => scaffoldKey.currentState?.openDrawer(),
+                child: const Icon(Icons.menu, color: Colors.white),
+              ),
+              title: const Text("Notifications",
+                  style: TextStyle(color: Colors.white))),
+          drawer: drawer(drawerKey: drawerKey, scaffoldKey: scaffoldKey),
           body: controller.loading.value && controller.items.isEmpty
               ? const Center(
                   child: CircularProgressIndicator(color: MAIN_COLOR),
@@ -29,38 +35,48 @@ class NotificationsScreen extends GetView<NotificationController> {
                       () async => await controller.fetchNotifications()),
                   color: MAIN_COLOR,
                   child: controller.items.isEmpty
-                      ? Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              SvgPicture.asset(
-                                "assets/images/notifications.svg",
-                                width: 300,
+                      ? ListView(
+                          children: [
+                            Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  SvgPicture.asset(
+                                    "assets/images/notifications.svg",
+                                    width: 300,
+                                  ),
+                                  const Text(
+                                    "Aucune notification",
+                                    style: TextStyle(
+                                        color: DARK_COLOR,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500),
+                                    textAlign: TextAlign.center,
+                                  ).marginSymmetric(horizontal: 20)
+                                ],
                               ),
-                              const Text(
-                                "Aucune notification",
-                                style: TextStyle(
-                                    color: DARK_COLOR,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center,
-                              ).marginSymmetric(horizontal: 20)
-                            ],
-                          ),
+                            ),
+                          ],
                         )
-                      : ListView.builder(
+                      : ListView.separated(
                           itemCount: controller.items.length,
                           padding: const EdgeInsets.symmetric(vertical: 20),
                           itemBuilder: (BuildContext context, int index) =>
                               Dismissible(
-                                key: Key(controller.items[index].id!),
-                                onDismissed: (_) => controller
-                                    .markAsRead(controller.items[index].id!),
-                                child: _buildItem(controller.items[index])
-                                    .marginOnly(bottom: 16),
-                              )).marginSymmetric(horizontal: 20),
+                            key: Key(controller.items[index].id!),
+                            onDismissed: (_) => controller
+                                .markAsRead(controller.items[index].id!),
+                            child: _buildItem(controller.items[index])
+                                .marginOnly(bottom: 16),
+                          ),
+                          separatorBuilder: (BuildContext context, int index) =>
+                              const Divider(
+                            height: 2,
+                            color: MAIN_COLOR,
+                          ),
+                        ).marginSymmetric(horizontal: 20),
                 )),
     );
   }
@@ -81,24 +97,23 @@ class NotificationsScreen extends GetView<NotificationController> {
   _buildMessage(nt.Notification item) {
     return Container(
       padding: const EdgeInsets.all(10),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: NEUTRAL_COLOR,
-            spreadRadius: 10,
-            blurRadius: 30,
-            offset: Offset(10, 20), // changes position of shadow
-          ),
-        ],
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-      ),
       child: ListTile(
+        onTap: () => controller.detailUserNot(item),
         title: Text("${item.data?.title}"),
         subtitle: Text("${item.data?.body}"),
-        leading: const CircleAvatar(
-          backgroundColor: MAIN_COLOR,
-          child: Icon(Icons.message, color: Colors.white),
+        leading: SizedBox(
+          width: 60,
+          height: 60,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: Image.network(
+              item.data?.data?.image ??
+                  'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg',
+              width: 60,
+              height: 60,
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
         trailing: Text(DateFormat.Hm().format(item.createdAt!)),
       ),
@@ -108,18 +123,6 @@ class NotificationsScreen extends GetView<NotificationController> {
   _buildAcceptRequest(nt.Notification item) {
     return Container(
       padding: const EdgeInsets.all(10),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: NEUTRAL_COLOR,
-            spreadRadius: 10,
-            blurRadius: 30,
-            offset: Offset(10, 20), // changes position of shadow
-          ),
-        ],
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-      ),
       child: ListTile(
         title: Text("${item.data?.title}"),
         subtitle: Text("${item.data?.body}"),
@@ -131,19 +134,12 @@ class NotificationsScreen extends GetView<NotificationController> {
   _buildNewRequest(nt.Notification item) {
     return Container(
       padding: const EdgeInsets.all(10),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: NEUTRAL_COLOR,
-            spreadRadius: 10,
-            blurRadius: 30,
-            offset: Offset(10, 20), // changes position of shadow
-          ),
-        ],
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-      ),
       child: ListTile(
+        leading: GestureDetector(
+            onTap: () => {},
+            child: const CircleAvatar(
+                backgroundColor: Colors.greenAccent,
+                child: Icon(Icons.check, color: Colors.white))),
         title: Text("${item.data?.title}"),
         subtitle: Text("${item.data?.body}"),
         trailing: Text(DateFormat.Hm().format(item.createdAt!)),

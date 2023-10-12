@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:twinz/core/model/user.dart';
+import 'package:twinz/routes/router.dart';
 import 'package:twinz/shared/utils/colors.dart';
 
 errorMessage(
@@ -205,6 +206,67 @@ showUserDetails(User user) {
       ],
     ),
   ));
+}
+
+drawer({drawerKey, scaffoldKey}) {
+  return Drawer(
+    key: drawerKey,
+    child: ListView(
+      children: [
+        ListTile(
+          leading: itemIcon(Icons.close, color: Colors.black),
+          title: const Text("Menu",
+              style: TextStyle(
+                  fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
+          onTap: () => scaffoldKey.currentState?.closeDrawer(),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        const Divider(
+          color: NEUTRAL_COLOR,
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        ListTile(
+          leading: itemIcon(Icons.person_outline_rounded, color: Colors.black),
+          title: const Text("Profil",
+              style: TextStyle(
+                  fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        ListTile(
+          onTap: () => Get.toNamed(Goo.offerScreen),
+          leading: itemIcon(Icons.payment_outlined, color: Colors.black),
+          title: const Text("Twinz premium",
+              style: TextStyle(
+                  fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        ListTile(
+          onTap: () => Get.toNamed(Goo.settingScreen),
+          leading: itemIcon(Icons.settings_outlined, color: Colors.black),
+          title: const Text("Réglages",
+              style: TextStyle(
+                  fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        ListTile(
+          leading: itemIcon(Icons.security_outlined, color: Colors.black),
+          title: const Text("Confidentialité",
+              style: TextStyle(
+                  fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
+        )
+      ],
+    ).paddingSymmetric(vertical: 40, horizontal: 20),
+  );
 }
 
 Widget detailUserPhotoItem(String url) {

@@ -66,9 +66,6 @@ class ProfileService extends GetxService {
   }
 
   Future<List<UploadFile>> addPhotos(List<XFile> files) async {
-    files.forEach((element) {
-      print("$element");
-    });
     try {
       return await repo.addPhoto(files);
     } catch (e) {

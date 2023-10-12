@@ -51,7 +51,6 @@ class ProfileController extends GetxController {
       _profileService.profileUpdate(data: user!).then((value) => {});
     });
     profile();
-    photos();
   }
 
   Future<void> updateProfilePhoto(XFile file) async {
@@ -68,6 +67,8 @@ class ProfileController extends GetxController {
 
   Future<void> profile() async {
     await _profileService.profile().then((value) {
+      photos();
+
       user.value = value;
       user.refresh();
       localStorage.user = value;
@@ -102,21 +103,15 @@ class ProfileController extends GetxController {
 
   addPhotos() {
     addPhotoLoad.value = true;
-    var finalFiles = files
-        .map((e) => e.value)
-        .where((e) => (existingFiles
-                .firstWhere((p0) => p0.path == e.path,
-                    orElse: () => XFile("path"))
-                .path ==
-            "path"))
-        .where((e) => e.path.isNotEmpty)
-        .toList();
-
-    _profileService.addPhotos(finalFiles).then((value) {
-      addPhotoLoad.value = false;
+    var data =
+        files.map((e) => e.value).where((e) => e.path.isNotEmpty).toList();
+    print("$data");
+    _profileService.addPhotos(data).then((value) {
+      photos();
       successMessage(
           title: "Félicitations",
           content: "Votre album photo est mise à jour.");
+      addPhotoLoad.value = false;
     }).catchError((e) {
       addPhotoLoad.value = false;
     });
@@ -124,13 +119,13 @@ class ProfileController extends GetxController {
 
   Future<void> photos() async {
     await _profileService.getPhotos().then((value) async {
-      int i = 0;
-      existingFiles.value = [];
-      for (var e in value) {
-        var p = await getImageXFileByUrl(e.url!);
-        existingFiles.add(p);
-        files[i] = (p).obs;
-        i++;
+      for (var i = 0; i < 6; i++) {
+        if (value.length > i) {
+          var p = await getImageXFileByUrl(value[i].url!);
+          files[i] = (p).obs;
+        } else {
+          files[i] = XFile("").obs;
+        }
       }
     });
   }

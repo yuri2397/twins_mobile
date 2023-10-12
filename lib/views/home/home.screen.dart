@@ -13,9 +13,9 @@ import 'package:twinz/views/home/chat_request/chat_request.screen.dart';
 class HomeScreen extends GetView<HomeController> {
   final _screens = <Widget>[
     SearchScreen(),
-    const NotificationsScreen(),
+    NotificationsScreen(),
     ChatListScreen(),
-    const ProfileScreen()
+    ProfileScreen()
   ];
 
   final _items = <PersistentBottomNavBarItem>[

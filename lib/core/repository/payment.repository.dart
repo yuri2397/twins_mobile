@@ -11,8 +11,7 @@ class PaymentRepository {
     try {
       var response = await _client.get("/plans");
       if (response.statusCode == 200) {
-        return List<Plan>.from(
-            response.data.map((e) => Plan.fromJson(e)));
+        return List<Plan>.from(response.data.map((e) => Plan.fromJson(e)));
       } else {
         throw "Oups! une erreur s'est produite.";
       }
@@ -23,16 +22,27 @@ class PaymentRepository {
 
   Future<InitPayment> initPayment(String id) async {
     try {
-     var response =  await _client.get("/payment/init", params: {
-        'plan_id': id
-      });
+      var response =
+          await _client.get("/payment/init", params: {'plan_id': id});
 
-     if(response.statusCode == 200){
-       return InitPayment.fromJson(response.data);
-     }else{
-       throw response.data;
-     }
+      if (response.statusCode == 200) {
+        return InitPayment.fromJson(response.data);
+      } else {
+        throw response.data;
+      }
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<bool> paymentSuccess(String id) async {
+    try {
+      var response = await _client
+          .post("/payment/verify", data: {'payment_method_id': id});
+      print(response.data);
+      return response.statusCode == 200;
+    } catch (e) {
+      print("$e");
       rethrow;
     }
   }

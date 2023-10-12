@@ -20,9 +20,9 @@ class NotificationController extends GetxController {
       items.value = value;
       items.refresh();
       loading.value = false;
-      print("${value.toString()}");
-    }).catchError((e) {
+    }).catchError((e, s) {
       print("$e");
+      print("$s");
       loading.value = false;
     });
   }
@@ -34,4 +34,6 @@ class NotificationController extends GetxController {
       items.refresh();
     });
   }
+
+  detailUserNot(nt.Notification item) {}
 }

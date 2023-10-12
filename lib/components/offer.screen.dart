@@ -134,7 +134,10 @@ class OfferScreen extends GetView<OfferController> {
                   ),
                 )
               ],
-            )
+            ),
+
+            if(controller.load.value)
+            const  SizedBox( child: Center(child: CircularProgressIndicator(color: MAIN_COLOR),),).marginOnly(top: 50)
 
             /* SizedBox(
                 width: Get.width,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:twinz/components/ui.dart';
+import 'package:twinz/core/services/firebase_message.service.dart';
 import 'package:twinz/core/services/login.service.dart';
 import 'package:twinz/core/services/profile.service.dart';
 import 'package:twinz/core/utils/utils.dart';
@@ -21,7 +22,10 @@ class LoginController extends GetxController {
     if (formKey.currentState!.validate()) {
       loadingRequest.value = true;
       _loginService
-          .login(username: username.value.trim(), password: password.value)
+          .login(
+        username: username.value.trim(),
+        password: password.value,
+      )
           .then((value) {
         var isActive = localStorage.getUser()?.emailVerified ?? false;
         if (!isActive) {

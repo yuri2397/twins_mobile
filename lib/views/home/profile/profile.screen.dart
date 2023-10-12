@@ -19,6 +19,7 @@ class ProfileScreen extends GetView<ProfileController> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: RefreshIndicator(
+          color: MAIN_COLOR,
           onRefresh: () => Future.sync(() async => await controller.profile()),
           child: SingleChildScrollView(
             child: Obx(
@@ -217,15 +218,26 @@ class ProfileScreen extends GetView<ProfileController> {
                                 trailing:
                                     const Icon(Icons.arrow_forward_ios_sharp),
                               ),
-                              ListTile(
-                                  onTap: () => controller.disabledAccount(),
-                                  title: const Text("Désactiver",
-                                      style: TextStyle(
-                                        color: Colors.pink,
-                                        fontSize: 18,
-                                      )),
-                                  trailing: const Icon(
-                                      Icons.arrow_forward_ios_sharp)),
+                              if (controller.user.value?.active != "1")
+                                ListTile(
+                                    onTap: () => controller.disabledAccount(),
+                                    title: const Text("Activer",
+                                        style: TextStyle(
+                                          color: Colors.pink,
+                                          fontSize: 18,
+                                        )),
+                                    trailing: const Icon(
+                                        Icons.arrow_forward_ios_sharp)),
+                              if (controller.user.value?.active == "1")
+                                ListTile(
+                                    onTap: () => controller.disabledAccount(),
+                                    title: const Text("Désactiver",
+                                        style: TextStyle(
+                                          color: Colors.pink,
+                                          fontSize: 18,
+                                        )),
+                                    trailing: const Icon(
+                                        Icons.arrow_forward_ios_sharp)),
                               ListTile(
                                   title: const Text("Supprimer",
                                       style: TextStyle(

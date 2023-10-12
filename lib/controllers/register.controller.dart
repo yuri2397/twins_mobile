@@ -73,10 +73,10 @@ class RegisterController extends GetxController {
       "password": passwordCtrl.text,
       "lat": lat.value,
       "lng": lng.value,
-      "address": "Dakar",
       "password_confirmation": passwordCtrl.text,
       "device_name": await deviceName,
-      "device_id": localStorage.getFcmToken(),
+      "device_id": await deviceId,
+      "device_token": localStorage.getFcmToken()
     };
     _registerService.register(data: data, files: finalFiles).then((value) {
       loading.value = false;
@@ -85,7 +85,6 @@ class RegisterController extends GetxController {
       Get.offAllNamed(Goo.activeAccountScreen);
     }).catchError((e, s) {
       loading.value = false;
-
     });
   }
 }

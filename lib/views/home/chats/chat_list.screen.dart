@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:twinz/components/ui.dart';
 import 'package:twinz/controllers/chat.controller.dart';
 import 'package:twinz/core/model/chat.dart';
 import 'package:twinz/core/utils/utils.dart';
@@ -12,15 +13,24 @@ import 'package:twinz/routes/router.dart';
 import 'package:twinz/shared/utils/colors.dart';
 
 class ChatListScreen extends GetView<ChatController> {
+  final drawerKey = GlobalKey<DrawerControllerState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  ChatListScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
+          key: scaffoldKey,
           appBar: AppBar(
-            elevation: 0,
             backgroundColor: MAIN_COLOR,
-            leading: const Icon(Icons.menu, color: Colors.white),
+            elevation: 0,
+            leading: GestureDetector(
+              onTap: () => scaffoldKey.currentState?.openDrawer(),
+              child: const Icon(Icons.menu, color: Colors.white),
+            ),
           ),
+          drawer: drawer(drawerKey: drawerKey, scaffoldKey: scaffoldKey),
           body: controller.chatsLoad.value
               ? const Center(
                   child: CircularProgressIndicator(color: MAIN_COLOR),
@@ -87,14 +97,21 @@ class ChatListScreen extends GetView<ChatController> {
     return ListTile(
       contentPadding: const EdgeInsets.all(0),
       onTap: () => controller.detailsChat(chat),
-      leading: ClipRRect(
-          borderRadius: BorderRadius.circular(100),
-          child: sender!.profilePhoto != null && sender.profilePhoto!.isNotEmpty
-              ? Image.network(
-                  sender.profilePhoto!,
-                  height: 90,
-                )
-              : Image.asset("assets/images/img.png")),
+      leading: SizedBox(
+        width: 60,
+        height: 60,
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child:
+                sender!.profilePhoto != null && sender.profilePhoto!.isNotEmpty
+                    ? Image.network(
+                        sender.profilePhoto!,
+                        fit: BoxFit.cover,
+                        width: 80,
+                        height: 80,
+                      )
+                    : Image.asset("assets/images/img.png")),
+      ),
       title: Text(chat.participants!
           .firstWhere((e) => e.id.toString() != currentUserId)
           .fullName!),

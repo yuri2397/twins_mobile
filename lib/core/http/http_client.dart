@@ -107,7 +107,7 @@ class AppInterceptors extends Interceptor {
       print("${err.response?.data}");
       errorMessage(
           title: "Oups, erreur !", content: err.response?.data['message']);
-    }else if (err.response?.statusCode == 302){
+    } else if (err.response?.statusCode == 302) {
       errorMessage(
           title: "Oups, erreur !", content: err.response?.data['message']);
     }

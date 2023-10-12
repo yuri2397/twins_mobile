@@ -90,11 +90,17 @@ class NotificationData {
 class NotificationAction {
   String? clickAction;
   String? type;
+  String? requestId;
+  String? userId;
+  String? image;
   String? chatId;
 
   NotificationAction({
     this.clickAction,
     this.type,
+    this.requestId,
+    this.userId,
+    this.image,
     this.chatId,
   });
 
@@ -102,12 +108,18 @@ class NotificationAction {
       NotificationAction(
         clickAction: json["click_action"],
         type: json["type"],
+        requestId: json["request_id"],
+        userId: json["user_id"],
+        image: json["image"],
         chatId: json["chat_id"],
       );
 
   Map<String, dynamic> toJson() => {
         "click_action": clickAction,
         "type": type,
+        "request_id": requestId,
+        "user_id": userId,
+        "image": image,
         "chat_id": chatId,
       };
 }

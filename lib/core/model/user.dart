@@ -25,13 +25,14 @@ class User {
   int? photosCount;
   Setting? settings;
   List<Photo>? photos;
-
+  String? active;
   User(
       {this.id,
       this.fullName,
       this.email,
       this.emailVerified,
       this.gender,
+      this.active,
       this.address,
       this.isPremium,
       this.distance,
@@ -55,6 +56,7 @@ class User {
         emailVerified: json["email_verified"],
         gender: json["gender"],
         address: json["address"],
+        active: json["active"],
         isPremium: json['is_premium'],
         distance: json["distance"],
         phoneNumber: json["phone_number"],
@@ -81,6 +83,7 @@ class User {
         "gender": gender,
         'lng': lng,
         'lat': lat,
+        "active": active,
         'is_premium': isPremium,
         "address": address,
         "distance": distance,

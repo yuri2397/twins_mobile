@@ -6,6 +6,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:twinz/components/ui.dart';
 import 'package:twinz/controllers/search.controller.dart' as sc;
 import 'package:twinz/core/config/env.dart';
+import 'package:twinz/core/utils/utils.dart';
 import 'package:twinz/routes/router.dart';
 import 'package:twinz/shared/utils/colors.dart';
 import 'package:twinz/views/home/search/search_item.dart';
@@ -30,15 +31,51 @@ class SearchScreen extends GetView<sc.SearchController> {
             width: 50,
           ),
         ),
-        drawer: _drawer(),
+        drawer: drawer(drawerKey: drawerKey, scaffoldKey: scaffoldKey),
         body: SafeArea(
           child: Obx(() => controller.matchLoad.value
               ? const Center(
                   child: CircularProgressIndicator(color: MAIN_COLOR),
                 )
-              : controller.matchSuccess.value
-                  ? controller.subscribeForPremium.value
-                      ? Matcher(controller: controller)
+              : localStorage.getUser()?.active == "1"
+                  ? controller.matchSuccess.value
+                      ? !controller.subscribeForPremium.value
+                          ? Matcher(controller: controller)
+                          : Center(
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Text("Oups !!",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontFamily: "Poppins",
+                                                fontWeight: FontWeight.w700))
+                                        .marginOnly(bottom: 10),
+                                    const Text(
+                                      "Vous avez atteint le nombre limit de match par jour.\n Veuillez changer votre offre à Premium.",
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    SizedBox(
+                                      width: Get.width * .5,
+                                      child: ElevatedButton(
+                                          onPressed: () =>
+                                              controller.getMatchings(),
+                                          style: ElevatedButton.styleFrom(
+                                              elevation: 0,
+                                              backgroundColor: MAIN_COLOR,
+                                              foregroundColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                  side: const BorderSide(
+                                                      color: Colors.white,
+                                                      width: 1.5),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20))),
+                                          child: const Text("Relancer")),
+                                    ).marginOnly(top: 20),
+                                  ]),
+                            )
                       : Center(
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +88,7 @@ class SearchScreen extends GetView<sc.SearchController> {
                                             fontWeight: FontWeight.w700))
                                     .marginOnly(bottom: 10),
                                 const Text(
-                                  "Vous avez atteint le nombre limit de match par jour.\n Veuillez changer votre offre à Premium.",
+                                  "Aucun match trouvé. Merci de\nrevoir vos paramètres.",
                                   textAlign: TextAlign.center,
                                 ),
                                 SizedBox(
@@ -73,39 +110,42 @@ class SearchScreen extends GetView<sc.SearchController> {
                                 ).marginOnly(top: 20),
                               ]),
                         )
-                  : Center(
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Text("Oups !!",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontFamily: "Poppins",
-                                        fontWeight: FontWeight.w700))
-                                .marginOnly(bottom: 10),
-                            const Text(
-                              "Aucun match trouvé. Merci de\nrevoir vos paramètres.",
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(
-                              width: Get.width * .5,
-                              child: ElevatedButton(
-                                  onPressed: () => controller.getMatchings(),
-                                  style: ElevatedButton.styleFrom(
-                                      elevation: 0,
-                                      backgroundColor: MAIN_COLOR,
-                                      foregroundColor: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          side: const BorderSide(
-                                              color: Colors.white, width: 1.5),
-                                          borderRadius:
-                                              BorderRadius.circular(20))),
-                                  child: const Text("Relancer")),
-                            ).marginOnly(top: 20),
-                          ]),
-                    )),
+                  : _activeAccount()),
         ));
+  }
+
+  Center _activeAccount() {
+    return Center(
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text("Oups !!",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: "Poppins",
+                        fontWeight: FontWeight.w700))
+                .marginOnly(bottom: 10),
+            const Text(
+              "Votre compte a été désactiver.\n Veuillez réactiver votre compte pour continuer.",
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              width: Get.width * .5,
+              child: ElevatedButton(
+                  onPressed: () => controller.activeAccount(),
+                  style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      backgroundColor: MAIN_COLOR,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          side:
+                              const BorderSide(color: Colors.white, width: 1.5),
+                          borderRadius: BorderRadius.circular(20))),
+                  child: const Text("Activer mon compte")),
+            ).marginOnly(top: 20),
+          ]),
+    );
   }
 
   _showMore() {
@@ -244,68 +284,6 @@ class SearchScreen extends GetView<sc.SearchController> {
       ),
     ));
   }
-
-  _drawer() {
-    return Drawer(
-      key: drawerKey,
-      child: ListView(
-        children: [
-          ListTile(
-            leading: itemIcon(Icons.close, color: Colors.black),
-            title: const Text("Menu",
-                style: TextStyle(
-                    fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
-            onTap: () => scaffoldKey.currentState?.closeDrawer(),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          const Divider(
-            color: NEUTRAL_COLOR,
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          ListTile(
-            leading:
-                itemIcon(Icons.person_outline_rounded, color: Colors.black),
-            title: const Text("Profil",
-                style: TextStyle(
-                    fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          ListTile(
-            onTap: () => Get.toNamed(Goo.offerScreen),
-            leading: itemIcon(Icons.payment_outlined, color: Colors.black),
-            title: const Text("Twinz premium",
-                style: TextStyle(
-                    fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          ListTile(
-            onTap: () => Get.toNamed(Goo.settingScreen),
-            leading: itemIcon(Icons.settings_outlined, color: Colors.black),
-            title: const Text("Réglages",
-                style: TextStyle(
-                    fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          ListTile(
-            leading: itemIcon(Icons.security_outlined, color: Colors.black),
-            title: const Text("Confidentialité",
-                style: TextStyle(
-                    fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
-          )
-        ],
-      ).paddingSymmetric(vertical: 40, horizontal: 20),
-    );
-  }
 }
 
 class Matcher extends StatelessWidget {
@@ -328,10 +306,11 @@ class Matcher extends StatelessWidget {
                   .marginSymmetric(horizontal: 6)),
         ).marginSymmetric(vertical: 10),
         SizedBox(
-          height: Get.height - 180,
+          height: Get.height * .75,
           width: Get.width,
           child: AppinioSwiper(
-            swipeOptions: const AppinioSwipeOptions.only(left: true),
+            swipeOptions:
+                const AppinioSwipeOptions.only(left: true, right: true),
             unlimitedUnswipe: true,
             controller: controller.swiperController,
             backgroundCardsCount: 0,

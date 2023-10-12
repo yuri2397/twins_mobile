@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:twinz/core/model/chat.dart';
+import 'package:twinz/core/model/notification.dart' as not;
 import 'package:twinz/core/model/setting.dart';
 import 'package:twinz/core/model/token.dart';
 import 'package:twinz/core/model/upload-file.dart';
@@ -15,14 +17,49 @@ class LocalStorageService extends GetxService {
   final _photos = '_photos';
   final _authNotifications = '_authNotifications';
   final _fcmToken = '_fcmToken';
+  final _swipIndex = "_swipIndex";
+  final _notifications = "_notifications";
+  final _messages = "_messages";
 
   Future<LocalStorageService> init() async {
     return this;
   }
 
-  set fcmToken (String value) => _box.write(_fcmToken, value);
+  GetStorage get box => _box;
 
-  getFcmToken () => _box.read(_fcmToken);
+  set notifications(List<not.Notification> nots) {
+    var res = nots.map((e) => e.toJson());
+    _box.write(_notifications, res);
+  }
+
+  List<not.Notification> getNotifications() {
+    var res = _box.read<dynamic>(_notifications);
+    if (res != null) {
+      return List<not.Notification>.from(
+          res.map((e) => not.Notification.fromJson(e))).toList();
+    }
+    return [];
+  }
+
+  set messages(List<Chat> c) {
+    var res = c.map((e) => e.toJson());
+    _box.write(_messages, res);
+  }
+
+  List<Chat> getMessages() {
+    var res = _box.read<dynamic>(_messages);
+    if (res != null) {
+      return List<Chat>.from(res.map((e) => Chat.fromJson(e))).toList();
+    }
+    return [];
+  }
+
+  set swipIndex(int value) => _box.write(_swipIndex, value);
+
+  int getSwipIndex() => _box.read(_swipIndex) ?? 0;
+  set fcmToken(String value) => _box.write(_fcmToken, value);
+
+  getFcmToken() => _box.read(_fcmToken);
 
   set authNotification(bool value) => _box.write(_authNotifications, value);
 
@@ -66,7 +103,6 @@ class LocalStorageService extends GetxService {
     if (data != null) {
       return User.fromJson(data);
     }
-
     return null;
   }
 

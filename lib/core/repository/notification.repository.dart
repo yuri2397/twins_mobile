@@ -8,7 +8,10 @@ class NotificationRepository {
   Future<List<nt.Notification>> index() async {
     try {
       var response = await _client.get("/notifications");
-      if (response.statusCode! <= 200 && response.statusCode! < 300) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        if (response.data is Map) {
+          return [];
+        }
         return List<nt.Notification>.from(
             response.data.map((e) => nt.Notification.fromJson(e)));
       } else {

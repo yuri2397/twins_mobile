@@ -97,7 +97,10 @@ class SettingScreen extends GetView<ProfileController> {
               height: 10,
             ),
             SfSlider(
-              min: 0,
+              min: controller.user.value?.isPremium != null &&
+                      controller.user.value?.isPremium == true
+                  ? 3
+                  : 15,
               max: 15,
               value: double.tryParse(
                       "${controller.settings.value?.differenceInDays ?? 0}") ??

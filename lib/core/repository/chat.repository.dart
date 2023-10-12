@@ -27,7 +27,7 @@ class ChatRepository {
     try {
       var response = await _client.get("/chat/${chat.id}");
 
-      if (response.statusCode! <= 200 && response.statusCode! < 300) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return Chat.fromJson(response.data);
       } else {
         throw "Oups! une erreur s'est produite.";

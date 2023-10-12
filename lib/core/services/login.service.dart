@@ -8,7 +8,10 @@ class LoginService extends GetxService {
   Future<void> login(
       {required String username, required String password}) async {
     try {
-      var response = await repo.login(username: username, password: password);
+      var response = await repo.login(
+        username: username,
+        password: password,
+      );
       localStorage.token = response;
       localStorage.user = response.user;
       localStorage.isAuth = true;

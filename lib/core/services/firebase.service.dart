@@ -1,14 +1,20 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:twinz/core/utils/utils.dart';
 
 class FirebaseService extends GetxService {
   final fcmToken = "".obs;
-  final authorizeNotification = localStorage.getAuthNotification().obs;
-
+  final authorizeNotification = false.obs;
   Future<FirebaseService> init() async {
     try {
+      requestPermissions();
       fcmToken.value = await FirebaseMessaging.instance.getToken() ?? "";
       localStorage.fcmToken = fcmToken.value;
       print(fcmToken.value);
@@ -16,17 +22,6 @@ class FirebaseService extends GetxService {
       print("$e");
     }
     return this;
-  }
-
-  onTokenRefresh() {
-    FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
-      // TODO: If necessary send token to application server.
-
-      // Note: This callback is fired at each app startup and whenever a new
-      // token is generated.
-    }).onError((err) {
-      // Error getting token.
-    });
   }
 
   requestPermissions() async {

@@ -15,7 +15,7 @@ class ChatController extends GetxController {
   final messages = <hc.Message>[].obs;
   final _localUser = localStorage.getUser();
   get localUser => _localUser;
-  final chats = <lc.Chat>[].obs;
+  final RxList<lc.Chat> chats = localStorage.getMessages().obs;
   final chatsLoad = false.obs;
 
   final _service = Get.find<ChatService>();
@@ -32,6 +32,10 @@ class ChatController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
+    localStorage.box.listenKey("_message", (value) {
+      print("MESSAGE CHANGED");
+    });
     getChats();
   }
 
@@ -39,7 +43,9 @@ class ChatController extends GetxController {
     chatsLoad.value = true;
     await _service.chats().then((value) {
       chats.value = value;
+
       chats.refresh();
+      localStorage.messages = chats;
       chatsLoad.value = false;
     }).catchError((e) {
       print("$e");

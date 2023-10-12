@@ -71,6 +71,15 @@ Future<String> get deviceName async {
   return "Unknow";
 }
 
+Future<String> get deviceId async {
+  if (defaultTargetPlatform == TargetPlatform.android) {
+    return _readAndroidBuildData(await deviceInfoPlugin.androidInfo)['id'];
+  } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+    return _readIosDeviceInfo(await deviceInfoPlugin.iosInfo)['model'];
+  }
+  return "Unknow";
+}
+
 Map<String, dynamic> _readAndroidBuildData(AndroidDeviceInfo build) {
   return <String, dynamic>{
     'version.securityPatch': build.version.securityPatch,

@@ -31,7 +31,9 @@ class _SplashScreenState extends State<SplashScreen> {
         Get.offAllNamed(Goo.onboardingScreen);
       }
     });
+
   }
+
 
   @override
   Widget build(BuildContext context) {
