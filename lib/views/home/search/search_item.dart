@@ -38,7 +38,7 @@ class SearchItemWidget extends StatelessWidget {
           //         child: itemIcon(CupertinoIcons.info_circle_fill))
           //     .marginOnly(bottom: 12),
           SizedBox(
-            height: Get.height * .45,
+            height: Get.height * .40,
             width: Get.width,
             child: Stack(
               children: [
