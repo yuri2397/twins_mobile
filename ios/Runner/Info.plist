@@ -26,16 +26,26 @@
 		<string>$(FLUTTER_BUILD_NUMBER)</string>
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
+		<key>NSCameraUsageDescription</key>
+		<string>Nous utilisons votre appareil photo pour vous permettre de prendre des photos et les ajouter à votre album</string>
 		<key>NSLocationAlwaysUsageDescription</key>
 		<string>This app needs access to location when in the background.</string>
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<string>This app needs access to location when open.</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Nous utilisons votre galerie pour vous permettre d'importer des images dans votre album</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>Nous utilisons votre microphone pour vous permettre d'enregistrer des video</string>
+		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+		<string>Nous utilisons votre localisation pour vous proposer des profils autour</string>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>UILaunchStoryboardName</key>
 		<string>LaunchScreen</string>
 		<key>UIMainStoryboardFile</key>
 		<string>Main</string>
+		<key>UIStatusBarHidden</key>
+		<false/>
 		<key>UISupportedInterfaceOrientations</key>
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>
@@ -50,12 +60,6 @@
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
-		<false/>
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>Nous utilisons votre galerie pour vous permettre d'importer des images dans votre album</string>
-		<key>NSCameraUsageDescription</key>
-		<string>Nous utilisons votre appareil photo pour vous permettre de prendre des photos et les ajouter à votre album</string>
-		<key>UIStatusBarHidden</key>
 		<false/>
 	</dict>
 </plist>

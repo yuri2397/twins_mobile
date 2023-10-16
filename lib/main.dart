@@ -83,7 +83,7 @@ _initServices() async {
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await Get.putAsync(() => LocalStorageService().init());
   await Get.putAsync(() => FirebaseService().init());
-  await Get.putAsync(() => FireBaseMessagingService().init());
+  //await Get.putAsync(() => FireBaseMessagingService().init());
 
   Get.lazyPut(() => HttpClient());
   Get.lazyPut(() => MatchingService());

@@ -15,8 +15,9 @@ class RegisterService extends GetxService {
       localStorage.user = response.user;
       localStorage.isAuth = true;
       //await repo.addPhoto(files);
-    } on DioException catch (e) {
+    } on DioException catch (e, stack) {
       print("eeeeeeeeeeeeeeeeeeeeeeee $e");
+      print("--- Statck -- $stack");
       rethrow;
     }
   }
