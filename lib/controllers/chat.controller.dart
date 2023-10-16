@@ -32,7 +32,6 @@ class ChatController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
     localStorage.box.listenKey("_message", (value) {
       print("MESSAGE CHANGED");
     });
@@ -43,9 +42,9 @@ class ChatController extends GetxController {
     chatsLoad.value = true;
     await _service.chats().then((value) {
       chats.value = value;
-
       chats.refresh();
       localStorage.messages = chats;
+
       chatsLoad.value = false;
     }).catchError((e) {
       print("$e");

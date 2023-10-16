@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -9,7 +6,6 @@ import 'package:twinz/components/ui.dart';
 import 'package:twinz/controllers/chat.controller.dart';
 import 'package:twinz/core/model/chat.dart';
 import 'package:twinz/core/utils/utils.dart';
-import 'package:twinz/routes/router.dart';
 import 'package:twinz/shared/utils/colors.dart';
 
 class ChatListScreen extends GetView<ChatController> {

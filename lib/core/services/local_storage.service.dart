@@ -42,12 +42,14 @@ class LocalStorageService extends GetxService {
   }
 
   set messages(List<Chat> c) {
-    var res = c.map((e) => e.toJson());
+    var res = c.map((e) => e.toJson()).toList();
+    print("RES/:: $c");
     _box.write(_messages, res);
   }
 
   List<Chat> getMessages() {
     var res = _box.read<dynamic>(_messages);
+    print("eeeeeee: $res");
     if (res != null) {
       return List<Chat>.from(res.map((e) => Chat.fromJson(e))).toList();
     }

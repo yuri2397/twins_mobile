@@ -28,7 +28,6 @@ import 'core/services/local_storage.service.dart';
 import 'core/services/profile.service.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 
 const String STRIPE_PUBLISHABLE_KEY =
     "pk_test_51NwodCJBdlfJ0wtgE6qu9h1q8UCibKEBVzQrydGoJl853oMsz4z6HiG36SUcG5IP5ewWKpbdOuzHgqIORREFUSKo0030uAEcPm";
@@ -52,7 +51,8 @@ void main() async {
       .then((_) {
     runApp(GetMaterialApp(
       supportedLocales: const [
-        Locale('fr', 'FR'),
+        Locale('fr'),
+        Locale('en'),
       ],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
@@ -77,8 +77,8 @@ _initServices() async {
   Stripe.publishableKey = STRIPE_PUBLISHABLE_KEY;
   await Stripe.instance.applySettings();
   await Firebase.initializeApp(
-    //options: DefaultFirebaseOptions.currentPlatform,
-  );
+      //options: DefaultFirebaseOptions.currentPlatform,
+      );
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await Get.putAsync(() => LocalStorageService().init());
