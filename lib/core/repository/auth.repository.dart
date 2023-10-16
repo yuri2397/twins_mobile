@@ -1,11 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
-
-import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:twinz/components/ui.dart';
 import 'package:twinz/core/http/http_client.dart';
 import 'package:twinz/core/model/setting.dart';
 import 'package:twinz/core/model/token.dart';
