@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:twinz/components/ui.dart';
 import 'package:twinz/controllers/register.controller.dart';
 import 'package:twinz/routes/router.dart';
 import 'package:twinz/shared/utils/colors.dart';
@@ -169,8 +170,13 @@ class AddBirthDayScreen extends GetView<RegisterController> {
                       foregroundColor: Colors.white),
                   onPressed: () {
                     if (_form.currentState!.validate()) {
-                      controller.parseDate();
-                      Get.toNamed(Goo.addSigneScreen);
+                      try {
+                        controller.parseDate();
+                        Get.toNamed(Goo.addSigneScreen);
+                      } catch (e) {
+                        print(e);
+                        errorMessage(title: "Erreur", content: '$e');
+                      }
                     }
                   },
                   child: const Text("Suivant", style: TextStyle(fontSize: 18)),

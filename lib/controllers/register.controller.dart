@@ -64,6 +64,7 @@ class RegisterController extends GetxController {
     var finalFiles =
         files.map((e) => e.value).where((e) => e.path.isNotEmpty).toList();
 
+    print("Birthday ----- ${birthdayCtrl.text}");
     Map<String, dynamic> data = {
       "full_name": nameCtrl.text.trim(),
       "gender": gender.value,
@@ -84,6 +85,8 @@ class RegisterController extends GetxController {
           title: "Félicitations", content: "Votre compte est bien créer.");
       Get.offAllNamed(Goo.activeAccountScreen);
     }).catchError((e, s) {
+      print(e);
+      print(s);
       loading.value = false;
     });
   }
