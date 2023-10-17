@@ -50,12 +50,19 @@ class RegisterController extends GetxController {
   }
 
   parseDate() {
+    bool isValidDate = valideDate(
+        bd1Ctrl.text.trim(), bd2Ctrl.text.trim(), bd3Ctrl.text.trim());
+    if (!isValidDate) {
+      errorMessage(
+          title: "Oups !!!", content: "Veuillez choissir une date valide.");
+      return;
+    }
     birthdayCtrl.text =
-        "${bd1Ctrl.text.trim()}/${bd2Ctrl.text.trim()}/${bd3Ctrl.text.trim()}";
+        "${bd3Ctrl.text.trim()}/${bd2Ctrl.text.trim()}/${bd1Ctrl.text.trim()}";
     DateTime date = DateTime.parse(
         "${bd3Ctrl.text.trim()}-${bd2Ctrl.text.trim()}-${bd1Ctrl.text.trim()}");
     signe.value = determinerSigne(date);
-    Get.log(signe.value.description.toString());
+    Get.toNamed(Goo.addSigneScreen);
   }
 
   save() async {
@@ -63,13 +70,12 @@ class RegisterController extends GetxController {
 
     var finalFiles =
         files.map((e) => e.value).where((e) => e.path.isNotEmpty).toList();
-
     Map<String, dynamic> data = {
       "full_name": nameCtrl.text.trim(),
       "gender": gender.value,
       "birth_date": birthdayCtrl.text,
       "email": emailCtrl.text.trim(),
-      "bio": bioCtrl.text.trim(),
+      "bio": bioCtrl.text,
       "password": passwordCtrl.text,
       "lat": lat.value,
       "lng": lng.value,
@@ -78,6 +84,7 @@ class RegisterController extends GetxController {
       "device_id": await deviceId,
       "device_token": localStorage.getFcmToken()
     };
+    print(data);
     _registerService.register(data: data, files: finalFiles).then((value) {
       loading.value = false;
       successMessage(

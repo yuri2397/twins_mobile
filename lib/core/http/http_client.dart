@@ -92,19 +92,19 @@ class AppInterceptors extends Interceptor {
       options.headers['Authorization'] = 'Bearer ${token.accessToken}';
       Get.log(options.headers.toString());
     }
-    Get.log(
-        "REQUEST[${options.method}] => PATH: ${options.path}, DATA: ${options.data.toString()}");
+    print("[PATH]: ${options.uri.path}, [DATA]: ${options.data}, ");
+
     return handler.next(options);
   }
 
   @override
   Future<void> onError(err, dio.ErrorInterceptorHandler handler) async {
+    print("ERROR ------------------------------- ${err.message}");
     if (err.response?.statusCode == 401 &&
         Get.currentRoute != Goo.loginScreen) {
       await Get.find<LoginService>().logout();
       Get.offAndToNamed(Goo.loginScreen);
     } else if (err.response?.statusCode == 422) {
-      print("${err.response?.data}");
       errorMessage(
           title: "Oups, erreur !", content: err.response?.data['message']);
     } else if (err.response?.statusCode == 302) {

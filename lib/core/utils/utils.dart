@@ -174,3 +174,21 @@ decoration(String text) {
     border: const OutlineInputBorder(borderSide: BorderSide(color: DARK_COLOR)),
   );
 }
+
+bool valideDate(String jj, String mm, String yyyy) {
+  int jour = int.tryParse(jj) ?? 0;
+  int mois = int.tryParse(mm) ?? 0;
+  int annee = int.tryParse(yyyy) ?? 0;
+
+  if (mois < 1 || mois > 12 || jour < 1) {
+    return false;
+  }
+
+  List<int> joursParMois = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+  if (mois == 2 && (annee % 4 == 0 && annee % 100 != 0 || annee % 400 == 0)) {
+    joursParMois[1] = 29;
+  }
+
+  return jour <= joursParMois[mois - 1];
+}

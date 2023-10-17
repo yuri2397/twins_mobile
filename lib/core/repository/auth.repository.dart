@@ -93,11 +93,11 @@ class AuthRepository {
 
   Future<Token> register(
       {required Map<String, dynamic> data, required List<XFile> files}) async {
-    var formData = dio.FormData.fromMap(data);
+    // var formData = dio.FormData.fromMap(data);
     List<String> images = [];
+
     List<dio.MultipartFile> multipartFiles = [];
     for (var file in files) {
-      print("File path ---- ${file.path} -----");
       final bytes = File(file.path).readAsBytesSync();
       String b64 = base64Encode(bytes);
       images.add(b64);
@@ -110,6 +110,7 @@ class AuthRepository {
       //formData.files.addAll(await dio.MultipartFile.fromFile('documents[]', file.path));
     }
     data.addAll({'photos': images});
+    print("MOR FALL");
 
     /*formData.files.addAll(files
         .map(
@@ -120,11 +121,13 @@ class AuthRepository {
         )
         .toList());*/
     try {
-      var response = await _client.post('/register',
-          data: data,
-          options: dio.Options(
-              //contentType: 'multipart/form-data',
-              ));
+      var response = await _client.post(
+        '/register',
+        data: data,
+      );
+      print("MOR DIAW");
+
+      print(response.data);
 
       if (response.statusCode! >= 200 && response.statusCode! <= 300) {
         print(response.data);
@@ -133,6 +136,7 @@ class AuthRepository {
         throw "ERREUR CATCH";
       }
     } catch (e) {
+      print("A =========== $e");
       rethrow;
     }
   }

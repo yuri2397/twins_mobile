@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(
         const Duration(
-          seconds: 3,
+          seconds: 1,
         ), () {
       if (isAuth &&
           localStorage.getUser()?.emailVerified != null &&
@@ -31,9 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Get.offAllNamed(Goo.onboardingScreen);
       }
     });
-
   }
-
 
   @override
   Widget build(BuildContext context) {

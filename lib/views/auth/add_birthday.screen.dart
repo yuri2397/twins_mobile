@@ -172,7 +172,6 @@ class AddBirthDayScreen extends GetView<RegisterController> {
                     if (_form.currentState!.validate()) {
                       try {
                         controller.parseDate();
-                        Get.toNamed(Goo.addSigneScreen);
                       } catch (e) {
                         print(e);
                         errorMessage(title: "Erreur", content: '$e');
