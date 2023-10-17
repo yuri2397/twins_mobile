@@ -84,7 +84,6 @@ class RegisterController extends GetxController {
           title: "Félicitations", content: "Votre compte est bien créer.");
       Get.offAllNamed(Goo.activeAccountScreen);
     }).catchError((e, s) {
-      print(e);
       print(s);
       loading.value = false;
     });
