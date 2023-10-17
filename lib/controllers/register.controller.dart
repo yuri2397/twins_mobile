@@ -52,16 +52,22 @@ class RegisterController extends GetxController {
   parseDate() {
     bool isValidDate = valideDate(
         bd1Ctrl.text.trim(), bd2Ctrl.text.trim(), bd3Ctrl.text.trim());
+
     if (!isValidDate) {
       errorMessage(
           title: "Oups !!!", content: "Veuillez choissir une date valide.");
       return;
     }
-    birthdayCtrl.text =
-        "${bd3Ctrl.text.trim()}/${bd2Ctrl.text.trim()}/${bd1Ctrl.text.trim()}";
+
+    // birthdayCtrl.text =
+    //     "${bd3Ctrl.text.trim()}/${bd2Ctrl.text.trim()}/${bd1Ctrl.text.trim()}";
+
     DateTime date = DateTime.parse(
         "${bd3Ctrl.text.trim()}-${bd2Ctrl.text.trim()}-${bd1Ctrl.text.trim()}");
+
+    print("$date");
     signe.value = determinerSigne(date);
+    birthdayCtrl.text = "$date";
     Get.toNamed(Goo.addSigneScreen);
   }
 
