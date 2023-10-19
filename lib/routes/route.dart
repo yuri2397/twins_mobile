@@ -18,6 +18,7 @@ import 'package:twinz/views/auth/add_bio.screen.dart';
 import 'package:twinz/views/auth/add_birthday.screen.dart';
 import 'package:twinz/views/auth/add_email.screen.dart';
 import 'package:twinz/views/auth/add_files_register.screen.dart';
+import 'package:twinz/views/auth/add_sex.screen.dart';
 import 'package:twinz/views/home/profile/add_files.screen.dart';
 import 'package:twinz/views/auth/add_password.screen.dart';
 import 'package:twinz/views/auth/add_signe.screen.dart';
@@ -59,6 +60,7 @@ dynamic ROUTER_OUTLET = [
   GetPage(name: Goo.addBioScreen, page: () => AddBioScreen()),
   GetPage(name: Goo.addAvatarScreen, page: () => AddAvatarScreen()),
   GetPage(name: Goo.addAddressScreen, page: () => AddAddressScreen()),
+  GetPage(name: Goo.addSexScreen, page: () => AddSexScreen()),
   GetPage(
       name: Goo.addFilesRegisterScreen,
       page: () => const AddFilesRegisterScreen()),

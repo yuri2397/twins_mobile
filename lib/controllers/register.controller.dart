@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:twinz/components/ui.dart';
 import 'package:twinz/core/model/zodiaque.dart';
 import 'package:twinz/core/services/register.service.dart';
 import 'package:twinz/core/utils/utils.dart';
 import 'package:twinz/routes/router.dart';
-import 'package:dio/dio.dart' as dio;
 
 class RegisterController extends GetxController {
   final nameCtrl = TextEditingController();
@@ -21,7 +21,18 @@ class RegisterController extends GetxController {
   final showFilesMessage = true.obs;
   final gender = 'male'.obs;
 
+  var dayMask = MaskTextInputFormatter(
+      mask: '##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
+
+  var yearMask = MaskTextInputFormatter(
+      mask: '####',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
+
   final avatarFile = XFile("").obs;
+  final sex = "male".obs;
   final signe = SigneZodiaque("", "", "").obs;
 
   final obscureText = true.obs;
@@ -78,7 +89,7 @@ class RegisterController extends GetxController {
         files.map((e) => e.value).where((e) => e.path.isNotEmpty).toList();
     Map<String, dynamic> data = {
       "full_name": nameCtrl.text.trim(),
-      "gender": gender.value,
+      "gender": sex.value,
       "birth_date": birthdayCtrl.text,
       "email": emailCtrl.text.trim(),
       "bio": bioCtrl.text,
@@ -88,17 +99,18 @@ class RegisterController extends GetxController {
       "password_confirmation": passwordCtrl.text,
       "device_name": await deviceName,
       "device_id": await deviceId,
-      "device_token": localStorage.getFcmToken()
+      "device_token": localStorage.getFcmToken() ?? "token"
     };
-    print(data);
     _registerService.register(data: data, files: finalFiles).then((value) {
       loading.value = false;
       successMessage(
           title: "Félicitations", content: "Votre compte est bien créer.");
       Get.offAllNamed(Goo.activeAccountScreen);
     }).catchError((e, s) {
+      print(e);
       print(s);
       loading.value = false;
+      loading.refresh();
     });
   }
 }

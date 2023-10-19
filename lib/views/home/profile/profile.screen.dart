@@ -124,7 +124,7 @@ class ProfileScreen extends GetView<ProfileController> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           const Icon(Icons.circle, color: MAIN_COLOR, size: 15),
-                          const Text("Mes infos perso",
+                          const Text("Mes infos personelles",
                               style: TextStyle(
                                 color: MAIN_COLOR,
                                 fontSize: 18,
@@ -140,13 +140,13 @@ class ProfileScreen extends GetView<ProfileController> {
                               ListTile(
                                 title: const Text("Email",
                                     style: TextStyle(
-                                      color: Colors.black38,
+                                      color: DARK_COLOR,
                                       fontSize: 18,
                                     )),
                                 trailing: Text(
                                   "${controller.user.value?.email}",
                                   style: const TextStyle(
-                                      color: DARK_COLOR,
+                                      color: Colors.black38,
                                       fontFamily: "Poppins",
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500),
@@ -155,7 +155,7 @@ class ProfileScreen extends GetView<ProfileController> {
                               ListTile(
                                 title: const Text("Sexe :",
                                     style: TextStyle(
-                                      color: Colors.black38,
+                                      color: DARK_COLOR,
                                       fontSize: 16,
                                     )),
                                 trailing: Text(
@@ -163,7 +163,7 @@ class ProfileScreen extends GetView<ProfileController> {
                                       ? 'Homme'
                                       : 'Femme',
                                   style: const TextStyle(
-                                      color: DARK_COLOR,
+                                      color: Colors.black38,
                                       fontFamily: "Poppins",
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500),
@@ -172,7 +172,7 @@ class ProfileScreen extends GetView<ProfileController> {
                               ListTile(
                                 title: const Text("Date de naiss : ",
                                     style: TextStyle(
-                                      color: Colors.black38,
+                                      color: DARK_COLOR,
                                       fontSize: 16,
                                     )),
                                 trailing: Text(
@@ -180,7 +180,7 @@ class ProfileScreen extends GetView<ProfileController> {
                                       controller.user.value?.birthDate ??
                                           DateTime.now()),
                                   style: const TextStyle(
-                                      color: DARK_COLOR,
+                                      color: Colors.black38,
                                       fontFamily: "Poppins",
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500),
@@ -210,7 +210,7 @@ class ProfileScreen extends GetView<ProfileController> {
                             children: [
                               ListTile(
                                 onTap: () => controller.logout(),
-                                title: const Text("Déconnexion",
+                                title: const Text("Se déconnecter",
                                     style: TextStyle(
                                       color: Colors.black38,
                                       fontSize: 18,
@@ -221,7 +221,7 @@ class ProfileScreen extends GetView<ProfileController> {
                               if (controller.user.value?.active != "1")
                                 ListTile(
                                     onTap: () => controller.disabledAccount(),
-                                    title: const Text("Activer",
+                                    title: const Text("Activer le compte",
                                         style: TextStyle(
                                           color: Colors.pink,
                                           fontSize: 18,
@@ -231,7 +231,7 @@ class ProfileScreen extends GetView<ProfileController> {
                               if (controller.user.value?.active == "1")
                                 ListTile(
                                     onTap: () => controller.disabledAccount(),
-                                    title: const Text("Désactiver",
+                                    title: const Text("Désactiver le compte",
                                         style: TextStyle(
                                           color: Colors.pink,
                                           fontSize: 18,
@@ -239,7 +239,8 @@ class ProfileScreen extends GetView<ProfileController> {
                                     trailing: const Icon(
                                         Icons.arrow_forward_ios_sharp)),
                               ListTile(
-                                  title: const Text("Supprimer",
+                                  onTap: () => controller.removeAccount(),
+                                  title: const Text("Supprimer le compte",
                                       style: TextStyle(
                                         color: Colors.pink,
                                         fontSize: 18,

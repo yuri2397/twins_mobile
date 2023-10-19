@@ -5,6 +5,7 @@ import 'package:twinz/core/config/env.dart';
 import 'package:twinz/core/services/local_storage.service.dart';
 import 'package:twinz/core/utils/utils.dart';
 import 'package:twinz/routes/router.dart';
+import 'package:twinz/shared/utils/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(
         const Duration(
-          seconds: 1,
+          seconds: 3,
         ), () {
       if (isAuth &&
           localStorage.getUser()?.emailVerified != null &&
@@ -36,6 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MAIN_COLOR,
       body: Center(
           child: Image.asset(
         Env.whiteLogo,

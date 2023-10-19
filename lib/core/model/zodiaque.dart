@@ -13,7 +13,7 @@ List<SigneZodiaque> listeSignes = [
       "assets/images/aries.svg"),
   SigneZodiaque(
       "Taureau",
-      "Stable, fiable et prudent, le Taureau est quelqu’un de doux et romantique. Il sait où il va grâce à ses choix prudents et sait ce qu’il veut. L’argent reste quelque chose d’important pour lui",
+      "Stable, fiable et prudent, le Taureau est quelqu’un de doux et romantique. Il sait où il va grâce à ses choix prudents et sait ce qu’il veut. L’argent reste quelque chose d’important pour lui.",
       "assets/images/taurus.svg"),
   SigneZodiaque(
       "Gémeaux",
@@ -37,7 +37,7 @@ List<SigneZodiaque> listeSignes = [
       "assets/images/libra.svg"),
   SigneZodiaque(
       "Scorpion",
-      ": En plus de son côté rancunier, le Scorpion est un signe tenace et possessif. Il ne se livre jamais entièrement et se souvient des moindres détails. Il a tendance à se laisser guider par son intuition.",
+      "En plus de son côté rancunier, le Scorpion est un signe tenace et possessif. Il ne se livre jamais entièrement et se souvient des moindres détails. Il a tendance à se laisser guider par son intuition.",
       "assets/images/scorpio.svg"),
   SigneZodiaque(
       "Sagittaire",

@@ -1,11 +1,6 @@
 import 'dart:async';
-import 'dart:io';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:twinz/core/utils/utils.dart';
 
@@ -14,7 +9,6 @@ class FirebaseService extends GetxService {
   final authorizeNotification = false.obs;
   Future<FirebaseService> init() async {
     try {
-      requestPermissions();
       fcmToken.value = await FirebaseMessaging.instance.getToken() ?? "";
       localStorage.fcmToken = fcmToken.value;
       print(fcmToken.value);
@@ -22,28 +16,6 @@ class FirebaseService extends GetxService {
       print("$e");
     }
     return this;
-  }
-
-  requestPermissions() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      authorizeNotification.value = localStorage.authNotification = true;
-    } else {
-      authorizeNotification.value = localStorage.authNotification = false;
-    }
-
-    print('User granted permission: ${settings.authorizationStatus}');
   }
 
   onFirstPlanMessage() async {

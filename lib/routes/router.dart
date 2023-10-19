@@ -12,6 +12,7 @@ class Goo {
   static const String addFilesScreen = "/register-screen/add-files";
   static const String addBioScreen = "/register-screen/add-bio";
   static const String addAvatarScreen = "/register-screen/add-avatar";
+  static const String addSexScreen = "/register-screen/add-sex";
   static const String addAddressScreen = "/register-screen/add-address";
   static const String addFilesRegisterScreen =
       "/register-screen/add-files-register";

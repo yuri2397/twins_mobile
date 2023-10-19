@@ -169,7 +169,8 @@ class ProfileController extends GetxController {
             children: [
               ElevatedButton(
                   style: TextButton.styleFrom(
-                      backgroundColor: MAIN_COLOR,
+                      foregroundColor: DARK_COLOR,
+                      backgroundColor: Colors.transparent,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(6))),
@@ -189,8 +190,7 @@ class ProfileController extends GetxController {
               ),
               ElevatedButton(
                   style: TextButton.styleFrom(
-                      foregroundColor: DARK_COLOR,
-                      backgroundColor: Colors.transparent,
+                      backgroundColor: MAIN_COLOR,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(6))),

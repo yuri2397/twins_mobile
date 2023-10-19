@@ -93,7 +93,6 @@ class AuthRepository {
 
   Future<Token> register(
       {required Map<String, dynamic> data, required List<XFile> files}) async {
-    // var formData = dio.FormData.fromMap(data);
     List<String> images = [];
 
     List<dio.MultipartFile> multipartFiles = [];
@@ -101,42 +100,30 @@ class AuthRepository {
       final bytes = File(file.path).readAsBytesSync();
       String b64 = base64Encode(bytes);
       images.add(b64);
-      //print("Base64 ---- $b64 -----");
-
       var multipartFile =
           await dio.MultipartFile.fromFile(file.path, filename: file.name);
       multipartFiles.add(multipartFile);
-      //formData.files.addAll([]);
-      //formData.files.addAll(await dio.MultipartFile.fromFile('documents[]', file.path));
     }
     data.addAll({'photos': images});
-    print("MOR FALL");
+    Get.log("$images");
 
-    /*formData.files.addAll(files
-        .map(
-          (f) => MapEntry(
-            'photos[]',
-            dio.MultipartFile.fromFileSync(f.path, filename: f.name),
-          ),
-        )
-        .toList());*/
     try {
       var response = await _client.post(
         '/register',
         data: data,
+        options: dio.Options(
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
       );
-      print("MOR DIAW");
-
-      print(response.data);
 
       if (response.statusCode! >= 200 && response.statusCode! <= 300) {
-        print(response.data);
         return Token.fromJson(response.data);
       } else {
-        throw "ERREUR CATCH";
+        throw "${response.data}";
       }
     } catch (e) {
-      print("A =========== $e");
       rethrow;
     }
   }
@@ -155,7 +142,7 @@ class AuthRepository {
       if (response.statusCode! >= 200 && response.statusCode! <= 300) {
         return User.fromJson(response.data);
       } else {
-        throw "Upload fail";
+        throw "${response.data}";
       }
     } catch (e) {
       rethrow;

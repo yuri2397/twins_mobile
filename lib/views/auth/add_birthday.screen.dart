@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:twinz/components/ui.dart';
 import 'package:twinz/controllers/register.controller.dart';
-import 'package:twinz/routes/router.dart';
 import 'package:twinz/shared/utils/colors.dart';
 
 class AddBirthDayScreen extends GetView<RegisterController> {
@@ -59,6 +58,7 @@ class AddBirthDayScreen extends GetView<RegisterController> {
                             child: TextFormField(
                                 controller: controller.bd1Ctrl,
                                 inputFormatters: [
+                                  controller.dayMask,
                                   FilteringTextInputFormatter.allow(
                                       RegExp('[0-9.,]+'))
                                 ],
@@ -94,6 +94,7 @@ class AddBirthDayScreen extends GetView<RegisterController> {
                                 keyboardType: TextInputType.number,
                                 cursorColor: Colors.white,
                                 inputFormatters: [
+                                  controller.dayMask,
                                   FilteringTextInputFormatter.allow(
                                       RegExp('[0-9.,]+'))
                                 ],
@@ -127,6 +128,7 @@ class AddBirthDayScreen extends GetView<RegisterController> {
                                 controller: controller.bd3Ctrl,
                                 keyboardType: TextInputType.number,
                                 inputFormatters: [
+                                  controller.yearMask,
                                   FilteringTextInputFormatter.allow(
                                       RegExp('[0-9.,]+'))
                                 ],
@@ -137,7 +139,7 @@ class AddBirthDayScreen extends GetView<RegisterController> {
                                   if (int.tryParse(value) == null) {
                                     return "AAAA";
                                   }
-                                  if (int.tryParse(value)! < 1980 ||
+                                  if (int.tryParse(value)! < 1900 ||
                                       int.tryParse(value)! >
                                           (DateTime.now().year - 10)) {
                                     return "AAAA";
@@ -173,7 +175,6 @@ class AddBirthDayScreen extends GetView<RegisterController> {
                       try {
                         controller.parseDate();
                       } catch (e) {
-                        print(e);
                         errorMessage(title: "Erreur", content: '$e');
                       }
                     }

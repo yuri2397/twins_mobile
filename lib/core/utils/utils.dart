@@ -161,10 +161,11 @@ Future<Position> determinePosition() async {
   return await Geolocator.getCurrentPosition();
 }
 
-decoration(String text) {
+decoration(String text, {Widget? suffix}) {
   return InputDecoration(
     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
     hintText: text,
+    suffix: suffix,
     hintStyle: const TextStyle(color: DARK_COLOR, fontFamily: "Poppins"),
     errorStyle: const TextStyle(color: Colors.redAccent),
     errorBorder: const OutlineInputBorder(

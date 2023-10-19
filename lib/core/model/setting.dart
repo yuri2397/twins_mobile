@@ -1,26 +1,26 @@
 import 'dart:convert';
 
 class Setting {
-  int? distanceInKilometers;
-  int? differenceInDays;
-  int? ageMin;
-  int? ageMax;
+  int? distanceInKilometers = 50;
+  int? differenceInDays = 15;
+  int? ageMin = 18;
+  int? ageMax = 65;
   String? gender;
 
   Setting({
-    this.distanceInKilometers,
-    this.differenceInDays,
-    this.ageMin,
-    this.ageMax,
+    this.distanceInKilometers = 50,
+    this.differenceInDays = 15,
+    this.ageMin = 18,
+    this.ageMax = 65,
     this.gender,
   });
 
   factory Setting.fromJson(Map<String, dynamic> json) => Setting(
-        distanceInKilometers: json["distance_in_kilometers"],
-        differenceInDays: json["difference_in_days"],
-        ageMin: json["age_min"],
-        ageMax: json["age_max"],
-        gender: json["gender"],
+        distanceInKilometers: json["distance_in_kilometers"] ?? 50,
+        differenceInDays: json["difference_in_days"] ?? 15,
+        ageMin: json["age_min"] ?? 18,
+        ageMax: json["age_max"] ?? 65,
+        gender: json["gender"] ?? 'male',
       );
 
   Map<String, dynamic> toJson() => {

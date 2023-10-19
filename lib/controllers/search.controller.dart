@@ -70,14 +70,11 @@ class SearchController extends GetxController {
       if ((localStorage.getUser()!.isPremium == true)) {
         if (((currentMatch.length ~/ 2) + 1 <= index)) {
           matchLoad.value = true;
-
           _matchingService.matchings().then((value) {
             currentMatch.addAll(value);
-            print("aaa ${currentMatch.value.toString()}");
             currentMatch.refresh();
             matchLoad.value = false;
           }).catchError((e) {
-            Get.log("EEEEEEEEEEEEEER : $e");
             matchLoad.value = false;
           });
         }
@@ -95,10 +92,12 @@ class SearchController extends GetxController {
     likeLoad.value = true;
     _chatRequestService.sendRequestChat(toUser: currentMatch).then((value) {
       likeLoad.value = false;
-      ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-        content: Text("Twinz avec ${currentMatch.fullName}."),
-        backgroundColor: MAIN_COLOR,
-      ));
+      // ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
+      //   content: Text("Twinz avec ${currentMatch.fullName}."),
+      //   backgroundColor: MAIN_COLOR,
+      // ));
+      // swip left
+      swiperController.swipeLeft();
     }).catchError((e) {
       likeLoad.value = false;
     });

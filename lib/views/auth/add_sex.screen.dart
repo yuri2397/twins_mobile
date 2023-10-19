@@ -6,10 +6,9 @@ import 'package:twinz/core/utils/utils.dart';
 import 'package:twinz/routes/router.dart';
 import 'package:twinz/shared/utils/colors.dart';
 
-class AddPasswordScreen extends GetView<RegisterController> {
-  AddPasswordScreen({super.key});
+class AddSexScreen extends GetView<RegisterController> {
+  AddSexScreen({super.key});
 
-  final _form = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +34,7 @@ class AddPasswordScreen extends GetView<RegisterController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Choisissez un mot de passe",
+                      "Vous êtes",
                       style: TextStyle(
                           color: DARK_COLOR,
                           fontSize: 30,
@@ -46,42 +45,18 @@ class AddPasswordScreen extends GetView<RegisterController> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Form(
-                      key: _form,
-                      child: SizedBox(
-                        height: 60,
-                        child: TextFormField(
-                            controller: controller.passwordCtrl,
-                            keyboardType: TextInputType.visiblePassword,
-                            cursorColor: DARK_COLOR,
-                            validator: (value) {
-                              if (value == null) {
-                                return "Mot de passe obligatoire.";
-                              }
-
-                              if (value.length < 6) {
-                                return "Mot de passe pas sécurisé.";
-                              }
-                              return null;
-                            },
-                            obscureText: controller.obscureText.value,
-                            style: GoogleFonts.poppins(
-                                textStyle: const TextStyle(fontSize: 16),
-                                color: DARK_COLOR),
-                            decoration: decoration("Mot de passe...",
-                                suffix: IconButton(
-                                  onPressed: () {
-                                    controller.obscureText.value =
-                                        !controller.obscureText.value;
-                                  },
-                                  icon: Icon(
-                                    controller.obscureText.value
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                    color: DARK_COLOR,
-                                  ),
-                                ))),
-                      ),
+                    CheckboxListTile(
+                      value: controller.sex.value == "male",
+                      onChanged: (bool? value) => controller.sex.value = "male",
+                      title: const Text('Un homme'),
+                      activeColor: MAIN_COLOR,
+                    ),
+                    CheckboxListTile(
+                      value: controller.sex.value == "female",
+                      activeColor: MAIN_COLOR,
+                      onChanged: (bool? value) =>
+                          controller.sex.value = "female",
+                      title: const Text('Une femme'),
                     ),
                   ],
                 )),
@@ -95,9 +70,7 @@ class AddPasswordScreen extends GetView<RegisterController> {
                         backgroundColor: MAIN_COLOR,
                         foregroundColor: Colors.white),
                     onPressed: () {
-                      if (_form.currentState!.validate()) {
-                        Get.toNamed(Goo.addBirthDayScreen);
-                      }
+                      Get.toNamed(Goo.addPasswordScreen);
                     },
                     child:
                         const Text("Suivant", style: TextStyle(fontSize: 18)),

@@ -38,42 +38,29 @@ class SettingScreen extends GetView<ProfileController> {
               ),
               Row(
                 children: [
-                  const Icon(
-                    Icons.circle,
-                    color: MAIN_COLOR,
-                    size: 20,
+                  Expanded(
+                    child: SfSlider(
+                      min: 1,
+                      max: 50,
+                      value: double.tryParse(
+                              "${controller.settings.value?.distanceInKilometers ?? 50}") ??
+                          50,
+                      interval: 20,
+                      showTicks: false,
+                      activeColor: MAIN_COLOR,
+                      showLabels: false,
+                      enableTooltip: true,
+                      minorTicksPerInterval: 1,
+                      onChanged: (dynamic value) {
+                        controller.settings.value?.distanceInKilometers =
+                            value.toInt();
+                        controller.settings.refresh();
+                        localStorage.settings = controller.settings.value;
+                      },
+                    ),
                   ),
-                  const Text(
-                    "Distance",
-                    style: TextStyle(
-                        color: DARK_COLOR,
-                        fontSize: 20,
-                        fontFamily: "Poppins",
-                        fontWeight: FontWeight.bold),
-                  ).marginOnly(left: 10),
+                  Text("${controller.settings.value?.distanceInKilometers} Km")
                 ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              SfSlider(
-                min: 1,
-                max: 50,
-                value: double.tryParse(
-                        "${controller.settings.value?.distanceInKilometers ?? 0}") ??
-                    0,
-                interval: 20,
-                showTicks: false,
-                activeColor: MAIN_COLOR,
-                showLabels: false,
-                enableTooltip: true,
-                minorTicksPerInterval: 1,
-                onChanged: (dynamic value) {
-                  controller.settings.value?.distanceInKilometers =
-                      value.toInt();
-                  controller.settings.refresh();
-                  localStorage.settings = controller.settings.value;
-                },
               ),
               const SizedBox(
                 height: 30,
@@ -98,26 +85,33 @@ class SettingScreen extends GetView<ProfileController> {
               const SizedBox(
                 height: 10,
               ),
-              SfSlider(
-                min: controller.user.value?.isPremium != null &&
-                        controller.user.value?.isPremium == true
-                    ? 3
-                    : 15,
-                max: 15,
-                value: double.tryParse(
-                        "${controller.settings.value?.differenceInDays ?? 0}") ??
-                    1,
-                interval: 20,
-                showTicks: false,
-                activeColor: MAIN_COLOR,
-                showLabels: false,
-                enableTooltip: true,
-                minorTicksPerInterval: 1,
-                onChanged: (dynamic value) {
-                  controller.settings.value?.differenceInDays = value.toInt();
-                  controller.settings.refresh();
-                  localStorage.settings = controller.settings.value;
-                },
+              Row(
+                children: [
+                  Expanded(
+                    child: SfSlider(
+                      min: controller.user.value?.isPremium != null &&
+                              controller.user.value?.isPremium == true
+                          ? 3
+                          : 14,
+                      max: 15,
+                      value: double.tryParse(
+                              "${controller.settings.value?.differenceInDays ?? 15}") ??
+                          15,
+                      showTicks: false,
+                      activeColor: MAIN_COLOR,
+                      showLabels: false,
+                      enableTooltip: true,
+                      minorTicksPerInterval: 1,
+                      onChanged: (dynamic value) {
+                        controller.settings.value?.differenceInDays =
+                            value.toInt();
+                        controller.settings.refresh();
+                        localStorage.settings = controller.settings.value;
+                      },
+                    ),
+                  ),
+                  Text("${controller.settings.value?.differenceInDays} Jours")
+                ],
               ),
               const SizedBox(
                 height: 30,
@@ -169,7 +163,8 @@ class SettingScreen extends GetView<ProfileController> {
                           controller.settings.value?.ageMax ?? 65),
                     ),
                   ),
-                  const Text("18 - 65")
+                  Text(
+                      "${controller.settings.value?.ageMin ?? '18'} - ${controller.settings.value?.ageMax ?? '65'}")
                 ],
               ).marginSymmetric(),
               const SizedBox(

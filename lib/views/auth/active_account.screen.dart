@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:twinz/controllers/active_account.controller.dart';
-import 'package:twinz/controllers/login.controller.dart';
 import 'package:twinz/shared/utils/colors.dart';
 
 class ActiveAccountScreen extends GetView<ActiveAccountController> {
@@ -16,9 +15,10 @@ class ActiveAccountScreen extends GetView<ActiveAccountController> {
           body: Container(
             height: Get.height,
             width: Get.width,
+            alignment: Alignment.center,
             padding: const EdgeInsets.all(20.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
@@ -51,7 +51,6 @@ class ActiveAccountScreen extends GetView<ActiveAccountController> {
                             fontWeight: FontWeight.w400),
                         textAlign: TextAlign.center,
                       ),
-                      SvgPicture.asset("assets/images/active.svg"),
                       TextButton(
                         onPressed: () => controller.refreshStatus(),
                         child: const Text("Adresse e-mail déjà vérifié?",

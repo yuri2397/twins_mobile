@@ -29,12 +29,8 @@ class SearchDetails extends GetView<lc.SearchController> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Align(
-                    //         alignment: Alignment.topRight,
-                    //         child: itemIcon(CupertinoIcons.info_circle_fill))
-                    //     .marginOnly(bottom: 12),
                     SizedBox(
-                      height: Get.height * .65,
+                      height: Get.height * .50,
                       width: Get.width,
                       child: controller.visibleUser.value.photos!.isEmpty
                           ? ClipRRect(

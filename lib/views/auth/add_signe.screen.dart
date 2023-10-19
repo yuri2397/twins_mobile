@@ -51,7 +51,6 @@ class AddSigneScreen extends GetView<RegisterController> {
                       fontSize: 18,
                       fontFamily: "Poppins",
                       fontWeight: FontWeight.w400),
-                  textAlign: TextAlign.justify,
                 ),
               ],
             )),

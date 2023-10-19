@@ -168,10 +168,11 @@ class FireBaseMessagingService extends GetxService {
 
     FirebaseMessaging.instance
         .requestPermission(sound: true, badge: true, alert: true);
+    await getDeviceToken();
+
     await fcmOnLaunchListeners();
     await fcmOnResumeListeners();
     await fcmOnMessageListeners();
-    await getDeviceToken();
     /**here is to handle notification when app is background and we want to act when user click in notification */
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       _notificationsBackground(message);

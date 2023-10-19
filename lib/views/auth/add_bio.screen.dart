@@ -52,6 +52,7 @@ class AddBioScreen extends GetView<RegisterController> {
                       child: SizedBox(
                         width: Get.width,
                         child: TextFormField(
+                          autofocus: true,
                           controller: controller.bioCtrl,
                           keyboardType: TextInputType.text,
                           cursorColor: DARK_COLOR,

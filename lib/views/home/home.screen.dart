@@ -8,7 +8,6 @@ import 'package:twinz/views/home/chats/chat_list.screen.dart';
 import 'package:twinz/views/home/notifications/notifications.screen.dart';
 import 'package:twinz/views/home/profile/profile.screen.dart';
 import 'package:twinz/views/home/search/search.screen.dart';
-import 'package:twinz/views/home/chat_request/chat_request.screen.dart';
 
 class HomeScreen extends GetView<HomeController> {
   final _screens = <Widget>[
@@ -24,22 +23,22 @@ class HomeScreen extends GetView<HomeController> {
         AssetImage('assets/images/home.png'),
       ),
       activeColorPrimary: MAIN_COLOR,
-      inactiveColorPrimary: MAIN_COLOR,
+      inactiveColorPrimary: Colors.grey,
     ),
     PersistentBottomNavBarItem(
       icon: const Icon(Icons.notifications),
       activeColorPrimary: MAIN_COLOR,
-      inactiveColorPrimary: MAIN_COLOR,
+      inactiveColorPrimary: Colors.grey,
     ),
     PersistentBottomNavBarItem(
       icon: const Icon(CupertinoIcons.chat_bubble_2_fill),
       activeColorPrimary: MAIN_COLOR,
-      inactiveColorPrimary: MAIN_COLOR,
+      inactiveColorPrimary: Colors.grey,
     ),
     PersistentBottomNavBarItem(
       icon: const Icon(CupertinoIcons.person_fill),
       activeColorPrimary: MAIN_COLOR,
-      inactiveColorPrimary: MAIN_COLOR,
+      inactiveColorPrimary: Colors.grey,
     ),
   ];
 
@@ -55,7 +54,7 @@ class HomeScreen extends GetView<HomeController> {
         body: _screens[controller.currentIndex.value],
         bottomNavigationBar: Container(
           color: MAIN_COLOR,
-          height: 60,
+          height: 65,
           padding: const EdgeInsets.symmetric(vertical: 2),
           child: NavigationBar(
             onDestinationSelected: (int index) {},
@@ -71,7 +70,7 @@ class HomeScreen extends GetView<HomeController> {
                   const AssetImage('assets/images/home.png'),
                   color: controller.currentIndex.value == 0
                       ? MAIN_COLOR
-                      : NEUTRAL_COLOR,
+                      : Colors.grey[400],
                 ),
               ),
               GestureDetector(
@@ -82,7 +81,7 @@ class HomeScreen extends GetView<HomeController> {
                   child: Icon(Icons.notifications,
                       color: controller.currentIndex.value == 1
                           ? MAIN_COLOR
-                          : NEUTRAL_COLOR)),
+                          : Colors.grey[400])),
               GestureDetector(
                   onTap: () {
                     controller.currentIndex.value = 2;
@@ -91,7 +90,7 @@ class HomeScreen extends GetView<HomeController> {
                   child: Icon(CupertinoIcons.chat_bubble_2_fill,
                       color: controller.currentIndex.value == 2
                           ? MAIN_COLOR
-                          : NEUTRAL_COLOR)),
+                          : Colors.grey[400])),
               GestureDetector(
                   onTap: () {
                     controller.currentIndex.value = 3;
@@ -100,7 +99,7 @@ class HomeScreen extends GetView<HomeController> {
                   child: Icon(CupertinoIcons.person_fill,
                       color: controller.currentIndex.value == 3
                           ? MAIN_COLOR
-                          : NEUTRAL_COLOR)),
+                          : Colors.grey[400])),
             ],
           ),
         ),

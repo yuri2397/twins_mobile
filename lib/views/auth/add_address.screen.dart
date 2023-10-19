@@ -61,6 +61,7 @@ class AddAddressScreen extends GetView<RegisterController> {
                   Form(
                     key: _form,
                     child: TextFormField(
+                      autofocus: true,
                       controller: controller.addressCtrl,
                       keyboardType: TextInputType.text,
                       cursorColor: DARK_COLOR,

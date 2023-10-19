@@ -14,9 +14,7 @@ class RegisterService extends GetxService {
       localStorage.token = response;
       localStorage.user = response.user;
       localStorage.isAuth = true;
-    } on DioException catch (e, stack) {
-      print("eeeeeeeeeeeeeeeeeeeeeeee $e");
-      print("--- Statck -- $stack");
+    } catch (e) {
       rethrow;
     }
   }

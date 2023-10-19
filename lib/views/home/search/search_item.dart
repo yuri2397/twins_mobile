@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:twinz/components/ui.dart';
-import 'package:twinz/core/config/env.dart';
 import 'package:twinz/core/model/user.dart';
 import 'package:twinz/shared/utils/colors.dart';
 import 'package:twinz/controllers/search.controller.dart' as sc;
@@ -11,20 +9,12 @@ import 'package:twinz/controllers/search.controller.dart' as sc;
 // ignore: must_be_immutable
 class SearchItemWidget extends StatelessWidget {
   User user;
-  Function cancel;
-  Function like;
-  Function swipBack;
-  SearchItemWidget(
-      {super.key,
-      required this.user,
-      required this.cancel,
-      required this.like,
-      required this.swipBack});
+  SearchItemWidget({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -33,12 +23,8 @@ class SearchItemWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Align(
-          //         alignment: Alignment.topRight,
-          //         child: itemIcon(CupertinoIcons.info_circle_fill))
-          //     .marginOnly(bottom: 12),
           SizedBox(
-            height: Get.height * .40,
+            height: Get.height * .65,
             width: Get.width,
             child: Stack(
               children: [
@@ -63,124 +49,77 @@ class SearchItemWidget extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () =>
                         Get.find<sc.SearchController>().searchDetails(user),
-                    child: itemIcon(CupertinoIcons.info_circle_fill),
+                    child: const Icon(
+                      CupertinoIcons.info,
+                      color: MAIN_COLOR,
+                      size: 30,
+                    ),
                   ),
                 ),
+                Positioned(
+                    bottom: 0,
+                    child: Container(
+                      padding: const EdgeInsets.only(left: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10)),
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.black.withOpacity(0.0),
+                            Colors.black.withOpacity(0.2),
+                            Colors.black.withOpacity(0.4),
+                            Colors.black.withOpacity(0.6),
+                            Colors.black.withOpacity(0.8),
+                            Colors.black.withOpacity(1),
+                          ],
+                        ),
+                      ),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${user.fullName}, ${user.age}".capitalizeFirst ??
+                                  "",
+                              overflow: TextOverflow.fade,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
+                              ),
+                            ),
+                            SizedBox(
+                              width: Get.width,
+                              child: Text(
+                                  DateFormat.MMMMd('fr')
+                                      .format(user.birthDate ?? DateTime.now()),
+                                  textAlign: TextAlign.start,
+                                  overflow: TextOverflow.fade,
+                                  maxLines: 2,
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 18)),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            SizedBox(
+                              width: Get.width,
+                              height: 60,
+                              child: Text(user.bio ?? 'Bio',
+                                  textAlign: TextAlign.start,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
+                                  style: const TextStyle(color: Colors.white)),
+                            ),
+                          ]),
+                    ))
               ],
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          Text(
-            "${user.fullName}, ${user.age}".capitalizeFirst ?? "",
-            overflow: TextOverflow.fade,
-            style: const TextStyle(
-              color: DARK_COLOR,
-              fontWeight: FontWeight.w700,
-              fontSize: 22,
-            ),
-          ),
-          SizedBox(
-            width: Get.width,
-            child: Text(
-                DateFormat.MMMMd('fr').format(user.birthDate ?? DateTime.now()),
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.fade,
-                maxLines: 2,
-                style: TextStyle(
-                    color: Colors.black.withOpacity(0.4), fontSize: 18)),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          SizedBox(
-            width: Get.width,
-            height: 60,
-            child: Text(user.bio ?? 'Bio',
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 3,
-                style: TextStyle(color: Colors.black.withOpacity(0.5))),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              GestureDetector(
-                onTap: () => cancel(),
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 1,
-                        blurRadius: 20,
-                        offset:
-                            const Offset(2, 3), // changes position of shadow
-                      ),
-                    ],
-                    borderRadius: const BorderRadius.all(Radius.circular(50)),
-                  ),
-                  child: const Icon(
-                    Icons.close,
-                    color: Colors.pink,
-                    size: 35,
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () => swipBack(),
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 1,
-                        blurRadius: 20,
-                        offset:
-                            const Offset(2, 3), // changes position of shadow
-                      ),
-                    ],
-                    borderRadius: const BorderRadius.all(Radius.circular(50)),
-                  ),
-                  child: const Icon(
-                    Icons.undo,
-                    color: Colors.yellowAccent,
-                    size: 25,
-                  ),
-                ),
-              ).marginOnly(top: 10),
-              GestureDetector(
-                onTap: () => like(),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: MAIN_COLOR,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 1,
-                        blurRadius: 20,
-                        offset:
-                            const Offset(2, 3), // changes position of shadow
-                      ),
-                    ],
-                    borderRadius: const BorderRadius.all(Radius.circular(50)),
-                  ),
-                  child: Image.asset(
-                    Env.whiteLogo,
-                    width: 50,
-                  ),
-                ),
-              ),
-            ],
-          )
         ],
       ),
     );

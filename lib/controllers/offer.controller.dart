@@ -71,6 +71,7 @@ class OfferController extends GetxController {
   }
 
   void _checkPayment(InitPayment value) async {
+    load.value = true;
     _service.paymentSuccess("${value.id}").then((value) async {
       print("$value");
       if (value) {
@@ -80,8 +81,10 @@ class OfferController extends GetxController {
         var user = localStorage.getUser();
         user?.isPremium = true;
         localStorage.user = user;
+        load.value = false;
 
         await Get.bottomSheet(Container(
+          padding: const EdgeInsets.only(bottom: 30),
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
@@ -89,7 +92,7 @@ class OfferController extends GetxController {
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               hr(),
@@ -108,12 +111,15 @@ class OfferController extends GetxController {
           ),
         ));
 
+        load.value = false;
+
         Get.find<ProfileService>()
             .profile()
             .then((value) => Get.toNamed(Goo.homeScreen));
       }
     }).catchError((e) {
       print("$e");
+      load.value = false;
     });
   }
 }

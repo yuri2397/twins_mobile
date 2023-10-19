@@ -28,7 +28,7 @@ class SearchScreen extends GetView<sc.SearchController> {
           ),
           title: Image.asset(
             Env.whiteLogo,
-            width: 50,
+            width: 45,
           ),
         ),
         drawer: drawer(drawerKey: drawerKey, scaffoldKey: scaffoldKey),
@@ -46,34 +46,27 @@ class SearchScreen extends GetView<sc.SearchController> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const Text("Oups !!",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontFamily: "Poppins",
-                                                fontWeight: FontWeight.w700))
-                                        .marginOnly(bottom: 10),
                                     const Text(
-                                      "Vous avez atteint le nombre limit de match par jour.\n Veuillez changer votre offre à Premium.",
+                                      "Vous avez atteint la limite de suggestions de profils, passez à Twinz Premium pour voir d'avantage ou patientez 48h.Veuillez changer votre offre à Premium.",
                                       textAlign: TextAlign.center,
-                                    ),
-                                    SizedBox(
-                                      width: Get.width * .5,
-                                      child: ElevatedButton(
-                                          onPressed: () =>
-                                              controller.getMatchings(),
-                                          style: ElevatedButton.styleFrom(
-                                              elevation: 0,
-                                              backgroundColor: MAIN_COLOR,
-                                              foregroundColor: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                  side: const BorderSide(
-                                                      color: Colors.white,
-                                                      width: 1.5),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20))),
-                                          child: const Text("Relancer")),
-                                    ).marginOnly(top: 20),
+                                    ).marginSymmetric(horizontal: 20),
+                                    ElevatedButton(
+                                            onPressed: () =>
+                                                Get.toNamed(Goo.offerScreen),
+                                            style: ElevatedButton.styleFrom(
+                                                elevation: 0,
+                                                backgroundColor: MAIN_COLOR,
+                                                foregroundColor: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                    side: const BorderSide(
+                                                        color: Colors.white,
+                                                        width: 1.5),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20))),
+                                            child: const Text(
+                                                "Passez à Twinz Premimium"))
+                                        .marginOnly(top: 20),
                                   ]),
                             )
                       : Center(
@@ -306,7 +299,7 @@ class Matcher extends StatelessWidget {
                   .marginSymmetric(horizontal: 6)),
         ).marginSymmetric(vertical: 10),
         SizedBox(
-          height: Get.height * .75,
+          height: Get.height * .70,
           width: Get.width,
           child: AppinioSwiper(
             swipeOptions:
@@ -320,20 +313,86 @@ class Matcher extends StatelessWidget {
               left: 25,
               right: 25,
               top: 10,
-              bottom: 40,
+              bottom: 10,
             ),
             cardsCount: controller.currentMatch.length,
             cardsBuilder: (BuildContext context, int index) {
-              return SearchItemWidget(
-                  like: () => controller.onLike(controller.currentMatch[index]),
-                  swipBack: () =>
-                      controller.onSwipBack(controller.currentMatch[index]),
-                  cancel: () =>
-                      controller.onCancel(controller.currentMatch[index]),
-                  user: controller.currentMatch[index]);
+              return SearchItemWidget(user: controller.currentMatch[index]);
             },
           ),
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            GestureDetector(
+              onTap: () => controller.onCancel(controller.visibleUser.value),
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 20,
+                      offset: const Offset(2, 3), // changes position of shadow
+                    ),
+                  ],
+                  borderRadius: const BorderRadius.all(Radius.circular(50)),
+                ),
+                child: const Icon(
+                  Icons.close,
+                  color: Colors.pink,
+                  size: 35,
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () => controller.onSwipBack(controller.visibleUser.value),
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 20,
+                      offset: const Offset(2, 3), // changes position of shadow
+                    ),
+                  ],
+                  borderRadius: const BorderRadius.all(Radius.circular(50)),
+                ),
+                child: const Icon(
+                  Icons.undo,
+                  color: Colors.yellowAccent,
+                  size: 25,
+                ),
+              ),
+            ).marginOnly(top: 10),
+            GestureDetector(
+              onTap: () => controller.onLike(controller.visibleUser.value),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: MAIN_COLOR,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 20,
+                      offset: const Offset(2, 3), // changes position of shadow
+                    ),
+                  ],
+                  borderRadius: const BorderRadius.all(Radius.circular(50)),
+                ),
+                child: Image.asset(
+                  Env.whiteLogo,
+                  width: 50,
+                ),
+              ),
+            ),
+          ],
+        )
       ],
     );
   }
