@@ -25,4 +25,21 @@ class MatchingRepository {
 
     throw response.data;
   }
+
+  matchingSkip(User user) async {
+    var response = await _client.get("/matchings/${user.id}/skip");
+    if (response.statusCode! >= 200 && response.statusCode! < 400) {
+      return User.fromJson(response.data);
+    }
+    throw response.data;
+  }
+
+  matchingCancelSkip(User user) async {
+    var response = await _client.get("/matchings/${user.id}/cancel-skip");
+    if (response.statusCode! >= 200 && response.statusCode! < 400) {
+      return User.fromJson(response.data);
+    }
+
+    throw response.data;
+  }
 }

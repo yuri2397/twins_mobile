@@ -21,8 +21,7 @@ class ActiveAccountScreen extends GetView<ActiveAccountController> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Expanded(
-                    child: SingleChildScrollView(
+                SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -61,7 +60,7 @@ class ActiveAccountScreen extends GetView<ActiveAccountController> {
                             .marginSymmetric(vertical: 20),
                     ],
                   ),
-                )),
+                ),
                 SizedBox(
                   width: Get.width,
                   child: ElevatedButton(

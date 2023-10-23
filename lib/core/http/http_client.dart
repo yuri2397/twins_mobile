@@ -87,7 +87,6 @@ class AppInterceptors extends Interceptor {
   void onRequest(
       dio.RequestOptions options, dio.RequestInterceptorHandler handler) async {
     var token = localStorage.getToken();
-    print("${options.data}");
     if (token != null) {
       options.headers['Authorization'] = 'Bearer ${token.accessToken}';
       Get.log(options.headers.toString());
@@ -97,11 +96,21 @@ class AppInterceptors extends Interceptor {
 
   @override
   Future<void> onError(err, dio.ErrorInterceptorHandler handler) async {
-    print("ERROR =========== $err");
+    print("STATUS CODE: ${err.response?.statusCode}");
     if (err.response?.statusCode == 401 &&
         Get.currentRoute != Goo.loginScreen) {
       await Get.find<LoginService>().logout();
       Get.offAndToNamed(Goo.loginScreen);
+    }
+    if (err.response?.statusCode == 500) {
+      errorMessage(
+          title: "Une erreur est survenue",
+          content: "Veuillez réessayer plus tard");
+    }
+    if (err.response?.statusCode == 422) {
+      errorMessage(
+          title: "Une erreur est survenue",
+          content: "${err.response?.data['message']}");
     }
 
     handler.next(err);

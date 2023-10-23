@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:twinz/components/ui.dart';
-import 'package:twinz/core/services/firebase_message.service.dart';
 import 'package:twinz/core/services/login.service.dart';
-import 'package:twinz/core/services/profile.service.dart';
 import 'package:twinz/core/utils/utils.dart';
 import 'package:twinz/routes/router.dart';
-import 'package:twinz/views/home/home.screen.dart';
 
 class LoginController extends GetxController {
   final formKey = GlobalKey<FormState>();

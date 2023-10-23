@@ -80,8 +80,8 @@ class SearchController extends GetxController {
         }
       }
       canUnswip.value = true;
-
       visibleUser.value = currentMatch[index - 1];
+      _matchingService.matchingSkip(currentMatch[index]);
       visibleUser.refresh();
     } else if (direction == AppinioSwiperDirection.right) {
       onLike(currentMatch[index]);
@@ -92,11 +92,6 @@ class SearchController extends GetxController {
     likeLoad.value = true;
     _chatRequestService.sendRequestChat(toUser: currentMatch).then((value) {
       likeLoad.value = false;
-      // ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-      //   content: Text("Twinz avec ${currentMatch.fullName}."),
-      //   backgroundColor: MAIN_COLOR,
-      // ));
-      // swip left
       swiperController.swipeLeft();
     }).catchError((e) {
       likeLoad.value = false;
@@ -114,6 +109,7 @@ class SearchController extends GetxController {
       canUnswip.refresh();
       swiperController.unswipe();
     }
+    _matchingService.matchingCancelSkip(currentMatch);
   }
 
   onCancel(User currentMatch) {

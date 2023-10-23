@@ -9,9 +9,9 @@ class FirebaseService extends GetxService {
   final authorizeNotification = false.obs;
   Future<FirebaseService> init() async {
     try {
+      onFirstPlanMessage();
       fcmToken.value = await FirebaseMessaging.instance.getToken() ?? "";
       localStorage.fcmToken = fcmToken.value;
-      print(fcmToken.value);
     } catch (e) {
       print("$e");
     }
@@ -20,9 +20,6 @@ class FirebaseService extends GetxService {
 
   onFirstPlanMessage() async {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
-
       if (message.notification != null) {
         print('Message also contained a notification: ${message.notification}');
       }

@@ -22,4 +22,22 @@ class MatchingService extends GetxService {
       rethrow;
     }
   }
+
+  matchingSkip(User user) async {
+    try {
+      return await _provider.matchingSkip(user);
+    } catch (e) {
+      e.printError();
+      rethrow;
+    }
+  }
+
+  matchingCancelSkip(User user) async {
+    try {
+      return await _provider.matchingCancelSkip(user);
+    } catch (e) {
+      e.printError();
+      rethrow;
+    }
+  }
 }

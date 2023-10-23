@@ -1,8 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:twinz/controllers/onboarding.controller.dart';
 import 'package:twinz/core/config/env.dart';
+import 'package:twinz/core/services/firebase_message.service.dart';
 import 'package:twinz/routes/router.dart';
 import 'package:twinz/shared/utils/colors.dart';
 
@@ -40,19 +42,21 @@ class OnboardingScreen extends GetView<OnboardingController> {
               width: Get.width - 60,
               child: RichText(
                   textAlign: TextAlign.start,
-                  text: const TextSpan(
+                  text: TextSpan(
                       text: "En utilisant nos services, vous acceptez nos ",
-                      style: TextStyle(fontSize: 18, color: Colors.white),
+                      style: const TextStyle(fontSize: 18, color: Colors.white),
                       children: [
                         TextSpan(
-                          text: "conditions d’utilisation",
-                          style: TextStyle(
+                          text: "conditions d'utilisation",
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => lunchWebURL(Env.conditionnalitUrl),
+                          style: const TextStyle(
                               decoration: TextDecoration.underline,
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.bold),
                         ),
-                        TextSpan(
+                        const TextSpan(
                           text: ". Consultez notre ",
                           style: TextStyle(
                             color: Colors.white,
@@ -61,13 +65,15 @@ class OnboardingScreen extends GetView<OnboardingController> {
                         ),
                         TextSpan(
                           text: "politique de confidentialité",
-                          style: TextStyle(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => lunchWebURL(Env.policiesUrl),
+                          style: const TextStyle(
                               decoration: TextDecoration.underline,
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.bold),
                         ),
-                        TextSpan(
+                        const TextSpan(
                           text: " et ",
                           style: TextStyle(
                             fontSize: 18,
@@ -75,13 +81,15 @@ class OnboardingScreen extends GetView<OnboardingController> {
                         ),
                         TextSpan(
                           text: "celle relative aux cookies",
-                          style: TextStyle(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => lunchWebURL(Env.cookiesUrl),
+                          style: const TextStyle(
                               decoration: TextDecoration.underline,
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.bold),
                         ),
-                        TextSpan(
+                        const TextSpan(
                           text:
                               " pour en savoir plus sur le traitement de vos données.",
                           style: TextStyle(

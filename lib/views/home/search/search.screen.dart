@@ -307,12 +307,18 @@ class Matcher extends StatelessWidget {
             unlimitedUnswipe: true,
             controller: controller.swiperController,
             backgroundCardsCount: 0,
-            onSwiping: (AppinioSwiperDirection direction) {},
+            onSwiping: (AppinioSwiperDirection direction) {
+              if (direction == AppinioSwiperDirection.left) {
+                controller.onSwipBack(controller.visibleUser.value);
+              }
+              if (direction == AppinioSwiperDirection.right) {
+                controller.onLike(controller.visibleUser.value);
+              }
+            },
             onSwipe: controller.swipe,
             padding: const EdgeInsets.only(
-              left: 25,
-              right: 25,
-              top: 10,
+              left: 20,
+              right: 20,
               bottom: 10,
             ),
             cardsCount: controller.currentMatch.length,
@@ -365,7 +371,7 @@ class Matcher extends StatelessWidget {
                 ),
                 child: const Icon(
                   Icons.undo,
-                  color: Colors.yellowAccent,
+                  color: Colors.orange,
                   size: 25,
                 ),
               ),

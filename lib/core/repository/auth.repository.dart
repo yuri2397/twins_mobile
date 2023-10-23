@@ -24,7 +24,7 @@ class AuthRepository {
         "device_token": localStorage.getFcmToken()
       });
 
-      if (response.statusCode! <= 200 && response.statusCode! < 300) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return Token.fromJson(response.data);
       } else {
         throw "Email ou mot de passe invalide.";

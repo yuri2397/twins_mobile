@@ -153,6 +153,21 @@ class ProfileScreen extends GetView<ProfileController> {
                                 ),
                               ),
                               ListTile(
+                                title: const Text("Ville",
+                                    style: TextStyle(
+                                      color: DARK_COLOR,
+                                      fontSize: 18,
+                                    )),
+                                trailing: Text(
+                                  "${controller.user.value?.address}",
+                                  style: const TextStyle(
+                                      color: Colors.black38,
+                                      fontFamily: "Poppins",
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                              ListTile(
                                 title: const Text("Sexe :",
                                     style: TextStyle(
                                       color: DARK_COLOR,
