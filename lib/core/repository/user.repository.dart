@@ -21,7 +21,7 @@ class UserRepository {
   Future<bool> blockUser({required User user}) async {
     try {
       var response = await _client.post("/users/${user.id}/block", data: {});
-      if (response.statusCode! <= 200 && response.statusCode! < 300) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return true;
       } else {
         throw "Oups! une erreur s'est produite.";
@@ -34,7 +34,7 @@ class UserRepository {
   Future<bool> reportUser({required User user}) async {
     try {
       var response = await _client.post("/users/${user.id}/report", data: {});
-      if (response.statusCode! <= 200 && response.statusCode! < 300) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return true;
       } else {
         throw "Oups! une erreur s'est produite.";
@@ -47,7 +47,7 @@ class UserRepository {
   Future<bool> unblockUser({required User user}) async {
     try {
       var response = await _client.post("/users/${user.id}/unblock", data: {});
-      if (response.statusCode! <= 200 && response.statusCode! < 300) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return true;
       } else {
         throw "Oups! une erreur s'est produite.";
@@ -60,7 +60,7 @@ class UserRepository {
   Future<bool> enableAccount() async {
     try {
       var response = await _client.post("/enable-account", data: {});
-      if (response.statusCode! <= 200 && response.statusCode! < 300) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return true;
       } else {
         throw "Oups! une erreur s'est produite.";
@@ -73,10 +73,23 @@ class UserRepository {
   Future<bool> disableAccount() async {
     try {
       var response = await _client.post("/disable-account", data: {});
-      if (response.statusCode! <= 200 && response.statusCode! < 300) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return true;
       } else {
         throw "Oups! une erreur s'est produite.";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<bool> deleteAccount() async {
+    try {
+      var response = await _client.delete("/delete-account");
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return true;
+      } else {
+        throw response.data;
       }
     } catch (e) {
       rethrow;

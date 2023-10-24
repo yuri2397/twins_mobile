@@ -135,6 +135,8 @@ class ProfileController extends GetxController {
   }
 
   logout() async {
+    logoutLoad.value = false;
+
     Get.bottomSheet(Container(
       padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
       decoration: const BoxDecoration(
@@ -175,7 +177,7 @@ class ProfileController extends GetxController {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(6))),
                   onPressed: () {
-                    logoutLoad.value = false;
+                    logoutLoad.value = true;
                     _profileService.logout().then((value) {
                       logoutLoad.value = false;
                       localStorage.clear();
@@ -266,6 +268,9 @@ class ProfileController extends GetxController {
   }
 
   removeAccount() async {
+    logoutLoad.value = false;
+    logoutLoad.refresh();
+    print("${logoutLoad.value}");
     Get.bottomSheet(Container(
       padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
       decoration: const BoxDecoration(
@@ -276,7 +281,7 @@ class ProfileController extends GetxController {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text("Déconnexion",
+          const Text("Supprimer le compte",
               style: TextStyle(
                   color: DARK_COLOR,
                   fontFamily: "Poppins",
@@ -285,7 +290,9 @@ class ProfileController extends GetxController {
           const SizedBox(
             height: 10,
           ),
-          const Text("Continuer la déconnexion? ",
+          const Text(
+              "Attention, cette action est irréversible. Vous perdrez toutes vos données. Voulez-vous vraiment continuer?",
+              textAlign: TextAlign.center,
               style: TextStyle(
                   color: DARK_COLOR,
                   fontFamily: "Poppins",
@@ -294,43 +301,48 @@ class ProfileController extends GetxController {
           const SizedBox(
             height: 20,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                  style: TextButton.styleFrom(
-                      backgroundColor: MAIN_COLOR,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6))),
-                  onPressed: () {
-                    logoutLoad.value = false;
-                    _profileService.logout().then((value) {
-                      logoutLoad.value = false;
-                      localStorage.clear();
-                      Get.offAllNamed(Goo.onboardingScreen);
-                    }).catchError((e) {
-                      logoutLoad.value = false;
-                    });
-                  },
-                  child: const Text("Oui")),
-              const SizedBox(
-                width: 100,
-              ),
-              ElevatedButton(
-                  style: TextButton.styleFrom(
-                      foregroundColor: DARK_COLOR,
-                      backgroundColor: Colors.transparent,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6))),
-                  onPressed: () {
-                    Get.back();
-                  },
-                  child: const Text("Annuler")),
-            ],
-          )
+          Obx(
+            () => !logoutLoad.value
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                          style: TextButton.styleFrom(
+                              backgroundColor: Colors.pink,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6))),
+                          onPressed: () async {
+                            logoutLoad.value = true;
+                            logoutLoad.refresh();
+                            var value =
+                                await Get.find<UserService>().deleteAccount();
+                            logoutLoad.value = true;
+                            logoutLoad.refresh();
+                            if (value) {
+                              localStorage.clear();
+                              Get.offAllNamed(Goo.onboardingScreen);
+                            }
+                          },
+                          child: const Text("Oui, supprimer le compte")),
+                      ElevatedButton(
+                          style: TextButton.styleFrom(
+                              foregroundColor: DARK_COLOR,
+                              backgroundColor: Colors.transparent,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6))),
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: const Text("Annuler")),
+                    ],
+                  )
+                : const CircularProgressIndicator(
+                    color: MAIN_COLOR,
+                  ),
+          ),
         ],
       ),
     ));

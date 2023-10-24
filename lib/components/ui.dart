@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:twinz/controllers/home.controller.dart';
 import 'package:twinz/core/model/user.dart';
 import 'package:twinz/routes/router.dart';
 import 'package:twinz/shared/utils/colors.dart';
@@ -214,10 +215,10 @@ drawer({drawerKey, scaffoldKey}) {
     child: ListView(
       children: [
         ListTile(
-          leading: itemIcon(Icons.close, color: Colors.black),
+          leading: itemIcon(Icons.close, color: MAIN_COLOR),
           title: const Text("Menu",
               style: TextStyle(
-                  fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
+                  fontSize: 20, color: MAIN_COLOR, fontFamily: "Poppins")),
           onTap: () => scaffoldKey.currentState?.closeDrawer(),
         ),
         const SizedBox(
@@ -230,39 +231,40 @@ drawer({drawerKey, scaffoldKey}) {
           height: 20,
         ),
         ListTile(
-          leading: itemIcon(Icons.person_outline_rounded, color: Colors.black),
+          onTap: () => Get.find<HomeController>().currentIndex.value = 3,
+          leading: itemIcon(Icons.person_outline_rounded, color: MAIN_COLOR),
           title: const Text("Profil",
               style: TextStyle(
-                  fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
+                  fontSize: 20, color: MAIN_COLOR, fontFamily: "Poppins")),
         ),
         const SizedBox(
           height: 20,
         ),
         ListTile(
           onTap: () => Get.toNamed(Goo.offerScreen),
-          leading: itemIcon(Icons.payment_outlined, color: Colors.black),
+          leading: itemIcon(Icons.payment_outlined, color: MAIN_COLOR),
           title: const Text("Twinz premium",
               style: TextStyle(
-                  fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
+                  fontSize: 20, color: MAIN_COLOR, fontFamily: "Poppins")),
         ),
         const SizedBox(
           height: 20,
         ),
         ListTile(
           onTap: () => Get.toNamed(Goo.settingScreen),
-          leading: itemIcon(Icons.settings_outlined, color: Colors.black),
+          leading: itemIcon(Icons.settings_outlined, color: MAIN_COLOR),
           title: const Text("Réglages",
               style: TextStyle(
-                  fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
+                  fontSize: 20, color: MAIN_COLOR, fontFamily: "Poppins")),
         ),
         const SizedBox(
           height: 20,
         ),
         ListTile(
-          leading: itemIcon(Icons.security_outlined, color: Colors.black),
+          leading: itemIcon(Icons.security_outlined, color: MAIN_COLOR),
           title: const Text("Confidentialité",
               style: TextStyle(
-                  fontSize: 20, color: Colors.black, fontFamily: "Poppins")),
+                  fontSize: 20, color: MAIN_COLOR, fontFamily: "Poppins")),
         )
       ],
     ).paddingSymmetric(vertical: 40, horizontal: 20),

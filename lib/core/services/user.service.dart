@@ -54,4 +54,13 @@ class UserService extends GetxService {
       rethrow;
     }
   }
+
+  Future<bool> deleteAccount() async {
+    try {
+      return await _repo.deleteAccount();
+    } catch (e) {
+      print("$e");
+      rethrow;
+    }
+  }
 }

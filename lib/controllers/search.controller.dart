@@ -92,10 +92,10 @@ class SearchController extends GetxController {
     likeLoad.value = true;
     _chatRequestService.sendRequestChat(toUser: currentMatch).then((value) {
       likeLoad.value = false;
-      swiperController.swipeLeft();
     }).catchError((e) {
       likeLoad.value = false;
     });
+    swiperController.swipeRight();
   }
 
   onSwipBack(User currentMatch) {

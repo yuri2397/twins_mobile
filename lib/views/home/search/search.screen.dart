@@ -307,14 +307,6 @@ class Matcher extends StatelessWidget {
             unlimitedUnswipe: true,
             controller: controller.swiperController,
             backgroundCardsCount: 0,
-            onSwiping: (AppinioSwiperDirection direction) {
-              if (direction == AppinioSwiperDirection.left) {
-                controller.onSwipBack(controller.visibleUser.value);
-              }
-              if (direction == AppinioSwiperDirection.right) {
-                controller.onLike(controller.visibleUser.value);
-              }
-            },
             onSwipe: controller.swipe,
             padding: const EdgeInsets.only(
               left: 20,
