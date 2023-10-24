@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:twinz/shared/utils/colors.dart';
 
 class TwinsInput extends TextFormField {
   String? label;

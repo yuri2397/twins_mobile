@@ -70,7 +70,7 @@ class AddSexScreen extends GetView<RegisterController> {
                         backgroundColor: MAIN_COLOR,
                         foregroundColor: Colors.white),
                     onPressed: () {
-                      Get.toNamed(Goo.addPasswordScreen);
+                      Get.toNamed(Goo.addEmailScreen);
                     },
                     child:
                         const Text("Suivant", style: TextStyle(fontSize: 18)),

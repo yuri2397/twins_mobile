@@ -99,7 +99,7 @@ class RegisterController extends GetxController {
       "password_confirmation": passwordCtrl.text,
       "device_name": await deviceName,
       "device_id": await deviceId,
-      "device_token": localStorage.getFcmToken() ?? "token"
+      "device_token": localStorage.getFcmToken()
     };
     _registerService.register(data: data, files: finalFiles).then((value) {
       loading.value = false;

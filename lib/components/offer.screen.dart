@@ -22,15 +22,25 @@ class OfferScreen extends GetView<OfferController> {
               )
             : Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
                     "Abonnement",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                         color: MAIN_COLOR,
                         fontSize: 30,
                         fontFamily: "Poppins",
                         fontWeight: FontWeight.w700),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    "L'achat se fait en un paiment unique sans renouvellement automatique. Vous ne serez donc pas débité en dehors de votre période d'abonnement, sauf si vous choisissez de le renouveller par vous-même.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: DARK_COLOR, fontFamily: "Poppins", fontSize: 16),
                   ),
                   const SizedBox(
                     height: 40,
@@ -49,7 +59,7 @@ class OfferScreen extends GetView<OfferController> {
                               horizontal: 8, vertical: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: MAIN_COLOR, width: 2),
+                            border: Border.all(color: GRAY_COLOR, width: 2),
                           ),
                           child: Column(
                             children: [
@@ -82,7 +92,7 @@ class OfferScreen extends GetView<OfferController> {
                               horizontal: 8, vertical: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: GRAY_COLOR, width: 2),
+                            border: Border.all(color: MAIN_COLOR, width: 2),
                           ),
                           child: Column(
                             children: [

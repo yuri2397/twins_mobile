@@ -35,31 +35,15 @@ class NotificationsScreen extends GetView<NotificationController> {
                       () async => await controller.fetchNotifications()),
                   color: MAIN_COLOR,
                   child: controller.items.isEmpty
-                      ? ListView(
-                          children: [
-                            Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/images/notifications.svg",
-                                    width: 300,
-                                  ),
-                                  const Text(
-                                    "Aucune notification",
-                                    style: TextStyle(
-                                        color: DARK_COLOR,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500),
-                                    textAlign: TextAlign.center,
-                                  ).marginSymmetric(horizontal: 20)
-                                ],
-                              ),
-                            ),
-                          ],
-                        )
+                      ? Center(
+                          child: const Text(
+                          "Aucune notification",
+                          style: TextStyle(
+                              color: DARK_COLOR,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500),
+                          textAlign: TextAlign.center,
+                        ).marginSymmetric(horizontal: 20))
                       : ListView.separated(
                           itemCount: controller.items.length,
                           padding: const EdgeInsets.symmetric(vertical: 20),

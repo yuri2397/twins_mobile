@@ -105,17 +105,11 @@ class AuthRepository {
       multipartFiles.add(multipartFile);
     }
     data.addAll({'photos': images});
-    Get.log("$images");
 
     try {
       var response = await _client.post(
         '/register',
         data: data,
-        options: dio.Options(
-            followRedirects: false,
-            validateStatus: (status) {
-              return status! < 500;
-            }),
       );
 
       if (response.statusCode! >= 200 && response.statusCode! <= 300) {

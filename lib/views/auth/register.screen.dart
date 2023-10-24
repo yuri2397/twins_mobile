@@ -86,7 +86,7 @@ class RegisterScreen extends GetView<RegisterController> {
                       foregroundColor: Colors.white),
                   onPressed: () {
                     if (_form.currentState!.validate()) {
-                      Get.toNamed(Goo.addEmailScreen);
+                      Get.toNamed(Goo.addSexScreen);
                     }
                   },
                   child: const Text("Suivant", style: TextStyle(fontSize: 18)),

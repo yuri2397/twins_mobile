@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:twinz/core/config/env.dart';
 import 'package:twinz/core/model/user.dart';
 import 'package:twinz/shared/utils/colors.dart';
 import 'package:twinz/controllers/search.controller.dart' as sc;
@@ -9,7 +10,13 @@ import 'package:twinz/controllers/search.controller.dart' as sc;
 // ignore: must_be_immutable
 class SearchItemWidget extends StatelessWidget {
   User user;
-  SearchItemWidget({super.key, required this.user});
+  bool showCancelIcon = false;
+  bool showLikeIcons = false;
+  SearchItemWidget(
+      {super.key,
+      required this.user,
+      this.showCancelIcon = false,
+      this.showLikeIcons = false});
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +117,37 @@ class SearchItemWidget extends StatelessWidget {
                                 style: const TextStyle(color: Colors.white)),
                           ),
                         ]),
-                  ))
+                  )),
+              if (showCancelIcon)
+                Positioned(
+                  top: 10,
+                  bottom: 10,
+                  left: Get.width * .38,
+                  right: Get.width * .38,
+                  child: const CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 30,
+                    child: Icon(
+                      Icons.close,
+                      color: Colors.pink,
+                      size: 35,
+                    ),
+                  ),
+                ),
+              if (showLikeIcons)
+                Positioned(
+                  top: 10,
+                  bottom: 10,
+                  left: Get.width * .38,
+                  right: Get.width * .38,
+                  child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 30,
+                      child: Image.asset(
+                        Env.whiteLogo,
+                        width: 50,
+                      )),
+                ),
             ],
           ),
         ),

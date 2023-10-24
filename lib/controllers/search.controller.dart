@@ -27,6 +27,9 @@ class SearchController extends GetxController {
   final _swipIndex = localStorage.getSwipIndex().obs;
   final _userService = Get.find<UserService>();
 
+  final showCancelIcon = false.obs;
+  final showLikeIcons = false.obs;
+
   @override
   void onInit() {
     _swipIndex.listen((newIndex) {
@@ -86,6 +89,9 @@ class SearchController extends GetxController {
     } else if (direction == AppinioSwiperDirection.right) {
       onLike(currentMatch[index]);
     }
+
+    showCancelIcon.value = false;
+    showLikeIcons.value = false;
   }
 
   onLike(User currentMatch) {
@@ -140,5 +146,13 @@ class SearchController extends GetxController {
       print("$e");
       matchLoad.value = false;
     });
+  }
+
+  void onSwipLeft() {
+    showCancelIcon.value = true;
+  }
+
+  void onSwipRight() {
+    showLikeIcons.value = true;
   }
 }

@@ -42,7 +42,7 @@ class ActiveAccountScreen extends GetView<ActiveAccountController> {
                         height: 20,
                       ),
                       const Text(
-                        "Pour continuer, merci de vérifier votre addresse email.",
+                        "Pour continuer, merci de vérifier votre adresse email.",
                         style: TextStyle(
                             color: DARK_COLOR,
                             fontSize: 16,

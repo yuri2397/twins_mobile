@@ -124,7 +124,7 @@ class ProfileScreen extends GetView<ProfileController> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           const Icon(Icons.circle, color: MAIN_COLOR, size: 15),
-                          const Text("Mes infos personelles",
+                          const Text("Mes infos personnelles",
                               style: TextStyle(
                                 color: MAIN_COLOR,
                                 fontSize: 18,

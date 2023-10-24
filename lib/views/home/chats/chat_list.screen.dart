@@ -33,26 +33,14 @@ class ChatListScreen extends GetView<ChatController> {
                 )
               : controller.chats.isEmpty
                   ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          SvgPicture.asset(
-                            "assets/images/message.svg",
-                            width: 300,
-                          ),
-                          const Text(
-                            "Aucune données",
-                            style: TextStyle(
-                                color: DARK_COLOR,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-                            textAlign: TextAlign.center,
-                          ).marginSymmetric(horizontal: 20)
-                        ],
-                      ),
-                    )
+                      child: const Text(
+                      "Aucun message",
+                      style: TextStyle(
+                          color: DARK_COLOR,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500),
+                      textAlign: TextAlign.center,
+                    ).marginSymmetric(horizontal: 20))
                   : RefreshIndicator(
                       color: MAIN_COLOR,
                       onRefresh: () =>
