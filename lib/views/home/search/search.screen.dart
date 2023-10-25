@@ -77,7 +77,7 @@ class SearchScreen extends GetView<sc.SearchController> {
                                 const Text("Oups !!",
                                         style: TextStyle(
                                             fontSize: 20,
-                                            fontFamily: "Poppins",
+                                            fontFamily: "Haylard",
                                             fontWeight: FontWeight.w700))
                                     .marginOnly(bottom: 10),
                                 const Text(
@@ -116,7 +116,7 @@ class SearchScreen extends GetView<sc.SearchController> {
             const Text("Oups !!",
                     style: TextStyle(
                         fontSize: 20,
-                        fontFamily: "Poppins",
+                        fontFamily: "Haylard",
                         fontWeight: FontWeight.w700))
                 .marginOnly(bottom: 10),
             const Text(
@@ -301,7 +301,7 @@ class Matcher extends StatelessWidget {
           ).marginSymmetric(vertical: 10),
         ),
         SizedBox(
-          height: Get.height * .70,
+          height: Get.height * .71,
           width: Get.width,
           child: AppinioSwiper(
             swipeOptions:

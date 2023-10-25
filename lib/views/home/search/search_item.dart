@@ -27,7 +27,7 @@ class SearchItemWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: Get.height * .65,
+          height: Get.height * .69,
           width: Get.width,
           child: Stack(
             children: [
@@ -52,20 +52,24 @@ class SearchItemWidget extends StatelessWidget {
                 child: GestureDetector(
                     onTap: () =>
                         Get.find<sc.SearchController>().searchDetails(user),
-                    child: itemIcon(
-                      CupertinoIcons.info,
-                      color: MAIN_COLOR,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 18,
+                      child: SvgPicture.asset(
+                        "assets/icons/info.svg",
+                        color: MAIN_COLOR,
+                        width: 30,
+                      ),
                     )),
               ),
               Positioned(
                   bottom: 0,
                   child: Container(
                     padding: const EdgeInsets.only(left: 10),
+                    width: Get.width - 40,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)),
+                      borderRadius: BorderRadius.circular(10),
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
@@ -101,34 +105,6 @@ class SearchItemWidget extends StatelessWidget {
                                 style: const TextStyle(
                                     color: Colors.white, fontSize: 18)),
                           ),
-                          // const SizedBox(
-                          //   height: 5,
-                          // ),
-                          // // ville
-                          // Text(
-                          //   user.address ?? 'Ville',
-                          //   style: const TextStyle(
-                          //       color: Colors.white, fontSize: 18),
-                          // ),
-                          // const SizedBox(
-                          //   height: 5,
-                          // ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.start,
-                          //   crossAxisAlignment: CrossAxisAlignment.center,
-                          //   children: [
-                          //     SvgPicture.asset("assets/icons/position.svg",
-                          //         color: Colors.white),
-                          //     const SizedBox(
-                          //       width: 5,
-                          //     ),
-                          //     Text(
-                          //       "${user.distance} km",
-                          //       style: const TextStyle(
-                          //           color: Colors.white, fontSize: 18),
-                          //     ),
-                          //   ],
-                          // ),
 
                           const SizedBox(
                             height: 5,

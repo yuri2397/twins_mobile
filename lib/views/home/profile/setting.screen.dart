@@ -30,7 +30,7 @@ class SettingScreen extends GetView<ProfileController> {
                 style: TextStyle(
                     color: MAIN_COLOR,
                     fontSize: 30,
-                    fontFamily: "Poppins",
+                    fontFamily: "Haylard",
                     fontWeight: FontWeight.w700),
               ),
               const SizedBox(
@@ -77,7 +77,7 @@ class SettingScreen extends GetView<ProfileController> {
                     style: TextStyle(
                         color: DARK_COLOR,
                         fontSize: 20,
-                        fontFamily: "Poppins",
+                        fontFamily: "Haylard",
                         fontWeight: FontWeight.bold),
                   ).marginOnly(left: 10),
                 ],
@@ -128,7 +128,7 @@ class SettingScreen extends GetView<ProfileController> {
                     style: TextStyle(
                         color: DARK_COLOR,
                         fontSize: 20,
-                        fontFamily: "Poppins",
+                        fontFamily: "Haylard",
                         fontWeight: FontWeight.bold),
                   ).marginOnly(left: 10),
                 ],
@@ -182,7 +182,7 @@ class SettingScreen extends GetView<ProfileController> {
                     style: TextStyle(
                         color: DARK_COLOR,
                         fontSize: 20,
-                        fontFamily: "Poppins",
+                        fontFamily: "Haylard",
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.start,
                   ).marginOnly(left: 10),

@@ -218,7 +218,7 @@ drawer({drawerKey, scaffoldKey}) {
           leading: itemIcon(Icons.close, color: MAIN_COLOR),
           title: const Text("Menu",
               style: TextStyle(
-                  fontSize: 20, color: MAIN_COLOR, fontFamily: "Poppins")),
+                  fontSize: 20, color: MAIN_COLOR, fontFamily: "Haylard")),
           onTap: () => scaffoldKey.currentState?.closeDrawer(),
         ),
         const SizedBox(
@@ -235,7 +235,7 @@ drawer({drawerKey, scaffoldKey}) {
           leading: itemIcon(Icons.person_outline_rounded, color: MAIN_COLOR),
           title: const Text("Profil",
               style: TextStyle(
-                  fontSize: 20, color: MAIN_COLOR, fontFamily: "Poppins")),
+                  fontSize: 20, color: MAIN_COLOR, fontFamily: "Haylard")),
         ),
         const SizedBox(
           height: 20,
@@ -245,7 +245,7 @@ drawer({drawerKey, scaffoldKey}) {
           leading: itemIcon(Icons.payment_outlined, color: MAIN_COLOR),
           title: const Text("Twinz Premium",
               style: TextStyle(
-                  fontSize: 20, color: MAIN_COLOR, fontFamily: "Poppins")),
+                  fontSize: 20, color: MAIN_COLOR, fontFamily: "Haylard")),
         ),
         const SizedBox(
           height: 20,
@@ -255,7 +255,7 @@ drawer({drawerKey, scaffoldKey}) {
           leading: itemIcon(Icons.settings_outlined, color: MAIN_COLOR),
           title: const Text("Réglages",
               style: TextStyle(
-                  fontSize: 20, color: MAIN_COLOR, fontFamily: "Poppins")),
+                  fontSize: 20, color: MAIN_COLOR, fontFamily: "Haylard")),
         ),
         const SizedBox(
           height: 20,
@@ -264,7 +264,7 @@ drawer({drawerKey, scaffoldKey}) {
           leading: itemIcon(Icons.security_outlined, color: MAIN_COLOR),
           title: const Text("Confidentialité",
               style: TextStyle(
-                  fontSize: 20, color: MAIN_COLOR, fontFamily: "Poppins")),
+                  fontSize: 20, color: MAIN_COLOR, fontFamily: "Haylard")),
         )
       ],
     ).paddingSymmetric(vertical: 40, horizontal: 20),

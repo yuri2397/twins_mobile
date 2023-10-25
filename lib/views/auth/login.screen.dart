@@ -27,7 +27,7 @@ class LoginScreen extends GetView<LoginController> {
               ).marginOnly(bottom: 100),
               const Text("Connexion",
                       style: TextStyle(
-                          fontFamily: "Poppins",
+                          fontFamily: "Haylard",
                           fontSize: 25,
                           fontWeight: FontWeight.w500,
                           color: Colors.white))
@@ -101,7 +101,7 @@ class LoginScreen extends GetView<LoginController> {
                         )
                       : const Text(
                           "Se connecter",
-                          style: TextStyle(fontFamily: "Poppins"),
+                          style: TextStyle(fontFamily: "Haylard"),
                         ),
                 ),
               ),
@@ -115,7 +115,7 @@ class LoginScreen extends GetView<LoginController> {
                       "Mot de passe oublié?",
                       style: TextStyle(
                           color: Colors.white,
-                          fontFamily: "Poppins",
+                          fontFamily: "Haylard",
                           fontSize: 16),
                     )),
               ),

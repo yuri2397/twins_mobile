@@ -27,7 +27,7 @@ class TwinsInput extends TextFormField {
                 label: Text(
                   label ?? "",
                   style: const TextStyle(
-                      fontFamily: "Poppins", color: Colors.white),
+                      fontFamily: "Haylard", color: Colors.white),
                 ),
                 border: OutlineInputBorder(
                     borderSide:

@@ -46,7 +46,7 @@ class AddAvatarScreen extends GetView<RegisterController> {
                       style: TextStyle(
                           color: MAIN_COLOR,
                           fontSize: 30,
-                          fontFamily: "Poppins",
+                          fontFamily: "Haylard",
                           fontWeight: FontWeight.w700),
                       textAlign: TextAlign.center,
                     ),
@@ -58,7 +58,7 @@ class AddAvatarScreen extends GetView<RegisterController> {
                       style: TextStyle(
                           color: DARK_COLOR,
                           fontSize: 16,
-                          fontFamily: "Poppins",
+                          fontFamily: "Haylard",
                           fontWeight: FontWeight.w400),
                       textAlign: TextAlign.center,
                     ),

@@ -150,7 +150,7 @@ class ProfileController extends GetxController {
           const Text("Déconnexion",
               style: TextStyle(
                   color: DARK_COLOR,
-                  fontFamily: "Poppins",
+                  fontFamily: "Haylard",
                   fontSize: 23,
                   fontWeight: FontWeight.w700)),
           const SizedBox(
@@ -159,7 +159,7 @@ class ProfileController extends GetxController {
           const Text("Continuer la déconnexion? ",
               style: TextStyle(
                   color: DARK_COLOR,
-                  fontFamily: "Poppins",
+                  fontFamily: "Haylard",
                   fontSize: 16,
                   fontWeight: FontWeight.w400)),
           const SizedBox(
@@ -225,7 +225,7 @@ class ProfileController extends GetxController {
               "La désactivation de votre compte est temporaire, votre profil sera masqué jusqu’à ce que vous le réactiviez en vous connectant à nouveau sur Twinz.",
               style: TextStyle(
                   color: DARK_COLOR,
-                  fontFamily: "Poppins",
+                  fontFamily: "Haylard",
                   fontSize: 16,
                   fontWeight: FontWeight.w400)),
           const SizedBox(
@@ -284,7 +284,7 @@ class ProfileController extends GetxController {
           const Text("Supprimer le compte",
               style: TextStyle(
                   color: DARK_COLOR,
-                  fontFamily: "Poppins",
+                  fontFamily: "Haylard",
                   fontSize: 23,
                   fontWeight: FontWeight.w700)),
           const SizedBox(
@@ -295,7 +295,7 @@ class ProfileController extends GetxController {
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: DARK_COLOR,
-                  fontFamily: "Poppins",
+                  fontFamily: "Haylard",
                   fontSize: 16,
                   fontWeight: FontWeight.w400)),
           const SizedBox(
@@ -363,7 +363,7 @@ class ProfileController extends GetxController {
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: DARK_COLOR,
-                  fontFamily: "Poppins",
+                  fontFamily: "Haylard",
                   fontSize: 23,
                   fontWeight: FontWeight.w700)),
           const SizedBox(
@@ -374,7 +374,7 @@ class ProfileController extends GetxController {
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: DARK_COLOR,
-                  fontFamily: "Poppins",
+                  fontFamily: "Haylard",
                   fontSize: 16,
                   fontWeight: FontWeight.w400)),
           const SizedBox(

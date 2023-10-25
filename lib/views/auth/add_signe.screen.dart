@@ -32,7 +32,7 @@ class AddSigneScreen extends GetView<RegisterController> {
                   style: const TextStyle(
                       color: DARK_COLOR,
                       fontSize: 30,
-                      fontFamily: "Poppins",
+                      fontFamily: "Haylard",
                       fontWeight: FontWeight.w700),
                   textAlign: TextAlign.center,
                 ),
@@ -49,7 +49,7 @@ class AddSigneScreen extends GetView<RegisterController> {
                   style: const TextStyle(
                       color: DARK_COLOR,
                       fontSize: 18,
-                      fontFamily: "Poppins",
+                      fontFamily: "Haylard",
                       fontWeight: FontWeight.w400),
                 ),
               ],

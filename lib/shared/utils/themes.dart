@@ -8,8 +8,8 @@ final defaultTheme = ThemeData(
     colorScheme: ColorScheme.fromSwatch().copyWith(secondary: PRIMARY_COLOR),
     hintColor: NEUTRAL_COLOR,
     inputDecorationTheme: const InputDecorationTheme(
-      labelStyle: TextStyle(color: MAIN_COLOR, fontFamily: "Poppins"),
-      hintStyle: TextStyle(color: MAIN_COLOR, fontFamily: "Poppins"),
+      labelStyle: TextStyle(color: MAIN_COLOR, fontFamily: "Haylard"),
+      hintStyle: TextStyle(color: MAIN_COLOR, fontFamily: "Haylard"),
     ),
     shadowColor: const Color.fromARGB(200, 158, 158, 158).withOpacity(0.5),
     scaffoldBackgroundColor: Colors.white,
@@ -24,7 +24,7 @@ final defaultTheme = ThemeData(
         centerTitle: true,
         titleTextStyle: TextStyle(
             color: MAIN_COLOR,
-            fontFamily: "Poppins",
+            fontFamily: "Haylard",
             fontSize: 20,
             fontWeight: FontWeight.bold),
         iconTheme: IconThemeData(color: MAIN_COLOR)));

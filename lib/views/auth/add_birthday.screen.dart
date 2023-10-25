@@ -37,7 +37,7 @@ class AddBirthDayScreen extends GetView<RegisterController> {
                     style: TextStyle(
                         color: DARK_COLOR,
                         fontSize: 30,
-                        fontFamily: "Poppins",
+                        fontFamily: "Haylard",
                         fontWeight: FontWeight.w700),
                     textAlign: TextAlign.start,
                   ),
@@ -191,7 +191,7 @@ class AddBirthDayScreen extends GetView<RegisterController> {
     return InputDecoration(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       hintText: text,
-      hintStyle: const TextStyle(color: Colors.white, fontFamily: "Poppins"),
+      hintStyle: const TextStyle(color: Colors.white, fontFamily: "Haylard"),
       fillColor: MAIN_COLOR,
       filled: true,
       errorStyle: const TextStyle(color: Colors.redAccent),

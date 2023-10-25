@@ -45,7 +45,7 @@ class AddFilesScreen extends GetView<ProfileController> {
                             style: TextStyle(
                                 color: MAIN_COLOR,
                                 fontSize: 30,
-                                fontFamily: "Poppins",
+                                fontFamily: "Haylard",
                                 fontWeight: FontWeight.w700),
                             textAlign: TextAlign.center,
                           ),

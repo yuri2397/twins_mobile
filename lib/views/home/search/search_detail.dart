@@ -101,7 +101,7 @@ class SearchDetails extends GetView<lc.SearchController> {
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
-                            fontFamily: "Poppins")),
+                            fontFamily: "Haylard")),
 
                     const SizedBox(
                       height: 5,

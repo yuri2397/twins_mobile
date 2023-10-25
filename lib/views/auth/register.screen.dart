@@ -38,7 +38,7 @@ class RegisterScreen extends GetView<RegisterController> {
                       style: TextStyle(
                           color: DARK_COLOR,
                           fontSize: 30,
-                          fontFamily: "Poppins",
+                          fontFamily: "Haylard",
                           fontWeight: FontWeight.w700),
                       textAlign: TextAlign.start,
                     ),
@@ -101,7 +101,7 @@ class RegisterScreen extends GetView<RegisterController> {
     return InputDecoration(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       hintText: text,
-      hintStyle: const TextStyle(color: DARK_COLOR, fontFamily: "Poppins"),
+      hintStyle: const TextStyle(color: DARK_COLOR, fontFamily: "Haylard"),
       errorStyle: const TextStyle(color: Colors.redAccent),
       errorBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.redAccent)),

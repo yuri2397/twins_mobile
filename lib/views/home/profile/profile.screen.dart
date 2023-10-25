@@ -147,7 +147,7 @@ class ProfileScreen extends GetView<ProfileController> {
                                   "${controller.user.value?.email}",
                                   style: const TextStyle(
                                       color: Colors.black38,
-                                      fontFamily: "Poppins",
+                                      fontFamily: "Haylard",
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500),
                                 ),
@@ -162,7 +162,7 @@ class ProfileScreen extends GetView<ProfileController> {
                                   "${controller.user.value?.address}",
                                   style: const TextStyle(
                                       color: Colors.black38,
-                                      fontFamily: "Poppins",
+                                      fontFamily: "Haylard",
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500),
                                 ),
@@ -179,7 +179,7 @@ class ProfileScreen extends GetView<ProfileController> {
                                       : 'Femme',
                                   style: const TextStyle(
                                       color: Colors.black38,
-                                      fontFamily: "Poppins",
+                                      fontFamily: "Haylard",
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500),
                                 ),
@@ -196,7 +196,7 @@ class ProfileScreen extends GetView<ProfileController> {
                                           DateTime.now()),
                                   style: const TextStyle(
                                       color: Colors.black38,
-                                      fontFamily: "Poppins",
+                                      fontFamily: "Haylard",
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500),
                                 ),

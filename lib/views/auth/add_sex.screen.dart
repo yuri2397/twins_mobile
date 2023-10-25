@@ -38,7 +38,7 @@ class AddSexScreen extends GetView<RegisterController> {
                       style: TextStyle(
                           color: DARK_COLOR,
                           fontSize: 30,
-                          fontFamily: "Poppins",
+                          fontFamily: "Haylard",
                           fontWeight: FontWeight.w700),
                       textAlign: TextAlign.start,
                     ),

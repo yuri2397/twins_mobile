@@ -40,7 +40,7 @@ class AddFilesRegisterScreen extends GetView<RegisterController> {
                           style: TextStyle(
                               color: DARK_COLOR,
                               fontSize: 30,
-                              fontFamily: "Poppins",
+                              fontFamily: "Haylard",
                               fontWeight: FontWeight.w700),
                           textAlign: TextAlign.center,
                         ),
@@ -154,7 +154,7 @@ class AddFilesRegisterScreen extends GetView<RegisterController> {
                                           style: TextStyle(
                                               color: DARK_COLOR,
                                               fontSize: 22,
-                                              fontFamily: "Poppins",
+                                              fontFamily: "Haylard",
                                               decoration: TextDecoration.none,
                                               fontWeight: FontWeight.w400))
                                     ],

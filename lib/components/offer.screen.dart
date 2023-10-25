@@ -30,7 +30,7 @@ class OfferScreen extends GetView<OfferController> {
                     style: TextStyle(
                         color: MAIN_COLOR,
                         fontSize: 30,
-                        fontFamily: "Poppins",
+                        fontFamily: "Haylard",
                         fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(
@@ -40,7 +40,7 @@ class OfferScreen extends GetView<OfferController> {
                     "L'achat se fait en un paiement unique sans renouvellement automatique. Vous ne serez donc pas débité(e) en dehors de votre période d'abonnement, sauf si vous choisissez de le renouveler par vous-même.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: DARK_COLOR, fontFamily: "Poppins", fontSize: 16),
+                        color: DARK_COLOR, fontFamily: "Haylard", fontSize: 16),
                   ),
                   const SizedBox(
                     height: 40,

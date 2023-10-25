@@ -51,7 +51,7 @@ class DetailProfileScreen extends GetView<ProfileController> {
                       "${controller.user.value?.fullName}",
                       style: const TextStyle(
                           color: DARK_COLOR,
-                          fontFamily: "Poppins",
+                          fontFamily: "Haylard",
                           fontSize: 18,
                           fontWeight: FontWeight.w500),
                     ),
@@ -69,7 +69,7 @@ class DetailProfileScreen extends GetView<ProfileController> {
                       "${controller.user.value?.email}",
                       style: const TextStyle(
                           color: DARK_COLOR,
-                          fontFamily: "Poppins",
+                          fontFamily: "Haylard",
                           fontSize: 18,
                           fontWeight: FontWeight.w500),
                     ),
@@ -87,7 +87,7 @@ class DetailProfileScreen extends GetView<ProfileController> {
                       "${controller.user.value?.phoneNumber}",
                       style: const TextStyle(
                           color: DARK_COLOR,
-                          fontFamily: "Poppins",
+                          fontFamily: "Haylard",
                           fontSize: 18,
                           fontWeight: FontWeight.w500),
                     ),
@@ -107,7 +107,7 @@ class DetailProfileScreen extends GetView<ProfileController> {
                           : 'Fénimin',
                       style: const TextStyle(
                           color: DARK_COLOR,
-                          fontFamily: "Poppins",
+                          fontFamily: "Haylard",
                           fontSize: 18,
                           fontWeight: FontWeight.w500),
                     ),
@@ -126,7 +126,7 @@ class DetailProfileScreen extends GetView<ProfileController> {
                           controller.user.value?.birthDate ?? DateTime.now()),
                       style: const TextStyle(
                           color: DARK_COLOR,
-                          fontFamily: "Poppins",
+                          fontFamily: "Haylard",
                           fontSize: 18,
                           fontWeight: FontWeight.w500),
                     ),

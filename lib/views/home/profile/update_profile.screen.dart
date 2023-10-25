@@ -172,7 +172,7 @@ class UpdateProfileScreen extends GetView<ProfileController> {
     return InputDecoration(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       hintText: s,
-      hintStyle: const TextStyle(color: DARK_COLOR, fontFamily: "Poppins"),
+      hintStyle: const TextStyle(color: DARK_COLOR, fontFamily: "Haylard"),
       fillColor: Colors.white,
       filled: true,
       errorStyle: const TextStyle(color: Colors.redAccent),

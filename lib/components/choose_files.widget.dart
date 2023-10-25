@@ -37,7 +37,7 @@ Future<XFile?> takeImage() async {
               const Text(
                 "Prendre une photo",
                 style: TextStyle(
-                    fontFamily: "Poppins",
+                    fontFamily: "Haylard",
                     fontSize: 18,
                     color: DARK_COLOR,
                     fontWeight: FontWeight.w400),
@@ -62,7 +62,7 @@ Future<XFile?> takeImage() async {
               const Text(
                 "Choisir une image",
                 style: TextStyle(
-                    fontFamily: "Poppins",
+                    fontFamily: "Haylard",
                     fontSize: 18,
                     color: DARK_COLOR,
                     fontWeight: FontWeight.w400),
