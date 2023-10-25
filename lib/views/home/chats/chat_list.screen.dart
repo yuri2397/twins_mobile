@@ -19,13 +19,14 @@ class ChatListScreen extends GetView<ChatController> {
       () => Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
-            backgroundColor: MAIN_COLOR,
-            elevation: 0,
-            leading: GestureDetector(
-              onTap: () => scaffoldKey.currentState?.openDrawer(),
-              child: const Icon(Icons.menu, color: Colors.white),
-            ),
-          ),
+              backgroundColor: MAIN_COLOR,
+              elevation: 0,
+              leading: GestureDetector(
+                onTap: () => scaffoldKey.currentState?.openDrawer(),
+                child: const Icon(Icons.menu, color: Colors.white),
+              ),
+              title: const Text("Messages",
+                  style: TextStyle(color: Colors.white))),
           drawer: drawer(drawerKey: drawerKey, scaffoldKey: scaffoldKey),
           body: controller.chatsLoad.value
               ? const Center(
@@ -45,32 +46,16 @@ class ChatListScreen extends GetView<ChatController> {
                       color: MAIN_COLOR,
                       onRefresh: () =>
                           Future.sync(() async => await controller.getChats()),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Messages",
-                            style: TextStyle(
+                      child: ListView.separated(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          shrinkWrap: true,
+                          separatorBuilder: (_, index) => const Divider(
+                                height: 10,
                                 color: MAIN_COLOR,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-                          ).marginAll(20),
-                          Expanded(
-                            child: ListView.separated(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 30),
-                                shrinkWrap: true,
-                                separatorBuilder: (_, index) => const Divider(
-                                      height: 10,
-                                      color: MAIN_COLOR,
-                                    ),
-                                itemBuilder: (_, index) =>
-                                    _buildChatItem(controller.chats[index]),
-                                itemCount: controller.chats.length),
-                          ),
-                        ],
-                      ),
+                              ),
+                          itemBuilder: (_, index) =>
+                              _buildChatItem(controller.chats[index]),
+                          itemCount: controller.chats.length),
                     )),
     );
   }

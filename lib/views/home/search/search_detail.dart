@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -74,9 +75,9 @@ class SearchDetails extends GetView<lc.SearchController> {
                           "",
                       overflow: TextOverflow.fade,
                       style: const TextStyle(
-                        color: DARK_COLOR,
+                        color: MAIN_COLOR,
                         fontWeight: FontWeight.w700,
-                        fontSize: 22,
+                        fontSize: 23,
                       ),
                     ),
                     SizedBox(
@@ -88,28 +89,51 @@ class SearchDetails extends GetView<lc.SearchController> {
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.fade,
                           maxLines: 2,
-                          style: TextStyle(
-                              color: Colors.black.withOpacity(0.4),
-                              fontSize: 18)),
+                          style: TextStyle(color: DARK_COLOR, fontSize: 20)),
                     ),
                     const SizedBox(
                       height: 5,
                     ),
-                    SizedBox(
-                      width: Get.width,
-                      height: 60,
-                      child: Text(
-                          controller.visibleUser.value.bio ??
-                              'Bio ===================================================================================================',
-                          textAlign: TextAlign.start,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 3,
+                    Text(controller.visibleUser.value.bio ?? 'Bio',
+                        textAlign: TextAlign.start,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontFamily: "Poppins")),
+
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    // ville
+                    Text(
+                      controller.visibleUser.value.address ?? 'Ville',
+                      style: const TextStyle(color: DARK_COLOR, fontSize: 18),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset("assets/icons/position.svg",
+                            color: DARK_COLOR),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          "${controller.visibleUser.value.distance} km",
                           style:
-                              TextStyle(color: Colors.black.withOpacity(0.5))),
+                              const TextStyle(color: DARK_COLOR, fontSize: 18),
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       height: 5,
                     ),
+
                     // Row(
                     //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     //   children: [

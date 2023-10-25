@@ -1,14 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:twinz/components/choose_files.widget.dart';
 import 'package:twinz/controllers/profile.controller.dart';
-import 'package:twinz/controllers/register.controller.dart';
-import 'package:twinz/routes/router.dart';
 import 'package:twinz/shared/utils/colors.dart';
 
 class AddFilesScreen extends GetView<ProfileController> {
@@ -45,7 +41,7 @@ class AddFilesScreen extends GetView<ProfileController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "Ajouter vos photos",
+                            "Ajoutez vos photos",
                             style: TextStyle(
                                 color: MAIN_COLOR,
                                 fontSize: 30,

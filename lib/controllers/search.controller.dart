@@ -65,6 +65,7 @@ class SearchController extends GetxController {
   }
 
   void swipe(int index, AppinioSwiperDirection direction) {
+    print("INDEX $index");
     _swipIndex.value = index;
     if (direction == AppinioSwiperDirection.left) {
       subscribeForPremium.value = currentMatch.length == index + 1 &&
@@ -83,13 +84,14 @@ class SearchController extends GetxController {
         }
       }
       canUnswip.value = true;
-      visibleUser.value = currentMatch[index - 1];
+
       _matchingService.matchingSkip(currentMatch[index]);
-      visibleUser.refresh();
     } else if (direction == AppinioSwiperDirection.right) {
       onLike(currentMatch[index]);
     }
 
+    visibleUser.value = currentMatch[index - 1];
+    visibleUser.refresh();
     showCancelIcon.value = false;
     showLikeIcons.value = false;
   }

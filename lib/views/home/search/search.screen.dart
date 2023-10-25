@@ -28,7 +28,7 @@ class SearchScreen extends GetView<sc.SearchController> {
           ),
           title: Image.asset(
             Env.whiteLogo,
-            width: 45,
+            width: 60,
           ),
         ),
         drawer: drawer(drawerKey: drawerKey, scaffoldKey: scaffoldKey),
@@ -291,13 +291,15 @@ class Matcher extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-              controller.visibleUser.value.photosCount ?? 0,
-              (index) => const Icon(Icons.circle, color: MAIN_COLOR, size: 6)
-                  .marginSymmetric(horizontal: 6)),
-        ).marginSymmetric(vertical: 10),
+        Obx(
+          () => Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(
+                controller.visibleUser.value.photosCount ?? 0,
+                (index) => const Icon(Icons.circle, color: MAIN_COLOR, size: 6)
+                    .marginSymmetric(horizontal: 6)),
+          ).marginSymmetric(vertical: 10),
+        ),
         SizedBox(
           height: Get.height * .70,
           width: Get.width,

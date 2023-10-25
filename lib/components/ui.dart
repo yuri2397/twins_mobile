@@ -243,7 +243,7 @@ drawer({drawerKey, scaffoldKey}) {
         ListTile(
           onTap: () => Get.toNamed(Goo.offerScreen),
           leading: itemIcon(Icons.payment_outlined, color: MAIN_COLOR),
-          title: const Text("Twinz premium",
+          title: const Text("Twinz Premium",
               style: TextStyle(
                   fontSize: 20, color: MAIN_COLOR, fontFamily: "Poppins")),
         ),

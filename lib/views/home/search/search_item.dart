@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:twinz/components/ui.dart';
 import 'package:twinz/core/config/env.dart';
 import 'package:twinz/core/model/user.dart';
 import 'package:twinz/shared/utils/colors.dart';
@@ -48,14 +50,12 @@ class SearchItemWidget extends StatelessWidget {
                 top: 8,
                 right: 8,
                 child: GestureDetector(
-                  onTap: () =>
-                      Get.find<sc.SearchController>().searchDetails(user),
-                  child: const Icon(
-                    CupertinoIcons.info,
-                    color: MAIN_COLOR,
-                    size: 30,
-                  ),
-                ),
+                    onTap: () =>
+                        Get.find<sc.SearchController>().searchDetails(user),
+                    child: itemIcon(
+                      CupertinoIcons.info,
+                      color: MAIN_COLOR,
+                    )),
               ),
               Positioned(
                   bottom: 0,
@@ -71,10 +71,7 @@ class SearchItemWidget extends StatelessWidget {
                         end: Alignment.bottomCenter,
                         colors: [
                           Colors.black.withOpacity(0.0),
-                          Colors.black.withOpacity(0.2),
-                          Colors.black.withOpacity(0.4),
-                          Colors.black.withOpacity(0.6),
-                          Colors.black.withOpacity(0.8),
+                          Colors.black.withOpacity(0.5),
                           Colors.black.withOpacity(1),
                         ],
                       ),
@@ -104,9 +101,39 @@ class SearchItemWidget extends StatelessWidget {
                                 style: const TextStyle(
                                     color: Colors.white, fontSize: 18)),
                           ),
+                          // const SizedBox(
+                          //   height: 5,
+                          // ),
+                          // // ville
+                          // Text(
+                          //   user.address ?? 'Ville',
+                          //   style: const TextStyle(
+                          //       color: Colors.white, fontSize: 18),
+                          // ),
+                          // const SizedBox(
+                          //   height: 5,
+                          // ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.start,
+                          //   crossAxisAlignment: CrossAxisAlignment.center,
+                          //   children: [
+                          //     SvgPicture.asset("assets/icons/position.svg",
+                          //         color: Colors.white),
+                          //     const SizedBox(
+                          //       width: 5,
+                          //     ),
+                          //     Text(
+                          //       "${user.distance} km",
+                          //       style: const TextStyle(
+                          //           color: Colors.white, fontSize: 18),
+                          //     ),
+                          //   ],
+                          // ),
+
                           const SizedBox(
                             height: 5,
                           ),
+                          //
                           SizedBox(
                             width: Get.width,
                             height: 60,
@@ -115,6 +142,9 @@ class SearchItemWidget extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 3,
                                 style: const TextStyle(color: Colors.white)),
+                          ),
+                          const SizedBox(
+                            height: 5,
                           ),
                         ]),
                   )),

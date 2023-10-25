@@ -114,6 +114,12 @@ class AppInterceptors extends Interceptor {
           content: "${err.response?.data['message']}");
     }
 
+    if (err.response?.data != null && err.response?.data['message'] != null) {
+      errorMessage(
+          title: "Une erreur est survenue",
+          content: "${err.response?.data['message']}");
+    }
+
     handler.next(err);
   }
 }

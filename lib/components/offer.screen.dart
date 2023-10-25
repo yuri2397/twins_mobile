@@ -37,7 +37,7 @@ class OfferScreen extends GetView<OfferController> {
                     height: 10,
                   ),
                   const Text(
-                    "L'achat se fait en un paiment unique sans renouvellement automatique. Vous ne serez donc pas débité en dehors de votre période d'abonnement, sauf si vous choisissez de le renouveller par vous-même.",
+                    "L'achat se fait en un paiement unique sans renouvellement automatique. Vous ne serez donc pas débité(e) en dehors de votre période d'abonnement, sauf si vous choisissez de le renouveler par vous-même.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: DARK_COLOR, fontFamily: "Poppins", fontSize: 16),
