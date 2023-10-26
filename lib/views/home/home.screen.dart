@@ -54,55 +54,57 @@ class HomeScreen extends GetView<HomeController> {
     return Obx(
       () => Scaffold(
         body: _screens[controller.currentIndex.value],
-        bottomNavigationBar: Container(
-          color: MAIN_COLOR,
-          height: 65,
-          padding: const EdgeInsets.symmetric(vertical: 2),
-          child: NavigationBar(
-            onDestinationSelected: (int index) {},
-            selectedIndex: controller.currentIndex.value,
-            backgroundColor: Colors.white,
-            destinations: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  controller.currentIndex.value = 0;
-                  controller.currentIndex.refresh();
-                },
-                child: ImageIcon(
-                  const AssetImage('assets/images/home.png'),
-                  color: controller.currentIndex.value == 0
-                      ? MAIN_COLOR
-                      : Colors.grey[400],
+        bottomNavigationBar: SafeArea(
+          child: Container(
+            color: MAIN_COLOR,
+            height: 65,
+            padding: const EdgeInsets.symmetric(vertical: 2),
+            child: NavigationBar(
+              onDestinationSelected: (int index) {},
+              selectedIndex: controller.currentIndex.value,
+              backgroundColor: Colors.white,
+              destinations: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    controller.currentIndex.value = 0;
+                    controller.currentIndex.refresh();
+                  },
+                  child: ImageIcon(
+                    const AssetImage('assets/images/home.png'),
+                    color: controller.currentIndex.value == 0
+                        ? MAIN_COLOR
+                        : Colors.grey[400],
+                  ),
                 ),
-              ),
-              GestureDetector(
-                  onTap: () {
-                    controller.currentIndex.value = 1;
-                    controller.currentIndex.refresh();
-                  },
-                  child: Icon(Icons.notifications,
-                      color: controller.currentIndex.value == 1
-                          ? MAIN_COLOR
-                          : Colors.grey[400])),
-              GestureDetector(
-                  onTap: () {
-                    controller.currentIndex.value = 2;
-                    controller.currentIndex.refresh();
-                  },
-                  child: Icon(CupertinoIcons.chat_bubble_2_fill,
-                      color: controller.currentIndex.value == 2
-                          ? MAIN_COLOR
-                          : Colors.grey[400])),
-              GestureDetector(
-                  onTap: () {
-                    controller.currentIndex.value = 3;
-                    controller.currentIndex.refresh();
-                  },
-                  child: Icon(CupertinoIcons.person_fill,
-                      color: controller.currentIndex.value == 3
-                          ? MAIN_COLOR
-                          : Colors.grey[400])),
-            ],
+                GestureDetector(
+                    onTap: () {
+                      controller.currentIndex.value = 1;
+                      controller.currentIndex.refresh();
+                    },
+                    child: Icon(Icons.notifications,
+                        color: controller.currentIndex.value == 1
+                            ? MAIN_COLOR
+                            : Colors.grey[400])),
+                GestureDetector(
+                    onTap: () {
+                      controller.currentIndex.value = 2;
+                      controller.currentIndex.refresh();
+                    },
+                    child: Icon(CupertinoIcons.chat_bubble_2_fill,
+                        color: controller.currentIndex.value == 2
+                            ? MAIN_COLOR
+                            : Colors.grey[400])),
+                GestureDetector(
+                    onTap: () {
+                      controller.currentIndex.value = 3;
+                      controller.currentIndex.refresh();
+                    },
+                    child: Icon(CupertinoIcons.person_fill,
+                        color: controller.currentIndex.value == 3
+                            ? MAIN_COLOR
+                            : Colors.grey[400])),
+              ],
+            ),
           ),
         ),
       ),

@@ -280,7 +280,9 @@ class SearchScreen extends GetView<sc.SearchController> {
 }
 
 class Matcher extends StatelessWidget {
-  const Matcher({
+  final _index = 0.obs;
+
+  Matcher({
     super.key,
     required this.controller,
   });
@@ -295,14 +297,12 @@ class Matcher extends StatelessWidget {
           () => Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
-                controller.visibleUser.value.photosCount ?? 0,
+                controller.currentMatch[_index.value].photosCount ?? 0,
                 (index) => const Icon(Icons.circle, color: MAIN_COLOR, size: 6)
                     .marginSymmetric(horizontal: 6)),
           ).marginSymmetric(vertical: 10),
         ),
-        SizedBox(
-          height: Get.height * .71,
-          width: Get.width,
+        Expanded(
           child: AppinioSwiper(
             swipeOptions:
                 const AppinioSwipeOptions.only(left: true, right: true),
@@ -313,7 +313,10 @@ class Matcher extends StatelessWidget {
               controller.showCancelIcon.value = false;
               controller.showLikeIcons.value = false;
             },
-            onSwipe: controller.swipe,
+            onSwipe: (index, direction) {
+              _index.value = index;
+              controller.swipe(index, direction);
+            },
             onSwiping: (AppinioSwiperDirection direction) {
               if (direction == AppinioSwiperDirection.left) {
                 controller.onSwipLeft();
@@ -407,6 +410,9 @@ class Matcher extends StatelessWidget {
               ),
             ),
           ],
+        ),
+        const SizedBox(
+          height: 20,
         )
       ],
     );
