@@ -9,6 +9,7 @@ import 'package:twinz/core/services/profile.service.dart';
 import 'package:twinz/routes/router.dart';
 import 'package:twinz/shared/utils/colors.dart';
 import 'package:twinz/core/utils/utils.dart';
+import 'package:twinz/controllers/search.controller.dart' as sc;
 
 class OfferController extends GetxController {
   final load = false.obs;
@@ -78,10 +79,15 @@ class OfferController extends GetxController {
         /***
          * REDICT USER AND UPDATE LOCAL DATA
          */
-        var user = localStorage.getUser();
-        user?.isPremium = true;
-        localStorage.user = user;
-        load.value = false;
+
+        Get.find<ProfileService>().profile().then((value) {
+          localStorage.user = value;
+          load.value = false;
+        });
+
+        await Get.find<sc.SearchController>().getMatchings();
+        Get.find<sc.SearchController>().user.value?.isPremium = true;
+        Get.find<sc.SearchController>().user.refresh();
 
         await Get.bottomSheet(Container(
           padding: const EdgeInsets.only(bottom: 30),

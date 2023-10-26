@@ -129,9 +129,9 @@ class AuthRepository {
             'profile_photo':
                 await dio.MultipartFile.fromFile(file.path, filename: file.name)
           }),
-          options: dio.Options(contentType: 'multipart/form-data', headers: {
-            'Authorization': 'Bearer ${localStorage.getToken()?.accessToken}'
-          }));
+          options: dio.Options(
+            contentType: 'multipart/form-data',
+          ));
 
       if (response.statusCode! >= 200 && response.statusCode! <= 300) {
         return User.fromJson(response.data);

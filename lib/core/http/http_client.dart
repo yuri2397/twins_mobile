@@ -86,7 +86,6 @@ class AppInterceptors extends Interceptor {
   @override
   void onRequest(
       dio.RequestOptions options, dio.RequestInterceptorHandler handler) async {
-    print("DATA JSON: ${options.data}");
     var token = localStorage.getToken();
     if (token != null) {
       options.headers['Authorization'] = 'Bearer ${token.accessToken}';
@@ -107,11 +106,6 @@ class AppInterceptors extends Interceptor {
       errorMessage(
           title: "Une erreur est survenue",
           content: "Veuillez réessayer plus tard");
-    }
-    if (err.response?.statusCode == 422) {
-      errorMessage(
-          title: "Une erreur est survenue",
-          content: "${err.response?.data['message']}");
     }
 
     if (err.response?.data != null && err.response?.data['message'] != null) {

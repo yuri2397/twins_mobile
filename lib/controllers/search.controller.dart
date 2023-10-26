@@ -1,8 +1,6 @@
 import 'package:appinio_swiper/appinio_swiper.dart';
-import 'package:appinio_swiper/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:twinz/components/ui.dart';
 import 'package:twinz/core/model/user.dart';
 import 'package:twinz/core/services/chat_request.service.dart';
 import 'package:twinz/core/services/matching.service.dart';
@@ -25,7 +23,7 @@ class SearchController extends GetxController {
   final likeLoad = false.obs;
   final _swipIndex = localStorage.getSwipIndex().obs;
   final _userService = Get.find<UserService>();
-
+  final user = localStorage.getUser().obs;
   final showCancelIcon = false.obs;
   final showLikeIcons = false.obs;
 
@@ -45,10 +43,11 @@ class SearchController extends GetxController {
     super.onInit();
   }
 
-  void getMatchings() {
+  Future<void> getMatchings() async {
     matchLoad.value = true;
-    _matchingService.matchings().then((value) {
+    await _matchingService.matchings().then((value) {
       currentMatch.value = value;
+      print("LENGHT: ${value.length}");
       if (value.isEmpty) {
         matchSuccess.value = false;
       } else {
@@ -64,47 +63,36 @@ class SearchController extends GetxController {
 
   void swipe(int index, AppinioSwiperDirection direction) {
     _swipIndex.value = index;
+    print("INDEX: $index");
     if (direction == AppinioSwiperDirection.left) {
-      subscribeForPremium.value = currentMatch.length == index + 1 &&
-          (localStorage.getUser()!.isPremium == false);
-
-      if ((localStorage.getUser()!.isPremium == true)) {
-        if (((currentMatch.length ~/ 2) + 1 <= index)) {
-          matchLoad.value = true;
-          _matchingService.matchings().then((value) {
-            currentMatch.addAll(value);
-            currentMatch.refresh();
-            matchLoad.value = false;
-          }).catchError((e) {
-            matchLoad.value = false;
-          });
-        }
-      }
-      canUnswip.value = true;
-
-      _matchingService.matchingSkip(currentMatch[index]);
+      _matchingService.matchingSkip(visibleUser.value);
     } else if (direction == AppinioSwiperDirection.right) {
-      onLike(currentMatch[index]);
+      onLike(visibleUser.value);
     }
 
-    visibleUser.value = currentMatch[index - 1];
+    if ((user.value?.isPremium == true)) {
+      canUnswip.value = true;
+      if (currentMatch.length == index) {
+        getMatchings();
+      }
+    }
+
+    visibleUser.value = currentMatch[index];
     showCancelIcon.value = false;
     showLikeIcons.value = false;
   }
 
-  onLike(User currentMatch) {
+  onLike(User user) {
     likeLoad.value = true;
-    _chatRequestService.sendRequestChat(toUser: currentMatch).then((value) {
+    _chatRequestService.sendRequestChat(toUser: user).then((value) {
       likeLoad.value = false;
+      swiperController.swipeRight();
     }).catchError((e) {
       likeLoad.value = false;
     });
-    swiperController.swipeRight();
   }
 
   onSwipBack(User currentMatch) {
-    visibleUser.value = currentMatch;
-
     if (canUnswip.value) {
       if (localStorage.getUser()!.isPremium == false) {
         canUnswip.value = false;
@@ -116,7 +104,6 @@ class SearchController extends GetxController {
   }
 
   onCancel(User currentMatch) {
-    visibleUser.value = currentMatch;
     swiperController.swipeLeft();
   }
 

@@ -17,6 +17,7 @@ class SearchScreen extends GetView<sc.SearchController> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    print("${controller.user.value?.toJson().toString()}");
     return Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
@@ -37,7 +38,7 @@ class SearchScreen extends GetView<sc.SearchController> {
               ? const Center(
                   child: CircularProgressIndicator(color: MAIN_COLOR),
                 )
-              : localStorage.getUser()?.active == "1"
+              : controller.user.value?.isPremium == true
                   ? controller.matchSuccess.value
                       ? !controller.subscribeForPremium.value
                           ? Matcher(controller: controller)
