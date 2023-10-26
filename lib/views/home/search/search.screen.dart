@@ -317,6 +317,11 @@ class Matcher extends StatelessWidget {
               _index.value = index;
               controller.swipe(index, direction);
             },
+            unswipe: (value) {
+              if (value) {
+                _index.value--;
+              }
+            },
             onSwiping: (AppinioSwiperDirection direction) {
               if (direction == AppinioSwiperDirection.left) {
                 controller.onSwipLeft();
