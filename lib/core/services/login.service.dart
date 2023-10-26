@@ -16,6 +16,7 @@ class LoginService extends GetxService {
       localStorage.user = response.user;
       localStorage.isAuth = true;
     } catch (e) {
+      print("$e");
       rethrow;
     }
   }

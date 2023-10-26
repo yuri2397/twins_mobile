@@ -209,7 +209,6 @@ class FireBaseMessagingService extends GetxService {
   Future<void> getDeviceToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
     print("TOKEN: $token");
-    localStorage.fcmToken = token ?? "";
     updateDeviceToken(token);
   }
 
@@ -218,6 +217,9 @@ class FireBaseMessagingService extends GetxService {
 
   void updateDeviceToken(token) async {
     localStorage.fcmToken = token;
+    if (localStorage.isAuth) {
+      await Get.find<NotificationService>().updateDeviceToken(token);
+    }
   }
 }
 

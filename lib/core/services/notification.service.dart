@@ -20,4 +20,6 @@ class NotificationService extends GetxService {
       rethrow;
     }
   }
+
+  updateDeviceToken(token) {}
 }

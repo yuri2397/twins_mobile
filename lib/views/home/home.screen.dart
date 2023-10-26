@@ -14,29 +14,31 @@ class HomeScreen extends GetView<HomeController> {
     SearchScreen(),
     NotificationsScreen(),
     ChatListScreen(),
-    ProfileScreen()
+    const ProfileScreen()
   ];
 
   final _items = <PersistentBottomNavBarItem>[
     PersistentBottomNavBarItem(
       icon: const ImageIcon(
-        AssetImage('assets/images/home.png'),
-      ),
+          AssetImage(
+            'assets/images/home.png',
+          ),
+          size: 40),
       activeColorPrimary: MAIN_COLOR,
       inactiveColorPrimary: Colors.grey,
     ),
     PersistentBottomNavBarItem(
-      icon: const Icon(Icons.notifications),
+      icon: const Icon(Icons.notifications, size: 40),
       activeColorPrimary: MAIN_COLOR,
       inactiveColorPrimary: Colors.grey,
     ),
     PersistentBottomNavBarItem(
-      icon: const Icon(CupertinoIcons.chat_bubble_2_fill),
+      icon: const Icon(CupertinoIcons.chat_bubble_2_fill, size: 40),
       activeColorPrimary: MAIN_COLOR,
       inactiveColorPrimary: Colors.grey,
     ),
     PersistentBottomNavBarItem(
-      icon: const Icon(CupertinoIcons.person_fill),
+      icon: const Icon(CupertinoIcons.person_fill, size: 40),
       activeColorPrimary: MAIN_COLOR,
       inactiveColorPrimary: Colors.grey,
     ),

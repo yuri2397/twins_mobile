@@ -9,7 +9,6 @@ import 'package:twinz/core/services/matching.service.dart';
 import 'package:twinz/core/services/user.service.dart';
 import 'package:twinz/core/utils/utils.dart';
 import 'package:twinz/routes/router.dart';
-import 'package:twinz/shared/utils/colors.dart';
 
 class SearchController extends GetxController {
   final _matchingService = Get.find<MatchingService>();
@@ -55,7 +54,6 @@ class SearchController extends GetxController {
       } else {
         visibleUser.value = value.first;
         matchSuccess.value = true;
-        visibleUser.refresh();
         currentMatch.refresh();
       }
       matchLoad.value = false;
@@ -65,7 +63,6 @@ class SearchController extends GetxController {
   }
 
   void swipe(int index, AppinioSwiperDirection direction) {
-    print("INDEX $index");
     _swipIndex.value = index;
     if (direction == AppinioSwiperDirection.left) {
       subscribeForPremium.value = currentMatch.length == index + 1 &&
@@ -91,7 +88,6 @@ class SearchController extends GetxController {
     }
 
     visibleUser.value = currentMatch[index - 1];
-    visibleUser.refresh();
     showCancelIcon.value = false;
     showLikeIcons.value = false;
   }
@@ -108,7 +104,6 @@ class SearchController extends GetxController {
 
   onSwipBack(User currentMatch) {
     visibleUser.value = currentMatch;
-    visibleUser.refresh();
 
     if (canUnswip.value) {
       if (localStorage.getUser()!.isPremium == false) {
@@ -122,7 +117,6 @@ class SearchController extends GetxController {
 
   onCancel(User currentMatch) {
     visibleUser.value = currentMatch;
-    visibleUser.refresh();
     swiperController.swipeLeft();
   }
 
@@ -130,7 +124,6 @@ class SearchController extends GetxController {
     detailsLoad.value = true;
     _matchingService.matchingDetails(user: user).then((value) {
       visibleUser.value = value;
-      visibleUser.refresh();
       detailsLoad.value = false;
     }).catchError((e) {
       detailsLoad.value = false;
