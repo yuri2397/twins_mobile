@@ -98,8 +98,8 @@ class SearchDetails extends GetView<lc.SearchController> {
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
-                        style: TextStyle(
-                            color: Colors.black,
+                        style: const TextStyle(
+                            color: Colors.grey,
                             fontSize: 18,
                             fontFamily: "Haylard")),
 
@@ -107,109 +107,32 @@ class SearchDetails extends GetView<lc.SearchController> {
                       height: 5,
                     ),
                     // ville
-                    Text(
-                      controller.visibleUser.value.address ?? 'Ville',
-                      style: const TextStyle(color: DARK_COLOR, fontSize: 18),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
+                    // Text(
+                    //   controller.visibleUser.value.address ?? 'Ville',
+                    //   style: const TextStyle(color: DARK_COLOR, fontSize: 18),
+                    // ),
+                    // const SizedBox(
+                    //   height: 5,
+                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SvgPicture.asset("assets/icons/position.svg",
-                            color: DARK_COLOR),
+                            color: Colors.grey),
                         const SizedBox(
                           width: 5,
                         ),
                         Text(
                           "${controller.visibleUser.value.distance} km",
                           style:
-                              const TextStyle(color: DARK_COLOR, fontSize: 18),
+                              const TextStyle(color: Colors.grey, fontSize: 18),
                         ),
                       ],
                     ),
                     const SizedBox(
                       height: 5,
                     ),
-
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //   children: [
-                    //     GestureDetector(
-                    //       onTap: () => widget.cancel(),
-                    //       child: Container(
-                    //         padding: const EdgeInsets.all(8),
-                    //         decoration: BoxDecoration(
-                    //           color: Colors.white,
-                    //           boxShadow: [
-                    //             BoxShadow(
-                    //               color: Colors.black.withOpacity(0.2),
-                    //               spreadRadius: 1,
-                    //               blurRadius: 20,
-                    //               offset:
-                    //                   const Offset(2, 3), // changes position of shadow
-                    //             ),
-                    //           ],
-                    //           borderRadius: const BorderRadius.all(Radius.circular(50)),
-                    //         ),
-                    //         child: const Icon(
-                    //           Icons.close,
-                    //           color: Colors.pink,
-                    //           size: 35,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     GestureDetector(
-                    //       onTap: () => widget.swipBack(),
-                    //       child: Container(
-                    //         padding: const EdgeInsets.all(8),
-                    //         decoration: BoxDecoration(
-                    //           color: Colors.white,
-                    //           boxShadow: [
-                    //             BoxShadow(
-                    //               color: Colors.black.withOpacity(0.2),
-                    //               spreadRadius: 1,
-                    //               blurRadius: 20,
-                    //               offset:
-                    //                   const Offset(2, 3), // changes position of shadow
-                    //             ),
-                    //           ],
-                    //           borderRadius: const BorderRadius.all(Radius.circular(50)),
-                    //         ),
-                    //         child: const Icon(
-                    //           Icons.undo,
-                    //           color: Colors.yellowAccent,
-                    //           size: 25,
-                    //         ),
-                    //       ),
-                    //     ).marginOnly(top: 10),
-                    //     GestureDetector(
-                    //       onTap: () => widget.like(),
-                    //       child: Container(
-                    //         padding: const EdgeInsets.all(8),
-                    //         decoration: BoxDecoration(
-                    //           color: MAIN_COLOR,
-                    //           boxShadow: [
-                    //             BoxShadow(
-                    //               color: Colors.black.withOpacity(0.2),
-                    //               spreadRadius: 1,
-                    //               blurRadius: 20,
-                    //               offset:
-                    //                   const Offset(2, 3), // changes position of shadow
-                    //             ),
-                    //           ],
-                    //           borderRadius: const BorderRadius.all(Radius.circular(50)),
-                    //         ),
-                    //         child: Image.asset(
-                    //           Env.whiteLogo,
-                    //           width: 35,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // )
                   ],
                 ),
         ),

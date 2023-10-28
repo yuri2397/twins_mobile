@@ -38,6 +38,26 @@ class SettingScreen extends GetView<ProfileController> {
               ),
               Row(
                 children: [
+                  const Icon(
+                    Icons.circle,
+                    color: MAIN_COLOR,
+                    size: 20,
+                  ),
+                  const Text(
+                    "Distance",
+                    style: TextStyle(
+                        color: DARK_COLOR,
+                        fontSize: 20,
+                        fontFamily: "Haylard",
+                        fontWeight: FontWeight.bold),
+                  ).marginOnly(left: 10),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
                   Expanded(
                     child: SfSlider(
                       min: 1,
@@ -91,7 +111,7 @@ class SettingScreen extends GetView<ProfileController> {
                     child: SfSlider(
                       min: controller.user.value?.isPremium != null &&
                               controller.user.value?.isPremium == true
-                          ? 3
+                          ? 0
                           : 14,
                       max: 15,
                       value: double.tryParse(

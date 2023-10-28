@@ -86,8 +86,10 @@ class AppInterceptors extends Interceptor {
   @override
   void onRequest(
       dio.RequestOptions options, dio.RequestInterceptorHandler handler) async {
+    print("[DATA]: ${options.data}");
     var token = localStorage.getToken();
     if (token != null) {
+      print("[TOKEN]: ${token.accessToken}");
       options.headers['Authorization'] = 'Bearer ${token.accessToken}';
       Get.log(options.headers.toString());
     }

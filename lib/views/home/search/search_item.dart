@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:twinz/components/ui.dart';
 import 'package:twinz/core/config/env.dart';
 import 'package:twinz/core/model/user.dart';
 import 'package:twinz/shared/utils/colors.dart';
@@ -106,9 +105,9 @@ class SearchItemWidget extends StatelessWidget {
                       child: Text(user.bio ?? 'Bio',
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.ellipsis,
-                          maxLines: 3,
-                          style: const TextStyle(color: Colors.white)),
-                    ),
+                          maxLines: 2,
+                          style: const TextStyle(color: Colors.grey)),
+                    ).marginOnly(right: 5),
                     const SizedBox(
                       height: 5,
                     ),

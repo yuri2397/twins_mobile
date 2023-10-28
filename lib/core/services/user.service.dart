@@ -5,9 +5,15 @@ import 'package:twinz/core/utils/utils.dart';
 
 class UserService extends GetxService {
   final _repo = UserRepository();
+
   Future<User> updateUser(User user) async {
-    return localStorage.getUser() ??
-        User(id: int.tryParse(currentUserId) ?? -1);
+    print("UPDATE USER: $user");
+    try {
+      return await _repo.update(user: user);
+    } catch (e) {
+      e.printError();
+      rethrow;
+    }
   }
 
   Future<bool> blockUser({required User user}) async {

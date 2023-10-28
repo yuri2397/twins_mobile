@@ -99,6 +99,13 @@ class User {
             : List<dynamic>.from(photos!.map((x) => x.toJson())),
       };
 
+  // tojson only lat, long, bio
+  Map<String, dynamic> toJsonForUpdate() => {
+        "lat": lat,
+        "lng": lng,
+        "bio": bio,
+      };
+
   Map<String, dynamic> toJsonForMessage() =>
       {"id": id.toString(), "imageUrl": profilePhoto};
 }

@@ -38,9 +38,9 @@ class SearchScreen extends GetView<sc.SearchController> {
               ? const Center(
                   child: CircularProgressIndicator(color: MAIN_COLOR),
                 )
-              : controller.user.value?.isPremium == true
+              : controller.user.value?.active == "1"
                   ? controller.matchSuccess.value
-                      ? !controller.subscribeForPremium.value
+                      ? controller.user.value?.isPremium == true
                           ? Matcher(controller: controller)
                           : Center(
                               child: Column(
@@ -48,7 +48,7 @@ class SearchScreen extends GetView<sc.SearchController> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     const Text(
-                                      "Vous avez atteint la limite de suggestions de profils, passez à Twinz Premium pour voir d'avantage ou patientez 48h.Veuillez changer votre offre à Premium.",
+                                      "Vous avez atteint la limite de suggestions de profils, passez à Twinz Premium pour en voir davantage ou patientez 48h.",
                                       textAlign: TextAlign.center,
                                     ).marginSymmetric(horizontal: 20),
                                     ElevatedButton(
@@ -66,7 +66,7 @@ class SearchScreen extends GetView<sc.SearchController> {
                                                         BorderRadius.circular(
                                                             20))),
                                             child: const Text(
-                                                "Passez à Twinz Premimium"))
+                                                "Passez à Twinz Premium "))
                                         .marginOnly(top: 20),
                                   ]),
                             )

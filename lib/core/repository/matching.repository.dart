@@ -19,7 +19,9 @@ class MatchingRepository {
   }
 
   matchingDetails(User user) async {
+    print("ID: ${user.id}");
     var response = await _client.get("/matchings/${user.id}");
+
     if (response.statusCode! >= 200 && response.statusCode! < 400) {
       return User.fromJson(response.data);
     }

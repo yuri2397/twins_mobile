@@ -34,10 +34,10 @@ class SearchController extends GetxController {
     });
     determinePosition().then((value) {
       var user = localStorage.getUser();
-
       user?.lat = "${value.latitude}";
       user?.lng = "${value.longitude}";
       localStorage.user = user;
+      _userService.updateUser(user!);
     });
     getMatchings();
     super.onInit();
@@ -110,6 +110,7 @@ class SearchController extends GetxController {
   searchDetails(User user) async {
     detailsLoad.value = true;
     _matchingService.matchingDetails(user: user).then((value) {
+      print("VALUE: ${value.toJson().toString()}");
       visibleUser.value = value;
       detailsLoad.value = false;
     }).catchError((e) {
