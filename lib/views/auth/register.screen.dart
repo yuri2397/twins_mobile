@@ -52,6 +52,7 @@ class RegisterScreen extends GetView<RegisterController> {
                           TextFormField(
                                   controller: controller.nameCtrl,
                                   cursorColor: DARK_COLOR,
+                                  autofocus: true,
                                   validator: (value) {
                                     if (value == null) {
                                       return "Votre prénom est obligatoire.";

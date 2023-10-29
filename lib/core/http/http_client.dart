@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import 'package:dio/dio.dart' as dio;
@@ -24,6 +25,9 @@ class HttpClient extends GetxService with BaseApiClient {
       receiveTimeout: const Duration(minutes: 1),
       connectTimeout: const Duration(minutes: 1),
       sendTimeout: const Duration(minutes: 1),
+      headers: {
+        'Accept': 'application/json',
+      },
     ));
 
     dio.interceptors.addAll({
@@ -98,7 +102,6 @@ class AppInterceptors extends Interceptor {
 
   @override
   Future<void> onError(err, dio.ErrorInterceptorHandler handler) async {
-    print(err.response?.data);
     if (err.response?.statusCode == 401 &&
         Get.currentRoute != Goo.loginScreen) {
       await Get.find<LoginService>().logout();
@@ -110,10 +113,19 @@ class AppInterceptors extends Interceptor {
           content: "Veuillez réessayer plus tard");
     }
 
-    if (err.response?.data != null && err.response?.data['message'] != null) {
-      errorMessage(
+    debugPrint(err.response?.statusCode.toString());
+
+    // on 422 code
+    if (err.response?.statusCode == 422) {
+      print(err.response?.data);
+      var errors = err.response?.data['errors'];
+      if (errors != null) {
+        var message = errors.values.first[0];
+        errorMessage(
           title: "Une erreur est survenue",
-          content: "${err.response?.data['message']}");
+          content: message,
+        );
+      }
     }
 
     handler.next(err);

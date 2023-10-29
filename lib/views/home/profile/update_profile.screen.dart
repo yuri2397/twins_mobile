@@ -61,81 +61,7 @@ class UpdateProfileScreen extends GetView<ProfileController> {
                   const SizedBox(
                     height: 30,
                   ),
-                  const Text("Nom complet",
-                      style: TextStyle(
-                        color: MAIN_COLOR,
-                      )).marginOnly(bottom: 8),
-                  TextFormField(
-                      controller: controller.nameCrtl,
-                      cursorColor: DARK_COLOR,
-                      validator: (value) {
-                        if (value == null) {
-                          return "Votre nom est obligatoire.";
-                        }
 
-                        if (value.length < 2) {
-                          return "Tapez votre nom complet.";
-                        }
-                        return null;
-                      },
-                      style: GoogleFonts.poppins(
-                          textStyle: const TextStyle(fontSize: 16),
-                          color: DARK_COLOR),
-                      decoration:
-                          _decoration("${controller.user.value?.fullName}")),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text("Adresse",
-                      style: TextStyle(
-                        color: MAIN_COLOR,
-                      )).marginOnly(bottom: 8),
-                  TextFormField(
-                      controller: controller.addressCrtl,
-                      cursorColor: DARK_COLOR,
-                      validator: (value) {
-                        if (value == null) {
-                          return "Votre adresse est obligatoire.";
-                        }
-
-                        if (value.length < 2) {
-                          return "Tapez votre adresse complet.";
-                        }
-                        return null;
-                      },
-                      style: GoogleFonts.poppins(
-                          textStyle: const TextStyle(fontSize: 16),
-                          color: DARK_COLOR),
-                      decoration: _decoration(
-                          controller.user.value?.address ?? "Adresse")),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text("Téléphone",
-                      style: TextStyle(
-                        color: MAIN_COLOR,
-                      )).marginOnly(bottom: 8),
-                  TextFormField(
-                      controller: controller.phoneCrtl,
-                      cursorColor: DARK_COLOR,
-                      validator: (value) {
-                        if (value == null) {
-                          return "Votre nom est obligatoire.";
-                        }
-
-                        if (value.length < 2) {
-                          return "Tapez votre nom complet.";
-                        }
-                        return null;
-                      },
-                      style: GoogleFonts.poppins(
-                          textStyle: const TextStyle(fontSize: 16),
-                          color: DARK_COLOR),
-                      decoration:
-                          _decoration("${controller.user.value?.phoneNumber}")),
-                  const SizedBox(
-                    height: 20,
-                  ),
                   const Text("Bio",
                       style: TextStyle(
                         color: MAIN_COLOR,
@@ -153,14 +79,24 @@ class UpdateProfileScreen extends GetView<ProfileController> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text("Sexe",
-                      style: TextStyle(
-                        color: MAIN_COLOR,
-                      )).marginOnly(bottom: 8),
-                  GenderWidget(
-                    gender: (controller.user.value?.gender ?? "male").obs,
-                    onChange: (value) => controller.user.value?.gender = value,
-                  ),
+                  // const Text("Je suis",
+                  //     style: TextStyle(
+                  //       color: MAIN_COLOR,
+                  //     )).marginOnly(bottom: 8),
+                  // CheckboxListTile(
+                  //   value: controller.user.value?.gender == "male",
+                  //   onChanged: (bool? value) =>
+                  //       controller.user.value?.gender = "male",
+                  //   title: const Text('Un homme'),
+                  //   activeColor: MAIN_COLOR,
+                  // ),
+                  // CheckboxListTile(
+                  //   value: controller.user.value?.gender == "female",
+                  //   activeColor: MAIN_COLOR,
+                  //   onChanged: (bool? value) =>
+                  //       controller.user.value?.gender = "female",
+                  //   title: const Text('Une femme'),
+                  // ),
                 ],
               ),
             ),

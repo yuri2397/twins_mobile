@@ -34,7 +34,7 @@ class RegisterController extends GetxController {
   final avatarFile = XFile("").obs;
   final sex = "male".obs;
   final signe = SigneZodiaque("", "", "").obs;
-
+  final checkEmailLoad = false.obs;
   final obscureText = true.obs;
   final loading = false.obs;
 
@@ -80,6 +80,24 @@ class RegisterController extends GetxController {
     signe.value = determinerSigne(date);
     birthdayCtrl.text = "$date";
     Get.toNamed(Goo.addSigneScreen);
+  }
+
+  // check email
+  Future<void> checkEmail({required String email}) async {
+    print("check email");
+    try {
+      checkEmailLoad.value = true;
+      _registerService.checkEmail(email: email).then((value) {
+        if (value) {
+          Get.toNamed(Goo.addPasswordScreen);
+        }
+        checkEmailLoad.value = false;
+      }).catchError((e) {
+        checkEmailLoad.value = false;
+      });
+    } catch (e) {
+      rethrow;
+    }
   }
 
   save() async {

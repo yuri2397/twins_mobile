@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:twinz/controllers/register.controller.dart';
 import 'package:twinz/core/utils/utils.dart';
-import 'package:twinz/routes/router.dart';
 import 'package:twinz/shared/utils/colors.dart';
 
 class AddEmailScreen extends GetView<RegisterController> {
@@ -20,74 +19,85 @@ class AddEmailScreen extends GetView<RegisterController> {
             child: const Icon(Icons.arrow_back_ios, color: DARK_COLOR),
           ),
         ),
-        body: Container(
-          height: Get.height,
-          width: Get.width,
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Saisissez votre adresse email",
-                    style: TextStyle(
-                        color: DARK_COLOR,
-                        fontSize: 30,
-                        fontFamily: "Haylard",
-                        fontWeight: FontWeight.w700),
-                    textAlign: TextAlign.start,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Form(
-                    key: _form,
-                    child: TextFormField(
-                        autofocus: true,
-                        controller: controller.emailCtrl,
-                        keyboardType: TextInputType.emailAddress,
-                        cursorColor: DARK_COLOR,
-                        validator: (value) {
-                          if (value == null) {
-                            return "Votre email est obligatoire.";
-                          }
+        body: Obx(
+          () => Container(
+            height: Get.height,
+            width: Get.width,
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Saisissez votre adresse email",
+                      style: TextStyle(
+                          color: DARK_COLOR,
+                          fontSize: 30,
+                          fontFamily: "Haylard",
+                          fontWeight: FontWeight.w700),
+                      textAlign: TextAlign.start,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Form(
+                      key: _form,
+                      child: TextFormField(
+                          autofocus: true,
+                          controller: controller.emailCtrl,
+                          keyboardType: TextInputType.emailAddress,
+                          cursorColor: DARK_COLOR,
+                          validator: (value) {
+                            if (value == null) {
+                              return "Votre email est obligatoire.";
+                            }
 
-                          if (!value.isEmail) {
-                            return "Adresse email invalide.";
-                          }
-                          return null;
-                        },
-                        style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(fontSize: 16),
-                            color: DARK_COLOR),
-                        decoration: decoration("Adresse email...")),
+                            if (!value.isEmail) {
+                              return "Adresse email invalide.";
+                            }
+                            return null;
+                          },
+                          style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(fontSize: 16),
+                              color: DARK_COLOR),
+                          decoration: decoration("Adresse email...")),
+                    ),
+                  ],
+                )),
+                SizedBox(
+                  width: Get.width * .4,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        backgroundColor: MAIN_COLOR,
+                        foregroundColor: Colors.white),
+                    onPressed: controller.checkEmailLoad.value
+                        ? null
+                        : () {
+                            if (_form.currentState!.validate()) {
+                              controller.checkEmail(
+                                  email: controller.emailCtrl.text);
+                            }
+                          },
+                    child: controller.checkEmailLoad.value
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(color: MAIN_COLOR),
+                          )
+                        : const Text("Suivant", style: TextStyle(fontSize: 18)),
                   ),
-                ],
-              )),
-              SizedBox(
-                width: Get.width * .4,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      backgroundColor: MAIN_COLOR,
-                      foregroundColor: Colors.white),
-                  onPressed: () {
-                    if (_form.currentState!.validate()) {
-                      Get.toNamed(Goo.addPasswordScreen);
-                    }
-                  },
-                  child: const Text("Suivant", style: TextStyle(fontSize: 18)),
-                ),
-              )
-            ],
-          ).paddingAll(20),
+                )
+              ],
+            ).paddingAll(20),
+          ),
         ));
   }
 }

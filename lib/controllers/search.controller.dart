@@ -16,7 +16,7 @@ class SearchController extends GetxController {
   final _chatRequestService = Get.find<ChatRequestService>();
   final canUnswip = false.obs;
   final detailUserPhotosController = PageController();
-  final matchLoad = false.obs;
+  final matchLoad = true.obs;
   final detailsLoad = false.obs;
   final subscribeForPremium = false.obs;
   final matchSuccess = true.obs;
@@ -37,6 +37,7 @@ class SearchController extends GetxController {
       user?.lat = "${value.latitude}";
       user?.lng = "${value.longitude}";
       localStorage.user = user;
+      user?.bio = user.bio ?? "bio";
       _userService.updateUser(user!);
     });
     getMatchings();
@@ -47,7 +48,6 @@ class SearchController extends GetxController {
     matchLoad.value = true;
     await _matchingService.matchings().then((value) {
       currentMatch.value = value;
-      print("LENGHT: ${value.length}");
       if (value.isEmpty) {
         matchSuccess.value = false;
       } else {
@@ -61,9 +61,9 @@ class SearchController extends GetxController {
     });
   }
 
-  void swipe(int index, AppinioSwiperDirection direction) {
+  void swipe(int index, AppinioSwiperDirection direction) async {
     _swipIndex.value = index;
-    print("INDEX: $index");
+
     if (direction == AppinioSwiperDirection.left) {
       _matchingService.matchingSkip(visibleUser.value);
     } else if (direction == AppinioSwiperDirection.right) {
@@ -71,13 +71,27 @@ class SearchController extends GetxController {
     }
 
     if ((user.value?.isPremium == true)) {
-      canUnswip.value = true;
       if (currentMatch.length == index) {
-        getMatchings();
+        matchLoad.value = true;
+        await _matchingService.matchings().then((value) {
+          currentMatch.value = value;
+          if (value.isEmpty) {
+            matchSuccess.value = false;
+          } else {
+            visibleUser.value = value.first;
+            matchSuccess.value = true;
+            currentMatch.refresh();
+          }
+          matchLoad.value = false;
+        }).catchError((e, s) {
+          matchLoad.value = false;
+        });
       }
+      canUnswip.value = true;
+    } else {
+      visibleUser.value = currentMatch[index];
     }
 
-    visibleUser.value = currentMatch[index];
     showCancelIcon.value = false;
     showLikeIcons.value = false;
   }
@@ -86,10 +100,10 @@ class SearchController extends GetxController {
     likeLoad.value = true;
     _chatRequestService.sendRequestChat(toUser: user).then((value) {
       likeLoad.value = false;
-      swiperController.swipeRight();
     }).catchError((e) {
       likeLoad.value = false;
     });
+    swiperController.swipeRight();
   }
 
   onSwipBack(User currentMatch) {
@@ -98,9 +112,9 @@ class SearchController extends GetxController {
         canUnswip.value = false;
       }
       canUnswip.refresh();
+      _matchingService.matchingCancelSkip(currentMatch);
       swiperController.unswipe();
     }
-    _matchingService.matchingCancelSkip(currentMatch);
   }
 
   onCancel(User currentMatch) {
@@ -110,12 +124,10 @@ class SearchController extends GetxController {
   searchDetails(User user) async {
     detailsLoad.value = true;
     _matchingService.matchingDetails(user: user).then((value) {
-      print("VALUE: ${value.toJson().toString()}");
       visibleUser.value = value;
       detailsLoad.value = false;
     }).catchError((e) {
       detailsLoad.value = false;
-      print("ERERERER: $e");
     });
     Get.toNamed(Goo.searchDetailsScreen);
   }

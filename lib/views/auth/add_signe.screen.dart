@@ -46,6 +46,7 @@ class AddSigneScreen extends GetView<RegisterController> {
                 ),
                 Text(
                   controller.signe.value.description,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(
                       color: DARK_COLOR,
                       fontSize: 18,

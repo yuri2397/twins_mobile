@@ -110,7 +110,7 @@ class LoginScreen extends GetView<LoginController> {
               ),
               Center(
                 child: GestureDetector(
-                    onTap: () => Get.toNamed(Goo.registerScreen),
+                    onTap: () => Get.toNamed(Goo.forgotPasswordScreen),
                     child: const Text(
                       "Mot de passe oublié?",
                       style: TextStyle(

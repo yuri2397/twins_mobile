@@ -162,7 +162,7 @@ class SettingScreen extends GetView<ProfileController> {
                     width: Get.width - 100,
                     child: SfRangeSlider(
                       min: 18,
-                      max: 65,
+                      max: 80,
                       interval: 10,
                       showTicks: false,
                       activeColor: MAIN_COLOR,
@@ -180,11 +180,11 @@ class SettingScreen extends GetView<ProfileController> {
                       },
                       values: SfRangeValues(
                           controller.settings.value?.ageMin ?? 18,
-                          controller.settings.value?.ageMax ?? 65),
+                          controller.settings.value?.ageMax ?? 80),
                     ),
                   ),
                   Text(
-                      "${controller.settings.value?.ageMin ?? '18'} - ${controller.settings.value?.ageMax ?? '65'}")
+                      "${controller.settings.value?.ageMin ?? '18'} - ${controller.settings.value?.ageMax ?? '80'}")
                 ],
               ).marginSymmetric(),
               const SizedBox(

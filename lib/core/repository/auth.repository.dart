@@ -34,6 +34,40 @@ class AuthRepository {
     }
   }
 
+  Future<bool> resetPassword({required String email}) async {
+    try {
+      var response = await _client.post("/password/forgot", data: {
+        "email": email,
+      });
+      print(response.data);
+
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return true;
+      } else {
+        throw "Email invalide.";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // check email
+  Future<bool> checkEmail({required String email}) async {
+    try {
+      var response = await _client.post("/check-email", data: {
+        "email": email,
+      });
+
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return true;
+      } else {
+        throw "Email invalide.";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<void> resendLink() async {
     try {
       await _client.get(
@@ -62,7 +96,7 @@ class AuthRepository {
   Future<User> profileUpdate(Map<String, dynamic> data) async {
     try {
       var response = await _client.put("/profile", data: data);
-      if (response.statusCode! <= 200 && response.statusCode! < 300) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return User.fromJson(response.data);
       } else {
         Get.log(response.data);

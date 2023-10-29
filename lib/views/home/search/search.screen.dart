@@ -6,7 +6,6 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:twinz/components/ui.dart';
 import 'package:twinz/controllers/search.controller.dart' as sc;
 import 'package:twinz/core/config/env.dart';
-import 'package:twinz/core/utils/utils.dart';
 import 'package:twinz/routes/router.dart';
 import 'package:twinz/shared/utils/colors.dart';
 import 'package:twinz/views/home/search/search_item.dart';
@@ -17,7 +16,6 @@ class SearchScreen extends GetView<sc.SearchController> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    print("${controller.user.value?.toJson().toString()}");
     return Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
@@ -294,15 +292,17 @@ class Matcher extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Obx(
-          () => Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-                controller.currentMatch[_index.value].photosCount ?? 0,
-                (index) => const Icon(Icons.circle, color: MAIN_COLOR, size: 6)
-                    .marginSymmetric(horizontal: 6)),
-          ).marginSymmetric(vertical: 10),
-        ),
+        if (controller.currentMatch.isNotEmpty)
+          Obx(
+            () => Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                  controller.currentMatch[_index.value].photosCount ?? 0,
+                  (index) =>
+                      const Icon(Icons.circle, color: MAIN_COLOR, size: 6)
+                          .marginSymmetric(horizontal: 6)),
+            ).marginSymmetric(vertical: 10),
+          ),
         Expanded(
           child: AppinioSwiper(
             swipeOptions:

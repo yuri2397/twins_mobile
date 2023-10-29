@@ -5,6 +5,8 @@ class Goo {
   /// AUTH ROUTES
   static const String loginScreen = "/login-screen";
   static const String registerScreen = "/register-screen";
+  // reset password
+  static const String forgotPasswordScreen = "/forgot-password-screen";
   static const String addEmailScreen = "/register-screen/add-email";
   static const String addSigneScreen = "/register-screen/add-signe";
   static const String addBirthDayScreen = "/register-screen/add-birthday";

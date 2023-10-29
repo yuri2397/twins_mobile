@@ -26,6 +26,8 @@ class ProfileController extends GetxController {
   final sexCrtl = TextEditingController();
   final passwordCrtl = TextEditingController();
 
+  final logoutLoading = false.obs;
+
   /// FILES
 
   final files = <Rx<XFile>>[
@@ -38,6 +40,7 @@ class ProfileController extends GetxController {
   ];
 
   final _profileService = Get.find<ProfileService>();
+  final _userService = Get.find<UserService>();
 
   @override
   void onInit() {
@@ -68,7 +71,6 @@ class ProfileController extends GetxController {
   Future<void> profile() async {
     await _profileService.profile().then((value) {
       photos();
-
       user.value = value;
       user.refresh();
       localStorage.user = value;
@@ -81,11 +83,14 @@ class ProfileController extends GetxController {
 
   void save() {
     updateLoad.value = true;
-
-    _profileService.profileUpdate(data: user.toJson()).then((value) {
+    user.value?.bio = bioCrtl.text;
+    _userService.updateUser(user.value!).then((value) {
       user.value = value;
-      user.refresh();
+      profile();
       updateLoad.value = false;
+      successMessage(
+          title: "Félicitation",
+          content: "Votre profil est maintenant à jour.");
     }).catchError((e) {
       updateLoad.value = false;
       errorMessage(title: "Oups !", content: "$e");
@@ -135,8 +140,6 @@ class ProfileController extends GetxController {
   }
 
   logout() async {
-    logoutLoad.value = false;
-
     Get.bottomSheet(Container(
       padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
       decoration: const BoxDecoration(
@@ -177,6 +180,7 @@ class ProfileController extends GetxController {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(6))),
                   onPressed: () {
+                    Get.back();
                     logoutLoad.value = true;
                     _profileService.logout().then((value) {
                       logoutLoad.value = false;

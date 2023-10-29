@@ -100,11 +100,8 @@ class User {
       };
 
   // tojson only lat, long, bio
-  Map<String, dynamic> toJsonForUpdate() => {
-        "lat": lat,
-        "lng": lng,
-        "bio": bio,
-      };
+  Map<String, dynamic> toJsonForUpdate() =>
+      {"lat": lat, "lng": lng, "bio": bio, "full_name": fullName};
 
   Map<String, dynamic> toJsonForMessage() =>
       {"id": id.toString(), "imageUrl": profilePhoto};

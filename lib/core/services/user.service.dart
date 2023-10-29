@@ -7,11 +7,10 @@ class UserService extends GetxService {
   final _repo = UserRepository();
 
   Future<User> updateUser(User user) async {
-    print("UPDATE USER: $user");
     try {
       return await _repo.update(user: user);
     } catch (e) {
-      e.printError();
+      print("UPDATE ERROR: $e");
       rethrow;
     }
   }

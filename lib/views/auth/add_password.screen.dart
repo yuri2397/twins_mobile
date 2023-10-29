@@ -54,6 +54,7 @@ class AddPasswordScreen extends GetView<RegisterController> {
                             controller: controller.passwordCtrl,
                             keyboardType: TextInputType.visiblePassword,
                             cursorColor: DARK_COLOR,
+                            autofocus: true,
                             validator: (value) {
                               if (value == null) {
                                 return "Mot de passe obligatoire.";

@@ -93,7 +93,9 @@ _initServices() async {
   Get.lazyPut(() => ChatRequestService());
   Get.lazyPut(() => UserService());
   Get.lazyPut(() => NotificationService());
-  Get.lazyPut(() => ProfileService(), fenix: true);
+  Get.lazyPut(
+    () => ProfileService(),
+  );
 }
 
 @pragma('vm:entry-point')

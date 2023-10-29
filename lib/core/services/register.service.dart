@@ -17,4 +17,13 @@ class RegisterService extends GetxService {
       rethrow;
     }
   }
+
+  // check email
+  Future<bool> checkEmail({required String email}) async {
+    try {
+      return await repo.checkEmail(email: email);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

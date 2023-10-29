@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:twinz/controllers/home.controller.dart';
 import 'package:twinz/core/model/user.dart';
+import 'package:twinz/core/services/firebase_message.service.dart';
 import 'package:twinz/routes/router.dart';
 import 'package:twinz/shared/utils/colors.dart';
+import 'package:twinz/core/config/env.dart';
 
 errorMessage(
     {required String title, required String content, SnackPosition? position}) {
@@ -261,6 +263,7 @@ drawer({drawerKey, scaffoldKey}) {
           height: 20,
         ),
         ListTile(
+          onTap: () => lunchWebURL(Env.cookiesUrl),
           leading: itemIcon(Icons.security_outlined, color: MAIN_COLOR),
           title: const Text("Confidentialité",
               style: TextStyle(

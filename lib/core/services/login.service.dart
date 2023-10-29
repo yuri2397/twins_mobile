@@ -21,6 +21,15 @@ class LoginService extends GetxService {
     }
   }
 
+  // reset password
+  Future<bool> resetPassword({required String email}) async {
+    try {
+      return await repo.resetPassword(email: email);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<void> resendLink() async {
     try {
       return await repo.resendLink();

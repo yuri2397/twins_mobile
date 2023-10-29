@@ -56,6 +56,7 @@ class AddBirthDayScreen extends GetView<RegisterController> {
                         children: [
                           Flexible(
                             child: TextFormField(
+                                autofocus: true,
                                 controller: controller.bd1Ctrl,
                                 inputFormatters: [
                                   controller.dayMask,
@@ -139,9 +140,10 @@ class AddBirthDayScreen extends GetView<RegisterController> {
                                   if (int.tryParse(value) == null) {
                                     return "AAAA";
                                   }
-                                  if (int.tryParse(value)! < 1900 ||
+                                  if (int.tryParse(value)! <
+                                          (DateTime.now().year - 80) ||
                                       int.tryParse(value)! >
-                                          (DateTime.now().year - 10)) {
+                                          (DateTime.now().year - 18)) {
                                     return "AAAA";
                                   }
                                   if (value.length != 4) {

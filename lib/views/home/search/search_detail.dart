@@ -31,7 +31,7 @@ class SearchDetails extends GetView<lc.SearchController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: Get.height * .50,
+                      height: Get.height * .55,
                       width: Get.width,
                       child: controller.visibleUser.value.photos!.isEmpty
                           ? ClipRRect(

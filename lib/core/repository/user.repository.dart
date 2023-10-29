@@ -7,8 +7,9 @@ class UserRepository {
 
   Future<User> update({required User user}) async {
     try {
-      var response = await _client.put("/update", data: user.toJsonForUpdate());
-      if (response.statusCode! <= 200 && response.statusCode! < 300) {
+      var response =
+          await _client.put("/profile", data: user.toJsonForUpdate());
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return User.fromJson(response.data);
       } else {
         throw "Oups! une erreur s'est produite.";

@@ -15,7 +15,6 @@ class ProfileScreen extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
-    print("ACTIVE: ${controller.user.value?.active}");
     return Scaffold(
         backgroundColor: Colors.white,
         body: RefreshIndicator(
@@ -101,12 +100,22 @@ class ProfileScreen extends GetView<ProfileController> {
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.circle, color: MAIN_COLOR, size: 15),
-                          const Text("A propos de vous",
-                              style: TextStyle(
-                                color: MAIN_COLOR,
-                                fontSize: 18,
-                              )).marginOnly(left: 10),
+                          Row(
+                            children: [
+                              const Icon(Icons.circle,
+                                  color: MAIN_COLOR, size: 15),
+                              const Text("A propos de vous",
+                                  style: TextStyle(
+                                    color: MAIN_COLOR,
+                                    fontSize: 18,
+                                  )).marginOnly(left: 10),
+                            ],
+                          ),
+                          const Spacer(),
+                          GestureDetector(
+                            onTap: () => Get.toNamed(Goo.updateProfileScreen),
+                            child: const Icon(Icons.edit, color: MAIN_COLOR),
+                          )
                         ],
                       ),
                       Container(
@@ -224,14 +233,23 @@ class ProfileScreen extends GetView<ProfileController> {
                           child: Column(
                             children: [
                               ListTile(
-                                onTap: () => controller.logout(),
+                                onTap: controller.logoutLoad.value
+                                    ? null
+                                    : () => controller.logout(),
                                 title: const Text("Se déconnecter",
                                     style: TextStyle(
                                       color: Colors.black38,
                                       fontSize: 18,
                                     )),
-                                trailing:
-                                    const Icon(Icons.arrow_forward_ios_sharp),
+                                trailing: controller.logoutLoad.value
+                                    ? const SizedBox(
+                                        width: 20,
+                                        height: 20,
+                                        child: CircularProgressIndicator(
+                                          color: MAIN_COLOR,
+                                          strokeWidth: 3,
+                                        ))
+                                    : const Icon(Icons.arrow_forward_ios_sharp),
                               ),
                               if (controller.user.value?.active != "1")
                                 ListTile(
