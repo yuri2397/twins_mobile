@@ -80,11 +80,13 @@ class ChatScreen extends GetView<lc.ChatController> {
                   chatController: controller.chatController,
                   onSendTap: controller.onSendTap,
                   featureActiveConfig: const FeatureActiveConfig(
-                    lastSeenAgoBuilderVisibility: true,
-                    receiptsBuilderVisibility: true,
-                    enableCurrentUserProfileAvatar: false,
-                    enableOtherUserProfileAvatar: true,
-                  ),
+                      lastSeenAgoBuilderVisibility: true,
+                      receiptsBuilderVisibility: true,
+                      enableCurrentUserProfileAvatar: false,
+                      enableOtherUserProfileAvatar: true,
+                      enableReplySnackBar: false,
+                      enableReactionPopup: false,
+                      enableSwipeToReply: false),
                   chatViewState:
                       controller.currentChat.value.messages!.isNotEmpty
                           ? ChatViewState.hasMessages
@@ -92,8 +94,17 @@ class ChatScreen extends GetView<lc.ChatController> {
                   chatViewStateConfig: ChatViewStateConfiguration(
                     loadingWidgetConfig: const ChatViewStateWidgetConfiguration(
                       loadingIndicatorColor: MAIN_COLOR,
+                      title: "Chargement des messages...",
+                      titleTextStyle: TextStyle(color: MAIN_COLOR),
                     ),
-                    onReloadButtonTap: () {},
+                    noMessageWidgetConfig: ChatViewStateWidgetConfiguration(
+                        title: "Démarrez une conversation !",
+                        titleTextStyle: const TextStyle(color: DARK_COLOR),
+                        reloadButton: Text(
+                          "Envoyez votre premier message à ${controller.currentChat.value.participants?.firstWhere((e) => e.id.toString() != currentUserId).fullName}",
+                          style: const TextStyle(color: Colors.grey),
+                        )),
+                    onReloadButtonTap: () => controller.getChatMessages(),
                   ),
                   typeIndicatorConfig: const TypeIndicatorConfiguration(
                     flashingCircleBrightColor: MAIN_COLOR,
@@ -126,11 +137,8 @@ class ChatScreen extends GetView<lc.ChatController> {
                     textFieldBackgroundColor: NEUTRAL_COLOR,
                     closeIconColor: Colors.pink,
                     textFieldConfig: TextFieldConfiguration(
-                      borderRadius: BorderRadius.circular(20),
-                      margin: const EdgeInsets.all(10),
-                      padding: const EdgeInsets.all(6),
+                      borderRadius: BorderRadius.circular(8),
                       onMessageTyping: (status) {
-                        /// Do with status
                         debugPrint(status.toString());
                       },
                       compositionThresholdTime: const Duration(seconds: 1),

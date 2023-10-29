@@ -90,7 +90,7 @@ class ChatController extends GetxController {
     hc.ReplyMessage replyMessage,
     hc.MessageType messageType,
   ) async {
-    final id = int.parse(messages.last.id) + 1;
+    final id = DateTime.now().millisecondsSinceEpoch;
     chatController.addMessage(
       hc.Message(
         id: id.toString(),
@@ -135,4 +135,6 @@ class ChatController extends GetxController {
   }
 
   moreInfo(int index) {}
+
+  getChatMessages() {}
 }

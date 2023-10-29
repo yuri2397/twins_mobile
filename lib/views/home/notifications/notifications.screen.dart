@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:twinz/components/ui.dart';
 import 'package:twinz/controllers/notification.controller.dart';
+import 'package:twinz/core/utils/utils.dart';
 import 'package:twinz/shared/utils/colors.dart';
 import 'package:twinz/core/model/notification.dart' as nt;
 
@@ -66,6 +67,7 @@ class NotificationsScreen extends GetView<NotificationController> {
   }
 
   Widget _buildItem(nt.Notification item) {
+    print("NOT: ${item.toJson().toString()}");
     switch (item.data?.data?.type) {
       case 'message':
         return _buildMessage(item);
