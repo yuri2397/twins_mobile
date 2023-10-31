@@ -21,7 +21,6 @@ class SearchController extends GetxController {
   final subscribeForPremium = false.obs;
   final matchSuccess = true.obs;
   final likeLoad = false.obs;
-  final _swipIndex = localStorage.getSwipIndex().obs;
   final _userService = Get.find<UserService>();
   final user = localStorage.getUser().obs;
   final showCancelIcon = false.obs;
@@ -29,18 +28,16 @@ class SearchController extends GetxController {
 
   @override
   void onInit() {
-    _swipIndex.listen((newIndex) {
-      localStorage.swipIndex = newIndex;
-    });
-    determinePosition().then((value) {
+    determinePosition().then((value) async{
       var user = localStorage.getUser();
       user?.lat = "${value.latitude}";
       user?.lng = "${value.longitude}";
       localStorage.user = user;
       user?.bio = user.bio ?? "bio";
-      _userService.updateUser(user!);
+     await  _userService.updateUser(user!);
+      getMatchings();
+
     });
-    getMatchings();
     super.onInit();
   }
 
@@ -62,8 +59,6 @@ class SearchController extends GetxController {
   }
 
   void swipe(int index, AppinioSwiperDirection direction) async {
-    _swipIndex.value = index;
-
     if (direction == AppinioSwiperDirection.left) {
       _matchingService.matchingSkip(visibleUser.value);
     } else if (direction == AppinioSwiperDirection.right) {

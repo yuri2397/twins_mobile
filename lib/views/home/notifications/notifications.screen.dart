@@ -67,7 +67,6 @@ class NotificationsScreen extends GetView<NotificationController> {
   }
 
   Widget _buildItem(nt.Notification item) {
-    print("NOT: ${item.toJson().toString()}");
     switch (item.data?.data?.type) {
       case 'message':
         return _buildMessage(item);
@@ -107,12 +106,18 @@ class NotificationsScreen extends GetView<NotificationController> {
   }
 
   _buildAcceptRequest(nt.Notification item) {
+    String date = "";
+    if( item.createdAt!.compareTo(DateTime.now()) == 0){
+      date = DateFormat.Hm().format(item.createdAt!);
+    }else{
+      date = DateFormat.MMMd().format(item.createdAt!);
+    }
     return Container(
       padding: const EdgeInsets.all(10),
       child: ListTile(
         title: Text("${item.data?.title}"),
         subtitle: Text("${item.data?.body}"),
-        trailing: Text(DateFormat.Hm().format(item.createdAt!)),
+        trailing: Text(date),
       ),
     );
   }

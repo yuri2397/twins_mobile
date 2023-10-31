@@ -51,7 +51,7 @@ class UpdateProfileScreen extends GetView<ProfileController> {
                   ),
                   const Center(
                       child: Text(
-                    "Mettre à jour vos informations",
+                    "Mettez vos informations à jour",
                     style: TextStyle(
                         color: MAIN_COLOR,
                         fontSize: 30,

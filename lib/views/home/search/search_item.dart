@@ -46,7 +46,7 @@ class SearchItemWidget extends StatelessWidget {
                 backgroundColor: Colors.white,
                 radius: 18,
                 child: SvgPicture.asset(
-                  "assets/icons/info.svg",
+                  "assets/icons/i.svg",
                   color: MAIN_COLOR,
                   width: 30,
                 ),

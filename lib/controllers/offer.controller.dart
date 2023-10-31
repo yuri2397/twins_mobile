@@ -17,11 +17,26 @@ class OfferController extends GetxController {
   final offers = <Plan>[].obs;
   final offerLoad = true.obs;
   final lastInitPayment = InitPayment().obs;
+  final currentOffer = Plan().obs;
+  final user = localStorage.getUser().obs;
   @override
   Future<void> onInit() async {
     super.onInit();
 
     getOffers();
+  }
+
+  selectOffer(Plan plan){
+    offers.forEach((e) {
+      if(plan.id == e.id){
+        e.selected = true;
+      }else{
+        e.selected = false;
+
+      }
+    });
+
+    offers.refresh();
   }
 
   Future<void> getOffers() async {
@@ -36,6 +51,7 @@ class OfferController extends GetxController {
   }
 
   Future<void> choosePlan(Plan p) async {
+    selectOffer(p);
     load.value = true;
     _service.initPayment(p.id.toString()).then((value) async {
       lastInitPayment.value = value;

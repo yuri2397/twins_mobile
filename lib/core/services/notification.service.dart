@@ -13,6 +13,22 @@ class NotificationService extends GetxService {
     }
   }
 
+  Future<void> markAllRead() async{
+    try{
+      return await _repo.markAllRead();
+    }catch(e){
+      rethrow;
+    }
+  }
+
+  Future<int> countUnread() async {
+    try{
+    return await _repo.countUnread();
+    }catch(e){
+    rethrow;
+    }
+  }
+
   Future<void> markAsRead({required String id}) async {
     try {
       return _repo.markAsRead(id);

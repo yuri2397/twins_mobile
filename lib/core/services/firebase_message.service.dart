@@ -206,10 +206,11 @@ class FireBaseMessagingService extends GetxService {
     }
   }
 
-  Future<void> getDeviceToken() async {
+  Future<String> getDeviceToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
     print("TOKEN: $token");
     updateDeviceToken(token);
+    return "$token";
   }
 
 // FIREBASE INITIALIZATION

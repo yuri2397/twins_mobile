@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:twinz/controllers/home.controller.dart';
+import 'package:twinz/controllers/notification.controller.dart';
+import 'package:twinz/core/services/notification.service.dart';
 import 'package:twinz/shared/utils/colors.dart';
 import 'package:twinz/views/home/chats/chat_list.screen.dart';
 import 'package:twinz/views/home/notifications/notifications.screen.dart';
@@ -49,6 +52,8 @@ class HomeScreen extends GetView<HomeController> {
 
   HomeScreen({super.key});
 
+  final notificationController = Get.find<NotificationController>();
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -77,14 +82,20 @@ class HomeScreen extends GetView<HomeController> {
                   ),
                 ),
                 GestureDetector(
-                    onTap: () {
-                      controller.currentIndex.value = 1;
-                      controller.currentIndex.refresh();
-                    },
-                    child: Icon(Icons.notifications,
-                        color: controller.currentIndex.value == 1
-                            ? MAIN_COLOR
-                            : Colors.grey[400])),
+                  onTap: () {
+                    controller.currentIndex.value = 1;
+                    controller.currentIndex.refresh();
+                  },
+                  child: notificationController.haveUnreadNotification.value
+                      ? Icon(Icons.notifications,
+                          color: controller.currentIndex.value == 1
+                              ? MAIN_COLOR
+                              : Colors.grey[400])
+                      : SvgPicture.asset('assets/icons/notification-unread.svg',
+                          color: controller.currentIndex.value == 1
+                              ? MAIN_COLOR
+                              : Colors.grey[400]),
+                ),
                 GestureDetector(
                     onTap: () {
                       controller.currentIndex.value = 2;
@@ -111,8 +122,6 @@ class HomeScreen extends GetView<HomeController> {
     );
   }
 }
-
-
 
 /*
 PersistentTabView(

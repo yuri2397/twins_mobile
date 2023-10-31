@@ -7,6 +7,7 @@ import 'package:twinz/core/model/setting.dart';
 import 'package:twinz/core/model/token.dart';
 import 'package:twinz/core/model/upload-file.dart';
 import 'package:twinz/core/model/user.dart';
+import 'package:twinz/core/services/firebase_message.service.dart';
 import 'package:twinz/core/utils/utils.dart';
 import 'package:dio/dio.dart' as dio;
 
@@ -21,7 +22,7 @@ class AuthRepository {
         "password": password,
         "device_name": await deviceName,
         "device_id": await deviceId,
-        "device_token": localStorage.getFcmToken()
+        "device_token": await Get.find<FireBaseMessagingService>().getDeviceToken()
       });
 
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
@@ -122,7 +123,13 @@ class AuthRepository {
   }
 
   Future<void> logout() async {
-    await _client.post("/logout", data: {});
+    try{
+      print("logount");
+      var response = await _client.post("/logout", data: {});
+      print(response.data);
+    }catch(e){
+      rethrow;
+    }
   }
 
   Future<Token> register(

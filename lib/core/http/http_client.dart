@@ -11,6 +11,7 @@ import 'package:twinz/core/utils/utils.dart';
 import 'package:twinz/routes/router.dart';
 
 import 'base_http.dart';
+import 'dart:io';
 
 class HttpClient extends GetxService with BaseApiClient {
   late dio.Dio httpClient;
@@ -32,7 +33,9 @@ class HttpClient extends GetxService with BaseApiClient {
 
     dio.interceptors.addAll({
       AppInterceptors(dio),
+
     });
+    dio.interceptors.add(LogInterceptor( ));
     return dio;
   }
 
@@ -124,6 +127,11 @@ class AppInterceptors extends Interceptor {
         errorMessage(
           title: "Une erreur est survenue",
           content: message,
+        );
+      } else if (err.response?.data['message'] != null) {
+        errorMessage(
+          title: "Une erreur est survenue",
+          content: err.response?.data['message'],
         );
       }
     }

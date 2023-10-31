@@ -7,10 +7,19 @@ class NotificationController extends GetxController {
   final items = <nt.Notification>[].obs;
   final loading = false.obs;
   final _service = Get.find<NotificationService>();
+  final haveUnreadNotification = false.obs;
 
   @override
   void onInit() {
     super.onInit();
+    _service.markAllRead();
+    _service.countUnread().then((value) {
+      if (value == 1) {
+        haveUnreadNotification.value = true;
+      } else {
+        haveUnreadNotification.value = false;
+      }
+    });
     fetchNotifications();
   }
 

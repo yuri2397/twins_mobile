@@ -41,7 +41,7 @@ class OnboardingScreen extends GetView<OnboardingController> {
               top: Get.height * .4,
               width: Get.width - 60,
               child: RichText(
-                  textAlign: TextAlign.start,
+                  textAlign: TextAlign.center,
                   text: TextSpan(
                       text: "En utilisant nos services, vous acceptez nos ",
                       style: const TextStyle(fontSize: 18, color: Colors.white),

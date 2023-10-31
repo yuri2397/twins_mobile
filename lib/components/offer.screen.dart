@@ -45,6 +45,7 @@ class OfferScreen extends GetView<OfferController> {
                   const SizedBox(
                     height: 40,
                   ),
+                  if(controller.user.value!.isPremium == false)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -59,7 +60,7 @@ class OfferScreen extends GetView<OfferController> {
                               horizontal: 8, vertical: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: GRAY_COLOR, width: 2),
+                            border: Border.all(color: controller.offers[1].selected ? MAIN_COLOR : GRAY_COLOR, width: 2),
                           ),
                           child: Column(
                             children: [
@@ -92,7 +93,7 @@ class OfferScreen extends GetView<OfferController> {
                               horizontal: 8, vertical: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: MAIN_COLOR, width: 2),
+                            border: Border.all(color:controller.offers[2].selected ? MAIN_COLOR : GRAY_COLOR, width: 2),
                           ),
                           child: Column(
                             children: [
@@ -125,7 +126,7 @@ class OfferScreen extends GetView<OfferController> {
                           margin: const EdgeInsets.symmetric(horizontal: 2),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: GRAY_COLOR, width: 2),
+                            border: Border.all(color: controller.offers[0].selected ? MAIN_COLOR : GRAY_COLOR, width: 2),
                           ),
                           child: Column(
                             children: [
@@ -151,6 +152,8 @@ class OfferScreen extends GetView<OfferController> {
                       ),
                     ],
                   ),
+                  if(controller.user.value!.isPremium == true)
+                    Text("Déjà premi"),
                   if (controller.load.value)
                     const SizedBox(
                       child: Center(

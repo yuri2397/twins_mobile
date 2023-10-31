@@ -14,6 +14,7 @@ class Plan {
   String? description;
   String? price;
   String? duration;
+  bool selected = false;
 
   Plan({
     this.id,
@@ -21,6 +22,7 @@ class Plan {
     this.description,
     this.price,
     this.duration,
+    this.selected = false
   });
 
   factory Plan.fromJson(Map<String, dynamic> json) => Plan(
