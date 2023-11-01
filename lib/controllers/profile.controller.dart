@@ -184,7 +184,6 @@ class ProfileController extends GetxController {
                     logoutLoad.value = true;
                     _profileService.logout().then((value) {
                       logoutLoad.value = false;
-
                       localStorage.clear();
                       Get.offAllNamed(Goo.onboardingScreen);
                     }).catchError((e) {

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -44,17 +45,24 @@ class ProfileScreen extends GetView<ProfileController> {
                                     borderRadius: BorderRadius.circular(100)),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
-                                  child: Image.network(
+                                  child:
+                                  CachedNetworkImage(
+                                    imageUrl:
                                     (controller.user.value?.profilePhoto !=
-                                                null &&
-                                            controller
-                                                    .user.value?.profilePhoto !=
-                                                "")
+                                        null &&
+                                        controller
+                                            .user.value?.profilePhoto !=
+                                            "")
                                         ? controller.user.value!.profilePhoto!
                                         : "https://img.freepik.com/photos-gratuite/jeune-femme-chien-sans-abri-au-parc-photo-haute-qualite_144627-75703.jpg?w=740&t=st=1694874615~exp=1694875215~hmac=eb6804b67c1fc7b677babff8be1caaee8f4b47db541f6cfeb548f472371d555d",
-                                    fit: BoxFit.cover,
-                                    height: 100,
+
+                                    placeholder: (context, url) =>
+                                    const CircularProgressIndicator(color: MAIN_COLOR),
+                                    errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
                                     width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ),

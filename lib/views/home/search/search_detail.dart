@@ -50,6 +50,7 @@ class SearchDetails extends GetView<lc.SearchController> {
                                 child: Image.network(
                                   "${controller.visibleUser.value.photos?[index].url}",
                                   fit: BoxFit.cover,
+                                  alignment: Alignment.topCenter,
                                 ),
                               ).marginSymmetric(horizontal: 8),
                             ),
@@ -89,7 +90,7 @@ class SearchDetails extends GetView<lc.SearchController> {
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.fade,
                           maxLines: 2,
-                          style: TextStyle(color: DARK_COLOR, fontSize: 20)),
+                          style: const TextStyle(color: Colors.grey, fontSize: 20)),
                     ),
                     const SizedBox(
                       height: 5,
@@ -99,7 +100,7 @@ class SearchDetails extends GetView<lc.SearchController> {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                         style: const TextStyle(
-                            color: Colors.grey,
+                            color: DARK_COLOR,
                             fontSize: 18,
                             fontFamily: "Haylard")),
 

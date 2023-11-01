@@ -10,7 +10,7 @@ class ChatRepository {
     try {
       var response = await _client.get("/chat");
 
-      if (response.statusCode! <= 200 && response.statusCode! < 300) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         if (response.data is Map) {
           return [];
         }
@@ -37,13 +37,13 @@ class ChatRepository {
     }
   }
 
-  Future<Chat> sendMessage(
+  Future<Message> sendMessage(
       {required Chat chat, required String message}) async {
     try {
       var response = await _client.post("/chat/send-msg",
           data: {"chat_id": chat.id, "message": message});
-      if (response.statusCode! <= 200 && response.statusCode! < 300) {
-        return Chat.fromJson(response.data);
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return Message.fromJson(response.data);
       } else {
         throw "Oups! une erreur s'est produite.";
       }

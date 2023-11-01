@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
+import 'package:timezone/timezone.dart';
 import 'package:twinz/components/ui.dart';
 import 'package:twinz/core/services/login.service.dart';
 import 'package:twinz/core/utils/utils.dart';
@@ -33,9 +34,14 @@ class HttpClient extends GetxService with BaseApiClient {
 
     dio.interceptors.addAll({
       AppInterceptors(dio),
-
     });
-    dio.interceptors.add(LogInterceptor( ));
+    dio.interceptors.add(LogInterceptor(
+      request: false,
+          requestHeader: false,
+      requestBody: false,
+      responseBody: true,
+      responseHeader: false
+    ));
     return dio;
   }
 
@@ -107,7 +113,7 @@ class AppInterceptors extends Interceptor {
   Future<void> onError(err, dio.ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401 &&
         Get.currentRoute != Goo.loginScreen) {
-      await Get.find<LoginService>().logout();
+      localStorage.clear();
       Get.offAndToNamed(Goo.loginScreen);
     }
     if (err.response?.statusCode == 500) {

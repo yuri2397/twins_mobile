@@ -21,7 +21,7 @@ class ChatService extends GetxService {
     }
   }
 
-  Future<Chat> sendMessage(
+  Future<Message> sendMessage(
       {required Chat chat, required String message}) async {
     try {
       return await _repo.sendMessage(chat: chat, message: message);

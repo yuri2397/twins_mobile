@@ -20,36 +20,6 @@ class HomeScreen extends GetView<HomeController> {
     const ProfileScreen()
   ];
 
-  final _items = <PersistentBottomNavBarItem>[
-    PersistentBottomNavBarItem(
-      icon: const ImageIcon(
-          AssetImage(
-            'assets/images/home.png',
-          ),
-          size: 40),
-      activeColorPrimary: MAIN_COLOR,
-      inactiveColorPrimary: Colors.grey,
-    ),
-    PersistentBottomNavBarItem(
-      icon: const Icon(Icons.notifications, size: 40),
-      activeColorPrimary: MAIN_COLOR,
-      inactiveColorPrimary: Colors.grey,
-    ),
-    PersistentBottomNavBarItem(
-      icon: const Icon(CupertinoIcons.chat_bubble_2_fill, size: 40),
-      activeColorPrimary: MAIN_COLOR,
-      inactiveColorPrimary: Colors.grey,
-    ),
-    PersistentBottomNavBarItem(
-      icon: const Icon(CupertinoIcons.person_fill, size: 40),
-      activeColorPrimary: MAIN_COLOR,
-      inactiveColorPrimary: Colors.grey,
-    ),
-  ];
-
-  final PersistentTabController _controller =
-      PersistentTabController(initialIndex: 0);
-
   HomeScreen({super.key});
 
   final notificationController = Get.find<NotificationController>();
@@ -84,14 +54,16 @@ class HomeScreen extends GetView<HomeController> {
                 GestureDetector(
                   onTap: () {
                     controller.currentIndex.value = 1;
+                    notificationController.haveUnreadNotification.value = false;
                     controller.currentIndex.refresh();
                   },
-                  child: notificationController.haveUnreadNotification.value
+                  child: !notificationController.haveUnreadNotification.value
                       ? Icon(Icons.notifications,
                           color: controller.currentIndex.value == 1
                               ? MAIN_COLOR
                               : Colors.grey[400])
-                      : SvgPicture.asset('assets/icons/notification-unread.svg',
+                      : SvgPicture.asset('assets/icons/unread.svg',
+                          width: 22,
                           color: controller.currentIndex.value == 1
                               ? MAIN_COLOR
                               : Colors.grey[400]),

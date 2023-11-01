@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:twinz/components/ui.dart';
 import 'package:twinz/core/model/zodiaque.dart';
 import 'package:twinz/core/services/local_storage.service.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -155,8 +156,15 @@ Future<Position> determinePosition() async {
   }
 
   if (permission == LocationPermission.deniedForever) {
+    errorMessage(
+        title: "Notifications",
+        content:
+            "Les autorisations de localisation sont définitivement refusées. Ouvrez les Paramètres de votre téléphone pour les réactiver.",
+        duration: const Duration(seconds: 7));
+
     return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
+      'Les autorisations de localisation sont définitivement refusées, nous ne pouvons pas demander les autorisations.',
+    );
   }
   return await Geolocator.getCurrentPosition();
 }
@@ -176,7 +184,7 @@ decoration(String text, {Widget? suffix}) {
   );
 }
 
-bool valideDate(String jj, String mm, String yyyy) {
+bool validDate(String jj, String mm, String yyyy) {
   int jour = int.tryParse(jj) ?? 0;
   int mois = int.tryParse(mm) ?? 0;
   int annee = int.tryParse(yyyy) ?? 0;

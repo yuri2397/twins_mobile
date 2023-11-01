@@ -124,10 +124,9 @@ class AuthRepository {
 
   Future<void> logout() async {
     try{
-      print("logount");
-      var response = await _client.post("/logout", data: {});
-      print(response.data);
+      await _client.post("/logout", data: {});
     }catch(e){
+      print("LOGOUT ERROR: $e");
       rethrow;
     }
   }

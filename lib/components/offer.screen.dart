@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:twinz/controllers/offer.controller.dart';
 import 'package:twinz/shared/utils/colors.dart';
 
@@ -153,7 +154,18 @@ class OfferScreen extends GetView<OfferController> {
                     ],
                   ),
                   if(controller.user.value!.isPremium == true)
-                    Text("Déjà premi"),
+                    const Text("Vous êtes déjà Premium.",  style: TextStyle(
+                        color: MAIN_COLOR,
+                        fontSize: 20,
+                        fontFamily: "Haylard",
+                        fontWeight: FontWeight.w500),),
+                  if(controller.user.value!.isPremium == true)
+                    Text("Date d'expiration: ${DateFormat.yMMMd('fr').format(controller.user.value!.subscriptionExpiryDate!)}",
+                      style:const  TextStyle(
+                        color: DARK_COLOR,
+                        fontSize: 18,
+                        fontFamily: "Haylard",
+                        fontWeight: FontWeight.w500),).marginOnly(top: 20),
                   if (controller.load.value)
                     const SizedBox(
                       child: Center(

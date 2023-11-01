@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:twinz/components/ui.dart';
 import 'package:twinz/core/model/zodiaque.dart';
+import 'package:twinz/core/services/firebase_message.service.dart';
 import 'package:twinz/core/services/register.service.dart';
 import 'package:twinz/core/utils/utils.dart';
 import 'package:twinz/routes/router.dart';
@@ -57,11 +58,13 @@ class RegisterController extends GetxController {
     determinePosition().then((value) {
       lat.value = "${value.latitude}";
       lng.value = "${value.longitude}";
+    }).catchError((e){
+      Get.offAndToNamed(Goo.activeLocationScree);
     });
   }
 
   parseDate() {
-    bool isValidDate = valideDate(
+    bool isValidDate = validDate(
         bd1Ctrl.text.trim(), bd2Ctrl.text.trim(), bd3Ctrl.text.trim());
 
     if (!isValidDate) {
@@ -69,14 +72,12 @@ class RegisterController extends GetxController {
           title: "Oups !!!", content: "Veuillez choissir une date valide.");
       return;
     }
-
     // birthdayCtrl.text =
     //     "${bd3Ctrl.text.trim()}/${bd2Ctrl.text.trim()}/${bd1Ctrl.text.trim()}";
 
     DateTime date = DateTime.parse(
         "${bd3Ctrl.text.trim()}-${bd2Ctrl.text.trim()}-${bd1Ctrl.text.trim()}");
 
-    print("$date");
     signe.value = determinerSigne(date);
     birthdayCtrl.text = "$date";
     Get.toNamed(Goo.addSigneScreen);
@@ -117,7 +118,7 @@ class RegisterController extends GetxController {
       "password_confirmation": passwordCtrl.text,
       "device_name": await deviceName,
       "device_id": await deviceId,
-      "device_token": localStorage.getFcmToken()
+      "device_token": localStorage.getFcmToken() ?? await Get.find<FireBaseMessagingService>().getDeviceToken()
     };
     _registerService.register(data: data, files: finalFiles).then((value) {
       loading.value = false;

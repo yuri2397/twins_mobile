@@ -12,8 +12,10 @@ import 'package:twinz/views/home/search/search_item.dart';
 
 class SearchScreen extends GetView<sc.SearchController> {
   SearchScreen({super.key});
+
   final drawerKey = GlobalKey<DrawerControllerState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,9 +40,9 @@ class SearchScreen extends GetView<sc.SearchController> {
                 )
               : controller.user.value?.active == "1"
                   ? controller.matchSuccess.value
-                      ? controller.user.value?.isPremium == true
-                          ? Matcher(controller: controller)
-                          : Center(
+                      ? Matcher(controller: controller)
+                      : controller.user.value?.isPremium == false
+                          ? Center(
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,40 +70,41 @@ class SearchScreen extends GetView<sc.SearchController> {
                                         .marginOnly(top: 20),
                                   ]),
                             )
-                      : Center(
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const Text("Oups !!",
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            fontFamily: "Haylard",
-                                            fontWeight: FontWeight.w700))
-                                    .marginOnly(bottom: 10),
-                                const Text(
-                                  "Aucun match trouvé. Merci de\nrevoir vos paramètres.",
-                                  textAlign: TextAlign.center,
-                                ),
-                                SizedBox(
-                                  width: Get.width * .5,
-                                  child: ElevatedButton(
-                                      onPressed: () =>
-                                          controller.getMatchings(),
-                                      style: ElevatedButton.styleFrom(
-                                          elevation: 0,
-                                          backgroundColor: MAIN_COLOR,
-                                          foregroundColor: Colors.white,
-                                          shape: RoundedRectangleBorder(
-                                              side: const BorderSide(
-                                                  color: Colors.white,
-                                                  width: 1.5),
-                                              borderRadius:
-                                                  BorderRadius.circular(20))),
-                                      child: const Text("Relancer")),
-                                ).marginOnly(top: 20),
-                              ]),
-                        )
+                          : Center(
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Text("Oups !!",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontFamily: "Haylard",
+                                                fontWeight: FontWeight.w700))
+                                        .marginOnly(bottom: 10),
+                                    const Text(
+                                      "Aucun match trouvé. Merci de\nrevoir vos paramètres.",
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    SizedBox(
+                                      width: Get.width * .5,
+                                      child: ElevatedButton(
+                                          onPressed: () =>
+                                              controller.getMatchings(),
+                                          style: ElevatedButton.styleFrom(
+                                              elevation: 0,
+                                              backgroundColor: MAIN_COLOR,
+                                              foregroundColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                  side: const BorderSide(
+                                                      color: Colors.white,
+                                                      width: 1.5),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20))),
+                                          child: const Text("Relancer")),
+                                    ).marginOnly(top: 20),
+                                  ]),
+                            )
                   : _activeAccount()),
         ));
   }
@@ -138,143 +141,6 @@ class SearchScreen extends GetView<sc.SearchController> {
             ).marginOnly(top: 20),
           ]),
     );
-  }
-
-  _showMore() {
-    Get.bottomSheet(Container(
-      decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(child: hr()),
-          Row(
-            children: [
-              Text(
-                "${controller.visibleUser.value.fullName}, ${controller.visibleUser.value.age} ans",
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(
-                width: 30,
-              ),
-              const Icon(
-                CupertinoIcons.check_mark_circled,
-                color: MAIN_COLOR,
-              ),
-            ],
-          ).marginOnly(bottom: 10, left: 20, top: 8),
-          Row(
-            children: [
-              itemIcon(Icons.map_rounded),
-              const SizedBox(
-                width: 10,
-              ),
-              const Text(
-                "Dakar • 24km",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.grey),
-              )
-            ],
-          ).marginOnly(bottom: 10, left: 20),
-          const Divider(
-            color: NEUTRAL_COLOR,
-            height: 2,
-          ).marginAll(20),
-          SizedBox(
-            height: 130,
-            width: Get.width,
-            child: Skeletonizer(
-              enabled: true,
-              ignoreContainers: true,
-              child: ListView(
-                shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                scrollDirection: Axis.horizontal,
-                children: [
-                  detailUserPhotoItem(
-                    "https://img.freepik.com/free-photo/portrait-young-businesswoman-holding-eyeglasses-hand-against-gray-backdrop_23-2148029483.jpg?w=740&t=st=1695565814~exp=1695566414~hmac=586f96c0ddffa502148f29cc2c29f896fbdea68863e1b18ff06b44a2f8923713",
-                  ),
-                  detailUserPhotoItem(
-                    "https://img.freepik.com/free-photo/portrait-young-businesswoman-holding-eyeglasses-hand-against-gray-backdrop_23-2148029483.jpg?w=740&t=st=1695565814~exp=1695566414~hmac=586f96c0ddffa502148f29cc2c29f896fbdea68863e1b18ff06b44a2f8923713",
-                  ),
-                  detailUserPhotoItem(
-                    "https://img.freepik.com/free-photo/portrait-young-businesswoman-holding-eyeglasses-hand-against-gray-backdrop_23-2148029483.jpg?w=740&t=st=1695565814~exp=1695566414~hmac=586f96c0ddffa502148f29cc2c29f896fbdea68863e1b18ff06b44a2f8923713",
-                  ),
-                  detailUserPhotoItem(
-                    "https://img.freepik.com/free-photo/portrait-young-businesswoman-holding-eyeglasses-hand-against-gray-backdrop_23-2148029483.jpg?w=740&t=st=1695565814~exp=1695566414~hmac=586f96c0ddffa502148f29cc2c29f896fbdea68863e1b18ff06b44a2f8923713",
-                  ),
-                  detailUserPhotoItem(
-                    "https://img.freepik.com/free-photo/portrait-young-businesswoman-holding-eyeglasses-hand-against-gray-backdrop_23-2148029483.jpg?w=740&t=st=1695565814~exp=1695566414~hmac=586f96c0ddffa502148f29cc2c29f896fbdea68863e1b18ff06b44a2f8923713",
-                  )
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 40,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () => {},
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 1,
-                        blurRadius: 20,
-                        offset:
-                            const Offset(2, 3), // changes position of shadow
-                      ),
-                    ],
-                    borderRadius: const BorderRadius.all(Radius.circular(50)),
-                  ),
-                  child: const Icon(
-                    Icons.close,
-                    color: DARK_COLOR,
-                    size: 50,
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () => {},
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: MAIN_COLOR,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 1,
-                        blurRadius: 20,
-                        offset:
-                            const Offset(2, 3), // changes position of shadow
-                      ),
-                    ],
-                    borderRadius: const BorderRadius.all(Radius.circular(50)),
-                  ),
-                  child: const Icon(
-                    CupertinoIcons.heart_fill,
-                    color: Colors.white,
-                    size: 50,
-                  ),
-                ),
-              ),
-            ],
-          )
-        ],
-      ),
-    ));
   }
 }
 
@@ -394,25 +260,33 @@ class Matcher extends StatelessWidget {
                 ),
               ),
             ).marginOnly(top: 10),
-            GestureDetector(
-              onTap: () => controller.onLike(controller.visibleUser.value),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: MAIN_COLOR,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 1,
-                      blurRadius: 20,
-                      offset: const Offset(2, 3), // changes position of shadow
-                    ),
-                  ],
-                  borderRadius: const BorderRadius.all(Radius.circular(50)),
-                ),
-                child: Image.asset(
-                  Env.whiteLogo,
-                  width: 50,
-                ),
+            Obx(
+              () => GestureDetector(
+                onTap: () => controller.onLike(controller.visibleUser.value),
+                child: controller.likeLoad.value
+                    ? const CircularProgressIndicator(
+                        color: MAIN_COLOR,
+                      )
+                    : Container(
+                        decoration: BoxDecoration(
+                          color: MAIN_COLOR,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 1,
+                              blurRadius: 20,
+                              offset: const Offset(
+                                  2, 3), // changes position of shadow
+                            ),
+                          ],
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(50)),
+                        ),
+                        child: Image.asset(
+                          Env.whiteLogo,
+                          width: 50,
+                        ),
+                      ),
               ),
             ),
           ],

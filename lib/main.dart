@@ -13,6 +13,7 @@ import 'package:twinz/core/http/http_client.dart';
 import 'package:twinz/core/services/chat.service.dart';
 import 'package:twinz/core/services/chat_request.service.dart';
 import 'package:twinz/core/services/firebase.service.dart';
+import 'package:twinz/core/services/login.service.dart';
 import 'package:twinz/core/services/matching.service.dart';
 import 'package:twinz/core/services/notification.service.dart';
 import 'package:twinz/core/services/user.service.dart';
@@ -91,6 +92,7 @@ _initServices() async {
   Get.lazyPut(() => MatchingService());
   Get.lazyPut(() => ChatService());
   Get.lazyPut(() => ChatRequestService());
+  Get.lazyPut(() => LoginService());
   Get.lazyPut(() => UserService());
   Get.lazyPut(() => NotificationService());
   Get.lazyPut(

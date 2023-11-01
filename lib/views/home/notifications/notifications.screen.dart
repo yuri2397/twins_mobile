@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:twinz/components/ui.dart';
 import 'package:twinz/controllers/notification.controller.dart';
-import 'package:twinz/core/utils/utils.dart';
 import 'package:twinz/shared/utils/colors.dart';
 import 'package:twinz/core/model/notification.dart' as nt;
 
 class NotificationsScreen extends GetView<NotificationController> {
   NotificationsScreen({super.key});
+
   final drawerKey = GlobalKey<DrawerControllerState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -36,15 +36,24 @@ class NotificationsScreen extends GetView<NotificationController> {
                       () async => await controller.fetchNotifications()),
                   color: MAIN_COLOR,
                   child: controller.items.isEmpty
-                      ? Center(
-                          child: const Text(
-                          "Aucune notification",
-                          style: TextStyle(
-                              color: DARK_COLOR,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500),
-                          textAlign: TextAlign.center,
-                        ).marginSymmetric(horizontal: 20))
+                      ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Center(
+                                child: const Text(
+                              "Aucune notification",
+                              style: TextStyle(
+                                  color: DARK_COLOR,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500),
+                              textAlign: TextAlign.center,
+                            ).marginSymmetric(horizontal: 20)),
+                            TextButton(
+                                onPressed: () => Future.sync(() async =>
+                                    await controller.fetchNotifications()),
+                                child: const Text("Recharger la page", style: TextStyle(color: MAIN_COLOR)))
+                          ],
+                        )
                       : ListView.separated(
                           itemCount: controller.items.length,
                           padding: const EdgeInsets.symmetric(vertical: 20),
@@ -107,14 +116,18 @@ class NotificationsScreen extends GetView<NotificationController> {
 
   _buildAcceptRequest(nt.Notification item) {
     String date = "";
-    if( item.createdAt!.compareTo(DateTime.now()) == 0){
+    if (item.createdAt!.compareTo(DateTime.now()) == 0) {
       date = DateFormat.Hm().format(item.createdAt!);
-    }else{
+    } else {
       date = DateFormat.MMMd().format(item.createdAt!);
     }
     return Container(
       padding: const EdgeInsets.all(10),
       child: ListTile(
+        onTap: () => controller.requestAccepted(item),
+        leading: const CircleAvatar(
+            backgroundColor: MAIN_COLOR,
+            child: Icon(Icons.notifications_rounded, color: Colors.white)),
         title: Text("${item.data?.title}"),
         subtitle: Text("${item.data?.body}"),
         trailing: Text(date),
@@ -126,11 +139,10 @@ class NotificationsScreen extends GetView<NotificationController> {
     return Container(
       padding: const EdgeInsets.all(10),
       child: ListTile(
-        leading: GestureDetector(
-            onTap: () => {},
-            child: const CircleAvatar(
-                backgroundColor: Colors.greenAccent,
-                child: Icon(Icons.check, color: Colors.white))),
+        onTap: () => controller.detailUserNot(item),
+        leading: const CircleAvatar(
+            backgroundColor: Colors.greenAccent,
+            child: Icon(Icons.check, color: Colors.white)),
         title: Text("${item.data?.title}"),
         subtitle: Text("${item.data?.body}"),
         trailing: Text(DateFormat.Hm().format(item.createdAt!)),

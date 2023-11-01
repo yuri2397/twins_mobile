@@ -21,6 +21,9 @@ class Goo {
   static const String otpScreen = "/otp-screen";
   static const String activeAccountScreen = "/active-account-screen";
 
+  static const String notificationDetails = "/notification-details";
+  static const String activeLocationScree = "/active-location-scree";
+
   static const String homeScreen = "/home-screen";
   static const String searchDetailsScreen = "/search-details-screen";
   static const String detailsProfileScreen = "/detail-profile-screen";

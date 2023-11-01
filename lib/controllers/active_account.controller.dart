@@ -21,7 +21,6 @@ class ActiveAccountController extends GetxController {
             })
         .catchError((e) {
       resendLoad.value = false;
-
       successMessage(
           title: "Oups !",
           content: "Une erreur s'est produite lors de l'envoie.");
@@ -30,14 +29,13 @@ class ActiveAccountController extends GetxController {
 
   refreshStatus() async {
     activeAccountLoad.value = true;
-
     var service = Get.find<ProfileService>();
     service.profile().then((value) {
       if (value.emailVerified != null && value.emailVerified == true) {
         Get.offAndToNamed(Goo.homeScreen);
       } else {
         errorMessage(
-            title: "Oups !!!",
+            title: "Erreur",
             content: "Votre compte n'est toujours pas actif.");
       }
       activeAccountLoad.value = false;

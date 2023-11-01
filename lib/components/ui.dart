@@ -10,12 +10,13 @@ import 'package:twinz/shared/utils/colors.dart';
 import 'package:twinz/core/config/env.dart';
 
 errorMessage(
-    {required String title, required String content, SnackPosition? position}) {
+    {required String title, required String content, SnackPosition? position, Duration? duration}) {
   Get.snackbar(title, content,
       colorText: Colors.white,
       backgroundColor: Colors.redAccent,
       snackPosition: position ?? SnackPosition.TOP,
       borderRadius: 20,
+      duration: duration ?? const Duration(seconds: 3),
       icon: const Icon(
         Icons.error_outline,
         color: Colors.white,

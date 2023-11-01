@@ -33,6 +33,7 @@ class SearchItemWidget extends StatelessWidget {
                     ? user.profilePhoto!
                     : "https://img.freepik.com/photos-gratuite/jeune-femme-chien-sans-abri-au-parc-photo-haute-qualite_144627-75703.jpg?w=740&t=st=1694874615~exp=1694875215~hmac=eb6804b67c1fc7b677babff8be1caaee8f4b47db541f6cfeb548f472371d555d",
                 fit: BoxFit.cover,
+                alignment: Alignment.topCenter,
               ),
             ),
           ),
@@ -106,7 +107,7 @@ class SearchItemWidget extends StatelessWidget {
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
-                          style: const TextStyle(color: Colors.grey)),
+                          style: const TextStyle(color: Colors.white)),
                     ).marginOnly(right: 5),
                     const SizedBox(
                       height: 5,

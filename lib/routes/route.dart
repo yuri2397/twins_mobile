@@ -1,10 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:twinz/components/active_localisation.screen.dart';
 import 'package:twinz/components/offer.screen.dart';
 import 'package:twinz/components/onboarding.screen.dart';
 import 'package:twinz/components/splash_screen.screen.dart';
 import 'package:twinz/resolvers/active_account.binding.dart';
+import 'package:twinz/resolvers/active_location.binding.dart';
 import 'package:twinz/resolvers/forgot_password.binding.dart';
 import 'package:twinz/resolvers/home.binding.dart';
 import 'package:twinz/resolvers/login.binding.dart';
@@ -21,6 +24,7 @@ import 'package:twinz/views/auth/add_email.screen.dart';
 import 'package:twinz/views/auth/add_files_register.screen.dart';
 import 'package:twinz/views/auth/add_sex.screen.dart';
 import 'package:twinz/views/auth/forgot-password.screen.dart';
+import 'package:twinz/views/home/notifications/notification_details.screen.dart';
 import 'package:twinz/views/home/profile/add_files.screen.dart';
 import 'package:twinz/views/auth/add_password.screen.dart';
 import 'package:twinz/views/auth/add_signe.screen.dart';
@@ -56,6 +60,15 @@ dynamic ROUTER_OUTLET = [
       name: Goo.forgotPasswordScreen,
       binding: ForgotPasswordBinding(),
       page: () => ForgotPasswordScreen()),
+
+  GetPage(
+      name: Goo.notificationDetails,
+      page: () => const NotificationDetailsScreen()),
+
+  GetPage(
+      name: Goo.activeLocationScree,
+      binding: ActiveLocationBinding(),
+      page: () => const ActiveLocationScreen()),
 
   GetPage(
     name: Goo.registerScreen,

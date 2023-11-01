@@ -92,12 +92,11 @@ class OfferController extends GetxController {
     _service.paymentSuccess("${value.id}").then((value) async {
       print("$value");
       if (value) {
-        /***
-         * REDICT USER AND UPDATE LOCAL DATA
-         */
 
         Get.find<ProfileService>().profile().then((value) {
           localStorage.user = value;
+          user.value = value;
+          user.refresh();
           load.value = false;
         });
 

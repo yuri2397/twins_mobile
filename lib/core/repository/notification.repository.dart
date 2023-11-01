@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:twinz/core/http/http_client.dart';
 import 'package:twinz/core/model/notification.dart' as nt;
+import 'package:twinz/core/model/user.dart';
 
 class NotificationRepository {
   final _client = Get.find<HttpClient>();
@@ -38,11 +39,21 @@ class NotificationRepository {
     }
   }
 
+  Future<bool> deleteNotification(int id) async{
+    try {
+      var response = await _client.delete("/notifications/$id}");
+      return response.statusCode == 200;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<int> countUnread() async {
     try {
-      var response = await _client.post("/notifications/count-unread");
+      var response = await _client.get("/notifications/count-unread");
+      print(response.data);
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return response.data['count'];
+        return UnRead.fromJson(response.data).count ?? 0;
       }
       return 0;
     } catch (e) {

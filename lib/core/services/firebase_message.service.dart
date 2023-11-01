@@ -5,12 +5,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:twinz/controllers/notification.controller.dart';
-import 'package:twinz/core/model/chat.dart';
-import 'package:twinz/core/services/chat.service.dart';
 import 'package:twinz/core/services/notification.service.dart';
 import 'package:twinz/core/utils/utils.dart';
-
+import 'package:twinz/routes/router.dart';
+import 'package:twinz/controllers/chat.controller.dart' as lc;
 import 'package:url_launcher/url_launcher.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -74,13 +72,14 @@ Future _notificationsBackground(RemoteMessage message) async {
 }
 
 Future _handleNotification(RemoteMessage message, {backGround = false}) async {
+  print(message.toString());
+  debugPrint(message.toString());
   switch (message.data['type']) {
     case 'new_request':
       _newRequestChat(message, backGround: backGround);
       break;
     case 'message':
       _newMessage(message, backGround: backGround);
-
       break;
     default:
       _showFlutterNotification(message);
@@ -106,19 +105,30 @@ void _newRequestChat(RemoteMessage message, {backGround = false}) {
 
 void _newMessage(RemoteMessage message, {backGround = false}) {
   try {
+    print("NEW MESSAGE: ${message.notification?.title}");
+    print("NEW MESSAGE: ${message.notification?.body}");
+    print("NEW MESSAGE: ${message.data.toString()}");
     if (!backGround) {
-      Get.find<ChatService>().chats().then((value) {
-        print("add message to local ");
-        localStorage.messages = value;
-      });
+      print("PARAMS: ${Get.parameters.toString()}:::::::::: CHAT ID: = ${message.data['chat_id']} :::::::::::::::::::  CURRENT ROUTE: ${Get.currentRoute}");
+      if(Get.currentRoute == "${Goo.chatScreen}?chat_id=${message.data['chat_id']}"){
+        Get.find<lc.ChatController>().appendMessageInDiscussion("${message.notification?.body}");
+      }else{
+        Get.find<lc.ChatController>().getChats();
+        _showFlutterNotification(
+          message,
+          backGround: backGround,
+        );
+      }
     }
   } catch (e) {
     print("$e");
   }
-  _showFlutterNotification(
-    message,
-    backGround: backGround,
-  );
+  if(backGround){
+    _showFlutterNotification(
+      message,
+      backGround: backGround,
+    );
+  }
 }
 
 Future _showFlutterNotification(RemoteMessage message,
@@ -183,6 +193,7 @@ class FireBaseMessagingService extends GetxService {
   Future fcmOnMessageListeners() async {
     /**here is to handle notification when app is foreground */
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print("NEW MESSAGE");
       _handleNotification(message);
     });
   }

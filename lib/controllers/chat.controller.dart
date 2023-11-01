@@ -12,8 +12,10 @@ import 'package:twinz/shared/utils/colors.dart';
 import '../core/model/user.dart';
 
 class ChatController extends GetxController {
+
   final messages = <hc.Message>[].obs;
   final _localUser = localStorage.getUser();
+
   get localUser => _localUser;
   final RxList<lc.Chat> chats = localStorage.getMessages().obs;
   final chatsLoad = false.obs;
@@ -32,9 +34,6 @@ class ChatController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    localStorage.box.listenKey("_message", (value) {
-      print("MESSAGE CHANGED");
-    });
     getChats();
   }
 
@@ -53,11 +52,9 @@ class ChatController extends GetxController {
 
   detailsChat(lc.Chat chat) {
     currentChat.value = chat;
-    Get.toNamed(Goo.chatScreen);
     showDetailsLoad.value = true;
     _service.chatDetails(chat: chat).then((value) {
-      User sender = value.participants!
-          .firstWhere((element) => element.id != int.tryParse(currentUserId));
+      currentChat.value = value;
       messages.value = value.messages!
           .map((e) => hc.Message(
               id: "${e.id}",
@@ -68,45 +65,47 @@ class ChatController extends GetxController {
                   : hc.MessageStatus.read,
               sendBy: "${e.sender?.id}"))
           .toList();
-
-      chatController = hc.ChatController(
-        initialMessageList: messages,
-        scrollController: ScrollController(),
-        chatUsers: [
-          hc.ChatUser(
-              id: "${sender.id}",
-              name: "${sender.fullName}",
-              profilePhoto: "${sender.profilePhoto}"),
-        ],
-      );
       showDetailsLoad.value = false;
     }).catchError((e) {
       showDetailsLoad.value = false;
     });
+    Get.toNamed(Goo.chatScreen, parameters: {'chat_id': chat.id.toString()});
+  }
+
+  void appendMessageInDiscussion(String message){
+    final id = DateTime.now().millisecondsSinceEpoch;
+    messages.add(
+      hc.Message(
+        id: id.toString(),
+        createdAt: DateTime.now(),
+        message: message,
+        sendBy: "-1",
+        status: hc.MessageStatus.pending,
+      ),
+    );
   }
 
   Future<void> onSendTap(
     String message,
-    hc.ReplyMessage replyMessage,
-    hc.MessageType messageType,
   ) async {
     final id = DateTime.now().millisecondsSinceEpoch;
-    chatController.addMessage(
+    messages.add(
       hc.Message(
         id: id.toString(),
         createdAt: DateTime.now(),
         message: message,
         sendBy: currentUserId,
         status: hc.MessageStatus.pending,
-        replyMessage: replyMessage,
-        messageType: messageType,
       ),
     );
     _service
         .sendMessage(chat: currentChat.value, message: message)
         .then((value) {
-      chatController.initialMessageList.last.setStatus =
-          hc.MessageStatus.undelivered;
+          for (var c in chats){
+            if(c.id == currentChat.value.id){
+              c.messages?.add(value);
+            }
+          }
     }).catchError((e) {
       print("$e");
     });

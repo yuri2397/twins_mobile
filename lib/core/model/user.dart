@@ -25,6 +25,7 @@ class User {
   int? photosCount;
   Setting? settings;
   List<Photo>? photos;
+  DateTime? subscriptionExpiryDate;
   String? active;
   User(
       {this.id,
@@ -40,6 +41,7 @@ class User {
       this.lng,
       this.phoneNumber,
       this.birthDate,
+        this.subscriptionExpiryDate,
       this.age,
       this.bio,
       this.profilePhoto,
@@ -56,6 +58,7 @@ class User {
         emailVerified: json["email_verified"],
         gender: json["gender"],
         address: json["address"],
+    subscriptionExpiryDate: json["subscription_expiry_date"] == null ? null : DateTime.parse(json["subscription_expiry_date"]),
         active: json["active"],
         isPremium: json['is_premium'],
         distance: json["distance"],
@@ -87,6 +90,7 @@ class User {
         'is_premium': isPremium,
         "address": address,
         "distance": distance,
+    "subscription_expiry_date": subscriptionExpiryDate?.toIso8601String(),
         "phone_number": phoneNumber,
         "birth_date": birthDate?.toIso8601String(),
         "age": age,
@@ -125,4 +129,24 @@ class Photo {
         "id": id,
         "url": url,
       };
+}
+
+UnRead unReadFromJson(String str) => UnRead.fromJson(json.decode(str));
+
+String unReadToJson(UnRead data) => json.encode(data.toJson());
+
+class UnRead {
+  int? count;
+
+  UnRead({
+    this.count,
+  });
+
+  factory UnRead.fromJson(Map<String, dynamic> json) => UnRead(
+    count: json["count"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "count": count,
+  };
 }

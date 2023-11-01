@@ -14,7 +14,7 @@ class SearchController extends GetxController {
   final currentMatch = <User>[].obs;
   final visibleUser = User(id: 0).obs;
   final _chatRequestService = Get.find<ChatRequestService>();
-  final canUnswip = false.obs;
+  final canUnswip = true.obs;
   final detailUserPhotosController = PageController();
   final matchLoad = true.obs;
   final detailsLoad = false.obs;
@@ -33,10 +33,8 @@ class SearchController extends GetxController {
       user?.lat = "${value.latitude}";
       user?.lng = "${value.longitude}";
       localStorage.user = user;
-      user?.bio = user.bio ?? "bio";
      await  _userService.updateUser(user!);
       getMatchings();
-
     });
     super.onInit();
   }
@@ -62,9 +60,12 @@ class SearchController extends GetxController {
     if (direction == AppinioSwiperDirection.left) {
       _matchingService.matchingSkip(visibleUser.value);
     } else if (direction == AppinioSwiperDirection.right) {
-      onLike(visibleUser.value);
+      _chatRequestService.sendRequestChat(toUser: visibleUser.value).then((value) {
+        likeLoad.value = false;
+      }).catchError((e) {
+        likeLoad.value = false;
+      });
     }
-
     if ((user.value?.isPremium == true)) {
       if (currentMatch.length == index) {
         matchLoad.value = true;
@@ -83,21 +84,16 @@ class SearchController extends GetxController {
         });
       }
       canUnswip.value = true;
-    } else {
+    } else if(currentMatch.length != index){
       visibleUser.value = currentMatch[index];
+    }else{
+      matchSuccess.value = false;
     }
-
     showCancelIcon.value = false;
     showLikeIcons.value = false;
   }
 
   onLike(User user) {
-    likeLoad.value = true;
-    _chatRequestService.sendRequestChat(toUser: user).then((value) {
-      likeLoad.value = false;
-    }).catchError((e) {
-      likeLoad.value = false;
-    });
     swiperController.swipeRight();
   }
 

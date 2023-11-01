@@ -7,12 +7,14 @@ import 'package:twinz/controllers/chat.controller.dart';
 import 'package:twinz/core/model/chat.dart';
 import 'package:twinz/core/utils/utils.dart';
 import 'package:twinz/shared/utils/colors.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ChatListScreen extends GetView<ChatController> {
   final drawerKey = GlobalKey<DrawerControllerState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   ChatListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -48,7 +50,6 @@ class ChatListScreen extends GetView<ChatController> {
                           Future.sync(() async => await controller.getChats()),
                       child: ListView.separated(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
-                          shrinkWrap: true,
                           separatorBuilder: (_, index) => const Divider(
                                 height: 10,
                                 color: MAIN_COLOR,
@@ -73,20 +74,30 @@ class ChatListScreen extends GetView<ChatController> {
             borderRadius: BorderRadius.circular(50),
             child:
                 sender!.profilePhoto != null && sender.profilePhoto!.isNotEmpty
-                    ? Image.network(
-                        sender.profilePhoto!,
-                        fit: BoxFit.cover,
+                    ? CachedNetworkImage(
+                        imageUrl: sender.profilePhoto!,
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(color: MAIN_COLOR),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                         width: 80,
                         height: 80,
+                        fit: BoxFit.cover,
                       )
                     : Image.asset("assets/images/img.png")),
       ),
-      title: Text(chat.participants!
-          .firstWhere((e) => e.id.toString() != currentUserId)
-          .fullName!),
-      subtitle: Text(chat.messages!.isEmpty
-          ? "Envoyer le premier message..."
-          : "${chat.messages!.last.message}"),
+      title: Text(
+          chat.participants!
+              .firstWhere((e) => e.id.toString() != currentUserId)
+              .fullName!,
+          style: const TextStyle(fontWeight: FontWeight.bold)),
+      subtitle: Text(
+        chat.messages!.isEmpty
+            ? "Envoyer le premier message..."
+            : "${chat.messages!.last.message}",
+        overflow: TextOverflow.ellipsis,
+        maxLines: 2,
+      ),
       trailing: Text(DateFormat.Hm().format(chat.createdAt!)),
     ).marginSymmetric(horizontal: 10, vertical: 5);
   }

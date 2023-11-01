@@ -21,6 +21,14 @@ class NotificationService extends GetxService {
     }
   }
 
+  Future<bool> deleteNotification(int id) async{
+    try{
+      return await _repo.deleteNotification(id);
+    }catch(e){
+      rethrow;
+    }
+  }
+
   Future<int> countUnread() async {
     try{
     return await _repo.countUnread();
