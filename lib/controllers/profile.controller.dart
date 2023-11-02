@@ -20,7 +20,7 @@ class ProfileController extends GetxController {
   final nameCrtl = TextEditingController();
   final emailCrtl = TextEditingController();
   final phoneCrtl = TextEditingController();
-  final bioCrtl = TextEditingController();
+  final bioCrtl = TextEditingController(text: localStorage.getUser()?.bio);
   final addressCrtl = TextEditingController();
   final birthdayCrtl = TextEditingController();
   final sexCrtl = TextEditingController();
@@ -91,6 +91,7 @@ class ProfileController extends GetxController {
       successMessage(
           title: "Félicitation",
           content: "Votre profil est maintenant à jour.");
+      Get.back();
     }).catchError((e) {
       updateLoad.value = false;
       errorMessage(title: "Oups !", content: "$e");

@@ -65,7 +65,7 @@ class ChatListScreen extends GetView<ChatController> {
     var sender = chat.participants
         ?.firstWhere((element) => element.id.toString() != currentUserId);
     return ListTile(
-      contentPadding: const EdgeInsets.all(0),
+      contentPadding: const EdgeInsets.symmetric(vertical: 5),
       onTap: () => controller.detailsChat(chat),
       leading: SizedBox(
         width: 60,

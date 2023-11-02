@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
+import 'package:twinz/components/ui.dart';
 import 'package:twinz/core/config/env.dart';
 import 'package:twinz/core/http/http_client.dart';
 import 'package:twinz/core/services/chat.service.dart';
@@ -17,6 +18,7 @@ import 'package:twinz/core/services/login.service.dart';
 import 'package:twinz/core/services/matching.service.dart';
 import 'package:twinz/core/services/notification.service.dart';
 import 'package:twinz/core/services/user.service.dart';
+import 'package:twinz/firebase_options.dart';
 import 'package:twinz/routes/route.dart';
 import 'package:twinz/routes/router.dart';
 import 'package:twinz/shared/utils/app_hehavior.dart';
@@ -77,15 +79,12 @@ _initServices() async {
 
   Stripe.publishableKey = STRIPE_PUBLISHABLE_KEY;
   await Stripe.instance.applySettings();
-  await Firebase.initializeApp(
-      //options: DefaultFirebaseOptions.currentPlatform,
-      );
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
-  Future.wait([
-    Get.putAsync(() => LocalStorageService().init()),
-    Get.putAsync(() => FirebaseService().init()),
-    Get.putAsync(() => FireBaseMessagingService().init())
-  ]);
+  await Get.putAsync(() => LocalStorageService().init());
+  await Get.putAsync(() => FireBaseMessagingService().init());
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   Get.lazyPut(() => HttpClient());

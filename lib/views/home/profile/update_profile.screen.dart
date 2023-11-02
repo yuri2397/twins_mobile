@@ -74,8 +74,7 @@ class UpdateProfileScreen extends GetView<ProfileController> {
                       style: GoogleFonts.poppins(
                           textStyle: const TextStyle(fontSize: 16),
                           color: DARK_COLOR),
-                      decoration: _decoration(controller.user.value?.bio ??
-                          "Ajouter votre bio...")),
+                      decoration: _decoration("Modifiez votre bio...")),
                   const SizedBox(
                     height: 20,
                   ),

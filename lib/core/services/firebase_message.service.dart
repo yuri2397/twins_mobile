@@ -109,10 +109,13 @@ void _newMessage(RemoteMessage message, {backGround = false}) {
     print("NEW MESSAGE: ${message.notification?.body}");
     print("NEW MESSAGE: ${message.data.toString()}");
     if (!backGround) {
-      print("PARAMS: ${Get.parameters.toString()}:::::::::: CHAT ID: = ${message.data['chat_id']} :::::::::::::::::::  CURRENT ROUTE: ${Get.currentRoute}");
-      if(Get.currentRoute == "${Goo.chatScreen}?chat_id=${message.data['chat_id']}"){
-        Get.find<lc.ChatController>().appendMessageInDiscussion("${message.notification?.body}");
-      }else{
+      print(
+          "PARAMS: ${Get.parameters.toString()}:::::::::: CHAT ID: = ${message.data['chat_id']} :::::::::::::::::::  CURRENT ROUTE: ${Get.currentRoute}");
+      if (Get.currentRoute ==
+          "${Goo.chatScreen}?chat_id=${message.data['chat_id']}") {
+        Get.find<lc.ChatController>()
+            .appendMessageInDiscussion("${message.notification?.body}");
+      } else {
         Get.find<lc.ChatController>().getChats();
         _showFlutterNotification(
           message,
@@ -123,7 +126,7 @@ void _newMessage(RemoteMessage message, {backGround = false}) {
   } catch (e) {
     print("$e");
   }
-  if(backGround){
+  if (backGround) {
     _showFlutterNotification(
       message,
       backGround: backGround,
@@ -178,7 +181,6 @@ class FireBaseMessagingService extends GetxService {
 
     FirebaseMessaging.instance
         .requestPermission(sound: true, badge: true, alert: true);
-    await getDeviceToken();
 
     await fcmOnLaunchListeners();
     await fcmOnResumeListeners();

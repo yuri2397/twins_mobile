@@ -58,7 +58,7 @@ class RegisterController extends GetxController {
     determinePosition().then((value) {
       lat.value = "${value.latitude}";
       lng.value = "${value.longitude}";
-    }).catchError((e){
+    }).catchError((e) {
       Get.offAndToNamed(Goo.activeLocationScree);
     });
   }
@@ -106,30 +106,42 @@ class RegisterController extends GetxController {
 
     var finalFiles =
         files.map((e) => e.value).where((e) => e.path.isNotEmpty).toList();
-    Map<String, dynamic> data = {
-      "full_name": nameCtrl.text.trim(),
-      "gender": sex.value,
-      "birth_date": birthdayCtrl.text,
-      "email": emailCtrl.text.trim(),
-      "bio": bioCtrl.text,
-      "password": passwordCtrl.text,
-      "lat": lat.value,
-      "lng": lng.value,
-      "password_confirmation": passwordCtrl.text,
-      "device_name": await deviceName,
-      "device_id": await deviceId,
-      "device_token": localStorage.getFcmToken() ?? await Get.find<FireBaseMessagingService>().getDeviceToken()
-    };
-    _registerService.register(data: data, files: finalFiles).then((value) {
-      loading.value = false;
-      successMessage(
-          title: "Félicitations", content: "Votre compte est bien créer.");
-      Get.offAllNamed(Goo.activeAccountScreen);
-    }).catchError((e, s) {
-      print(e);
-      print(s);
+
+    try {
+      var deviceToken =
+          await Get.find<FireBaseMessagingService>().getDeviceToken();
+
+      Map<String, dynamic> data = {
+        "full_name": nameCtrl.text.trim(),
+        "gender": sex.value,
+        "birth_date": birthdayCtrl.text,
+        "email": emailCtrl.text.trim(),
+        "bio": bioCtrl.text,
+        "password": passwordCtrl.text,
+        "lat": lat.value,
+        "lng": lng.value,
+        "password_confirmation": passwordCtrl.text,
+        "device_name": await deviceName,
+        "device_id": await deviceId,
+        "device_token": deviceToken
+      };
+      _registerService.register(data: data, files: finalFiles).then((value) {
+        loading.value = false;
+        successMessage(
+            title: "Félicitations", content: "Votre compte est bien créer.");
+        Get.offAllNamed(Goo.activeAccountScreen);
+      }).catchError((e, s) {
+        print(e);
+        print(s);
+        loading.value = false;
+        loading.refresh();
+      });
+    } catch (e) {
       loading.value = false;
       loading.refresh();
-    });
+      errorMessage(
+          title: "Notification",
+          content: "Merci de vérifier votre connexion internet.");
+    }
   }
 }

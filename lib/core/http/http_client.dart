@@ -141,6 +141,12 @@ class AppInterceptors extends Interceptor {
         );
       }
     }
+    else{
+      errorMessage(
+        title: "Une erreur est survenue",
+        content: "Merci de vérifier votre connexion internet.",
+      );
+    }
 
     handler.next(err);
   }

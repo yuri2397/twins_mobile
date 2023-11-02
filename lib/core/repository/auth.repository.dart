@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:twinz/components/ui.dart';
 import 'package:twinz/core/http/http_client.dart';
 import 'package:twinz/core/model/setting.dart';
 import 'package:twinz/core/model/token.dart';
@@ -17,18 +18,27 @@ class AuthRepository {
   Future<Token> login(
       {required String username, required String password}) async {
     try {
-      var response = await _client.post("/login", data: {
-        "email": username,
-        "password": password,
-        "device_name": await deviceName,
-        "device_id": await deviceId,
-        "device_token": await Get.find<FireBaseMessagingService>().getDeviceToken()
-      });
+      try {
+        var deviceToken =
+            await Get.find<FireBaseMessagingService>().getDeviceToken();
+        var response = await _client.post("/login", data: {
+          "email": username,
+          "password": password,
+          "device_name": await deviceName,
+          "device_id": await deviceId,
+          "device_token": deviceToken
+        });
 
-      if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return Token.fromJson(response.data);
-      } else {
-        throw "Email ou mot de passe invalide.";
+        if (response.statusCode! >= 200 && response.statusCode! < 300) {
+          return Token.fromJson(response.data);
+        } else {
+          throw "Email ou mot de passe invalide.";
+        }
+      } catch (e) {
+        errorMessage(
+            title: "Notification",
+            content: "Merci de vérifier votre connexion internet");
+        rethrow;
       }
     } catch (e) {
       rethrow;
@@ -123,9 +133,9 @@ class AuthRepository {
   }
 
   Future<void> logout() async {
-    try{
+    try {
       await _client.post("/logout", data: {});
-    }catch(e){
+    } catch (e) {
       print("LOGOUT ERROR: $e");
       rethrow;
     }

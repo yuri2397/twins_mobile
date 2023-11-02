@@ -31,12 +31,8 @@ class NotificationController extends GetxController {
     super.onInit();
     //_service.markAllRead();
     _service.countUnread().then((value) {
-      print("RESPONSE READ: $value");
-      if (value != 0) {
-        haveUnreadNotification.value = true;
-      } else {
-        haveUnreadNotification.value = false;
-      }
+      print("UNREAD NOTIFICATION: $value");
+      haveUnreadNotification.value = value > 0;
     });
     fetchNotifications();
   }
@@ -60,6 +56,7 @@ class NotificationController extends GetxController {
         .acceptRequestChat(chatRequest: ChatRequest(id: requestId))
         .then((value) {
       acceptLoad.value = false;
+      Get.find<ChatController>().getChats();
       Get.back();
       successMessage(
           title: "Félicitation", content: "Demande acceptée avec succès.");
@@ -75,7 +72,7 @@ class NotificationController extends GetxController {
         .rejectRequestChat(chatRequest: ChatRequest(id: requestId))
         .then((value) {
       rejectLoad.value = false;
-      Get.find<ChatController>().getChats();
+
       Get.back();
       successMessage(
           title: "Félicitation", content: "Demande rejetée avec succès.");
@@ -98,7 +95,7 @@ class NotificationController extends GetxController {
       if (localStorage.getUser()?.isPremium == true) {
         fetchNotificationDetails();
         Get.toNamed(Goo.notificationDetails);
-      }else{
+      } else {
         Get.toNamed(Goo.offerScreen);
       }
     }
@@ -119,9 +116,10 @@ class NotificationController extends GetxController {
     selectedNotification.value = item;
     if (item.data?.data?.type == 'request_accepted') {
       if (localStorage.getUser()?.isPremium == true) {
-        var id = int.tryParse("${selectedNotification.value.data!.data!.chatId}");
+        var id =
+            int.tryParse("${selectedNotification.value.data!.data!.chatId}");
         Get.find<ChatController>().detailsChat(Chat(id: id));
-      }else{
+      } else {
         Get.toNamed(Goo.offerScreen);
       }
     }

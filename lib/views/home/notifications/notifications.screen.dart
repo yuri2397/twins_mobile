@@ -37,7 +37,7 @@ class NotificationsScreen extends GetView<NotificationController> {
                   color: MAIN_COLOR,
                   child: controller.items.isEmpty
                       ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Center(
                                 child: const Text(
@@ -51,7 +51,8 @@ class NotificationsScreen extends GetView<NotificationController> {
                             TextButton(
                                 onPressed: () => Future.sync(() async =>
                                     await controller.fetchNotifications()),
-                                child: const Text("Recharger la page", style: TextStyle(color: MAIN_COLOR)))
+                                child: const Text("Recharger la page",
+                                    style: TextStyle(color: MAIN_COLOR)))
                           ],
                         )
                       : ListView.separated(
@@ -121,32 +122,28 @@ class NotificationsScreen extends GetView<NotificationController> {
     } else {
       date = DateFormat.MMMd().format(item.createdAt!);
     }
-    return Container(
-      padding: const EdgeInsets.all(10),
-      child: ListTile(
-        onTap: () => controller.requestAccepted(item),
-        leading: const CircleAvatar(
-            backgroundColor: MAIN_COLOR,
-            child: Icon(Icons.notifications_rounded, color: Colors.white)),
-        title: Text("${item.data?.title}"),
-        subtitle: Text("${item.data?.body}"),
-        trailing: Text(date),
-      ),
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(vertical: 5),
+      onTap: () => controller.requestAccepted(item),
+      leading: const CircleAvatar(
+          backgroundColor: MAIN_COLOR,
+          child: Icon(Icons.notifications_rounded, color: Colors.white)),
+      title: Text("${item.data?.title}"),
+      subtitle: Text("${item.data?.body}"),
+      trailing: Text(date),
     );
   }
 
   _buildNewRequest(nt.Notification item) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      child: ListTile(
-        onTap: () => controller.detailUserNot(item),
-        leading: const CircleAvatar(
-            backgroundColor: Colors.greenAccent,
-            child: Icon(Icons.check, color: Colors.white)),
-        title: Text("${item.data?.title}"),
-        subtitle: Text("${item.data?.body}"),
-        trailing: Text(DateFormat.Hm().format(item.createdAt!)),
-      ),
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(vertical: 5),
+      onTap: () => controller.detailUserNot(item),
+      leading: const CircleAvatar(
+          backgroundColor: Colors.greenAccent,
+          child: Icon(Icons.check, color: Colors.white)),
+      title: Text("${item.data?.title}"),
+      subtitle: Text("${item.data?.body}"),
+      trailing: Text(DateFormat.Hm().format(item.createdAt!)),
     );
   }
 }

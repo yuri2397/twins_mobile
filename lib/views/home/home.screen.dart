@@ -62,11 +62,7 @@ class HomeScreen extends GetView<HomeController> {
                           color: controller.currentIndex.value == 1
                               ? MAIN_COLOR
                               : Colors.grey[400])
-                      : SvgPicture.asset('assets/icons/unread.svg',
-                          width: 22,
-                          color: controller.currentIndex.value == 1
-                              ? MAIN_COLOR
-                              : Colors.grey[400]),
+                      : SvgPicture.asset("assets/icons/unread.svg", width: 23, height: 23,),
                 ),
                 GestureDetector(
                     onTap: () {
@@ -94,6 +90,15 @@ class HomeScreen extends GetView<HomeController> {
     );
   }
 }
+
+/*
+
+SvgPicture.asset('assets/icons/unread.svg',
+                          width: 22,
+                          color: controller.currentIndex.value == 1
+                              ? MAIN_COLOR
+                              : Colors.grey[400])
+                              */
 
 /*
 PersistentTabView(
