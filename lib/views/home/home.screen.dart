@@ -65,14 +65,21 @@ class HomeScreen extends GetView<HomeController> {
                       : SvgPicture.asset("assets/icons/unread.svg", width: 23, height: 23,),
                 ),
                 GestureDetector(
-                    onTap: () {
-                      controller.currentIndex.value = 2;
-                      controller.currentIndex.refresh();
-                    },
-                    child: Icon(CupertinoIcons.chat_bubble_2_fill,
-                        color: controller.currentIndex.value == 2
-                            ? MAIN_COLOR
-                            : Colors.grey[400])),
+                  onTap: () {
+                    controller.currentIndex.value = 2;
+                    controller.currentIndex.refresh();
+                  },
+                  child: !notificationController.haveUnreadMessage.value
+                      ? Icon(CupertinoIcons.chat_bubble_2_fill,
+                          color: controller.currentIndex.value == 2
+                              ? MAIN_COLOR
+                              : Colors.grey[400])
+                      : SvgPicture.asset('assets/icons/unread.svg',
+                          width: 22,
+                          color: controller.currentIndex.value == 1
+                              ? MAIN_COLOR
+                              : Colors.grey[400]),
+                ),
                 GestureDetector(
                     onTap: () {
                       controller.currentIndex.value = 3;
@@ -90,15 +97,6 @@ class HomeScreen extends GetView<HomeController> {
     );
   }
 }
-
-/*
-
-SvgPicture.asset('assets/icons/unread.svg',
-                          width: 22,
-                          color: controller.currentIndex.value == 1
-                              ? MAIN_COLOR
-                              : Colors.grey[400])
-                              */
 
 /*
 PersistentTabView(

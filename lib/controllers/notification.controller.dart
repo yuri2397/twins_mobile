@@ -18,6 +18,7 @@ class NotificationController extends GetxController {
   final loading = false.obs;
   final _service = Get.find<NotificationService>();
   final haveUnreadNotification = false.obs;
+  final haveUnreadMessage = false.obs;
   final selectedNotification = nt.Notification().obs;
   final _matchingService = Get.find<MatchingService>();
   final detailsLoad = false.obs;
@@ -60,6 +61,7 @@ class NotificationController extends GetxController {
       Get.back();
       successMessage(
           title: "Félicitation", content: "Demande acceptée avec succès.");
+      Get.find<ChatController>().detailsChat(Chat(id: value));
     }).catchError((e) {
       acceptLoad.value = false;
       print("ACCEPT REQUEST ERROR: $e");

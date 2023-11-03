@@ -120,7 +120,7 @@ class NotificationDetailsScreen extends GetView<NotificationController> {
                                 ? const SizedBox(
                                     height: 20,
                                     width: 20,
-                                    child: CircularProgressIndicator(),
+                                    child: CircularProgressIndicator(color: Colors.white,),
                                   )
                                 : const Text("Accepter la demande")),
                       ],
