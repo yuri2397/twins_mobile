@@ -74,7 +74,7 @@ class HomeScreen extends GetView<HomeController> {
                           color: controller.currentIndex.value == 2
                               ? MAIN_COLOR
                               : Colors.grey[400])
-                      : SvgPicture.asset('assets/icons/unread.svg',
+                      : SvgPicture.asset('assets/icons/unreadMessage.svg',
                           width: 22,
                           color: controller.currentIndex.value == 1
                               ? MAIN_COLOR
