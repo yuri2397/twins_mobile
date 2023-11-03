@@ -100,6 +100,7 @@ class SearchItemWidget extends StatelessWidget {
                       height: 5,
                     ),
                     //
+                    if(user.bio != null)
                     SizedBox(
                       width: Get.width,
                       height: 60,

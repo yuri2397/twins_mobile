@@ -97,7 +97,7 @@ class NotificationDetailsScreen extends GetView<NotificationController> {
                                 ? null
                                 : () => controller.rejectRequest(int.tryParse(
                                         "${controller.selectedNotification.value.data?.data?.requestId}") ??
-                                    -1),
+                                    -1,controller.selectedNotification.value.id ?? ""   ),
                             child: controller.rejectLoad.value
                                 ? const SizedBox(
                                     height: 20,
@@ -115,7 +115,7 @@ class NotificationDetailsScreen extends GetView<NotificationController> {
                                 ? null
                                 : () => controller.acceptRequest(int.tryParse(
                                         "${controller.selectedNotification.value.data?.data?.requestId}") ??
-                                    -1),
+                                    -1, controller.selectedNotification.value.id ?? ""   ),
                             child: controller.acceptLoad.value
                                 ? const SizedBox(
                                     height: 20,

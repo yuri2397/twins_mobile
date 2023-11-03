@@ -20,10 +20,10 @@ class ChatRequestRepository {
     }
   }
 
-  Future<int> acceptRequestChat({required ChatRequest chatRequest}) async {
+  Future<int> acceptRequestChat({required ChatRequest chatRequest, required String notId}) async {
     try {
       var response = await _client
-          .post("/discussion-requests/${chatRequest.id}/accept", data: {});
+          .post("/discussion-requests/${chatRequest.id}/accept", data: {'notification_id': notId});
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return response.data['chat'];
       } else {
@@ -34,10 +34,10 @@ class ChatRequestRepository {
     }
   }
 
-  Future<String> rejectRequestChat({required ChatRequest chatRequest}) async {
+  Future<String> rejectRequestChat({required ChatRequest chatRequest, required String notId}) async {
     try {
       var response = await _client
-          .post("/discussion-requests/${chatRequest.id}/reject", data: {});
+          .post("/discussion-requests/${chatRequest.id}/reject", data: {'notification_id': notId});
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return response.data['success'];
       } else {

@@ -137,7 +137,7 @@ class ChatRequestScreen extends GetView<ChatRequestController> {
                     onTap: () async {
                       acceptLoading.value = true;
                       acceptLoading.refresh();
-                      await controller.acceptChatRequest(request);
+                      //await controller.acceptChatRequest(request, );
                       acceptLoading.value = false;
                       acceptLoading.refresh();
                     },

@@ -51,10 +51,10 @@ class NotificationController extends GetxController {
     });
   }
 
-  Future<void> acceptRequest(int requestId) async {
+  Future<void> acceptRequest(int requestId, String notId) async {
     acceptLoad.value = true;
     _requestService
-        .acceptRequestChat(chatRequest: ChatRequest(id: requestId))
+        .acceptRequestChat(chatRequest: ChatRequest(id: requestId), notId: notId)
         .then((value) {
       acceptLoad.value = false;
       Get.find<ChatController>().getChats();
@@ -68,10 +68,10 @@ class NotificationController extends GetxController {
     });
   }
 
-  Future<void> rejectRequest(int requestId) async {
+  Future<void> rejectRequest(int requestId, String notId) async {
     rejectLoad.value = true;
     _requestService
-        .rejectRequestChat(chatRequest: ChatRequest(id: requestId))
+        .rejectRequestChat(chatRequest: ChatRequest(id: requestId), notId: notId)
         .then((value) {
       rejectLoad.value = false;
 

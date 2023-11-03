@@ -14,17 +14,17 @@ class ChatRequestService extends GetxService {
     }
   }
 
-  Future<int> acceptRequestChat({required ChatRequest chatRequest}) async {
+  Future<int> acceptRequestChat({required ChatRequest chatRequest, required String notId}) async {
     try {
-      return await _repo.acceptRequestChat(chatRequest: chatRequest);
+      return await _repo.acceptRequestChat(chatRequest: chatRequest, notId: notId);
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<String> rejectRequestChat({required ChatRequest chatRequest}) async {
+  Future<String> rejectRequestChat({required ChatRequest chatRequest, required String notId}) async {
     try {
-      return await _repo.rejectRequestChat(chatRequest: chatRequest);
+      return await _repo.rejectRequestChat(chatRequest: chatRequest, notId: notId);
     } catch (e) {
       rethrow;
     }

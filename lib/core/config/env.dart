@@ -8,6 +8,7 @@ class Env {
   static const String policiesUrl =
       "https://www.findyourtwinz.com/legal#confidentialit%C3%A9";
   static const String conditionnalitUrl =
-      "https://www.findyourtwinz.com/legal#conditions";
+      "https://www.findyourtwinz.com/legal#confidentialit%C3%A9";
   static const String usedUrl = "https://twinz.bks-africa.com/api/v1";
 }
+

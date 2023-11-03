@@ -95,6 +95,7 @@ class SearchDetails extends GetView<lc.SearchController> {
                     const SizedBox(
                       height: 5,
                     ),
+                    if(controller.visibleUser.value.bio != null)
                     Text(controller.visibleUser.value.bio ?? 'Bio',
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.ellipsis,

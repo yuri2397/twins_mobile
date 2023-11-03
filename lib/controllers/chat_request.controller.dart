@@ -25,8 +25,8 @@ class ChatRequestController extends GetxController {
     });
   }
 
-  Future<void> acceptChatRequest(ChatRequest request) async {
-    await _service.acceptRequestChat(chatRequest: request).then((value) {
+  Future<void> acceptChatRequest(ChatRequest request, String notId) async {
+    await _service.acceptRequestChat(chatRequest: request, notId: notId).then((value) {
       items.removeWhere((element) => element.id == request.id);
       items.refresh();
     }).catchError((e) => errorMessage(title: "Oups !", content: "$e"));
