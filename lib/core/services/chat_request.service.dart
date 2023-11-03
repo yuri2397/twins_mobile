@@ -14,7 +14,7 @@ class ChatRequestService extends GetxService {
     }
   }
 
-  Future<String> acceptRequestChat({required ChatRequest chatRequest}) async {
+  Future<int> acceptRequestChat({required ChatRequest chatRequest}) async {
     try {
       return await _repo.acceptRequestChat(chatRequest: chatRequest);
     } catch (e) {

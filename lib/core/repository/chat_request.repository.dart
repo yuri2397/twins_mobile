@@ -20,12 +20,12 @@ class ChatRequestRepository {
     }
   }
 
-  Future<String> acceptRequestChat({required ChatRequest chatRequest}) async {
+  Future<int> acceptRequestChat({required ChatRequest chatRequest}) async {
     try {
       var response = await _client
           .post("/discussion-requests/${chatRequest.id}/accept", data: {});
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return response.data['success'];
+        return response.data['chat'];
       } else {
         throw response.statusMessage ?? "Oups, une erreur s'est produite.";
       }

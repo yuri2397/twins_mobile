@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:twinz/controllers/notification.controller.dart';
 import 'package:twinz/core/services/notification.service.dart';
 import 'package:twinz/core/utils/utils.dart';
 import 'package:twinz/routes/router.dart';
@@ -72,8 +73,6 @@ Future _notificationsBackground(RemoteMessage message) async {
 }
 
 Future _handleNotification(RemoteMessage message, {backGround = false}) async {
-  print(message.toString());
-  debugPrint(message.toString());
   switch (message.data['type']) {
     case 'new_request':
       _newRequestChat(message, backGround: backGround);
@@ -105,14 +104,12 @@ void _newRequestChat(RemoteMessage message, {backGround = false}) {
 
 void _newMessage(RemoteMessage message, {backGround = false}) {
   try {
-    print("NEW MESSAGE: ${message.notification?.title}");
-    print("NEW MESSAGE: ${message.notification?.body}");
-    print("NEW MESSAGE: ${message.data.toString()}");
     if (!backGround) {
-      print("PARAMS: ${Get.parameters.toString()}:::::::::: CHAT ID: = ${message.data['chat_id']} :::::::::::::::::::  CURRENT ROUTE: ${Get.currentRoute}");
       if(Get.currentRoute == "${Goo.chatScreen}?chat_id=${message.data['chat_id']}"){
         Get.find<lc.ChatController>().appendMessageInDiscussion("${message.notification?.body}");
       }else{
+        Get.find<NotificationController>().haveUnreadMessage.value = true;
+        Get.find<NotificationController>().haveUnreadMessage.refresh();
         Get.find<lc.ChatController>().getChats();
         _showFlutterNotification(
           message,
